@@ -8,9 +8,18 @@
     <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
     <lastBuildDate>Thu, 13 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Java</title>
+      <link>/series/java/</link>
+      <pubDate>Thu, 13 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/series/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>计算机学习笔记</title>
       <link>/series/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
-      <pubDate>Thu, 13 Jun 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 24 Mar 2024 00:00:00 +0000</pubDate>
       
       <guid>/series/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
       <description></description>

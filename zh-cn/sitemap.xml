@@ -48,6 +48,9 @@
                 href="/series/"
                 />
   </url><url>
+    <loc>/series/java/</loc>
+    <lastmod>2024-06-13T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/posts/tech/java-4-basic/</loc>
     <lastmod>2024-06-13T00:00:00+00:00</lastmod>
   </url><url>
@@ -83,9 +86,6 @@
     <loc>/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
     <lastmod>2024-06-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/series/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2024-06-13T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/posts/tech/java-2-mysql/</loc>
     <lastmod>2024-05-25T00:00:00+00:00</lastmod>
   </url><url>
@@ -99,6 +99,9 @@
     <lastmod>2024-04-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/tech/20240324/</loc>
+    <lastmod>2024-03-24T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/series/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2024-03-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/tech/20240321/</loc>
