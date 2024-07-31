@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>算法刷题 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="算法刷题">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-07-28T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-07-28T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2647">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="算法刷题" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/java-5-algorithm/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-07-28T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-07-28T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+<meta property="og:see_also" content="/posts/tech/java-4-basic/" /><meta property="og:see_also" content="/posts/tech/java-2-mysql/" /><meta property="og:see_also" content="/posts/tech/java-3-spring-cloud/" /><meta property="og:see_also" content="/posts/tech/java-1-thread/" /><meta property="og:see_also" content="/posts/tech/java-0-audition/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="算法刷题"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.e32615bc744413570374d5b28e8c02ec03c7b28c31485b6fcc5b6174a08766d9.js" integrity="sha256-4yYVvHREE1cDdNWyjowC7APHsowxSFtvzFthdKCHZtk=" crossorigin="anonymous"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/katex.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/katex.min.js"></script>
+<script defer src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js"> </script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">算法刷题</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">算法刷题
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-07-28
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1字符串搜索">1.字符串搜索</a>
+      <ul>
+        <li><a href="#bf-暴力破解">BF: 暴力破解</a></li>
+      </ul>
+    </li>
+    <li><a href="#rk算法-hash算法">RK算法: hash算法</a>
+      <ul>
+        <li><a href="#bm算法">BM算法</a></li>
+        <li><a href="#kmp算法">KMP算法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="1字符串搜索">1.字符串搜索</h2>
+<p>主串A: a, b, c, d, e, f, g</p>
+<p>模式串B: c, d, e</p>
+<p>判断B是否在A中, 存在返回在A中的下标, 不存在返回-1</p>
+<p>再如: A: ABCABCAABCABCD; B: ABCABCD; 返回值7.</p>
+<h3 id="bf-暴力破解">BF: 暴力破解</h3>
+<p>复杂度O( (n-m)*m )</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="c1">//BF:暴力破解
+</span><span class="ln"> 2</span><span class="c1"></span>    <span class="kt">int</span> <span class="nf">BF</span><span class="o">(</span><span class="n">String</span> <span class="n">A</span><span class="o">,</span> <span class="n">String</span> <span class="n">B</span><span class="o">){</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">aLength</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+<span class="ln"> 4</span>        <span class="kt">int</span> <span class="n">bLength</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+<span class="ln"> 5</span>        <span class="c1">//这里aLength - bLength稍微优化了一下
+</span><span class="ln"> 6</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">aLength</span> <span class="o">-</span> <span class="n">bLength</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 7</span>            <span class="kt">int</span> <span class="n">j</span><span class="o">;</span>
+<span class="ln"> 8</span>            <span class="k">for</span> <span class="o">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">bLength</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 9</span>                <span class="k">if</span> <span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">)</span> <span class="o">!=</span> <span class="n">B</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">)){</span>
+<span class="ln">10</span>                    <span class="k">break</span><span class="o">;</span>
+<span class="ln">11</span>                <span class="o">}</span>
+<span class="ln">12</span>            <span class="o">}</span>
+<span class="ln">13</span>            <span class="c1">//需要判断上面的子循环什么时候将B完整遍历了一遍
+</span><span class="ln">14</span><span class="c1"></span>            <span class="c1">//当j=B.length时, 刚好执行了最后一次j++
+</span><span class="ln">15</span><span class="c1"></span>            <span class="k">if</span><span class="o">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">B</span><span class="o">.</span><span class="na">length</span><span class="o">()){</span>
+<span class="ln">16</span>                <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+<span class="ln">17</span>            <span class="o">}</span>
+<span class="ln">18</span>        <span class="o">}</span>
+<span class="ln">19</span>        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln">20</span>    <span class="o">}</span>
+</code></pre></div><h2 id="rk算法-hash算法">RK算法: hash算法</h2>
+<p>基于BF进行优化, 将A中的字符串按照顺序截取B字符串的长度: abc, bcd, cde, def, efg. 进行hash运算然后与B的hash值进行比较. 时间复杂度: O(m*n), hash算法参与字符串位数, 主串长度相关.</p>
+<p>优化: hash算法: 按26进制取和, abc=1+2+3=6, 进行量化. 每个子串的hash值是前一个子串的hash值-前串最小下标对应字母的值+本串最大下标字母对应的值.</p>
+<p>此时间复杂度为O(n), 只与主串长度相关, 但hash冲突极端情况下退化为BF</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="c1">//RK:hash算法
+</span><span class="ln"> 2</span><span class="c1"></span>    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">RK</span><span class="o">(</span><span class="n">String</span> <span class="n">A</span><span class="o">,</span> <span class="n">String</span> <span class="n">B</span><span class="o">){</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">aLength</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+<span class="ln"> 4</span>        <span class="kt">int</span> <span class="n">bLength</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+<span class="ln"> 5</span>        <span class="kt">int</span> <span class="n">bCode</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+<span class="ln"> 6</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">aLength</span> <span class="o">-</span> <span class="n">bLength</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 7</span>            <span class="n">String</span> <span class="n">aSub</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">bLength</span><span class="o">);</span>
+<span class="ln"> 8</span>            <span class="k">if</span><span class="o">(</span><span class="n">aSub</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">==</span> <span class="n">bCode</span><span class="o">){</span>
+<span class="ln"> 9</span>                <span class="c1">//防止hash碰撞
+</span><span class="ln">10</span><span class="c1"></span>                <span class="kt">int</span> <span class="n">j</span><span class="o">;</span>
+<span class="ln">11</span>                <span class="k">for</span> <span class="o">(</span><span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">bLength</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">12</span>                    <span class="k">if</span> <span class="o">(</span><span class="n">aSub</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">)</span> <span class="o">!=</span> <span class="n">B</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">)){</span>
+<span class="ln">13</span>                        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln">14</span>                    <span class="o">}</span>
+<span class="ln">15</span>                <span class="o">}</span>
+<span class="ln">16</span>                <span class="k">if</span> <span class="o">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">bLength</span><span class="o">){</span>
+<span class="ln">17</span>                    <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+<span class="ln">18</span>                <span class="o">}</span>
+<span class="ln">19</span>            <span class="o">}</span>
+<span class="ln">20</span>        <span class="o">}</span>
+<span class="ln">21</span>        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln">22</span>    <span class="o">}</span>
+<span class="ln">23</span>
+<span class="ln">24</span>    <span class="c1">//RK: hash算法 优化hash
+</span><span class="ln">25</span><span class="c1"></span>    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">(</span><span class="n">String</span> <span class="n">string</span><span class="o">){</span>
+<span class="ln">26</span>        <span class="kt">int</span> <span class="n">hashCode</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">27</span>        <span class="c1">//初始化字母表
+</span><span class="ln">28</span><span class="c1"></span>        <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Character</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="ln">29</span>        <span class="kt">int</span> <span class="n">base</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="sc">&#39;A&#39;</span><span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln">30</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">char</span> <span class="n">c</span><span class="o">=</span><span class="sc">&#39;A&#39;</span><span class="o">;</span> <span class="n">c</span><span class="o">&lt;=</span><span class="sc">&#39;Z&#39;</span><span class="o">;</span> <span class="n">c</span><span class="o">++){</span>
+<span class="ln">31</span>            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">c</span><span class="o">-</span><span class="n">base</span><span class="o">);</span>
+<span class="ln">32</span>        <span class="o">}</span>
+<span class="ln">33</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">char</span> <span class="n">c</span><span class="o">=</span><span class="sc">&#39;a&#39;</span><span class="o">;</span> <span class="n">c</span><span class="o">&lt;=</span><span class="sc">&#39;z&#39;</span><span class="o">;</span> <span class="n">c</span><span class="o">++){</span>
+<span class="ln">34</span>            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">c</span><span class="o">-</span><span class="n">base</span><span class="o">);</span>
+<span class="ln">35</span>        <span class="o">}</span>
+<span class="ln">36</span>
+<span class="ln">37</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">string</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">38</span>            <span class="n">hashCode</span> <span class="o">+=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">string</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+<span class="ln">39</span>        <span class="o">}</span>
+<span class="ln">40</span>        <span class="k">return</span> <span class="n">hashCode</span><span class="o">;</span>
+<span class="ln">41</span>    <span class="o">}</span>
+</code></pre></div><h3 id="bm算法">BM算法</h3>
+<p>1.坏字符规则: 从右往左匹配, 找到A中第一个不匹配的字符(坏字符), 将B串右移, 直到出现与A串坏字符对齐的字符, 再从右往左寻找坏字符. 如果B串中没有该坏字符, 则直接移到该坏字符的下一位即可.</p>
+<p>例如A串:ABCABCAABCABCD; B串ABCDBC.  A串前6个为ABCABC, 初始从右往左匹配, 这时B串的C与A串该位置的C对应, 继续匹配B, 然后B串中的D与A串中的对应位置A不匹配, 出现换字符.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCAABCABCD
+<span class="ln">2</span>ABCDBC
+</code></pre></div><p>于是右移B串, 第一个与A坏字符对应的B串位置就是第一个字母, 现在变成了</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCAABCABCD
+<span class="ln">2</span>   ABCDBC
+</code></pre></div><p>B串往右移动了两格. 又开始从右往左寻找坏字符, 这时第一个B与C就冲突了, 于是又开始右移, 对齐这个坏字符:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCAABCABCD
+<span class="ln">2</span>    ABCDBC
+</code></pre></div><p>B串往右移动一格后坏字符对齐, 又开始从右往左寻找坏字符, A与D出现冲突, 右移:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCAABCABCD
+<span class="ln">2</span>       ABCDBC
+</code></pre></div><p>B串右移三格. 这一次再移动一格就到头了, 不行.</p>
+<p>坏字符规则是从右往左比较的, 并且这个移动规则保证了跳过多余的比较同时又不会遗留.</p>
+<p>2.好后缀规则: 从右往左匹配, 找到坏字符(坏字符后面的串是匹配的, 是好串), 往左寻找B中是否还有该好后缀, 如果有, 将B右移到该位置与A好后缀进行对齐. 重复该规则. 如果B串往右没有该好后缀, 则右移到好后缀的往右错一位的位置, 重复该规则. 避免B串的前缀与好后缀的后缀匹配</p>
+<p>还是以上面为例:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCAABCABCD
+<span class="ln">2</span>ABCDBC
+</code></pre></div><p>这时好串是BC, 往前寻找发现还有这个好后缀, 于是进行对齐:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCAABCABCD
+<span class="ln">2</span>   ABCDBC
+</code></pre></div><p>这时坏字符是第一个, 没有好串, 只有先对齐了:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCAABCABCD
+<span class="ln">2</span>    ABCDBC
+</code></pre></div><p>有好串了, 继续</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCAABCABCD
+<span class="ln">2</span>       ABCDBC
+</code></pre></div><p>在移动就超过长度了, 于是没有匹配的.</p>
+<p>再举有匹配的一例:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>ABCABCAABCABCD
+<span class="ln"> 2</span>ABCABCD
+<span class="ln"> 3</span>开始位置0; 坏字符下标:6; 需要移位:3; 
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>ABCABCAABCABCD
+<span class="ln"> 6</span>   ABCABCD
+<span class="ln"> 7</span>开始位置3; 坏字符下标:6; 需要移位:1; 
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>ABCABCAABCABCD
+<span class="ln">10</span>    ABCABCD
+<span class="ln">11</span>开始位置4; 坏字符下标:6; 需要移位:3
+<span class="ln">12</span>
+<span class="ln">13</span>ABCABCAABCABCD
+<span class="ln">14</span>       ABCABCD
+<span class="ln">15</span>开始位置7; 无坏字符.
+</code></pre></div><p>两种规则综合使用, 哪种移动的位数多使用哪种</p>
+<p>时间复杂度: O(n/m), 最坏O(m*n)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="c1">//BM
+</span><span class="ln"> 2</span><span class="c1"></span>    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">BM</span><span class="o">(</span><span class="n">String</span> <span class="n">A</span><span class="o">,</span> <span class="n">String</span> <span class="n">B</span><span class="o">){</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">aLength</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+<span class="ln"> 4</span>        <span class="kt">int</span> <span class="n">bLength</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+<span class="ln"> 5</span>        <span class="c1">//每次操作结束后A串对齐B串的标志位
+</span><span class="ln"> 6</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 7</span>        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 8</span>            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">bLength</span><span class="o">-</span><span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span><span class="o">--)</span> <span class="o">{</span>
+<span class="ln"> 9</span>                <span class="c1">//出现坏字符
+</span><span class="ln">10</span><span class="c1"></span>                <span class="k">if</span> <span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">j</span><span class="o">)</span> <span class="o">!=</span> <span class="n">B</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">j</span><span class="o">)){</span>
+<span class="ln">11</span>                    <span class="n">Boolean</span> <span class="n">ifHaveBad</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="ln">12</span>                    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">j</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+<span class="ln">13</span>                        <span class="c1">//B串中有坏字符
+</span><span class="ln">14</span><span class="c1"></span>                        <span class="k">if</span> <span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">j</span><span class="o">)</span> <span class="o">==</span> <span class="n">B</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">i</span><span class="o">)){</span>
+<span class="ln">15</span>                            <span class="n">ifHaveBad</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="ln">16</span>                            <span class="n">index</span> <span class="o">+=</span> <span class="n">j</span><span class="o">-</span><span class="n">i</span><span class="o">;</span>
+<span class="ln">17</span>                            <span class="k">break</span><span class="o">;</span>
+<span class="ln">18</span>                        <span class="o">}</span>
+<span class="ln">19</span>                    <span class="o">}</span>
+<span class="ln">20</span>
+<span class="ln">21</span>                    <span class="k">if</span> <span class="o">(!</span><span class="n">ifHaveBad</span><span class="o">){</span>
+<span class="ln">22</span>                        <span class="c1">//B串中没有坏字符, 应移位到坏字符下一位
+</span><span class="ln">23</span><span class="c1"></span>                        <span class="n">index</span> <span class="o">+=</span> <span class="n">j</span><span class="o">;</span>
+<span class="ln">24</span>                    <span class="o">}</span>
+<span class="ln">25</span>
+<span class="ln">26</span>                    <span class="c1">//如果已经不能再移位了, 说明没有匹配的.
+</span><span class="ln">27</span><span class="c1"></span>                    <span class="k">if</span> <span class="o">(</span><span class="n">aLength</span> <span class="o">-</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">bLength</span><span class="o">)</span> <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln">28</span>
+<span class="ln">29</span>                    <span class="c1">//移位, 进行下一次规则循环比较.
+</span><span class="ln">30</span><span class="c1"></span>                    <span class="k">break</span><span class="o">;</span>
+<span class="ln">31</span>                <span class="o">}</span>
+<span class="ln">32</span>                <span class="c1">//在B串一次循环中没有一次进入if分支, 说明全部匹配
+</span><span class="ln">33</span><span class="c1"></span>                <span class="k">return</span> <span class="n">index</span><span class="o">;</span>
+<span class="ln">34</span>            <span class="o">}</span>
+<span class="ln">35</span>        <span class="o">}</span>
+<span class="ln">36</span>    <span class="o">}</span>
+</code></pre></div><h3 id="kmp算法">KMP算法</h3>
+<p>前缀: 字符串A=B+S, S非空, 那么B就是A的前缀</p>
+<p>后缀: 字符串A=S+B, S非空, 那么B是A的后缀</p>
+<p>PMT值: 前缀集合和后缀集合的交集中, 最长元素的长度</p>
+<p>部分匹配表: PMT值集合, 字符串的所有前缀的PMT值</p>
+<p>perfix数组: 每一个下标位置对应一个PMT值, 组成的数组</p>
+<p>next数组: perfix向右移一个下标位置, 组成next数组</p>
+<div align=center>
+<img src="/images/java-5-algorithm-1.png"  width="75%" />  
+</div>
+<p>这个PMT值就是我们每次找到坏字符后, pattern字符串需要移动的距离.</p>
+<p>求next数组:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="c1">//KMP: next数组生成
+</span><span class="ln"> 2</span><span class="c1"></span>    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">getNext</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">pattern</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span><span class="n">next</span><span class="o">){</span>
+<span class="ln"> 3</span>        <span class="c1">//next数组其余位置默认是0.
+</span><span class="ln"> 4</span><span class="c1"></span>        <span class="n">next</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln"> 5</span>        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">pattern</span><span class="o">.</span><span class="na">length</span><span class="o">){</span>
+<span class="ln"> 8</span>            <span class="c1">//每当j=-1时, 就是说明当前子串已经找完了.
+</span><span class="ln"> 9</span><span class="c1"></span>            <span class="k">if</span><span class="o">(</span><span class="n">j</span> <span class="o">==</span> <span class="o">-</span><span class="n">1</span><span class="o">){</span>
+<span class="ln">10</span>                <span class="n">i</span><span class="o">++;</span>
+<span class="ln">11</span>                <span class="n">j</span><span class="o">++;</span>
+<span class="ln">12</span>            <span class="o">}</span><span class="k">else</span> <span class="k">if</span><span class="o">(</span><span class="n">pattern</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">pattern</span><span class="o">[</span><span class="n">j</span><span class="o">]){</span>
+<span class="ln">13</span>                <span class="n">i</span><span class="o">++;</span>
+<span class="ln">14</span>                <span class="n">j</span><span class="o">++;</span>
+<span class="ln">15</span>                <span class="c1">//这时i位置上的值赋值的是i-1位置上的KMP值, 错位了.
+</span><span class="ln">16</span><span class="c1"></span>                <span class="n">next</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">j</span><span class="o">;</span>
+<span class="ln">17</span>            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+<span class="ln">18</span>                <span class="c1">//当字母不匹配后回到这里, j慢慢缩小直到-1.
+</span><span class="ln">19</span><span class="c1"></span>                <span class="n">j</span> <span class="o">=</span> <span class="n">next</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+<span class="ln">20</span>            <span class="o">}</span>
+<span class="ln">21</span>        <span class="o">}</span>
+<span class="ln">22</span>    <span class="o">}</span>
+</code></pre></div><p>以ABCABCD串解释如何求出next数组.</p>
+<p>1.默认情况下i=0, j=-1, 这时刚好寻找下标为0子串的KMP值, 这是肯定为0的, 所以我们进行i++,j++.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCD
+<span class="ln">2</span>ABCABCD
+</code></pre></div><p>2.现在变成了i=1, j=0; 由于此时B != A, 说明子串AB的KMP值为0, 于是将j赋值为-1, 这样i就会++. 表明这个位置没有匹配的, 仍需要移动</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCD
+<span class="ln">2</span> ABCABCD
+</code></pre></div><p>3.现在i=1, j=-1, 又变成i=2, j=0, C!=A, 第一个仍然不匹配, 继续</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCD
+<span class="ln">2</span>  ABCABCD
+</code></pre></div><p>4.现在i=3, j=0, 匹配了, 将next[4] = 1, i++, j++后继续匹配, next[5] = 2, i++, j++后继续匹配, next[6] = 3, 当i=6, j=3时, 不匹配了, 又回到j=0了, 然后j=-1, 最后i = 7 = pattern的长度了.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ABCABCD
+<span class="ln">2</span>   ABCABCD
+</code></pre></div><p>最后一个问题, j = next[j];是否一定会让j变成-1, 有没有例外情况? 我们举例来看看:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>如果串是: ABCABCDABCDA
+<span class="ln">2</span>
+<span class="ln">3</span>ABCABCDABCDA
+<span class="ln">4</span>       ABCABCDABCDA
+<span class="ln">5</span>这时i=10 j=3时不匹配, 那么j=next[3]=0
+</code></pre></div><p>初步估计这个next数组是越来越大的, 因为子串的长度在不断增大, KMP值越来越大, 所以它总会收敛于-1的.</p>
+<p>算法本体:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="c1">//KMP
+</span><span class="ln"> 2</span><span class="c1"></span>    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">search</span><span class="o">(</span><span class="kt">char</span><span class="o">[]</span> <span class="n">str</span><span class="o">,</span> <span class="kt">char</span><span class="o">[]</span> <span class="n">pattern</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">next</span><span class="o">){</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>        <span class="k">while</span> <span class="o">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">str</span><span class="o">.</span><span class="na">length</span> <span class="o">&amp;&amp;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">pattern</span><span class="o">.</span><span class="na">length</span><span class="o">){</span>
+<span class="ln"> 7</span>            <span class="k">if</span> <span class="o">(</span><span class="n">j</span> <span class="o">==</span> <span class="o">-</span><span class="n">1</span> <span class="o">||</span> <span class="n">str</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">pattern</span><span class="o">[</span><span class="n">j</span><span class="o">]){</span>
+<span class="ln"> 8</span>                <span class="n">i</span><span class="o">++;</span>
+<span class="ln"> 9</span>                <span class="n">j</span><span class="o">++;</span>
+<span class="ln">10</span>            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+<span class="ln">11</span>                <span class="c1">//不匹配了 , 就往后移动.
+</span><span class="ln">12</span><span class="c1"></span>                <span class="c1">//所以下标0的-1也是移动的手段,
+</span><span class="ln">13</span><span class="c1"></span>                <span class="n">j</span> <span class="o">=</span> <span class="n">next</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+<span class="ln">14</span>            <span class="o">}</span>
+<span class="ln">15</span>        <span class="o">}</span>
+<span class="ln">16</span>
+<span class="ln">17</span>        <span class="c1">//如果j最后一直到了最后都和i匹配, 说明找到了.
+</span><span class="ln">18</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">pattern</span><span class="o">.</span><span class="na">length</span><span class="o">){</span>
+<span class="ln">19</span>            <span class="k">return</span> <span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="o">;</span>
+<span class="ln">20</span>        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+<span class="ln">21</span>            <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln">22</span>        <span class="o">}</span>
+<span class="ln">23</span>    <span class="o">}</span>
+</code></pre></div><p>测试:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 2</span>        <span class="n">String</span> <span class="n">A</span> <span class="o">=</span> <span class="s">&#34;ABCABCAABCABCD&#34;</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="n">String</span> <span class="n">B</span> <span class="o">=</span> <span class="s">&#34;ABCABCD&#34;</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">BF</span><span class="o">(</span><span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">));</span>
+<span class="ln"> 5</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">RK</span><span class="o">(</span><span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">));</span>
+<span class="ln"> 6</span>        <span class="c1">//System.out.println(hashCode(B));
+</span><span class="ln"> 7</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">BM</span><span class="o">(</span><span class="n">A</span><span class="o">,</span><span class="n">B</span><span class="o">));</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">next</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">B</span><span class="o">.</span><span class="na">length</span><span class="o">()];</span>
+<span class="ln">10</span>        <span class="n">getNext</span><span class="o">(</span><span class="n">B</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">(),</span> <span class="n">next</span><span class="o">);</span>
+<span class="ln">11</span>        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">search</span><span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">(),</span> <span class="n">B</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">(),</span> <span class="n">next</span><span class="o">);</span>
+<span class="ln">12</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">next</span><span class="o">));</span>
+<span class="ln">13</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="ln">14</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">B</span><span class="o">));</span>
+<span class="ln">15</span>    <span class="o">}</span>
+</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/java-4-basic/">Java基础查漏补缺
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
+</a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
+</a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
+</a></li><li><a href="/posts/tech/java-1-thread/">Java多线程
+</a></li><li><a href="/posts/tech/20240321/">3.21-23学习记录
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">motto是什么，可以吃吗？我的motto待不了几天，因为我的想法一直在变化</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/java-5-algorithm/">算法刷题
+</a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
+</a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
+</a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
+</a></li><li><a href="/posts/tech/java-1-thread/">Java多线程
+</a></li><li><a href="/posts/tech/java-0-audition/">面试准备-Spring
+</a></li><li><a href="/posts/tech/20240324/">3.24学习记录
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">12</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">5</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">6</span>
+        </a><a href="/series/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机学习笔记">
+          计算机学习笔记 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>
