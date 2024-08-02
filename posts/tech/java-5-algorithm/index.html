@@ -176,10 +176,7 @@
     <li><a href="#1字符串搜索">1.字符串搜索</a>
       <ul>
         <li><a href="#bf-暴力破解">BF: 暴力破解</a></li>
-      </ul>
-    </li>
-    <li><a href="#rk算法-hash算法">RK算法: hash算法</a>
-      <ul>
+        <li><a href="#rk算法-hash算法">RK算法: hash算法</a></li>
         <li><a href="#bm算法">BM算法</a></li>
         <li><a href="#kmp算法">KMP算法</a></li>
       </ul>
@@ -214,7 +211,7 @@
 <span class="ln">18</span>        <span class="o">}</span>
 <span class="ln">19</span>        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
 <span class="ln">20</span>    <span class="o">}</span>
-</code></pre></div><h2 id="rk算法-hash算法">RK算法: hash算法</h2>
+</code></pre></div><h3 id="rk算法-hash算法">RK算法: hash算法</h3>
 <p>基于BF进行优化, 将A中的字符串按照顺序截取B字符串的长度: abc, bcd, cde, def, efg. 进行hash运算然后与B的hash值进行比较. 时间复杂度: O(m*n), hash算法参与字符串位数, 主串长度相关.</p>
 <p>优化: hash算法: 按26进制取和, abc=1+2+3=6, 进行量化. 每个子串的hash值是前一个子串的hash值-前串最小下标对应字母的值+本串最大下标字母对应的值.</p>
 <p>此时间复杂度为O(n), 只与主串长度相关, 但hash冲突极端情况下退化为BF</p>
