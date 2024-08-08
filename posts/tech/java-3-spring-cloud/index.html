@@ -12,14 +12,14 @@
 <meta name="description" content="" /><meta itemprop="name" content="SpringCloud学习笔记">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-05-25T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-05-25T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="15629">
+<meta itemprop="wordCount" content="22907">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="SpringCloud学习笔记" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/tech/java-3-spring-cloud/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-05-25T00:00:00&#43;00:00" />
 <meta property="article:modified_time" content="2024-05-25T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
-<meta property="og:see_also" content="/posts/tech/java-6-autoconfiguration/" /><meta property="og:see_also" content="/posts/tech/java-5-algorithm/" /><meta property="og:see_also" content="/posts/tech/java-4-basic/" /><meta property="og:see_also" content="/posts/tech/java-2-mysql/" /><meta property="og:see_also" content="/posts/tech/java-1-thread/" />
+<meta property="og:see_also" content="/posts/tech/java-0-audition-2/" /><meta property="og:see_also" content="/posts/tech/java-6-autoconfiguration/" /><meta property="og:see_also" content="/posts/tech/java-5-algorithm/" /><meta property="og:see_also" content="/posts/tech/java-4-basic/" /><meta property="og:see_also" content="/posts/tech/java-2-mysql/" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SpringCloud学习笔记"/>
@@ -155,7 +155,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-05-25
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>32 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>46 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
 
@@ -192,6 +192,15 @@
         <li><a href="#网络">网络</a></li>
         <li><a href="#部署项目">部署项目</a></li>
         <li><a href="#dockercompose">DockerCompose</a></li>
+      </ul>
+    </li>
+    <li><a href="#微服务">微服务</a>
+      <ul>
+        <li><a href="#普通地服务调用">普通地服务调用</a></li>
+        <li><a href="#服务注册和发现解决多个实例地址不一样如何调用的问题">服务注册和发现(解决多个实例地址不一样如何调用的问题)</a></li>
+        <li><a href="#openfeign实现更简单">OpenFeign(实现更简单)</a></li>
+        <li><a href="#网关路由">网关路由</a></li>
+        <li><a href="#网关登录校验">网关登录校验</a></li>
       </ul>
     </li>
   </ul>
@@ -1396,7 +1405,729 @@
 </table>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>docker compose up -d  #就在本目录, 则不需要-f指定文件
 <span class="ln">2</span>docker compose down  #全部都给移除了, 干干净净.
-</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+</code></pre></div><h2 id="微服务">微服务</h2>
+<h3 id="普通地服务调用">普通地服务调用</h3>
+<p>购物车业务中需要查询商品信息，但商品信息查询的逻辑全部迁移到了<code>item-service</code>服务，导致我们无法查询。想解决这个问题，我们就必须把原本本地方法调用，改造成跨微服务的远程调用（RPC，即<strong>R</strong>emote <strong>P</strong>roduce <strong>C</strong>all）。</p>
+<h4 id="resttemplate">RestTemplate</h4>
+<p>Spring给我们提供了一个RestTemplate的API，可以方便的实现Http请求的发送。RestTemplate提供了常见的Get、Post、Put、Delete请求都支持，如果请求参数比较复杂，还可以使用exchange方法来构造请求。</p>
+<p>编写配置类, 将RestTemplate注册为一个Bean:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kn">package</span> <span class="nn">com.hmall.cart.config</span><span class="o">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="ln"> 5</span><span class="kn">import</span> <span class="nn">org.springframework.web.client.RestTemplate</span><span class="o">;</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span><span class="nd">@Configuration</span>
+<span class="ln"> 8</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RemoteCallConfig</span> <span class="o">{</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span>    <span class="nd">@Bean</span>
+<span class="ln">11</span>    <span class="kd">public</span> <span class="n">RestTemplate</span> <span class="nf">restTemplate</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln">12</span>        <span class="k">return</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">();</span>
+<span class="ln">13</span>    <span class="o">}</span>
+<span class="ln">14</span><span class="o">}</span>
+</code></pre></div><h4 id="远程调用">远程调用</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">private</span> <span class="kt">void</span> <span class="nf">handleCartItems</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">CartVO</span><span class="o">&gt;</span> <span class="n">vos</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 2</span>    <span class="c1">// TODO 1.获取商品id
+</span><span class="ln"> 3</span><span class="c1"></span>    <span class="n">Set</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">itemIds</span> <span class="o">=</span> <span class="n">vos</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="n">CartVO</span><span class="o">::</span><span class="n">getItemId</span><span class="o">).</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toSet</span><span class="o">());</span>
+<span class="ln"> 4</span>    <span class="c1">// 2.查询商品
+</span><span class="ln"> 5</span><span class="c1"></span>    <span class="c1">// List&lt;ItemDTO&gt; items = itemService.queryItemByIds(itemIds);
+</span><span class="ln"> 6</span><span class="c1"></span>    <span class="c1">// 2.1.利用RestTemplate发起http请求，得到http的响应
+</span><span class="ln"> 7</span><span class="c1"></span>    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">ItemDTO</span><span class="o">&gt;&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">exchange</span><span class="o">(</span>
+<span class="ln"> 8</span>            <span class="s">&#34;http://localhost:8081/items?ids={ids}&#34;</span><span class="o">,</span>
+<span class="ln"> 9</span>            <span class="n">HttpMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>
+<span class="ln">10</span>            <span class="kc">null</span><span class="o">,</span>
+<span class="ln">11</span>            <span class="k">new</span> <span class="n">ParameterizedTypeReference</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">ItemDTO</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
+<span class="ln">12</span>            <span class="o">},</span> <span class="c1">//利用反射获取字节码, List&lt;ItemDTO&gt;.class是不行的, 泛型会被擦除
+</span><span class="ln">13</span><span class="c1"></span>            <span class="n">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;ids&#34;</span><span class="o">,</span> <span class="n">CollUtil</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">itemIds</span><span class="o">,</span> <span class="s">&#34;,&#34;</span><span class="o">))</span> <span class="c1">//将集合转字符串, 通过逗号拼接, 满足输入参数要求
+</span><span class="ln">14</span><span class="c1"></span>    <span class="o">);</span>
+<span class="ln">15</span>    <span class="c1">// 2.2.解析响应
+</span><span class="ln">16</span><span class="c1"></span>    <span class="k">if</span><span class="o">(!</span><span class="n">response</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">().</span><span class="na">is2xxSuccessful</span><span class="o">()){</span>
+<span class="ln">17</span>        <span class="c1">// 查询失败，直接结束
+</span><span class="ln">18</span><span class="c1"></span>        <span class="k">return</span><span class="o">;</span>
+<span class="ln">19</span>    <span class="o">}</span>
+<span class="ln">20</span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">ItemDTO</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getBody</span><span class="o">();</span>
+<span class="ln">21</span>    <span class="k">if</span> <span class="o">(</span><span class="n">CollUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">items</span><span class="o">))</span> <span class="o">{</span>
+<span class="ln">22</span>        <span class="k">return</span><span class="o">;</span>
+<span class="ln">23</span>    <span class="o">}</span>
+<span class="ln">24</span>    <span class="c1">// 3.转为 id 到 item的map
+</span><span class="ln">25</span><span class="c1"></span>    <span class="n">Map</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">,</span> <span class="n">ItemDTO</span><span class="o">&gt;</span> <span class="n">itemMap</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toMap</span><span class="o">(</span><span class="n">ItemDTO</span><span class="o">::</span><span class="n">getId</span><span class="o">,</span> <span class="n">Function</span><span class="o">.</span><span class="na">identity</span><span class="o">()));</span>
+<span class="ln">26</span>    <span class="c1">// 4.写入vo
+</span><span class="ln">27</span><span class="c1"></span>    <span class="k">for</span> <span class="o">(</span><span class="n">CartVO</span> <span class="n">v</span> <span class="o">:</span> <span class="n">vos</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">28</span>        <span class="n">ItemDTO</span> <span class="n">item</span> <span class="o">=</span> <span class="n">itemMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">v</span><span class="o">.</span><span class="na">getItemId</span><span class="o">());</span>
+<span class="ln">29</span>        <span class="k">if</span> <span class="o">(</span><span class="n">item</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">30</span>            <span class="k">continue</span><span class="o">;</span>
+<span class="ln">31</span>        <span class="o">}</span>
+<span class="ln">32</span>        <span class="n">v</span><span class="o">.</span><span class="na">setNewPrice</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+<span class="ln">33</span>        <span class="n">v</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getStatus</span><span class="o">());</span>
+<span class="ln">34</span>        <span class="n">v</span><span class="o">.</span><span class="na">setStock</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getStock</span><span class="o">());</span>
+<span class="ln">35</span>    <span class="o">}</span>
+<span class="ln">36</span><span class="o">}</span>
+</code></pre></div><h3 id="服务注册和发现解决多个实例地址不一样如何调用的问题">服务注册和发现(解决多个实例地址不一样如何调用的问题)</h3>
+<p>注册中心对服务提供者提供心跳检测, 注册服务.  向服务消费者推送变更, 调用者可以从注册中心订阅想要的服务，获取服务对应的实例列表.</p>
+<h4 id="nacos注册中心">Nacos注册中心</h4>
+<h4 id="服务注册">服务注册</h4>
+<p>微服务提供者需要将服务注册到注册中心, 步骤如下：</p>
+<ul>
+<li>
+<p>微服务中引入依赖</p>
+<div class="highlight"><pre class="chroma"><code class="language-XML" data-lang="XML"><span class="ln">1</span><span class="c">&lt;!--nacos 服务注册发现--&gt;</span>
+<span class="ln">2</span><span class="nt">&lt;dependency&gt;</span>
+<span class="ln">3</span>    <span class="nt">&lt;groupId&gt;</span>com.alibaba.cloud<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln">4</span>    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">5</span><span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></li>
+<li>
+<p>配置Nacos地址</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln">1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln">2</span><span class="w">  </span><span class="nt">application</span><span class="p">:</span><span class="w">
+</span><span class="ln">3</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">item-service</span><span class="w"> </span><span class="c"># 服务名称</span><span class="w">
+</span><span class="ln">4</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="ln">5</span><span class="w">    </span><span class="nt">nacos</span><span class="p">:</span><span class="w">
+</span><span class="ln">6</span><span class="w">      </span><span class="nt">server-addr</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.150.101</span><span class="p">:</span><span class="m">8848</span><span class="w"> </span><span class="c"># nacos地址</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>重启程序</p>
+</li>
+</ul>
+<p>访问nacos控制台，可以发现服务注册成功.</p>
+<h4 id="服务发现">服务发现</h4>
+<p>服务的消费者要去nacos订阅服务，这个过程就是服务发现，步骤如下：</p>
+<ul>
+<li>
+<p>引入依赖</p>
+<p>服务发现除了要引入nacos依赖以外，由于还需要负载均衡，因此要引入SpringCloud提供的LoadBalancer依赖。</p>
+<div class="highlight"><pre class="chroma"><code class="language-XML" data-lang="XML"><span class="ln">1</span><span class="c">&lt;!--nacos 服务注册发现--&gt;</span>
+<span class="ln">2</span><span class="nt">&lt;dependency&gt;</span>
+<span class="ln">3</span>    <span class="nt">&lt;groupId&gt;</span>com.alibaba.cloud<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln">4</span>    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">5</span><span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><p>这里Nacos的依赖于服务注册时一致，这个依赖中同时包含了服务注册和发现的功能。因为任何一个微服务可以是调用者，也可以是提供者。</p>
+</li>
+<li>
+<p>配置Nacos地址</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln">1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln">2</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="ln">3</span><span class="w">    </span><span class="nt">nacos</span><span class="p">:</span><span class="w">
+</span><span class="ln">4</span><span class="w">      </span><span class="nt">server-addr</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.150.101</span><span class="p">:</span><span class="m">8848</span><span class="w">
+</span></code></pre></div></li>
+<li>
+<p>发现并调用服务</p>
+<p>微服务有多个实例, 服务调用者必须利用负载均衡的算法，从多个实例中挑选一个去访问。常见的负载均衡算法有：</p>
+<ul>
+<li>随机</li>
+<li>轮询</li>
+<li>IP的hash</li>
+<li>最近最少访问</li>
+<li>&hellip;</li>
+</ul>
+<p>这里我们可以选择最简单的随机负载均衡。</p>
+<p>服务发现需要用到一个工具，<strong>DiscoveryClient</strong>，SpringCloud已经帮我们自动装配，我们可以直接注入使用.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">handleCartItems</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">CartVO</span><span class="o">&gt;</span> <span class="n">vos</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 2</span>        <span class="c1">//这边依赖ItemService, 通过网络远程请求来完成, 使用spring的restTemplate
+</span><span class="ln"> 3</span><span class="c1"></span>        <span class="c1">// 1.获取商品id
+</span><span class="ln"> 4</span><span class="c1"></span>        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">itemIds</span> <span class="o">=</span> <span class="n">vos</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="n">CartVO</span><span class="o">::</span><span class="n">getItemId</span><span class="o">).</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toSet</span><span class="o">());</span>
+<span class="ln"> 5</span>        <span class="c1">//2.查询商品
+</span><span class="ln"> 6</span><span class="c1"></span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">ItemDTO</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="n">itemService</span><span class="o">.</span><span class="na">queryItemByIds</span><span class="o">(</span><span class="n">itemIds</span><span class="o">);</span>
+<span class="ln"> 7</span>        <span class="c1">//2.1根据服务名称获取服务的实例列表
+</span><span class="ln"> 8</span><span class="c1"></span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">ServiceInstance</span><span class="o">&gt;</span> <span class="n">instances</span> <span class="o">=</span> <span class="n">discoveryClient</span><span class="o">.</span><span class="na">getInstances</span><span class="o">(</span><span class="s">&#34;item-service&#34;</span><span class="o">);</span>
+<span class="ln"> 9</span>        <span class="k">if</span><span class="o">(</span><span class="n">CollUtil</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">instances</span><span class="o">)){</span>
+<span class="ln">10</span>            <span class="k">return</span><span class="o">;</span>
+<span class="ln">11</span>        <span class="o">}</span>
+<span class="ln">12</span>        <span class="c1">//2.2手写负载均衡, 从实例列表中挑选实例
+</span><span class="ln">13</span><span class="c1"></span>        <span class="n">ServiceInstance</span> <span class="n">instance</span> <span class="o">=</span> <span class="n">instances</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">RandomUtil</span><span class="o">.</span><span class="na">randomInt</span><span class="o">(</span><span class="n">instances</span><span class="o">.</span><span class="na">size</span><span class="o">()));</span>
+<span class="ln">14</span>        <span class="c1">//2.3利用RestTemplate发起http请求,得到http响应
+</span><span class="ln">15</span><span class="c1"></span>        <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">ItemDTO</span><span class="o">&gt;&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">exchange</span><span class="o">(</span>
+<span class="ln">16</span>                <span class="n">instance</span><span class="o">.</span><span class="na">getUri</span><span class="o">()+</span><span class="s">&#34;/items?ids={ids}&#34;</span><span class="o">,</span>
+<span class="ln">17</span><span class="c1">//                &#34;http://localhost:8081/items?ids={ids}&#34;,
+</span><span class="ln">18</span><span class="c1"></span>                <span class="n">HttpMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span>
+<span class="ln">19</span>                <span class="kc">null</span><span class="o">,</span>
+<span class="ln">20</span>                <span class="k">new</span> <span class="n">ParameterizedTypeReference</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">ItemDTO</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
+<span class="ln">21</span>                <span class="o">},</span> <span class="c1">//利用反射获取字节码, List&lt;ItemDTO&gt;.class是不行的, 泛型会被擦除
+</span><span class="ln">22</span><span class="c1"></span>                <span class="n">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;ids&#34;</span><span class="o">,</span> <span class="n">CollUtil</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">itemIds</span><span class="o">,</span> <span class="s">&#34;,&#34;</span><span class="o">))</span> <span class="c1">//将集合转字符串, 通过逗号拼接, 满足输入参数要求
+</span><span class="ln">23</span><span class="c1"></span>        <span class="o">);</span>
+<span class="ln">24</span>        <span class="c1">//2.4解析结果
+</span><span class="ln">25</span><span class="c1"></span>        <span class="k">if</span><span class="o">(!</span><span class="n">response</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">().</span><span class="na">is2xxSuccessful</span><span class="o">()){</span>
+<span class="ln">26</span>            <span class="c1">//查询失败
+</span><span class="ln">27</span><span class="c1"></span>            <span class="k">return</span><span class="o">;</span>
+<span class="ln">28</span>        <span class="o">}</span>
+<span class="ln">29</span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">ItemDTO</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getBody</span><span class="o">();</span>
+<span class="ln">30</span>        <span class="k">if</span> <span class="o">(</span><span class="n">CollUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">items</span><span class="o">))</span> <span class="o">{</span>
+<span class="ln">31</span>            <span class="k">return</span><span class="o">;</span>
+<span class="ln">32</span>        <span class="o">}</span>
+<span class="ln">33</span>        <span class="c1">// 3.转为 id 到 item的map
+</span><span class="ln">34</span><span class="c1"></span>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">,</span> <span class="n">ItemDTO</span><span class="o">&gt;</span> <span class="n">itemMap</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toMap</span><span class="o">(</span><span class="n">ItemDTO</span><span class="o">::</span><span class="n">getId</span><span class="o">,</span> <span class="n">Function</span><span class="o">.</span><span class="na">identity</span><span class="o">()));</span>
+<span class="ln">35</span>        <span class="c1">// 4.写入vo
+</span><span class="ln">36</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="n">CartVO</span> <span class="n">v</span> <span class="o">:</span> <span class="n">vos</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">37</span>            <span class="n">ItemDTO</span> <span class="n">item</span> <span class="o">=</span> <span class="n">itemMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">v</span><span class="o">.</span><span class="na">getItemId</span><span class="o">());</span>
+<span class="ln">38</span>            <span class="k">if</span> <span class="o">(</span><span class="n">item</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">39</span>                <span class="k">continue</span><span class="o">;</span>
+<span class="ln">40</span>            <span class="o">}</span>
+<span class="ln">41</span>            <span class="n">v</span><span class="o">.</span><span class="na">setNewPrice</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+<span class="ln">42</span>            <span class="n">v</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getStatus</span><span class="o">());</span>
+<span class="ln">43</span>            <span class="n">v</span><span class="o">.</span><span class="na">setStock</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getStock</span><span class="o">());</span>
+<span class="ln">44</span>        <span class="o">}</span>
+<span class="ln">45</span>    <span class="o">}</span>
+</code></pre></div></li>
+</ul>
+<h3 id="openfeign实现更简单">OpenFeign(实现更简单)</h3>
+<p>利用RestTemplate实现的远程调用的代码太复杂了, 想让远程调用像本地方法调用一样简单这就要用到OpenFeign组件了.</p>
+<h4 id="快速入门通过client构造请求-feign完成负载均衡和请求">快速入门(通过client构造请求, feign完成负载均衡和请求)</h4>
+<p>1.服务调用者引入依赖:</p>
+<div class="highlight"><pre class="chroma"><code class="language-XML" data-lang="XML"><span class="ln"> 1</span>  <span class="c">&lt;!--openFeign--&gt;</span>
+<span class="ln"> 2</span>  <span class="nt">&lt;dependency&gt;</span>
+<span class="ln"> 3</span>      <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln"> 4</span>      <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-openfeign<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln"> 5</span>  <span class="nt">&lt;/dependency&gt;</span>
+<span class="ln"> 6</span>  <span class="c">&lt;!--负载均衡器--&gt;</span>
+<span class="ln"> 7</span>  <span class="nt">&lt;dependency&gt;</span>
+<span class="ln"> 8</span>      <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln"> 9</span>      <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-loadbalancer<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">10</span>  <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><p>2.启用OpenFeign. 在微服务调用者cart-service的启动类CartApplication上添加注解@EnableFeignClients，启动OpenFeign功能：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="nd">@EnableFeignClients</span>
+<span class="ln">2</span><span class="nd">@MapperScan</span><span class="o">(</span><span class="s">&#34;com.hmall.cart.mapper&#34;</span><span class="o">)</span>
+<span class="ln">3</span><span class="nd">@SpringBootApplication</span>
+<span class="ln">4</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CartApplication</span> <span class="o">{</span>
+<span class="ln">5</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">6</span>        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">CartApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+<span class="ln">7</span>    <span class="o">}</span>
+<span class="ln">8</span><span class="o">}</span>
+</code></pre></div><p>3.编写OpenFeign客户端. 在微服务调用者中, 新定义接口, 编写Feign客户端:</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln"> 1</span><span class="kn">package</span> <span class="nn">com.hmall.cart.client</span><span class="o">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">com.hmall.cart.domain.dto.ItemDTO</span><span class="o">;</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="nn">org.springframework.cloud.openfeign.FeignClient</span><span class="o">;</span>
+<span class="ln"> 5</span><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.GetMapping</span><span class="o">;</span>
+<span class="ln"> 6</span><span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestParam</span><span class="o">;</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="nd">@FeignClient</span><span class="o">(</span><span class="s">&#34;item-service&#34;</span><span class="o">)</span>
+<span class="ln">11</span><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemClient</span> <span class="o">{</span>
+<span class="ln">12</span>
+<span class="ln">13</span>    <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">&#34;/items&#34;</span><span class="o">)</span>
+<span class="ln">14</span>    <span class="n">List</span><span class="o">&lt;</span><span class="n">ItemDTO</span><span class="o">&gt;</span> <span class="nf">queryItemByIds</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="s">&#34;ids&#34;</span><span class="o">)</span> <span class="n">Collection</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">ids</span><span class="o">);</span>
+<span class="ln">15</span><span class="o">}</span>
+</code></pre></div><p>这里只需要声明接口，无需实现方法。接口中的几个关键信息：</p>
+<ul>
+<li><code>@FeignClient(&quot;item-service&quot;)</code> ：声明服务名称</li>
+<li><code>@GetMapping</code> ：声明请求方式</li>
+<li><code>@GetMapping(&quot;/items&quot;)</code> ：声明请求路径</li>
+<li><code>@RequestParam(&quot;ids&quot;) Collection&lt;Long&gt; ids</code> ：声明请求参数</li>
+<li><code>List&lt;ItemDTO&gt;</code> ：返回值类型</li>
+</ul>
+<p>有了上述信息，OpenFeign就可以利用动态代理帮我们实现这个方法，并且向<code>http://item-service/items</code>发送一个<code>GET</code>请求，携带ids为请求参数，并自动将返回值处理为<code>List&lt;ItemDTO&gt;</code>。</p>
+<p>我们只需要直接调用这个方法，即可实现远程调用了。</p>
+<p>4.使用FeignClient</p>
+<p>feign替我们完成了服务拉取、负载均衡、发送http请求的所有工作, 我们不再需要RestTemplate了，还省去了RestTemplate的注册.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">private</span> <span class="kt">void</span> <span class="nf">handleCartItems</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">CartVO</span><span class="o">&gt;</span> <span class="n">vos</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 2</span>        <span class="c1">//这边依赖ItemService, 通过网络远程请求来完成, 使用spring的restTemplate
+</span><span class="ln"> 3</span><span class="c1"></span>        <span class="c1">// 1.获取商品id
+</span><span class="ln"> 4</span><span class="c1"></span>        <span class="n">Set</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">itemIds</span> <span class="o">=</span> <span class="n">vos</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="n">CartVO</span><span class="o">::</span><span class="n">getItemId</span><span class="o">).</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toSet</span><span class="o">());</span>
+<span class="ln"> 5</span>        <span class="c1">// 2.查询商品
+</span><span class="ln"> 6</span><span class="c1">//        List&lt;ItemDTO&gt; items = itemService.queryItemByIds(itemIds);
+</span><span class="ln"> 7</span><span class="c1">//        //2.1根据服务名称获取服务的实例列表
+</span><span class="ln"> 8</span><span class="c1">//        List&lt;ServiceInstance&gt; instances = discoveryClient.getInstances(&#34;item-service&#34;);
+</span><span class="ln"> 9</span><span class="c1">//        if(CollUtil.isEmpty(instances)){
+</span><span class="ln">10</span><span class="c1">//            return;
+</span><span class="ln">11</span><span class="c1">//        }
+</span><span class="ln">12</span><span class="c1">//        //2.2手写负载均衡, 从实例列表中挑选实例
+</span><span class="ln">13</span><span class="c1">//        ServiceInstance instance = instances.get(RandomUtil.randomInt(instances.size()));
+</span><span class="ln">14</span><span class="c1">//        //2.3利用RestTemplate发起http请求,得到http响应
+</span><span class="ln">15</span><span class="c1">//        ResponseEntity&lt;List&lt;ItemDTO&gt;&gt; response = restTemplate.exchange(
+</span><span class="ln">16</span><span class="c1">//                instance.getUri()+&#34;/items?ids={ids}&#34;,
+</span><span class="ln">17</span><span class="c1">////                &#34;http://localhost:8081/items?ids={ids}&#34;,
+</span><span class="ln">18</span><span class="c1">//                HttpMethod.GET,
+</span><span class="ln">19</span><span class="c1">//                null,
+</span><span class="ln">20</span><span class="c1">//                new ParameterizedTypeReference&lt;List&lt;ItemDTO&gt;&gt;() {
+</span><span class="ln">21</span><span class="c1">//                }, //利用反射获取字节码, List&lt;ItemDTO&gt;.class是不行的, 泛型会被擦除
+</span><span class="ln">22</span><span class="c1">//                Map.of(&#34;ids&#34;, CollUtil.join(itemIds, &#34;,&#34;)) //将集合转字符串, 通过逗号拼接, 满足输入参数要求
+</span><span class="ln">23</span><span class="c1">//        );
+</span><span class="ln">24</span><span class="c1"></span>        <span class="c1">//2.4解析结果
+</span><span class="ln">25</span><span class="c1">//        if(!response.getStatusCode().is2xxSuccessful()){
+</span><span class="ln">26</span><span class="c1">//            //查询失败
+</span><span class="ln">27</span><span class="c1">//            return;
+</span><span class="ln">28</span><span class="c1">//        }
+</span><span class="ln">29</span><span class="c1">//        List&lt;ItemDTO&gt; items = response.getBody();
+</span><span class="ln">30</span><span class="c1">//        if (CollUtils.isEmpty(items)) {
+</span><span class="ln">31</span><span class="c1">//            return;
+</span><span class="ln">32</span><span class="c1">//        }
+</span><span class="ln">33</span><span class="c1"></span>        <span class="c1">//使用了Open Feign上面的就不需要了, 别人帮做了
+</span><span class="ln">34</span><span class="c1"></span>    	<span class="c1">//itemClient注入得到
+</span><span class="ln">35</span><span class="c1"></span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">ItemDTO</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="n">itemClient</span><span class="o">.</span><span class="na">queryItemByIds</span><span class="o">(</span><span class="n">itemIds</span><span class="o">);</span>
+<span class="ln">36</span>        <span class="c1">// 3.转为 id 到 item的map
+</span><span class="ln">37</span><span class="c1"></span>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">,</span> <span class="n">ItemDTO</span><span class="o">&gt;</span> <span class="n">itemMap</span> <span class="o">=</span> <span class="n">items</span><span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toMap</span><span class="o">(</span><span class="n">ItemDTO</span><span class="o">::</span><span class="n">getId</span><span class="o">,</span> <span class="n">Function</span><span class="o">.</span><span class="na">identity</span><span class="o">()));</span>
+<span class="ln">38</span>        <span class="c1">// 4.写入vo
+</span><span class="ln">39</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="n">CartVO</span> <span class="n">v</span> <span class="o">:</span> <span class="n">vos</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">40</span>            <span class="n">ItemDTO</span> <span class="n">item</span> <span class="o">=</span> <span class="n">itemMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">v</span><span class="o">.</span><span class="na">getItemId</span><span class="o">());</span>
+<span class="ln">41</span>            <span class="k">if</span> <span class="o">(</span><span class="n">item</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">42</span>                <span class="k">continue</span><span class="o">;</span>
+<span class="ln">43</span>            <span class="o">}</span>
+<span class="ln">44</span>            <span class="n">v</span><span class="o">.</span><span class="na">setNewPrice</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">());</span>
+<span class="ln">45</span>            <span class="n">v</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getStatus</span><span class="o">());</span>
+<span class="ln">46</span>            <span class="n">v</span><span class="o">.</span><span class="na">setStock</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getStock</span><span class="o">());</span>
+<span class="ln">47</span>        <span class="o">}</span>
+<span class="ln">48</span>    <span class="o">}</span>
+</code></pre></div><h4 id="连接池">连接池</h4>
+<p>Feign底层发起http请求，依赖于其它的框架。其底层支持的http客户端实现包括：</p>
+<ul>
+<li>HttpURLConnection：默认实现，不支持连接池</li>
+<li>Apache HttpClient ：支持连接池</li>
+<li>OKHttp：支持连接池</li>
+</ul>
+<p>因此我们通常会使用带有连接池的客户端来代替默认的HttpURLConnection。比如，我们使用OK Http.</p>
+<p>1.微服务中引入依赖</p>
+<div class="highlight"><pre class="chroma"><code class="language-XML" data-lang="XML"><span class="ln">1</span><span class="c">&lt;!--OK http 的依赖 --&gt;</span>
+<span class="ln">2</span><span class="nt">&lt;dependency&gt;</span>
+<span class="ln">3</span>  <span class="nt">&lt;groupId&gt;</span>io.github.openfeign<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln">4</span>  <span class="nt">&lt;artifactId&gt;</span>feign-okhttp<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">5</span><span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><p>2.微服务中开启连接池</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln">1</span><span class="nt">feign</span><span class="p">:</span><span class="w">
+</span><span class="ln">2</span><span class="w">  </span><span class="nt">okhttp</span><span class="p">:</span><span class="w">
+</span><span class="ln">3</span><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># 开启OKHttp功能</span><span class="w">
+</span></code></pre></div><p>重启服务，连接池就生效了。</p>
+<h4 id="最佳实践">最佳实践</h4>
+<p>需要在每个微服务调用者中再次定义微服务提供者的Client接口，这不是重复编码吗？ 有什么办法能加避免重复编码呢？避免重复编码的办法就是<strong>抽取</strong>. 这里有两种抽取思路：</p>
+<ul>
+<li>思路1：抽取到微服务之外的公共module</li>
+<li>思路2：每个微服务自己抽取一个module(每个微服务都有个api模块)</li>
+</ul>
+<p>方案1抽取更加简单，工程结构也比较清晰，但缺点是整个项目耦合度偏高。</p>
+<p>方案2抽取相对麻烦，工程结构相对更复杂，但服务之间耦合度降低。</p>
+<p>由于item-service已经创建好，无法继续拆分，因此这里我们采用方案1.</p>
+<h5 id="抽取feign客户端">抽取Feign客户端</h5>
+<p>在<code>hmall</code>下定义一个新的module，命名为hm-api, 将client和需要的类复制过来. 现在，任何微服务要调用<code>item-service</code>中的接口，只需要引入<code>hm-api</code>模块依赖即可，无需自己编写Feign客户端了。</p>
+<h5 id="引入">引入</h5>
+<p>在微服务调用者的<code>pom.xml</code>中引入<code>hm-api</code>模块：</p>
+<div class="highlight"><pre class="chroma"><code class="language-XML" data-lang="XML"><span class="ln">1</span>  <span class="c">&lt;!--feign模块--&gt;</span>
+<span class="ln">2</span>  <span class="nt">&lt;dependency&gt;</span>
+<span class="ln">3</span>      <span class="nt">&lt;groupId&gt;</span>com.heima<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln">4</span>      <span class="nt">&lt;artifactId&gt;</span>hm-api<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">5</span>      <span class="nt">&lt;version&gt;</span>1.0.0<span class="nt">&lt;/version&gt;</span>
+<span class="ln">6</span>  <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><p>删除调用者与api模块已经重复的类之后报错了, 因为<code>ItemClient</code>现在定义到了<code>com.hmall.api.client</code>包下，而cart-service的启动类定义在<code>com.hmall.cart</code>包下，扫描不到<code>ItemClient</code>(pom引入的api包)，所以报错了。</p>
+<p>解决办法很简单，在cart-service的启动类上添加声明即可，两种方式：</p>
+<ul>
+<li>
+<p>方式1：声明扫描包：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="c1">//basePackages指定远程包的位置, 这样才能被SpringBootApplication扫描到, 才能用这些FeignClient.
+</span><span class="ln">2</span><span class="c1"></span><span class="nd">@EnableFeignClients</span><span class="o">(</span><span class="n">basePackages</span> <span class="o">=</span> <span class="s">&#34;com.hmall.api.client&#34;</span><span class="o">)</span>
+<span class="ln">3</span><span class="nd">@MapperScan</span><span class="o">(</span><span class="s">&#34;com.hmall.cart.mapper&#34;</span><span class="o">)</span>
+<span class="ln">4</span><span class="nd">@SpringBootApplication</span>
+<span class="ln">5</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CartApplication</span> <span class="o">{</span>
+<span class="ln">6</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">7</span>        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">CartApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+<span class="ln">8</span>    <span class="o">}</span>
+<span class="ln">9</span><span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>方式2：声明要用的FeignClient</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="nd">@EnableFeignClients</span><span class="o">(</span><span class="n">client</span> <span class="o">=</span> <span class="o">{</span><span class="n">ItemClient</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+<span class="ln">2</span><span class="nd">@MapperScan</span><span class="o">(</span><span class="s">&#34;com.hmall.cart.mapper&#34;</span><span class="o">)</span>
+<span class="ln">3</span><span class="nd">@SpringBootApplication</span>
+<span class="ln">4</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CartApplication</span> <span class="o">{</span>
+<span class="ln">5</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">6</span>        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">CartApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+<span class="ln">7</span>    <span class="o">}</span>
+<span class="ln">8</span><span class="o">}</span>
+</code></pre></div></li>
+</ul>
+<h4 id="日志配置">日志配置</h4>
+<p>OpenFeign只会在FeignClient所在包的日志级别为<strong>DEBUG</strong>时，才会输出日志。而且其日志级别有4级：</p>
+<ul>
+<li><strong>NONE</strong>：不记录任何日志信息，这是默认值。</li>
+<li><strong>BASIC</strong>：仅记录请求的方法，URL以及响应状态码和执行时间</li>
+<li><strong>HEADERS</strong>：在BASIC的基础上，额外记录了请求和响应的头信息</li>
+<li><strong>FULL</strong>：记录所有请求和响应的明细，包括头信息、请求体、元数据。</li>
+</ul>
+<p>1.定义日志级别</p>
+<p>在hm-api模块下新建一个配置类，定义Feign的日志级别：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kn">package</span> <span class="nn">com.hmall.api.config</span><span class="o">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">feign.Logger</span><span class="o">;</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DefaultFeignConfig</span> <span class="o">{</span>
+<span class="ln"> 7</span>    <span class="nd">@Bean</span>
+<span class="ln"> 8</span>    <span class="kd">public</span> <span class="n">Logger</span><span class="o">.</span><span class="na">Level</span> <span class="nf">feignLogLevel</span><span class="o">(){</span>
+<span class="ln"> 9</span>        <span class="k">return</span> <span class="n">Logger</span><span class="o">.</span><span class="na">Level</span><span class="o">.</span><span class="na">FULL</span><span class="o">;</span>
+<span class="ln">10</span>    <span class="o">}</span>
+<span class="ln">11</span><span class="o">}</span>
+</code></pre></div><p>2.配置</p>
+<p>接下来，要让日志级别生效，还需要配置这个类。有两种方式：</p>
+<ul>
+<li>
+<p><strong>局部</strong>生效：在某个<code>FeignClient</code>中配置，只对当前<code>FeignClient</code>生效</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln">1</span><span class="nd">@FeignClient</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#34;item-service&#34;</span><span class="o">,</span> <span class="n">configuration</span> <span class="o">=</span> <span class="n">DefaultFeignConfig</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</code></pre></div></li>
+<li>
+<p><strong>全局</strong>生效：在<code>@EnableFeignClients</code>中配置，针对所有<code>FeignClient</code>生效。</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln">1</span><span class="nd">@EnableFeignClients</span><span class="o">(</span><span class="n">defaultConfiguration</span> <span class="o">=</span> <span class="n">DefaultFeignConfig</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</code></pre></div></li>
+</ul>
+<h3 id="网关路由">网关路由</h3>
+<p>网关就是<strong>网</strong>络的<strong>关</strong>口。数据在网络间传输，从一个网络传输到另一网络时就需要经过网关来做<strong>数据的路由和转发</strong>以及<strong>数据安全的校验</strong>。</p>
+<p>前端请求不能直接访问微服务，而是要请求网关：</p>
+<ul>
+<li>网关可以做安全控制，也就是登录身份校验，校验通过才放行</li>
+<li>通过认证后，网关再根据请求判断应该访问哪个微服务，将请求转发过去</li>
+</ul>
+<h4 id="快速入门">快速入门</h4>
+<p>创建项目hm-gateway并引入依赖:</p>
+<div class="highlight"><pre class="chroma"><code class="language-XML" data-lang="XML"><span class="ln"> 1</span><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="ln"> 2</span><span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">&#34;http://maven.apache.org/POM/4.0.0&#34;</span>
+<span class="ln"> 3</span>         <span class="na">xmlns:xsi=</span><span class="s">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+<span class="ln"> 4</span>         <span class="na">xsi:schemaLocation=</span><span class="s">&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 5</span>    <span class="nt">&lt;parent&gt;</span>
+<span class="ln"> 6</span>        <span class="nt">&lt;artifactId&gt;</span>hmall<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln"> 7</span>        <span class="nt">&lt;groupId&gt;</span>com.heima<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln"> 8</span>        <span class="nt">&lt;version&gt;</span>1.0.0<span class="nt">&lt;/version&gt;</span>
+<span class="ln"> 9</span>    <span class="nt">&lt;/parent&gt;</span>
+<span class="ln">10</span>    <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+<span class="ln">11</span>
+<span class="ln">12</span>    <span class="nt">&lt;artifactId&gt;</span>hm-gateway<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">13</span>
+<span class="ln">14</span>    <span class="nt">&lt;properties&gt;</span>
+<span class="ln">15</span>        <span class="nt">&lt;maven.compiler.source&gt;</span>11<span class="nt">&lt;/maven.compiler.source&gt;</span>
+<span class="ln">16</span>        <span class="nt">&lt;maven.compiler.target&gt;</span>11<span class="nt">&lt;/maven.compiler.target&gt;</span>
+<span class="ln">17</span>    <span class="nt">&lt;/properties&gt;</span>
+<span class="ln">18</span>    <span class="nt">&lt;dependencies&gt;</span>
+<span class="ln">19</span>        <span class="c">&lt;!--common--&gt;</span>
+<span class="ln">20</span>        <span class="nt">&lt;dependency&gt;</span>
+<span class="ln">21</span>            <span class="nt">&lt;groupId&gt;</span>com.heima<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln">22</span>            <span class="nt">&lt;artifactId&gt;</span>hm-common<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">23</span>            <span class="nt">&lt;version&gt;</span>1.0.0<span class="nt">&lt;/version&gt;</span>
+<span class="ln">24</span>        <span class="nt">&lt;/dependency&gt;</span>
+<span class="ln">25</span>        <span class="c">&lt;!--网关--&gt;</span>
+<span class="ln">26</span>        <span class="nt">&lt;dependency&gt;</span>
+<span class="ln">27</span>            <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln">28</span>            <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-gateway<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">29</span>        <span class="nt">&lt;/dependency&gt;</span>
+<span class="ln">30</span>        <span class="c">&lt;!--nacos discovery--&gt;</span>
+<span class="ln">31</span>        <span class="nt">&lt;dependency&gt;</span>
+<span class="ln">32</span>            <span class="nt">&lt;groupId&gt;</span>com.alibaba.cloud<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln">33</span>            <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">34</span>        <span class="nt">&lt;/dependency&gt;</span>
+<span class="ln">35</span>        <span class="c">&lt;!--负载均衡--&gt;</span>
+<span class="ln">36</span>        <span class="nt">&lt;dependency&gt;</span>
+<span class="ln">37</span>            <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln">38</span>            <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-loadbalancer<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">39</span>        <span class="nt">&lt;/dependency&gt;</span>
+<span class="ln">40</span>    <span class="nt">&lt;/dependencies&gt;</span>
+<span class="ln">41</span>    <span class="nt">&lt;build&gt;</span>
+<span class="ln">42</span>        <span class="nt">&lt;finalName&gt;</span>${project.artifactId}<span class="nt">&lt;/finalName&gt;</span>
+<span class="ln">43</span>        <span class="nt">&lt;plugins&gt;</span>
+<span class="ln">44</span>            <span class="nt">&lt;plugin&gt;</span>
+<span class="ln">45</span>                <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln">46</span>                <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln">47</span>            <span class="nt">&lt;/plugin&gt;</span>
+<span class="ln">48</span>        <span class="nt">&lt;/plugins&gt;</span>
+<span class="ln">49</span>    <span class="nt">&lt;/build&gt;</span>
+<span class="ln">50</span><span class="nt">&lt;/project&gt;</span>
+</code></pre></div><p>创建启动类:</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln"> 1</span><span class="kn">package</span> <span class="nn">com.hmall.gateway</span><span class="o">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="nd">@SpringBootApplication</span>
+<span class="ln"> 7</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GatewayApplication</span> <span class="o">{</span>
+<span class="ln"> 8</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 9</span>        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">GatewayApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+<span class="ln">10</span>    <span class="o">}</span>
+<span class="ln">11</span><span class="o">}</span>
+</code></pre></div><h5 id="配置路由">配置路由</h5>
+<p>在<code>hm-gateway</code>模块的<code>resources</code>目录新建一个<code>application.yaml</code>文件，内容如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="ln"> 1</span><span class="nt">server</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 2</span><span class="w">  </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">8080</span><span class="w">
+</span><span class="ln"> 3</span><span class="w"></span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">  </span><span class="nt">application</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">gateway</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">    </span><span class="nt">nacos</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">      </span><span class="nt">server-addr</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.170.128</span><span class="p">:</span><span class="m">8848</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span><span class="ln">10</span><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span><span class="ln">11</span><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">item-service</span><span class="w"> </span><span class="c"># 路由规则id，自定义，唯一</span><span class="w">
+</span><span class="ln">12</span><span class="w">          </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://item-service</span><span class="w"> </span><span class="c"># 路由的目标服务，lb代表负载均衡，会从注册中心拉取服务列表</span><span class="w">
+</span><span class="ln">13</span><span class="w">          </span><span class="nt">predicates</span><span class="p">:</span><span class="w"> </span><span class="c"># 路由断言，判断当前请求是否符合当前规则，符合则路由到目标服务</span><span class="w">
+</span><span class="ln">14</span><span class="w">            </span>- <span class="l">Path=/items/** </span><span class="w"> </span><span class="c"># 这里是以请求路径作为判断规则</span><span class="w">
+</span><span class="ln">15</span><span class="w">            </span>- <span class="l">Path=/search/**</span><span class="w">
+</span><span class="ln">16</span><span class="w">          </span><span class="nt">filters</span><span class="p">:</span><span class="w">
+</span><span class="ln">17</span><span class="w">            </span>- <span class="l">AddRequestHeader=Truth, anyone workhard will be rich</span><span class="w"> </span><span class="c">#添加请求头的过滤器</span><span class="w">
+</span><span class="ln">18</span><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">user-service</span><span class="w">
+</span><span class="ln">19</span><span class="w">            </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://user-service</span><span class="w">
+</span><span class="ln">20</span><span class="w">            </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span><span class="ln">21</span><span class="w">              </span>- <span class="l">Path=/users/**,/addresses/**</span><span class="w">
+</span><span class="ln">22</span><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">pay-service</span><span class="w">
+</span><span class="ln">23</span><span class="w">            </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://pay-service</span><span class="w">
+</span><span class="ln">24</span><span class="w">            </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span><span class="ln">25</span><span class="w">              </span>- <span class="l">Path=/pay-orders/**</span><span class="w">
+</span><span class="ln">26</span><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">trade-service</span><span class="w">
+</span><span class="ln">27</span><span class="w">            </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://trade-service</span><span class="w">
+</span><span class="ln">28</span><span class="w">            </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span><span class="ln">29</span><span class="w">              </span>- <span class="l">Path=/orders/**</span><span class="w">
+</span><span class="ln">30</span><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">cart-service</span><span class="w">
+</span><span class="ln">31</span><span class="w">            </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://cart-service</span><span class="w">
+</span><span class="ln">32</span><span class="w">            </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span><span class="ln">33</span><span class="w">              </span>- <span class="l">Path=/carts/**</span><span class="w">
+</span></code></pre></div><p>uri中需要是微服务名称, predicates中填入路径, 这样对应路径的请求就会被转发至响应的微服务.</p>
+<p>访问http://localhost:8080/items/page?pageNo=1&amp;pageSize=1, 实际上被转发到item-service微服务中.</p>
+<h4 id="路由过滤">路由过滤</h4>
+<p>路由规则的定义语法如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln">1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln">2</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="ln">3</span><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span><span class="ln">4</span><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span><span class="ln">5</span><span class="w">        </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">item</span><span class="w">
+</span><span class="ln">6</span><span class="w">          </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://item-service</span><span class="w">
+</span><span class="ln">7</span><span class="w">          </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span><span class="ln">8</span><span class="w">            </span>- <span class="l">Path=/items/**,/search/**</span><span class="w">
+</span></code></pre></div><p>其中routes对应的类型是GatewayProperties类,</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="s">&#34;spring.cloud.gateway&#34;</span><span class="o">)</span>
+<span class="ln">2</span><span class="nd">@Validated</span>
+<span class="ln">3</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GatewayProperties</span> <span class="o">{</span>
+<span class="ln">4</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PREFIX</span> <span class="o">=</span> <span class="s">&#34;spring.cloud.gateway&#34;</span><span class="o">;</span>
+<span class="ln">5</span>    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Log</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LogFactory</span><span class="o">.</span><span class="na">getLog</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+<span class="ln">6</span>    <span class="nd">@NotNull</span>
+<span class="ln">7</span>    <span class="nd">@Valid</span>
+<span class="ln">8</span>    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">RouteDefinition</span><span class="o">&gt;</span> <span class="n">routes</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+</code></pre></div><p>是一个集合，也就是说可以定义很多路由规则。集合中的<code>RouteDefinition</code>就是具体的路由规则定义，其中常见的属性如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="nd">@Validated</span>
+<span class="ln"> 2</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RouteDefinition</span> <span class="o">{</span>
+<span class="ln"> 3</span>    <span class="kd">private</span> <span class="n">String</span> <span class="n">id</span><span class="o">;</span>
+<span class="ln"> 4</span>    <span class="nd">@NotEmpty</span>
+<span class="ln"> 5</span>    <span class="nd">@Valid</span>
+<span class="ln"> 6</span>    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">PredicateDefinition</span><span class="o">&gt;</span> <span class="n">predicates</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+<span class="ln"> 7</span>    <span class="nd">@Valid</span>
+<span class="ln"> 8</span>    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">FilterDefinition</span><span class="o">&gt;</span> <span class="n">filters</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">();</span>
+<span class="ln"> 9</span>    <span class="nd">@NotNull</span>
+<span class="ln">10</span>    <span class="kd">private</span> <span class="n">URI</span> <span class="n">uri</span><span class="o">;</span>
+</code></pre></div><p>四个属性含义如下：</p>
+<ul>
+<li><code>id</code>：路由的唯一标示</li>
+<li><code>predicates</code>：路由断言，其实就是匹配条件</li>
+<li><code>filters</code>：路由过滤条件，后面讲</li>
+<li><code>uri</code>：路由目标地址，<code>lb://</code>代表负载均衡，从注册中心获取目标微服务的实例列表，并且负载均衡选择一个访问。</li>
+</ul>
+<p><code>predicates</code>，也就是路由断言。SpringCloudGateway中支持的断言类型有很多：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><strong>名称</strong></th>
+<th style="text-align:left"><strong>说明</strong></th>
+<th style="text-align:left"><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">After</td>
+<td style="text-align:left">是某个时间点后的请求</td>
+<td style="text-align:left">- After=2037-01-20T17:42:47.789-07:00[America/Denver]</td>
+</tr>
+<tr>
+<td style="text-align:left">Before</td>
+<td style="text-align:left">是某个时间点之前的请求</td>
+<td style="text-align:left">- Before=2031-04-13T15:14:47.433+08:00[Asia/Shanghai]</td>
+</tr>
+<tr>
+<td style="text-align:left">Between</td>
+<td style="text-align:left">是某两个时间点之前的请求</td>
+<td style="text-align:left">- Between=2037-01-20T17:42:47.789-07:00[America/Denver], 2037-01-21T17:42:47.789-07:00[America/Denver]</td>
+</tr>
+<tr>
+<td style="text-align:left">Cookie</td>
+<td style="text-align:left">请求必须包含某些cookie</td>
+<td style="text-align:left">- Cookie=chocolate, ch.p</td>
+</tr>
+<tr>
+<td style="text-align:left">Header</td>
+<td style="text-align:left">请求必须包含某些header</td>
+<td style="text-align:left">- Header=X-Request-Id, \d+</td>
+</tr>
+<tr>
+<td style="text-align:left">Host</td>
+<td style="text-align:left">请求必须是访问某个host（域名）</td>
+<td style="text-align:left">- Host=<strong>.somehost.org,</strong>.anotherhost.org</td>
+</tr>
+<tr>
+<td style="text-align:left">Method</td>
+<td style="text-align:left">请求方式必须是指定方式</td>
+<td style="text-align:left">- Method=GET,POST</td>
+</tr>
+<tr>
+<td style="text-align:left">Path</td>
+<td style="text-align:left">请求路径必须符合指定规则</td>
+<td style="text-align:left">- Path=/red/{segment},/blue/**</td>
+</tr>
+<tr>
+<td style="text-align:left">Query</td>
+<td style="text-align:left">请求参数必须包含指定参数</td>
+<td style="text-align:left">- Query=name, Jack或者- Query=name</td>
+</tr>
+<tr>
+<td style="text-align:left">RemoteAddr</td>
+<td style="text-align:left">请求者的ip必须是指定范围</td>
+<td style="text-align:left">- RemoteAddr=192.168.1.1/24</td>
+</tr>
+<tr>
+<td style="text-align:left">weight</td>
+<td style="text-align:left">权重处理</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="网关登录校验">网关登录校验</h3>
+<p>我们的登录是基于JWT来实现的，校验JWT的算法复杂，而且需要用到秘钥。如果每个微服务都去做登录校验，这就存在着两大问题：</p>
+<ul>
+<li>每个微服务都需要知道JWT的秘钥，不安全</li>
+<li>每个微服务重复编写登录校验代码、权限校验代码，麻烦</li>
+</ul>
+<p>既然网关是所有微服务的入口，一切请求都需要先经过网关。我们：</p>
+<ul>
+<li>只需要在网关和用户服务保存秘钥</li>
+<li>只需要在网关开发登录校验功能</li>
+</ul>
+<h4 id="网关过滤器">网关过滤器</h4>
+<p>想在请求转发之前做登录校验，就必须了解<code>Gateway</code>内部工作的基本原理。</p>
+<ol>
+<li>客户端请求进入网关后由<code>HandlerMapping</code>对请求做判断，找到与当前请求匹配的路由规则（<strong><code>Route</code></strong>），然后将请求交给<code>WebHandler</code>去处理。</li>
+<li><code>WebHandler</code>则会加载当前路由下需要执行的过滤器链（<strong><code>Filter chain</code></strong>），然后按照顺序逐一执行过滤器（后面称为**<code>Filter</code>**）。</li>
+<li><code>Filter</code>分为两部分，是因为<code>Filter</code>内部的逻辑分为<code>pre</code>和<code>post</code>两部分，分别会在请求路由到微服务<strong>之前</strong>和<strong>之后</strong>被执行。</li>
+<li>只有所有<code>Filter</code>的<code>pre</code>逻辑都依次顺序执行通过后，请求才会被路由到微服务。</li>
+<li>微服务返回结果后，再倒序执行<code>Filter</code>的<code>post</code>逻辑。</li>
+<li>最终把响应结果返回。</li>
+</ol>
+<p>最终请求转发是有一个名为<code>NettyRoutingFilter</code>的过滤器来执行的，而且这个过滤器是整个过滤器链中顺序最靠后的一个。如果我们能够定义一个过滤器，在其中实现登录校验逻辑，并且将过滤器<strong>执行顺序定义到<code>NettyRoutingFilter</code>之前</strong>，这就符合我们的需求了</p>
+<p>那么，该如何实现一个网关过滤器呢？</p>
+<p>网关过滤器链中的过滤器有两种：</p>
+<ul>
+<li><strong><code>GatewayFilter</code></strong>：路由过滤器，作用范围比较灵活，可以是任意指定的路由<code>Route</code>.</li>
+<li><strong><code>GlobalFilter</code></strong>：全局过滤器，作用范围是所有路由，不可配置。</li>
+</ul>
+<p><code>GatewayFilter</code>和<code>GlobalFilter</code>这两种过滤器的方法签名完全一致：</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln">1</span><span class="cm">/**
+</span><span class="ln">2</span><span class="cm"> * 处理请求并将其传递给下一个过滤器
+</span><span class="ln">3</span><span class="cm"> * @param exchange 当前请求的上下文，其中包含request、response等各种数据
+</span><span class="ln">4</span><span class="cm"> * @param chain 过滤器链，基于它向下传递请求
+</span><span class="ln">5</span><span class="cm"> * @return 根据返回值标记当前请求是否被完成或拦截，chain.filter(exchange)就放行了。
+</span><span class="ln">6</span><span class="cm"> */</span>
+<span class="ln">7</span><span class="n">Mono</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="nf">filter</span><span class="o">(</span><span class="n">ServerWebExchange</span> <span class="n">exchange</span><span class="o">,</span> <span class="n">GatewayFilterChain</span> <span class="n">chain</span><span class="o">);</span>
+</code></pre></div><p><code>Gateway</code>内置的<code>GatewayFilter</code>过滤器使用起来非常简单，无需编码，只要在yaml文件中简单配置即可。而且其作用范围也很灵活，配置在哪个<code>Route</code>下，就作用于哪个<code>Route</code>.</p>
+<p>例如，有一个过滤器叫做<code>AddRequestHeaderGatewayFilterFacotry</code>，顾明思议，就是添加请求头的过滤器，可以给请求添加一个请求头并传递到下游微服务。</p>
+<p>使用的使用只需要在application.yaml中这样配置：</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln"> 1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 2</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 3</span><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">test_route</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">        </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://test-service</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">        </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">          </span>-<span class="l">Path=/test/**</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">        </span><span class="nt">filters</span><span class="p">:</span><span class="w">
+</span><span class="ln">10</span><span class="w">          </span>- <span class="l">AddRequestHeader=key, value</span><span class="w"> </span><span class="c"># 逗号之前是请求头的key，逗号之后是value</span><span class="w">
+</span></code></pre></div><p>如果想要让过滤器作用于所有的路由，则可以这样配置：</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln"> 1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 2</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 3</span><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">      </span><span class="nt">default-filters</span><span class="p">:</span><span class="w"> </span><span class="c"># default-filters下的过滤器可以作用于所有路由</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">        </span>- <span class="l">AddRequestHeader=key, value</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">      </span><span class="nt">routes</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">test_route</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">        </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l">lb://test-service</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">        </span><span class="nt">predicates</span><span class="p">:</span><span class="w">
+</span><span class="ln">10</span><span class="w">          </span>-<span class="l">Path=/test/**</span><span class="w">
+</span></code></pre></div><h4 id="自定义过滤器">自定义过滤器</h4>
+<p>无论是<code>GatewayFilter</code>还是<code>GlobalFilter</code>都支持自定义，只不过<strong>编码</strong>方式、<strong>使用</strong>方式略有差别。</p>
+<p>自定义过滤器过滤器还可以支持动态配置参数，不过实现起来比较复杂，示例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span>
+<span class="ln"> 2</span><span class="nd">@Component</span>
+<span class="ln"> 3</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintAnyGatewayFilterFactory</span> <span class="c1">// 父类泛型是内部类的Config类型
+</span><span class="ln"> 4</span><span class="c1"></span>                <span class="kd">extends</span> <span class="n">AbstractGatewayFilterFactory</span><span class="o">&lt;</span><span class="n">PrintAnyGatewayFilterFactory</span><span class="o">.</span><span class="na">Config</span><span class="o">&gt;</span> <span class="o">{</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>    <span class="nd">@Override</span>
+<span class="ln"> 7</span>    <span class="kd">public</span> <span class="n">GatewayFilter</span> <span class="nf">apply</span><span class="o">(</span><span class="n">Config</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 8</span>        <span class="c1">// OrderedGatewayFilter是GatewayFilter的子类，包含两个参数：
+</span><span class="ln"> 9</span><span class="c1"></span>        <span class="c1">// - GatewayFilter：过滤器
+</span><span class="ln">10</span><span class="c1"></span>        <span class="c1">// - int order值：值越小，过滤器执行优先级越高
+</span><span class="ln">11</span><span class="c1"></span>        <span class="k">return</span> <span class="k">new</span> <span class="n">OrderedGatewayFilter</span><span class="o">(</span><span class="k">new</span> <span class="n">GatewayFilter</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln">12</span>            <span class="nd">@Override</span>
+<span class="ln">13</span>            <span class="kd">public</span> <span class="n">Mono</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="nf">filter</span><span class="o">(</span><span class="n">ServerWebExchange</span> <span class="n">exchange</span><span class="o">,</span> <span class="n">GatewayFilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">14</span>                <span class="c1">// 获取config值
+</span><span class="ln">15</span><span class="c1"></span>                <span class="n">String</span> <span class="n">a</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">getA</span><span class="o">();</span>
+<span class="ln">16</span>                <span class="n">String</span> <span class="n">b</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">getB</span><span class="o">();</span>
+<span class="ln">17</span>                <span class="n">String</span> <span class="n">c</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">getC</span><span class="o">();</span>
+<span class="ln">18</span>                <span class="c1">// 编写过滤器逻辑
+</span><span class="ln">19</span><span class="c1"></span>                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;a = &#34;</span> <span class="o">+</span> <span class="n">a</span><span class="o">);</span>
+<span class="ln">20</span>                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;b = &#34;</span> <span class="o">+</span> <span class="n">b</span><span class="o">);</span>
+<span class="ln">21</span>                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;c = &#34;</span> <span class="o">+</span> <span class="n">c</span><span class="o">);</span>
+<span class="ln">22</span>                <span class="c1">// 放行
+</span><span class="ln">23</span><span class="c1"></span>                <span class="k">return</span> <span class="n">chain</span><span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">exchange</span><span class="o">);</span>
+<span class="ln">24</span>            <span class="o">}</span>
+<span class="ln">25</span>        <span class="o">},</span> <span class="n">100</span><span class="o">);</span>
+<span class="ln">26</span>    <span class="o">}</span>
+<span class="ln">27</span>
+<span class="ln">28</span>    <span class="c1">// 自定义配置属性，成员变量名称很重要，下面会用到
+</span><span class="ln">29</span><span class="c1"></span>    <span class="nd">@Data</span>
+<span class="ln">30</span>    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Config</span><span class="o">{</span>
+<span class="ln">31</span>        <span class="kd">private</span> <span class="n">String</span> <span class="n">a</span><span class="o">;</span>
+<span class="ln">32</span>        <span class="kd">private</span> <span class="n">String</span> <span class="n">b</span><span class="o">;</span>
+<span class="ln">33</span>        <span class="kd">private</span> <span class="n">String</span> <span class="n">c</span><span class="o">;</span>
+<span class="ln">34</span>    <span class="o">}</span>
+<span class="ln">35</span>    <span class="c1">// 将变量名称依次返回，顺序很重要，将来读取参数时需要按顺序获取
+</span><span class="ln">36</span><span class="c1"></span>    <span class="nd">@Override</span>
+<span class="ln">37</span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">shortcutFieldOrder</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln">38</span>        <span class="k">return</span> <span class="n">List</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">&#34;a&#34;</span><span class="o">,</span> <span class="s">&#34;b&#34;</span><span class="o">,</span> <span class="s">&#34;c&#34;</span><span class="o">);</span>
+<span class="ln">39</span>    <span class="o">}</span>
+<span class="ln">40</span>        <span class="c1">// 返回当前配置类的类型，也就是内部的Config
+</span><span class="ln">41</span><span class="c1"></span>    <span class="nd">@Override</span>
+<span class="ln">42</span>    <span class="kd">public</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">Config</span><span class="o">&gt;</span> <span class="nf">getConfigClass</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln">43</span>        <span class="k">return</span> <span class="n">Config</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+<span class="ln">44</span>    <span class="o">}</span>
+<span class="ln">45</span>
+<span class="ln">46</span><span class="o">}</span>
+</code></pre></div><p>然后在yaml文件中使用：</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln">1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln">2</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="ln">3</span><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span><span class="ln">4</span><span class="w">      </span><span class="nt">default-filters</span><span class="p">:</span><span class="w">
+</span><span class="ln">5</span><span class="w">            </span>- <span class="l">PrintAny=1,2,3</span><span class="w"> </span><span class="c"># 注意，这里多个参数以&#34;,&#34;隔开，将来会按照shortcutFieldOrder()方法返回的参数顺序依次复制</span><span class="w">
+</span></code></pre></div><p>上面这种配置方式参数必须严格按照shortcutFieldOrder()方法的返回参数名顺序来赋值。</p>
+<p>还有一种用法，无需按照这个顺序，就是手动指定参数名：</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln">1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln">2</span><span class="w">  </span><span class="nt">cloud</span><span class="p">:</span><span class="w">
+</span><span class="ln">3</span><span class="w">    </span><span class="nt">gateway</span><span class="p">:</span><span class="w">
+</span><span class="ln">4</span><span class="w">      </span><span class="nt">default-filters</span><span class="p">:</span><span class="w">
+</span><span class="ln">5</span><span class="w">            </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PrintAny</span><span class="w">
+</span><span class="ln">6</span><span class="w">              </span><span class="nt">args</span><span class="p">:</span><span class="w"> </span><span class="c"># 手动指定参数名，无需按照参数顺序</span><span class="w">
+</span><span class="ln">7</span><span class="w">                </span><span class="nt">a</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span><span class="ln">8</span><span class="w">                </span><span class="nt">b</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span><span class="ln">9</span><span class="w">                </span><span class="nt">c</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></code></pre></div><h4 id="自定义globalfilter">自定义GlobalFilter</h4>
+<p>自定义GlobalFilter则简单很多，直接实现GlobalFilter即可，而且也无法设置动态参数：</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln"> 1</span><span class="nd">@Component</span>
+<span class="ln"> 2</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrintAnyGlobalFilter</span> <span class="kd">implements</span> <span class="n">GlobalFilter</span><span class="o">,</span> <span class="n">Ordered</span> <span class="o">{</span>
+<span class="ln"> 3</span>    <span class="nd">@Override</span>
+<span class="ln"> 4</span>    <span class="kd">public</span> <span class="n">Mono</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="nf">filter</span><span class="o">(</span><span class="n">ServerWebExchange</span> <span class="n">exchange</span><span class="o">,</span> <span class="n">GatewayFilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 5</span>        <span class="c1">// 编写过滤器逻辑
+</span><span class="ln"> 6</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;未登录，无法访问&#34;</span><span class="o">);</span>
+<span class="ln"> 7</span>        <span class="c1">// 放行
+</span><span class="ln"> 8</span><span class="c1"></span>        <span class="c1">// return chain.filter(exchange);
+</span><span class="ln"> 9</span><span class="c1"></span>
+<span class="ln">10</span>        <span class="c1">// 拦截
+</span><span class="ln">11</span><span class="c1"></span>        <span class="n">ServerHttpResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">exchange</span><span class="o">.</span><span class="na">getResponse</span><span class="o">();</span>
+<span class="ln">12</span>        <span class="n">response</span><span class="o">.</span><span class="na">setRawStatusCode</span><span class="o">(</span><span class="n">401</span><span class="o">);</span>
+<span class="ln">13</span>        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="na">setComplete</span><span class="o">();</span>
+<span class="ln">14</span>    <span class="o">}</span>
+<span class="ln">15</span>
+<span class="ln">16</span>    <span class="nd">@Override</span>
+<span class="ln">17</span>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getOrder</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln">18</span>        <span class="c1">// 过滤器执行顺序，值越小，优先级越高
+</span><span class="ln">19</span><span class="c1"></span>        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">20</span>    <span class="o">}</span>
+<span class="ln">21</span><span class="o">}</span>
+</code></pre></div><h4 id="登录校验">登录校验</h4></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/java-1-thread/">Java多线程
 </a>
@@ -1459,13 +2190,13 @@
   </div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
+  <ul><li><a href="/posts/tech/java-0-audition-2/">京东笔试准备
+</a></li><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
 </a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
 </a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
 </a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
 </a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
 </a></li><li><a href="/posts/tech/java-1-thread/">Java多线程
-</a></li><li><a href="/posts/tech/java-0-audition/">面试准备-Spring
 </a></li></ul>
 </section><section class="taxonomy-categories row surface">
       <h4>
@@ -1474,7 +2205,7 @@
       <div><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
           二次元 <span class="badge rounded-pill">24</span>
         </a><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
-          计算机 <span class="badge rounded-pill">13</span>
+          计算机 <span class="badge rounded-pill">14</span>
         </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
           文字类 <span class="badge rounded-pill">6</span>
         </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
@@ -1489,7 +2220,7 @@
         </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
           Galgame <span class="badge rounded-pill">9</span>
         </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
-          Java <span class="badge rounded-pill">7</span>
+          Java <span class="badge rounded-pill">8</span>
         </a><a href="/series/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机学习笔记">
           计算机学习笔记 <span class="badge rounded-pill">2</span>
         </a></div>

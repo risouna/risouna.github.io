@@ -12,14 +12,14 @@
 <meta name="description" content="" /><meta itemprop="name" content="项目: swagger的自动装配">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-08-03T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-08-03T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2922">
+<meta itemprop="wordCount" content="4388">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="项目: swagger的自动装配" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/tech/java-6-autoconfiguration/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-08-03T00:00:00&#43;00:00" />
 <meta property="article:modified_time" content="2024-08-03T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
-<meta property="og:see_also" content="/posts/tech/java-5-algorithm/" /><meta property="og:see_also" content="/posts/tech/java-4-basic/" /><meta property="og:see_also" content="/posts/tech/java-2-mysql/" /><meta property="og:see_also" content="/posts/tech/java-3-spring-cloud/" /><meta property="og:see_also" content="/posts/tech/java-1-thread/" />
+<meta property="og:see_also" content="/posts/tech/java-0-audition-2/" /><meta property="og:see_also" content="/posts/tech/java-5-algorithm/" /><meta property="og:see_also" content="/posts/tech/java-4-basic/" /><meta property="og:see_also" content="/posts/tech/java-2-mysql/" /><meta property="og:see_also" content="/posts/tech/java-3-spring-cloud/" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="项目: swagger的自动装配"/>
@@ -155,7 +155,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-08-03
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>6 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>9 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
 
@@ -173,7 +173,7 @@
   <div class="offcanvas-body">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#springboot自动配置原理">SpringBoot自动配置原理</a>
+    <li><a href="#一-springboot自动配置原理">一, SpringBoot自动配置原理</a>
       <ul>
         <li><a href="#自动装配和自动配置">自动装配和自动配置</a></li>
         <li><a href="#springboot的启动流程">SpringBoot的启动流程</a></li>
@@ -182,6 +182,11 @@
         <li><a href="#springboot自动配置原理剖析">SpringBoot自动配置原理剖析</a></li>
         <li><a href="#总结">总结</a></li>
         <li><a href="#理解redis自动配置">理解Redis自动配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#二-springboot自动配置实战案例">二, SpringBoot自动配置实战案例</a>
+      <ul>
+        <li><a href="#什么是starter">什么是Starter</a></li>
       </ul>
     </li>
     <li><a href="#swagger的配置类">Swagger的配置类</a></li>
@@ -194,7 +199,8 @@
 <p><a href="https://www.bilibili.com/video/BV1NY411P7VX?vd_source=0885d58575f3c82f15a5a40588fe0cd5">https://www.bilibili.com/video/BV1NY411P7VX?vd_source=0885d58575f3c82f15a5a40588fe0cd5</a></p>
 <p><a href="https://github.com/HelloWorld521/swagger2-boot-starter/tree/master/swagger2-boot-starter">https://github.com/HelloWorld521/swagger2-boot-starter/tree/master/swagger2-boot-starter</a></p>
 <p><a href="https://www.cnblogs.com/progor/p/13297904.html">https://www.cnblogs.com/progor/p/13297904.html</a></p>
-<h2 id="springboot自动配置原理">SpringBoot自动配置原理</h2>
+<p><a href="https://blog.csdn.net/cj151525/article/details/140099389">https://blog.csdn.net/cj151525/article/details/140099389</a></p>
+<h2 id="一-springboot自动配置原理">一, SpringBoot自动配置原理</h2>
 <h3 id="自动装配和自动配置">自动装配和自动配置</h3>
 <p>自动配置(Auto-Configuration): 基于引入的依赖Jar包, 对SpringBoot应用进行自动配置.</p>
 <p>自动装配(Autowire): Spring中的依赖注入.</p>
@@ -319,14 +325,225 @@
 </div>
 <h3 id="理解redis自动配置">理解Redis自动配置</h3>
 <p>spring-boot-starter-data-redis依赖了spring-boot-starter和spring-data-redis(工具类库Jar包, 定义了RedisTemplate等常用类), spring-boot-starter依赖了spring-boot-autoconfigure是SpringBoot内置的自动配置列的Jar包, 包含了spring.factories文件, 这里面就有很多redis的自动配置类类名.</p>
+<h2 id="二-springboot自动配置实战案例">二, SpringBoot自动配置实战案例</h2>
+<h3 id="什么是starter">什么是Starter</h3>
+<p>Starter是一站式服务(one-step)的依赖jar包:</p>
+<ul>
+<li>包含Spring以及相关技术(比如Redis)的所有依赖</li>
+<li>提供了自动配置的功能, 开箱即用</li>
+<li>提供了良好的依赖管理, 避免了包遗漏, 版本冲突的问题</li>
+</ul>
+<h4 id="starter的结构图">Starter的结构图</h4>
+<div align=center>
+<img src="/images/java-6-autoconfiguration-3.png"  width="75%" />  
+</div>
+<p>Starter项目主要由两个模块构成: starter module和autoConfigure module(里面又包括自动配置类, 配置文件spring.factories, 自定义的配置项). starter module会依赖第三方组件的Jar包, 而autoConfigure module是可选依赖(Optional)第三方Jar包的.</p>
+<p>可选依赖(Optional的作用: 阻断依赖传递.</p>
+<p>如项目A可选依赖项目B, 那么使用Maven编译项目A时, 会将项目B添加到项目A的classpath中 ,此时可选依赖和普通依赖的表现是一致的</p>
+<p>这时如果项目X依赖于项目A,  使用Maven编译项目X时, 项目B是不会被添加到项目X的classpath中的, 除非项目X直接依赖项目B.</p>
 <h2 id="swagger的配置类">Swagger的配置类</h2>
-<h2 id="进行swagger的自动配置">进行Swagger的自动配置</h2>
+<p>添加依赖包:</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln"> 1</span>        <span class="nt">&lt;dependency&gt;</span>
+<span class="ln"> 2</span>            <span class="nt">&lt;groupId&gt;</span>io.springfox<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln"> 3</span>            <span class="nt">&lt;artifactId&gt;</span>springfox-swagger2<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln"> 4</span>            <span class="nt">&lt;version&gt;</span>2.9.2<span class="nt">&lt;/version&gt;</span>
+<span class="ln"> 5</span>        <span class="nt">&lt;/dependency&gt;</span>
+<span class="ln"> 6</span>        <span class="nt">&lt;dependency&gt;</span>
+<span class="ln"> 7</span>            <span class="nt">&lt;groupId&gt;</span>io.springfox<span class="nt">&lt;/groupId&gt;</span>
+<span class="ln"> 8</span>            <span class="nt">&lt;artifactId&gt;</span>springfox-swagger-ui<span class="nt">&lt;/artifactId&gt;</span>
+<span class="ln"> 9</span>            <span class="nt">&lt;version&gt;</span>2.9.2<span class="nt">&lt;/version&gt;</span>
+<span class="ln">10</span>        <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div><p>配置类:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kn">package</span> <span class="nn">com.example.config</span><span class="o">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="ln"> 5</span><span class="kn">import</span> <span class="nn">springfox.documentation.builders.ApiInfoBuilder</span><span class="o">;</span>
+<span class="ln"> 6</span><span class="kn">import</span> <span class="nn">springfox.documentation.builders.PathSelectors</span><span class="o">;</span>
+<span class="ln"> 7</span><span class="kn">import</span> <span class="nn">springfox.documentation.builders.RequestHandlerSelectors</span><span class="o">;</span>
+<span class="ln"> 8</span><span class="kn">import</span> <span class="nn">springfox.documentation.service.ApiInfo</span><span class="o">;</span>
+<span class="ln"> 9</span><span class="kn">import</span> <span class="nn">springfox.documentation.spi.DocumentationType</span><span class="o">;</span>
+<span class="ln">10</span><span class="kn">import</span> <span class="nn">springfox.documentation.spring.web.plugins.Docket</span><span class="o">;</span>
+<span class="ln">11</span><span class="kn">import</span> <span class="nn">springfox.documentation.swagger2.annotations.EnableSwagger2</span><span class="o">;</span>
+<span class="ln">12</span>
+<span class="ln">13</span>
+<span class="ln">14</span><span class="nd">@Configuration</span> <span class="c1">// 标明是配置类
+</span><span class="ln">15</span><span class="c1"></span><span class="nd">@EnableSwagger2</span> <span class="c1">//开启swagger功能
+</span><span class="ln">16</span><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SwaggerConfig</span> <span class="o">{</span>
+<span class="ln">17</span>    <span class="nd">@Bean</span>
+<span class="ln">18</span>    <span class="kd">public</span> <span class="n">Docket</span> <span class="nf">createRestApi</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln">19</span>        <span class="k">return</span> <span class="k">new</span> <span class="n">Docket</span><span class="o">(</span><span class="n">DocumentationType</span><span class="o">.</span><span class="na">SWAGGER_2</span><span class="o">)</span>  <span class="c1">// DocumentationType.SWAGGER_2 固定的，代表swagger2
+</span><span class="ln">20</span><span class="c1">//                .groupName(&#34;分布式任务系统&#34;) // 如果配置多个文档的时候，那么需要配置groupName来分组标识
+</span><span class="ln">21</span><span class="c1"></span>                <span class="o">.</span><span class="na">apiInfo</span><span class="o">(</span><span class="n">apiInfo</span><span class="o">())</span> <span class="c1">// 用于生成API信息
+</span><span class="ln">22</span><span class="c1"></span>                <span class="o">.</span><span class="na">select</span><span class="o">()</span> <span class="c1">// select()函数返回一个ApiSelectorBuilder实例,用来控制接口被swagger做成文档
+</span><span class="ln">23</span><span class="c1"></span>                <span class="o">.</span><span class="na">apis</span><span class="o">(</span><span class="n">RequestHandlerSelectors</span><span class="o">.</span><span class="na">basePackage</span><span class="o">(</span><span class="s">&#34;com.example.controller&#34;</span><span class="o">))</span> <span class="c1">// 用于指定扫描哪个包下的接口
+</span><span class="ln">24</span><span class="c1"></span>                <span class="o">.</span><span class="na">paths</span><span class="o">(</span><span class="n">PathSelectors</span><span class="o">.</span><span class="na">any</span><span class="o">())</span><span class="c1">// 选择所有的API,如果你想只为部分API生成文档，可以配置这里
+</span><span class="ln">25</span><span class="c1"></span>                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="ln">26</span>    <span class="o">}</span>
+<span class="ln">27</span>
+<span class="ln">28</span>    <span class="cm">/**
+</span><span class="ln">29</span><span class="cm">     * 用于定义API主界面的信息，比如可以声明所有的API的总标题、描述、版本
+</span><span class="ln">30</span><span class="cm">     * @return
+</span><span class="ln">31</span><span class="cm">     */</span>
+<span class="ln">32</span>    <span class="kd">private</span> <span class="n">ApiInfo</span> <span class="nf">apiInfo</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln">33</span>        <span class="k">return</span> <span class="k">new</span> <span class="n">ApiInfoBuilder</span><span class="o">()</span>
+<span class="ln">34</span>                <span class="o">.</span><span class="na">title</span><span class="o">(</span><span class="s">&#34;XX项目API&#34;</span><span class="o">)</span> <span class="c1">//  可以用来自定义API的主标题
+</span><span class="ln">35</span><span class="c1"></span>                <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="s">&#34;XX项目SwaggerAPI管理&#34;</span><span class="o">)</span> <span class="c1">// 可以用来描述整体的API
+</span><span class="ln">36</span><span class="c1"></span>                <span class="o">.</span><span class="na">termsOfServiceUrl</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">)</span> <span class="c1">// 用于定义服务的域名
+</span><span class="ln">37</span><span class="c1"></span>                <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="s">&#34;1.0&#34;</span><span class="o">)</span> <span class="c1">// 可以用来定义版本。
+</span><span class="ln">38</span><span class="c1"></span>                <span class="o">.</span><span class="na">build</span><span class="o">();</span> <span class="c1">//
+</span><span class="ln">39</span><span class="c1"></span>    <span class="o">}</span>
+<span class="ln">40</span><span class="o">}</span>
+<span class="ln">41</span>
+</code></pre></div><h2 id="进行swagger的自动配置">进行Swagger的自动配置</h2>
+<p>spring.factories:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+<span class="ln">2</span>com.moming.swagger.autoconfigure.Swagger2AutoConfiguration
+</code></pre></div><p>配置文件:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kn">package</span> <span class="nn">com.moming.swagger.properties</span><span class="o">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">lombok.Data</span><span class="o">;</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="nn">org.springframework.boot.context.properties.ConfigurationProperties</span><span class="o">;</span>
+<span class="ln"> 5</span><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="ln"> 6</span><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.DependsOn</span><span class="o">;</span>
+<span class="ln"> 7</span><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Import</span><span class="o">;</span>
+<span class="ln"> 8</span><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="kn">import</span> <span class="nn">java.util.LinkedHashMap</span><span class="o">;</span>
+<span class="ln">11</span><span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="ln">12</span>
+<span class="ln">13</span><span class="cm">/**
+</span><span class="ln">14</span><span class="cm"> * 读取 application 配置文件
+</span><span class="ln">15</span><span class="cm"> *
+</span><span class="ln">16</span><span class="cm"> * @author hjy
+</span><span class="ln">17</span><span class="cm"> **/</span>
+<span class="ln">18</span><span class="nd">@Data</span>
+<span class="ln">19</span><span class="nd">@Component</span>
+<span class="ln">20</span><span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="s">&#34;swagger2&#34;</span><span class="o">)</span>
+<span class="ln">21</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Swagger2Properties</span> <span class="o">{</span>
+<span class="ln">22</span>
+<span class="ln">23</span>    <span class="cm">/**
+</span><span class="ln">24</span><span class="cm">     * 分组
+</span><span class="ln">25</span><span class="cm">     */</span>
+<span class="ln">26</span>    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">GroupInfo</span><span class="o">&gt;</span> <span class="n">groups</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">&lt;&gt;();</span>
+<span class="ln">27</span>
+<span class="ln">28</span>
+<span class="ln">29</span>    <span class="nd">@Data</span>
+<span class="ln">30</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">GroupInfo</span> <span class="o">{</span>
+<span class="ln">31</span>        <span class="cm">/**
+</span><span class="ln">32</span><span class="cm">         * swagger 会解析的包路径
+</span><span class="ln">33</span><span class="cm">         */</span>
+<span class="ln">34</span>        <span class="kd">private</span> <span class="n">String</span> <span class="n">basePackage</span><span class="o">;</span>
+<span class="ln">35</span>
+<span class="ln">36</span>        <span class="cm">/**
+</span><span class="ln">37</span><span class="cm">         * title
+</span><span class="ln">38</span><span class="cm">         */</span>
+<span class="ln">39</span>        <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+<span class="ln">40</span>
+<span class="ln">41</span>        <span class="cm">/**
+</span><span class="ln">42</span><span class="cm">         * swagger 组相关说明
+</span><span class="ln">43</span><span class="cm">         */</span>
+<span class="ln">44</span>        <span class="kd">private</span> <span class="n">String</span> <span class="n">description</span><span class="o">;</span>
+<span class="ln">45</span>    <span class="o">}</span>
+<span class="ln">46</span><span class="o">}</span>
+<span class="ln">47</span>
+</code></pre></div><p>自动配置类:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kn">package</span> <span class="nn">com.moming.swagger.autoconfigure</span><span class="o">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">com.moming.swagger.properties.Swagger2Properties</span><span class="o">;</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="nn">org.springframework.beans.BeansException</span><span class="o">;</span>
+<span class="ln"> 5</span><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.BeanFactory</span><span class="o">;</span>
+<span class="ln"> 6</span><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.BeanFactoryAware</span><span class="o">;</span>
+<span class="ln"> 7</span><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.config.ConfigurableBeanFactory</span><span class="o">;</span>
+<span class="ln"> 8</span><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="ln"> 9</span><span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Configuration</span><span class="o">;</span>
+<span class="ln">10</span><span class="kn">import</span> <span class="nn">springfox.documentation.builders.ApiInfoBuilder</span><span class="o">;</span>
+<span class="ln">11</span><span class="kn">import</span> <span class="nn">springfox.documentation.builders.PathSelectors</span><span class="o">;</span>
+<span class="ln">12</span><span class="kn">import</span> <span class="nn">springfox.documentation.builders.RequestHandlerSelectors</span><span class="o">;</span>
+<span class="ln">13</span><span class="kn">import</span> <span class="nn">springfox.documentation.service.ApiInfo</span><span class="o">;</span>
+<span class="ln">14</span><span class="kn">import</span> <span class="nn">springfox.documentation.spi.DocumentationType</span><span class="o">;</span>
+<span class="ln">15</span><span class="kn">import</span> <span class="nn">springfox.documentation.spring.web.plugins.Docket</span><span class="o">;</span>
+<span class="ln">16</span><span class="kn">import</span> <span class="nn">springfox.documentation.swagger2.annotations.EnableSwagger2</span><span class="o">;</span>
+<span class="ln">17</span>
+<span class="ln">18</span><span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="ln">19</span><span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="ln">20</span>
+<span class="ln">21</span><span class="cm">/**
+</span><span class="ln">22</span><span class="cm"> * 1. 读取配置文件
+</span><span class="ln">23</span><span class="cm"> * 2. 将配置文件内容赋值到 swagger 的 Docket 对象
+</span><span class="ln">24</span><span class="cm"> * 3. 将 Docket 依次注入到 bean 中 （需要实现 BeanFactoryAware 获取beanFatory）
+</span><span class="ln">25</span><span class="cm"> * 关键是对组的操作
+</span><span class="ln">26</span><span class="cm"> *
+</span><span class="ln">27</span><span class="cm"> * @author hjy
+</span><span class="ln">28</span><span class="cm"> **/</span>
+<span class="ln">29</span><span class="nd">@Configuration</span>
+<span class="ln">30</span><span class="nd">@EnableSwagger2</span>
+<span class="ln">31</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Swagger2AutoConfiguration</span> <span class="kd">implements</span> <span class="n">BeanFactoryAware</span> <span class="o">{</span>
+<span class="ln">32</span>
+<span class="ln">33</span>    <span class="kd">private</span> <span class="n">BeanFactory</span> <span class="n">beanFactory</span><span class="o">;</span>
+<span class="ln">34</span>
+<span class="ln">35</span>    <span class="cm">/**
+</span><span class="ln">36</span><span class="cm">     * 获取 beanFactroy
+</span><span class="ln">37</span><span class="cm">     * @param beanFactory beanFactory
+</span><span class="ln">38</span><span class="cm">     * @throws BeansException BeansException
+</span><span class="ln">39</span><span class="cm">     */</span>
+<span class="ln">40</span>    <span class="nd">@Override</span>
+<span class="ln">41</span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setBeanFactory</span><span class="o">(</span><span class="n">BeanFactory</span> <span class="n">beanFactory</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">BeansException</span> <span class="o">{</span>
+<span class="ln">42</span>        <span class="k">this</span><span class="o">.</span><span class="na">beanFactory</span> <span class="o">=</span> <span class="n">beanFactory</span><span class="o">;</span>
+<span class="ln">43</span>    <span class="o">}</span>
+<span class="ln">44</span>
+<span class="ln">45</span>    <span class="nd">@Bean</span>
+<span class="ln">46</span>    <span class="kd">public</span> <span class="n">Swagger2Properties</span> <span class="nf">properties</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln">47</span>        <span class="k">return</span> <span class="k">new</span> <span class="n">Swagger2Properties</span><span class="o">();</span>
+<span class="ln">48</span>    <span class="o">}</span>
+<span class="ln">49</span>
+<span class="ln">50</span>
+<span class="ln">51</span>    <span class="nd">@Bean</span><span class="o">(</span><span class="s">&#34;createRestOpenApi&#34;</span><span class="o">)</span>
+<span class="ln">52</span>    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Docket</span><span class="o">&gt;</span> <span class="nf">createRestOpenApi</span><span class="o">(</span><span class="n">Swagger2Properties</span> <span class="n">properties</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">53</span>        <span class="n">ConfigurableBeanFactory</span> <span class="n">configurableBeanFactory</span> <span class="o">=</span> <span class="o">(</span><span class="n">ConfigurableBeanFactory</span><span class="o">)</span> <span class="n">beanFactory</span><span class="o">;</span>
+<span class="ln">54</span>        <span class="n">List</span><span class="o">&lt;</span><span class="n">Docket</span><span class="o">&gt;</span> <span class="n">docketList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+<span class="ln">55</span>        <span class="c1">// swagger 配置
+</span><span class="ln">56</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">groupName</span> <span class="o">:</span> <span class="n">properties</span><span class="o">.</span><span class="na">getGroups</span><span class="o">().</span><span class="na">keySet</span><span class="o">())</span> <span class="o">{</span>
+<span class="ln">57</span>            <span class="n">Swagger2Properties</span><span class="o">.</span><span class="na">GroupInfo</span> <span class="n">groupInfo</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="na">getGroups</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">groupName</span><span class="o">);</span>
+<span class="ln">58</span>            <span class="n">String</span> <span class="n">basePackage</span> <span class="o">=</span> <span class="n">groupInfo</span><span class="o">.</span><span class="na">getBasePackage</span><span class="o">();</span>
+<span class="ln">59</span>            <span class="n">Docket</span> <span class="n">docket</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Docket</span><span class="o">(</span><span class="n">DocumentationType</span><span class="o">.</span><span class="na">SWAGGER_2</span><span class="o">)</span>
+<span class="ln">60</span>                    <span class="o">.</span><span class="na">groupName</span><span class="o">(</span><span class="n">groupName</span><span class="o">)</span>
+<span class="ln">61</span>                    <span class="o">.</span><span class="na">apiInfo</span><span class="o">(</span><span class="n">openApiInfo</span><span class="o">(</span><span class="n">groupInfo</span><span class="o">))</span>
+<span class="ln">62</span>                    <span class="o">.</span><span class="na">select</span><span class="o">()</span>
+<span class="ln">63</span>                    <span class="o">.</span><span class="na">apis</span><span class="o">(</span><span class="n">RequestHandlerSelectors</span><span class="o">.</span><span class="na">basePackage</span><span class="o">(</span><span class="n">basePackage</span><span class="o">))</span>
+<span class="ln">64</span>                    <span class="o">.</span><span class="na">paths</span><span class="o">(</span><span class="n">PathSelectors</span><span class="o">.</span><span class="na">any</span><span class="o">())</span>
+<span class="ln">65</span>                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="ln">66</span>            <span class="n">docketList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">docket</span><span class="o">);</span>
+<span class="ln">67</span>            <span class="c1">// docket 加入 IOC 容器
+</span><span class="ln">68</span><span class="c1"></span>            <span class="n">configurableBeanFactory</span><span class="o">.</span><span class="na">registerSingleton</span><span class="o">(</span><span class="n">groupName</span><span class="o">,</span> <span class="n">docket</span><span class="o">);</span>
+<span class="ln">69</span>        <span class="o">}</span>
+<span class="ln">70</span>        <span class="k">return</span> <span class="n">docketList</span><span class="o">;</span>
+<span class="ln">71</span>    <span class="o">}</span>
+<span class="ln">72</span>
+<span class="ln">73</span>
+<span class="ln">74</span>    <span class="kd">private</span> <span class="n">ApiInfo</span> <span class="nf">openApiInfo</span><span class="o">(</span><span class="n">Swagger2Properties</span><span class="o">.</span><span class="na">GroupInfo</span> <span class="n">groupInfo</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">75</span>        <span class="k">return</span> <span class="k">new</span> <span class="n">ApiInfoBuilder</span><span class="o">()</span>
+<span class="ln">76</span>                <span class="o">.</span><span class="na">title</span><span class="o">(</span><span class="n">groupInfo</span><span class="o">.</span><span class="na">getTitle</span><span class="o">())</span>
+<span class="ln">77</span>                <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="n">groupInfo</span><span class="o">.</span><span class="na">getDescription</span><span class="o">())</span>
+<span class="ln">78</span>                <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="s">&#34;1.0&#34;</span><span class="o">)</span>
+<span class="ln">79</span>                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="ln">80</span>    <span class="o">}</span>
+<span class="ln">81</span>
+<span class="ln">82</span>
+<span class="ln">83</span><span class="o">}</span>
+<span class="ln">84</span>
+</code></pre></div><p>他这里相比普通的配置多了些东西.  它实现了BeanFactoryAware接口, 这样Spring 容器会在 bean 的<a href="https://so.csdn.net/so/search?q=%e5%88%9d%e5%a7%8b%e5%8c%96&amp;spm=1001.2101.3001.7020" target="_blank">初始化</a>
+过程中自动调用这个方法，并传入当前的 BeanFactory 实例, 然后就可以利用BeanFactory将docket加入到ioc容器了.</p>
+<p>可能是它这里为了便捷配置接口组, 所以采用的是List形式.</p>
 <h2 id="knife4j">Knife4j</h2></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/java-5-algorithm/">算法刷题
 </a>
     </div></div>
-  <div class="post-nav flex-row-reverse"></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/java-0-audition-2/">京东笔试准备
+</a>
+    </div></div>
 </div><section class="related-posts">
     <h3>相关文章</h3>
     <ul class="related-posts"><li><a href="/posts/tech/java-5-algorithm/">算法刷题
@@ -381,13 +598,13 @@
   </div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
+  <ul><li><a href="/posts/tech/java-0-audition-2/">京东笔试准备
+</a></li><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
 </a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
 </a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
 </a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
 </a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
 </a></li><li><a href="/posts/tech/java-1-thread/">Java多线程
-</a></li><li><a href="/posts/tech/java-0-audition/">面试准备-Spring
 </a></li></ul>
 </section><section class="taxonomy-categories row surface">
       <h4>
@@ -396,7 +613,7 @@
       <div><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
           二次元 <span class="badge rounded-pill">24</span>
         </a><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
-          计算机 <span class="badge rounded-pill">13</span>
+          计算机 <span class="badge rounded-pill">14</span>
         </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
           文字类 <span class="badge rounded-pill">6</span>
         </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
@@ -411,7 +628,7 @@
         </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
           Galgame <span class="badge rounded-pill">9</span>
         </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
-          Java <span class="badge rounded-pill">7</span>
+          Java <span class="badge rounded-pill">8</span>
         </a><a href="/series/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机学习笔记">
           计算机学习笔记 <span class="badge rounded-pill">2</span>
         </a></div>
