@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="软件维护管理面试">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-08-13T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-08-13T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="5942">
+<meta itemprop="wordCount" content="6152">
 <meta itemprop="keywords" content="," /><meta property="og:title" content="软件维护管理面试" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -155,7 +155,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-08-13
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>12 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>13 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
 
@@ -181,6 +181,7 @@
         <li><a href="#mybatis">MyBatis</a></li>
         <li><a href="#springmvc开发流程">SpringMVC开发流程</a></li>
         <li><a href="#springboot开发流程">SpringBoot开发流程</a></li>
+        <li><a href="#springcloud">SpringCloud</a></li>
         <li><a href="#java三大特性">Java三大特性</a></li>
         <li><a href="#工作中异常怎么处理">工作中异常怎么处理</a></li>
         <li><a href="#throw和throws的区别">throw和throws的区别</a></li>
@@ -224,6 +225,12 @@
 <h3 id="mybatis">MyBatis</h3>
 <h3 id="springmvc开发流程">SpringMVC开发流程</h3>
 <h3 id="springboot开发流程">SpringBoot开发流程</h3>
+<p>使用的拦截器是HandlerInterceptor接口实现,  利用preHandle和afterCompletion做用户验证, 用户拦截和方向, 用户删除.</p>
+<h3 id="springcloud">SpringCloud</h3>
+<p>用户存储</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>private static final ThreadLocal&lt;Long&gt; tl = new ThreadLocal&lt;&gt;();
+</code></pre></div><p>拦截器实现GlobalFilter接口, 利用filter方法做拦截.</p>
+<p>JWT: 配置类实现keyPair方法利用加密文件和密码作为生成. 后面的keyPair来生成jwtSigner, 并且解密和加密都要用到.JWT.create()加密, JWT.of解密</p>
 <h3 id="java三大特性">Java三大特性</h3>
 <p>封装, 继承, 多态.</p>
 <p>1、封装，就是将类的某些信息隐藏在类内部，不允许外部程序直接访问，而是通过该类提供的方法来实现对隐藏信息的操作和访问。</p>
