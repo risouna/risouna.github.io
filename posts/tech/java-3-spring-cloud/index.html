@@ -12,14 +12,14 @@
 <meta name="description" content="" /><meta itemprop="name" content="SpringCloud学习笔记">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-05-25T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-05-25T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="22907">
+<meta itemprop="wordCount" content="30479">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="SpringCloud学习笔记" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/tech/java-3-spring-cloud/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-05-25T00:00:00&#43;00:00" />
 <meta property="article:modified_time" content="2024-05-25T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
-<meta property="og:see_also" content="/posts/tech/java-0-audition-2/" /><meta property="og:see_also" content="/posts/tech/java-6-autoconfiguration/" /><meta property="og:see_also" content="/posts/tech/java-5-algorithm/" /><meta property="og:see_also" content="/posts/tech/java-4-basic/" /><meta property="og:see_also" content="/posts/tech/java-2-mysql/" />
+<meta property="og:see_also" content="/posts/tech/java-0-audition-3/" /><meta property="og:see_also" content="/posts/tech/java-0-audition-2/" /><meta property="og:see_also" content="/posts/tech/java-6-autoconfiguration/" /><meta property="og:see_also" content="/posts/tech/java-5-algorithm/" /><meta property="og:see_also" content="/posts/tech/java-4-basic/" /><meta property="og:see_also" content="/posts/tech/java-2-mysql/" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="SpringCloud学习笔记"/>
@@ -155,7 +155,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-05-25
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>46 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>61 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
 
@@ -201,6 +201,20 @@
         <li><a href="#openfeign实现更简单">OpenFeign(实现更简单)</a></li>
         <li><a href="#网关路由">网关路由</a></li>
         <li><a href="#网关登录校验">网关登录校验</a></li>
+      </ul>
+    </li>
+    <li><a href="#服务保护和分布式事务">服务保护和分布式事务</a>
+      <ul>
+        <li><a href="#微服务保护">微服务保护</a></li>
+        <li><a href="#分布式事务">分布式事务</a></li>
+      </ul>
+    </li>
+    <li><a href="#mq">MQ</a>
+      <ul>
+        <li><a href="#rabbitmq">RabbitMQ</a></li>
+        <li><a href="#springamqp">SpringAMQP</a></li>
+        <li><a href="#发送者的可靠性">发送者的可靠性</a></li>
+        <li><a href="#mq的可靠性">MQ的可靠性</a></li>
       </ul>
     </li>
   </ul>
@@ -2127,7 +2141,417 @@
 </span><span class="ln">19</span><span class="c1"></span>        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
 <span class="ln">20</span>    <span class="o">}</span>
 <span class="ln">21</span><span class="o">}</span>
-</code></pre></div><h4 id="登录校验">登录校验</h4></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+</code></pre></div><h4 id="登录校验">登录校验</h4>
+<h2 id="服务保护和分布式事务">服务保护和分布式事务</h2>
+<h3 id="微服务保护">微服务保护</h3>
+<p>微服务保护的方案有很多，比如：</p>
+<ul>
+<li>请求限流: 限制或控制接口访问的并发流量，避免服务因流量激增而出现故障。</li>
+<li>线程隔离: 当一个业务接口响应时间长，而且并发高时，就可能耗尽服务器的线程资源，导致服务内的其它接口受到影响。所以我们必须把这种影响降低，或者缩减影响的范围</li>
+<li>服务熔断: 线程隔离虽然避免了雪崩问题，但故障服务依然会拖慢购物车服务的接口响应速度。我们需编写服务降级逻辑, 统计服务提供方的异常比例，当比例过高表明该接口会影响到其它服务，应该拒绝调用该接口，而是直接走降级逻辑。</li>
+</ul>
+<p>微服务保护的技术有很多，但在目前国内使用较多的还是Sentinel</p>
+<h3 id="分布式事务">分布式事务</h3>
+<p>出现以下情况之一就可能产生分布式事务问题：</p>
+<ul>
+<li>业务跨多个服务实现</li>
+<li>业务跨多个数据源实现</li>
+</ul>
+<h4 id="seata">Seata</h4>
+<p>解决分布式事务的思想非常简单：</p>
+<p>就是找一个统一的<strong>事务协调者</strong>，与多个分支事务通信，检测每个分支事务的执行状态，保证全局事务下的每一个分支事务同时成功或失败即可。大多数的分布式事务框架都是基于这个理论来实现的。</p>
+<p>Seata也不例外，在Seata的事务管理中有三个重要的角色：</p>
+<ul>
+<li><strong>TC</strong> **(Transaction Coordinator) - 事务协调者：**维护全局和分支事务的状态，协调全局事务提交或回滚。</li>
+<li><strong>TM (Transaction Manager) -</strong> **事务管理器：**定义全局事务的范围、开始全局事务、提交或回滚全局事务。</li>
+<li><strong>RM (Resource Manager) -</strong> **资源管理器：**管理分支事务，与TC交谈以注册分支事务和报告分支事务的状态，并驱动分支事务提交或回滚。</li>
+</ul>
+<h4 id="xa模式">XA模式</h4>
+<h5 id="原始模式">原始模式</h5>
+<p>一阶段：</p>
+<ul>
+<li>事务协调者通知每个事务参与者执行本地事务</li>
+<li>本地事务执行完成后报告事务执行状态给事务协调者，此时事务不提交，继续持有数据库锁</li>
+</ul>
+<p>二阶段：</p>
+<ul>
+<li>事务协调者基于一阶段的报告来判断下一步操作</li>
+<li>如果一阶段都成功，则通知所有事务参与者，提交事务</li>
+<li>如果一阶段任意一个参与者失败，则通知所有事务参与者回滚事务</li>
+</ul>
+<h5 id="seata的xa模型">Seata的XA模型</h5>
+<p><code>RM</code>一阶段的工作：</p>
+<ol>
+<li>注册分支事务到<code>TC</code></li>
+<li>执行分支业务sql但不提交</li>
+<li>报告执行状态到<code>TC</code></li>
+</ol>
+<p><code>TC</code>二阶段的工作：</p>
+<ol>
+<li><code>TC</code>检测各分支事务执行状态</li>
+<li>如果都成功，通知所有RM提交事务</li>
+<li>如果有失败，通知所有RM回滚事务</li>
+</ol>
+<p><code>RM</code>二阶段的工作：</p>
+<ul>
+<li>接收<code>TC</code>指令，提交或回滚事务</li>
+</ul>
+<h5 id="优缺点">优缺点</h5>
+<p><code>XA</code>模式的优点是什么？</p>
+<ul>
+<li>事务的强一致性，满足ACID原则</li>
+<li>常用数据库都支持，实现简单，并且没有代码侵入</li>
+</ul>
+<p><code>XA</code>模式的缺点是什么？</p>
+<ul>
+<li>因为一阶段需要锁定数据库资源，等待二阶段结束才释放，性能较差</li>
+<li>依赖关系型数据库实现事务</li>
+</ul>
+<h4 id="at模式">AT模式</h4>
+<p><code>AT</code>模式同样是分阶段提交的事务模型，不过缺弥补了<code>XA</code>模型中资源锁定周期过长的缺陷。</p>
+<h5 id="seata的at模型">Seata的AT模型</h5>
+<p>阶段一<code>RM</code>的工作：</p>
+<ul>
+<li>注册分支事务</li>
+<li>记录undo-log（数据快照）</li>
+<li>执行业务sql并提交</li>
+<li>报告事务状态</li>
+</ul>
+<p>阶段二提交时<code>RM</code>的工作：</p>
+<ul>
+<li>删除undo-log即可</li>
+</ul>
+<p>阶段二回滚时<code>RM</code>的工作：</p>
+<ul>
+<li>根据undo-log恢复数据到更新前</li>
+</ul>
+<p>AT模式下，当前分支事务执行流程如下：</p>
+<p><strong>一阶段</strong>：</p>
+<ol>
+<li><code>TM</code>发起并注册全局事务到<code>TC</code></li>
+<li><code>TM</code>调用分支事务</li>
+<li>分支事务准备执行业务SQL</li>
+<li><code>RM</code>拦截业务SQL，根据where条件查询原始数据，形成快照。</li>
+<li><code>RM</code>执行业务SQL，提交本地事务，释放数据库锁。此时 money = 90</li>
+<li><code>RM</code>报告本地事务状态给<code>TC</code></li>
+</ol>
+<p><strong>二阶段</strong>：</p>
+<ol>
+<li><code>TM</code>通知<code>TC</code>事务结束</li>
+<li><code>TC</code>检查分支事务状态
+<ol>
+<li>如果都成功，则立即删除快照</li>
+<li>如果有分支事务失败，需要回滚。读取快照数据（{&ldquo;id&rdquo;: 1, &ldquo;money&rdquo;: 100}），将快照恢复到数据库。此时数据库再次恢复为100</li>
+</ol>
+</li>
+</ol>
+<h5 id="at与xa的区别">AT与XA的区别</h5>
+<p>简述<code>AT</code>模式与<code>XA</code>模式最大的区别是什么？</p>
+<ul>
+<li><code>XA</code>模式一阶段不提交事务，锁定资源；<code>AT</code>模式一阶段直接提交，不锁定资源。</li>
+<li><code>XA</code>模式依赖数据库机制实现回滚；<code>AT</code>模式利用数据快照实现数据回滚。</li>
+<li><code>XA</code>模式强一致；<code>AT</code>模式最终一致</li>
+</ul>
+<p>可见，AT模式使用起来更加简单，无业务侵入，性能更好。因此企业90%的分布式事务都可以用AT模式来解决。</p>
+<h2 id="mq">MQ</h2>
+<p>微服务一旦拆分，必然涉及到服务之间的相互调用，目前我们服务之间调用采用的都是基于OpenFeign的调用。这种调用中，调用者发起请求后需要<strong>等待</strong>服务提供者执行业务返回结果后，才能继续执行后面的业务。也就是说调用者在调用过程中处于阻塞状态，因此我们称这种调用方式为<strong>同步调用</strong>，也可以叫<strong>同步通讯</strong>。如果我们的业务需要实时得到服务提供方的响应，则应该选择同步通讯（同步调用）。而如果我们追求更高的效率，并且不需要实时响应，则应该选择异步通讯（异步调用）。</p>
+<p>异步调用的优势包括：</p>
+<ul>
+<li>耦合度更低</li>
+<li>性能更好</li>
+<li>业务拓展性强</li>
+<li>故障隔离，避免级联失败</li>
+</ul>
+<p>几种常见MQ的对比：</p>
+<p>追求可用性：Kafka、 RocketMQ 、RabbitMQ</p>
+<p>追求可靠性：RabbitMQ、RocketMQ</p>
+<p>追求吞吐能力：RocketMQ、Kafka</p>
+<p>追求消息低延迟：RabbitMQ、Kafka</p>
+<h3 id="rabbitmq">RabbitMQ</h3>
+<ul>
+<li><strong><code>publisher</code></strong>：生产者，也就是发送消息的一方</li>
+<li><strong><code>consumer</code></strong>：消费者，也就是消费消息的一方</li>
+<li><strong><code>queue</code></strong>：队列，存储消息。生产者投递的消息会暂存在消息队列中，等待消费者处理</li>
+<li><strong><code>exchange</code></strong>：交换机，负责消息路由。生产者发送的消息由交换机决定投递到哪个队列。</li>
+<li><strong><code>virtual host</code></strong>：虚拟主机，起到数据隔离的作用。每个虚拟主机相互独立，有各自的exchange、queue</li>
+</ul>
+<div align=center>
+<img src="/images/java-0-audition-1.png"  width="75%" />  
+</div>
+<h3 id="springamqp">SpringAMQP</h3>
+<p>由于<code>RabbitMQ</code>采用了AMQP协议，因此它具备跨语言的特性。任何语言只要遵循AMQP协议收发消息，都可以与<code>RabbitMQ</code>交互。Spring的官方刚好基于RabbitMQ提供了这样一套消息收发的模板工具：SpringAMQP。并且还基于SpringBoot对其实现了自动装配，使用起来非常方便。</p>
+<p>SpringAMQP提供了三个功能：</p>
+<ul>
+<li>自动声明队列、交换机及其绑定关系</li>
+<li>基于注解的监听器模式，异步接收消息</li>
+<li>封装了RabbitTemplate工具，用于发送消息</li>
+</ul>
+<h4 id="消息发送">消息发送</h4>
+<p>rabbitTemplate.convertAndSend(queueName, message);</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln"> 1</span><span class="kn">package</span> <span class="nn">com.itheima.publisher.amqp</span><span class="o">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">org.junit.jupiter.api.Test</span><span class="o">;</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="nn">org.springframework.amqp.rabbit.core.RabbitTemplate</span><span class="o">;</span>
+<span class="ln"> 5</span><span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="ln"> 6</span><span class="kn">import</span> <span class="nn">org.springframework.boot.test.context.SpringBootTest</span><span class="o">;</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="nd">@SpringBootTest</span>
+<span class="ln"> 9</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringAmqpTest</span> <span class="o">{</span>
+<span class="ln">10</span>
+<span class="ln">11</span>    <span class="nd">@Autowired</span>
+<span class="ln">12</span>    <span class="kd">private</span> <span class="n">RabbitTemplate</span> <span class="n">rabbitTemplate</span><span class="o">;</span>
+<span class="ln">13</span>
+<span class="ln">14</span>    <span class="nd">@Test</span>
+<span class="ln">15</span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSimpleQueue</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln">16</span>        <span class="c1">// 队列名称
+</span><span class="ln">17</span><span class="c1"></span>        <span class="n">String</span> <span class="n">queueName</span> <span class="o">=</span> <span class="s">&#34;simple.queue&#34;</span><span class="o">;</span>
+<span class="ln">18</span>        <span class="c1">// 消息
+</span><span class="ln">19</span><span class="c1"></span>        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="s">&#34;hello, spring amqp!&#34;</span><span class="o">;</span>
+<span class="ln">20</span>        <span class="c1">// 发送消息
+</span><span class="ln">21</span><span class="c1"></span>        <span class="n">rabbitTemplate</span><span class="o">.</span><span class="na">convertAndSend</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+<span class="ln">22</span>    <span class="o">}</span>
+<span class="ln">23</span><span class="o">}</span>
+</code></pre></div><h4 id="消息接收">消息接收</h4>
+<p>@RabbitListener</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln"> 1</span><span class="kn">package</span> <span class="nn">com.itheima.consumer.listener</span><span class="o">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">org.springframework.amqp.rabbit.annotation.RabbitListener</span><span class="o">;</span>
+<span class="ln"> 4</span><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="nd">@Component</span>
+<span class="ln"> 7</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringRabbitListener</span> <span class="o">{</span>
+<span class="ln"> 8</span>        <span class="c1">// 利用RabbitListener来声明要监听的队列信息
+</span><span class="ln"> 9</span><span class="c1"></span>    <span class="c1">// 将来一旦监听的队列中有了消息，就会推送给当前服务，调用当前方法，处理消息。
+</span><span class="ln">10</span><span class="c1"></span>    <span class="c1">// 可以看到方法体中接收的就是消息体的内容
+</span><span class="ln">11</span><span class="c1"></span>    <span class="nd">@RabbitListener</span><span class="o">(</span><span class="n">queues</span> <span class="o">=</span> <span class="s">&#34;simple.queue&#34;</span><span class="o">)</span>
+<span class="ln">12</span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">listenSimpleQueueMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">msg</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+<span class="ln">13</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;spring 消费者接收到消息：【&#34;</span> <span class="o">+</span> <span class="n">msg</span> <span class="o">+</span> <span class="s">&#34;】&#34;</span><span class="o">);</span>
+<span class="ln">14</span>    <span class="o">}</span>
+<span class="ln">15</span><span class="o">}</span>
+</code></pre></div><h4 id="workqueues模型">WorkQueues模型</h4>
+<p>简单来说就是<strong>让多个消费者绑定到一个队列，共同消费队列中的消息</strong>。</p>
+<p>当消息处理比较耗时的时候，可能生产消息的速度会远远大于消息的消费速度。长此以往，消息就会堆积越来越多，无法及时处理。</p>
+<p>此时就可以使用work 模型，<strong>多个消费者共同处理消息处理，消息处理的速度就能大大提高</strong>了。</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln"> 1</span><span class="nd">@RabbitListener</span><span class="o">(</span><span class="n">queues</span> <span class="o">=</span> <span class="s">&#34;work.queue&#34;</span><span class="o">)</span>
+<span class="ln"> 2</span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">listenWorkQueue1</span><span class="o">(</span><span class="n">String</span> <span class="n">msg</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+<span class="ln"> 3</span>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;消费者1接收到消息：【&#34;</span> <span class="o">+</span> <span class="n">msg</span> <span class="o">+</span> <span class="s">&#34;】&#34;</span> <span class="o">+</span> <span class="n">LocalTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+<span class="ln"> 4</span>    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">20</span><span class="o">);</span>
+<span class="ln"> 5</span><span class="o">}</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span><span class="nd">@RabbitListener</span><span class="o">(</span><span class="n">queues</span> <span class="o">=</span> <span class="s">&#34;work.queue&#34;</span><span class="o">)</span>
+<span class="ln"> 8</span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">listenWorkQueue2</span><span class="o">(</span><span class="n">String</span> <span class="n">msg</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+<span class="ln"> 9</span>    <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;消费者2........接收到消息：【&#34;</span> <span class="o">+</span> <span class="n">msg</span> <span class="o">+</span> <span class="s">&#34;】&#34;</span> <span class="o">+</span> <span class="n">LocalTime</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+<span class="ln">10</span>    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">200</span><span class="o">);</span>
+<span class="ln">11</span><span class="o">}</span>
+</code></pre></div><p>消息是平均分配给每个消费者，并没有考虑到消费者的处理能力。导致1个消费者空闲，另一个消费者忙的不可开交。</p>
+<h5 id="能者多劳">能者多劳</h5>
+<p>在spring中有一个简单的配置，可以解决这个问题。我们修改consumer服务的application.yml文件，添加配置：</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln">1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln">2</span><span class="w">  </span><span class="nt">rabbitmq</span><span class="p">:</span><span class="w">
+</span><span class="ln">3</span><span class="w">    </span><span class="nt">listener</span><span class="p">:</span><span class="w">
+</span><span class="ln">4</span><span class="w">      </span><span class="nt">simple</span><span class="p">:</span><span class="w">
+</span><span class="ln">5</span><span class="w">        </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c"># 每次只能获取一条消息，处理完成才能获取下一个消息</span><span class="w">
+</span></code></pre></div><p>可以发现，由于消费者1处理速度较快，所以处理了更多的消息；消费者2处理速度较慢，只处理了6条消息。而最终总的执行耗时也在1秒左右，大大提升。</p>
+<h4 id="交换机类型">交换机类型</h4>
+<p>在订阅模型中，多了一个exchange角色，而且过程略有变化：</p>
+<ul>
+<li><strong>Publisher</strong>：生产者，不再发送消息到队列中，而是发给交换机</li>
+<li><strong>Exchange</strong>：交换机，一方面，接收生产者发送的消息。另一方面，知道如何处理消息，例如递交给某个特别队列、递交给所有队列、或是将消息丢弃。到底如何操作，取决于Exchange的类型。</li>
+<li><strong>Queue</strong>：消息队列也与以前一样，接收消息、缓存消息。不过队列一定要与交换机绑定。</li>
+<li><strong>Consumer</strong>：消费者，与以前一样，订阅队列，没有变化</li>
+</ul>
+<p><strong>Exchange（交换机）只负责转发消息，不具备存储消息的能力</strong>，因此如果没有任何队列与Exchange绑定，或者没有符合路由规则的队列，那么消息会丢失！</p>
+<p>交换机的类型有四种：</p>
+<ul>
+<li><strong>Fanout</strong>：广播，将消息交给所有绑定到交换机的队列。我们最早在控制台使用的正是Fanout交换机</li>
+<li><strong>Direct</strong>：订阅，基于RoutingKey（路由key）发送给订阅了消息的队列</li>
+<li><strong>Topic</strong>：通配符订阅，与Direct类似，只不过RoutingKey可以使用通配符</li>
+<li><strong>Headers</strong>：头匹配，基于MQ的消息头匹配，用的较少。</li>
+</ul>
+<h4 id="fanout交换机">Fanout交换机</h4>
+<p>Fanout，英文翻译是扇出，我觉得在MQ中叫广播更合适。</p>
+<ul>
+<li>1）  可以有多个队列</li>
+<li>2）  每个队列都要绑定到Exchange（交换机）</li>
+<li>3）  生产者发送的消息，只能发送到交换机</li>
+<li>4）  交换机把消息发送给绑定过的所有队列</li>
+<li>5）  订阅队列的消费者都能拿到消息</li>
+</ul>
+<h4 id="direct交换机">Direct交换机</h4>
+<p>在Fanout模式中，一条消息，会被所有订阅的队列都消费。但是，在某些场景下，我们希望不同的消息被不同的队列消费。这时就要用到Direct类型的Exchange。</p>
+<p>在Direct模型下：</p>
+<ul>
+<li>队列与交换机的绑定，不能是任意绑定了，而是要指定一个<code>RoutingKey</code>（路由key）</li>
+<li>消息的发送方在 向 Exchange发送消息时，也必须指定消息的 <code>RoutingKey</code>。</li>
+<li>Exchange不再把消息交给每一个绑定的队列，而是根据消息的<code>Routing Key</code>进行判断，只有队列的<code>Routingkey</code>与消息的 <code>Routing key</code>完全一致，才会接收到消息</li>
+</ul>
+<h4 id="topic交换机">Topic交换机</h4>
+<p><code>Topic</code>类型的<code>Exchange</code>与<code>Direct</code>相比，都是可以根据<code>RoutingKey</code>把消息路由到不同的队列。</p>
+<p>只不过<code>Topic</code>类型<code>Exchange</code>可以让队列在绑定<code>BindingKey</code> 的时候使用通配符！</p>
+<p>BindingKey一般都是有一个或多个单词组成，多个单词之间以<code>.</code>分割，例如： item.insert</p>
+<p>通配符规则：</p>
+<ul>
+<li><code>#</code>：匹配一个或多个词</li>
+<li><code>*</code>：匹配不多不少恰好1个词</li>
+</ul>
+<p>举例：</p>
+<ul>
+<li><code>item.#</code>：能够匹配<code>item.spu.insert</code> 或者 <code>item.spu</code></li>
+<li><code>item.*</code>：只能匹配<code>item.spu</code></li>
+</ul>
+<h4 id="声明队列和交换机">声明队列和交换机</h4>
+<h3 id="发送者的可靠性">发送者的可靠性</h3>
+<h4 id="生产者重试机制">生产者重试机制</h4>
+<p>生产者发送消息时，出现了网络故障，导致与MQ的连接中断。为了解决这个问题，SpringAMQP提供的消息发送时的重试机制。即：当<code>RabbitTemplate</code>与MQ连接超时后，多次重试。</p>
+<p>修改<code>publisher</code>模块的<code>application.yaml</code>文件，添加下面的内容：</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln"> 1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 2</span><span class="w">  </span><span class="nt">rabbitmq</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 3</span><span class="w">    </span><span class="nt">connection-timeout</span><span class="p">:</span><span class="w"> </span><span class="l">1s</span><span class="w"> </span><span class="c"># 设置MQ的连接超时时间</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">    </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">      </span><span class="nt">retry</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># 开启超时重试机制</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">        </span><span class="nt">initial-interval</span><span class="p">:</span><span class="w"> </span><span class="l">1000ms</span><span class="w"> </span><span class="c"># 失败后的初始等待时间</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">        </span><span class="nt">multiplier</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c"># 失败后下次的等待时长倍数，下次等待时长 = initial-interval * multiplier</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">        </span><span class="nt">max-attempts</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c"># 最大重试次数</span><span class="w">
+</span><span class="ln">10</span><span class="w">        
+</span></code></pre></div><p>SpringAMQP提供的重试机制是<strong>阻塞式</strong>的重试，也就是说多次重试等待的过程中，当前线程是被阻塞的。</p>
+<p>如果对于业务性能有要求，建议禁用重试机制。如果一定要使用，请合理配置等待时长和重试次数，当然也可以考虑使用异步线程来执行发送消息的代码。</p>
+<h4 id="生产者确认机制">生产者确认机制</h4>
+<p>一般情况下，只要生产者与MQ之间的网路连接顺畅，基本不会出现发送消息丢失的情况，因此大多数情况下我们无需考虑这种问题。</p>
+<p>不过，在少数情况下，也会出现消息发送到MQ之后丢失的现象，比如：</p>
+<ul>
+<li>MQ内部处理消息的进程发生了异常</li>
+<li>生产者发送消息到达MQ后未找到<code>Exchange</code></li>
+<li>生产者发送消息到达MQ的<code>Exchange</code>后，未找到合适的<code>Queue</code>，因此无法路由</li>
+</ul>
+<p>针对上述情况，RabbitMQ提供了生产者消息确认机制，包括<code>Publisher Confirm</code>和<code>Publisher Return</code>两种。在开启确认机制的情况下，当生产者发送消息给MQ后，MQ会根据消息处理的情况返回不同的<strong>回执</strong>。</p>
+<ul>
+<li>当消息投递到MQ，但是路由失败时，通过<strong>Publisher Return</strong>返回异常信息，同时返回ack的确认信息，代表投递成功</li>
+<li>临时消息投递到了MQ，并且入队成功，返回ACK，告知投递成功</li>
+<li>持久消息投递到了MQ，并且入队完成持久化，返回ACK ，告知投递成功</li>
+<li>其它情况都会返回NACK，告知投递失败</li>
+</ul>
+<h3 id="mq的可靠性">MQ的可靠性</h3>
+<h4 id="数据持久化">数据持久化</h4>
+<p>为了提升性能，默认情况下MQ的数据都是在内存存储的临时数据，重启后就会消失。为了保证数据的可靠性，必须配置数据持久化，包括：</p>
+<ul>
+<li>交换机持久化</li>
+<li>队列持久化</li>
+<li>消息持久化</li>
+</ul>
+<h4 id="lazyqueue">LazyQueue</h4>
+<p>在默认情况下，RabbitMQ会将接收到的信息保存在内存中以降低消息收发的延迟。一旦出现消息堆积问题，RabbitMQ的内存占用就会越来越高，直到触发内存预警上限。此时RabbitMQ会将内存消息刷到磁盘上，这个行为成为<code>PageOut</code>. <code>PageOut</code>会耗费一段时间，并且会阻塞队列进程。因此在这个过程中RabbitMQ不会再处理新的消息，生产者的所有请求都会被阻塞。</p>
+<p>为了解决这个问题，从RabbitMQ的3.6.0版本开始，就增加了Lazy Queues的模式，也就是惰性队列。惰性队列的特征如下：</p>
+<ul>
+<li>接收到消息后直接存入磁盘而非内存</li>
+<li>消费者要消费消息时才会从磁盘中读取并加载到内存（也就是懒加载）</li>
+<li>支持数百万条的消息存储</li>
+</ul>
+<h4 id="消费者的可靠性">消费者的可靠性</h4>
+<p>当RabbitMQ向消费者投递消息以后，需要知道消费者的处理状态如何。因为消息投递给消费者并不代表就一定被正确消费了，可能出现的故障有很多，比如：</p>
+<ul>
+<li>消息投递的过程中出现了网络故障</li>
+<li>消费者接收到消息后突然宕机</li>
+<li>消费者接收到消息后，因处理不当导致异常</li>
+<li>&hellip;</li>
+</ul>
+<p>一旦发生上述情况，消息也会丢失。因此，RabbitMQ必须知道消费者的处理状态，一旦消息处理失败才能重新投递消息。</p>
+<h5 id="消费者确认机制">消费者确认机制</h5>
+<p>为了确认消费者是否成功处理消息，RabbitMQ提供了消费者确认机制（<strong>Consumer Acknowledgement</strong>）。即：当消费者处理消息结束后，应该向RabbitMQ发送一个回执，告知RabbitMQ自己消息处理状态。回执有三种可选值：</p>
+<ul>
+<li>ack：成功处理消息，RabbitMQ从队列中删除该消息</li>
+<li>nack：消息处理失败，RabbitMQ需要再次投递消息</li>
+<li>reject：消息处理失败并拒绝该消息，RabbitMQ从队列中删除该消息</li>
+</ul>
+<p>一般reject方式用的较少。因此大多数情况下我们需要将消息处理的代码通过<code>try catch</code>机制捕获，消息处理成功时返回ack，处理失败时返回nack.</p>
+<p>由于消息回执的处理代码比较统一，因此SpringAMQP帮我们实现了消息确认。并允许我们通过配置文件设置ACK处理方式，有三种模式：</p>
+<ul>
+<li><strong><code>none</code></strong>：不处理。即消息投递给消费者后立刻ack，消息会立刻从MQ删除。非常不安全，不建议使用</li>
+<li><strong><code>manual</code></strong>：手动模式。需要自己在业务代码中调用api，发送<code>ack</code>或<code>reject</code>，存在业务入侵，但更灵活</li>
+<li><strong><code>auto</code></strong>：自动模式。SpringAMQP利用AOP对我们的消息处理逻辑做了环绕增强，当业务正常执行时则自动返回<code>ack</code>.  当业务出现异常时，根据异常判断返回不同结果：
+<ul>
+<li>如果是<strong>业务异常</strong>，会自动返回<code>nack</code>；</li>
+<li>如果是<strong>消息处理或校验异常</strong>，自动返回<code>reject</code>;</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln">1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln">2</span><span class="w">  </span><span class="nt">rabbitmq</span><span class="p">:</span><span class="w">
+</span><span class="ln">3</span><span class="w">    </span><span class="nt">listener</span><span class="p">:</span><span class="w">
+</span><span class="ln">4</span><span class="w">      </span><span class="nt">simple</span><span class="p">:</span><span class="w">
+</span><span class="ln">5</span><span class="w">        </span><span class="nt">acknowledge-mode</span><span class="p">:</span><span class="w"> </span><span class="l">none</span><span class="w"> </span><span class="c"># 不做处理</span><span class="w">
+</span></code></pre></div><h5 id="失败重试机制">失败重试机制</h5>
+<p>当消费者出现异常后，消息会不断requeue（重入队）到队列，再重新发送给消费者。如果消费者再次执行依然出错，消息会再次requeue到队列，再次投递，直到消息处理成功为止。</p>
+<p>极端情况就是消费者一直无法执行成功，那么消息requeue就会无限循环，导致mq的消息处理飙升，带来不必要的压力</p>
+<p>为了应对上述情况Spring又提供了消费者失败重试机制：在消费者出现异常时利用本地重试，而不是无限制的requeue到mq队列。</p>
+<p>修改consumer服务的application.yml文件，添加内容：</p>
+<div class="highlight"><pre class="chroma"><code class="language-YAML" data-lang="YAML"><span class="ln"> 1</span><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 2</span><span class="w">  </span><span class="nt">rabbitmq</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 3</span><span class="w">    </span><span class="nt">listener</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 4</span><span class="w">      </span><span class="nt">simple</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 5</span><span class="w">        </span><span class="nt">retry</span><span class="p">:</span><span class="w">
+</span><span class="ln"> 6</span><span class="w">          </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># 开启消费者失败重试</span><span class="w">
+</span><span class="ln"> 7</span><span class="w">          </span><span class="nt">initial-interval</span><span class="p">:</span><span class="w"> </span><span class="l">1000ms</span><span class="w"> </span><span class="c"># 初识的失败等待时长为1秒</span><span class="w">
+</span><span class="ln"> 8</span><span class="w">          </span><span class="nt">multiplier</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c"># 失败的等待时长倍数，下次等待时长 = multiplier * last-interval</span><span class="w">
+</span><span class="ln"> 9</span><span class="w">          </span><span class="nt">max-attempts</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="c"># 最大重试次数</span><span class="w">
+</span><span class="ln">10</span><span class="w">          </span><span class="nt">stateless</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># true无状态；false有状态。如果业务中包含事务，这里改为false</span><span class="w">
+</span></code></pre></div><ul>
+<li>开启本地重试时，消息处理过程中抛出异常，不会requeue到队列，而是在消费者本地重试</li>
+<li>重试达到最大次数后，抛出了<code>AmqpRejectAndDontRequeueException</code>异常, Spring会返回reject，消息会被丢弃</li>
+</ul>
+<h5 id="失败处理策略">失败处理策略</h5>
+<p>在之前的测试中，本地测试达到最大重试次数后，消息会被丢弃。这在某些对于消息可靠性要求较高的业务场景下，显然不太合适了。</p>
+<p>因此Spring允许我们自定义重试次数耗尽后的消息处理策略，这个策略是由<code>MessageRecovery</code>接口来定义的，它有3个不同实现：</p>
+<ul>
+<li><code>RejectAndDontRequeueRecoverer</code>：重试耗尽后，直接<code>reject</code>，丢弃消息。默认就是这种方式</li>
+<li><code>ImmediateRequeueMessageRecoverer</code>：重试耗尽后，返回<code>nack</code>，消息重新入队</li>
+<li><code>RepublishMessageRecoverer</code>：重试耗尽后，将失败消息投递到指定的交换机</li>
+</ul>
+<p>比较优雅的一种处理方案是<code>RepublishMessageRecoverer</code>，失败后将消息投递到一个指定的，专门存放异常消息的队列，后续由人工集中处理。</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln">1</span><span class="nd">@Bean</span>
+<span class="ln">2</span><span class="kd">public</span> <span class="n">MessageRecoverer</span> <span class="nf">republishMessageRecoverer</span><span class="o">(</span><span class="n">RabbitTemplate</span> <span class="n">rabbitTemplate</span><span class="o">){</span>
+<span class="ln">3</span>    <span class="k">return</span> <span class="k">new</span> <span class="n">RepublishMessageRecoverer</span><span class="o">(</span><span class="n">rabbitTemplate</span><span class="o">,</span> <span class="s">&#34;error.direct&#34;</span><span class="o">,</span> <span class="s">&#34;error&#34;</span><span class="o">);</span>
+<span class="ln">4</span><span class="o">}</span>
+</code></pre></div><h5 id="业务幂等性">业务幂等性</h5>
+<p>在程序开发中，则是指同一个业务，执行一次或多次对业务状态的影响是一致的。例如：</p>
+<ul>
+<li>根据id删除数据</li>
+<li>查询数据</li>
+<li>新增数据</li>
+</ul>
+<p>数据的更新往往不是幂等的，如果重复执行可能造成不一样的后果。比如：</p>
+<ul>
+<li>取消订单，恢复库存的业务。如果多次恢复就会出现库存重复增加的情况</li>
+<li>退款业务。重复退款对商家而言会有经济损失。</li>
+</ul>
+<p>所以，我们要尽可能避免业务被重复执行。</p>
+<p>因此，我们必须想办法保证消息处理的幂等性。这里给出两种方案：</p>
+<ul>
+<li>唯一消息ID</li>
+<li>业务状态判断</li>
+</ul>
+<p><strong>唯一消息ID</strong>:</p>
+<p>这个思路非常简单：</p>
+<ol>
+<li>每一条消息都生成一个唯一的id，与消息一起投递给消费者。</li>
+<li>消费者接收到消息后处理自己的业务，业务处理成功后将消息ID保存到数据库</li>
+<li>如果下次又收到相同消息，去数据库查询判断是否存在，存在则为重复消息放弃处理。</li>
+</ol>
+<p>我们该如何给消息添加唯一ID呢？</p>
+<p>其实很简单，SpringAMQP的MessageConverter自带了MessageID的功能，我们只要开启这个功能即可。</p>
+<p>以Jackson的消息转换器为例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-Java" data-lang="Java"><span class="ln">1</span><span class="nd">@Bean</span>
+<span class="ln">2</span><span class="kd">public</span> <span class="n">MessageConverter</span> <span class="nf">messageConverter</span><span class="o">(){</span>
+<span class="ln">3</span>    <span class="c1">// 1.定义消息转换器
+</span><span class="ln">4</span><span class="c1"></span>    <span class="n">Jackson2JsonMessageConverter</span> <span class="n">jjmc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Jackson2JsonMessageConverter</span><span class="o">();</span>
+<span class="ln">5</span>    <span class="c1">// 2.配置自动创建消息id，用于识别不同消息，也可以在业务中基于ID判断是否是重复消息
+</span><span class="ln">6</span><span class="c1"></span>    <span class="n">jjmc</span><span class="o">.</span><span class="na">setCreateMessageIds</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="ln">7</span>    <span class="k">return</span> <span class="n">jjmc</span><span class="o">;</span>
+<span class="ln">8</span><span class="o">}</span>
+</code></pre></div><p><strong>业务判断</strong>:</p>
+<p>业务判断就是基于业务本身的逻辑或状态来判断是否是重复的请求或消息，不同的业务场景判断的思路也不一样。</p>
+<p>在极小概率下可能存在线程安全问题。</p>
+<h5 id="兜底方案">兜底方案</h5></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/java-1-thread/">Java多线程
 </a>
@@ -2190,13 +2614,13 @@
   </div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/tech/java-0-audition-2/">京东笔试准备及牛客网刷题
+  <ul><li><a href="/posts/tech/java-0-audition-3/">软件维护管理面试
+</a></li><li><a href="/posts/tech/java-0-audition-2/">京东笔试准备&amp;牛客网刷题
 </a></li><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
 </a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
 </a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
 </a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
 </a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
-</a></li><li><a href="/posts/tech/java-1-thread/">Java多线程
 </a></li></ul>
 </section><section class="taxonomy-categories row surface">
       <h4>
@@ -2205,7 +2629,7 @@
       <div><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
           二次元 <span class="badge rounded-pill">24</span>
         </a><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
-          计算机 <span class="badge rounded-pill">14</span>
+          计算机 <span class="badge rounded-pill">15</span>
         </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
           文字类 <span class="badge rounded-pill">6</span>
         </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
@@ -2220,7 +2644,7 @@
         </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
           Galgame <span class="badge rounded-pill">9</span>
         </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
-          Java <span class="badge rounded-pill">8</span>
+          Java <span class="badge rounded-pill">9</span>
         </a><a href="/series/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机学习笔记">
           计算机学习笔记 <span class="badge rounded-pill">2</span>
         </a></div>
