@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>安全 on さぁ、君、取りたまえ</title>
+    <link>/tags/%E5%AE%89%E5%85%A8/</link>
+    <description>Recent content in 安全 on さぁ、君、取りたまえ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
+    <lastBuildDate>Sun, 24 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>3.24学习记录</title>
+      <link>/posts/tech/20240324/</link>
+      <pubDate>Sun, 24 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/20240324/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>3.21-23学习记录</title>
+      <link>/posts/tech/20240321/</link>
+      <pubDate>Thu, 21 Mar 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/20240321/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

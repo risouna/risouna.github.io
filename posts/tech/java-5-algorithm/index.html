@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="算法刷题">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-07-28T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-07-28T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2647">
+<meta itemprop="wordCount" content="3997">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="算法刷题" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -155,7 +155,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-07-28
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>6 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>8 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
 
@@ -179,6 +179,19 @@
         <li><a href="#rk算法-hash算法">RK算法: hash算法</a></li>
         <li><a href="#bm算法">BM算法</a></li>
         <li><a href="#kmp算法">KMP算法</a></li>
+      </ul>
+    </li>
+    <li><a href="#2打家劫舍">2.打家劫舍</a>
+      <ul>
+        <li><a href="#初始问题">初始问题</a></li>
+        <li><a href="#首尾相连">首尾相连</a></li>
+        <li><a href="#二叉树">二叉树</a></li>
+      </ul>
+    </li>
+    <li><a href="#反转链表">反转链表</a>
+      <ul>
+        <li><a href="#1迭代">1.迭代</a></li>
+        <li><a href="#2迭代">2.迭代</a></li>
       </ul>
     </li>
   </ul>
@@ -434,6 +447,201 @@
 <span class="ln">13</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
 <span class="ln">14</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">B</span><span class="o">));</span>
 <span class="ln">15</span>    <span class="o">}</span>
+</code></pre></div><h2 id="2打家劫舍">2.打家劫舍</h2>
+<p>动态规划三要素:</p>
+<ol>
+<li>最优子结构: 每一个问题的最优解都包含子问题的最优解(n的最优依赖的是n-1的最优)</li>
+<li>递推公式(状态转移方程): 找问题的规律, 解和前面解的关系</li>
+<li>重叠子问题</li>
+</ol>
+<h3 id="初始问题">初始问题</h3>
+<p>问题: 小偷偷钱, 不能偷相邻的房间. 给定一个代表每个房屋存放金额的非负整数数组, 计算你不触动警报装置的情况下, 一夜能偷窃到的最高金额</p>
+<p>输入: [1,2,3,1] 输出:4</p>
+<p>输入:[2,7,9,3,1] 输出12</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rob</span> <span class="o">{</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 4</span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">100</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">100</span><span class="o">};</span>
+<span class="ln"> 5</span>        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">num</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln"> 6</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">maxMoney</span><span class="o">(</span><span class="n">num</span><span class="o">,</span> <span class="n">index</span><span class="o">));</span>
+<span class="ln"> 7</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">maxMoney2</span><span class="o">(</span><span class="n">num</span><span class="o">));</span>
+<span class="ln"> 8</span>    <span class="o">}</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span>
+<span class="ln">11</span>    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">maxMoney</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">){</span>
+<span class="ln">12</span>        <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">){</span>
+<span class="ln">13</span>            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">14</span>        <span class="o">}</span>
+<span class="ln">15</span>        <span class="k">if</span> <span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
+<span class="ln">16</span>            <span class="k">return</span> <span class="n">num</span><span class="o">[</span><span class="n">index</span><span class="o">];</span>
+<span class="ln">17</span>        <span class="o">}</span>
+<span class="ln">18</span>        <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">maxMoney</span><span class="o">(</span><span class="n">num</span><span class="o">,</span> <span class="n">index</span><span class="o">-</span><span class="n">1</span><span class="o">),</span> <span class="n">num</span><span class="o">[</span><span class="n">index</span><span class="o">]+</span><span class="n">maxMoney</span><span class="o">(</span><span class="n">num</span><span class="o">,</span> <span class="n">index</span><span class="o">-</span><span class="n">2</span><span class="o">));</span>
+<span class="ln">19</span>    <span class="o">}</span>
+<span class="ln">20</span>    
+<span class="ln">21</span>    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">maxMoney2</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">num</span><span class="o">){</span>
+<span class="ln">22</span>        <span class="c1">//健壮性
+</span><span class="ln">23</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+<span class="ln">24</span>        <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
+<span class="ln">25</span>            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">26</span>        <span class="o">}</span>
+<span class="ln">27</span>        <span class="k">if</span> <span class="o">(</span><span class="n">length</span> <span class="o">==</span> <span class="n">1</span><span class="o">){</span>
+<span class="ln">28</span>            <span class="k">return</span> <span class="n">num</span><span class="o">[</span><span class="n">length</span><span class="o">-</span><span class="n">1</span><span class="o">];</span>
+<span class="ln">29</span>        <span class="o">}</span>
+<span class="ln">30</span>
+<span class="ln">31</span>        <span class="c1">//dp数组, 存放以及计算的值, 优化计算
+</span><span class="ln">32</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">dp</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
+<span class="ln">33</span>        <span class="n">dp</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">num</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+<span class="ln">34</span>        <span class="n">dp</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">num</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span>
+<span class="ln">35</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">36</span>            <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">],</span> <span class="n">dp</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">2</span><span class="o">]+</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+<span class="ln">37</span>        <span class="o">}</span>
+<span class="ln">38</span>
+<span class="ln">39</span>        <span class="k">return</span> <span class="n">dp</span><span class="o">[</span><span class="n">length</span><span class="o">-</span><span class="n">1</span><span class="o">];</span>
+<span class="ln">40</span>    <span class="o">}</span>
+<span class="ln">41</span>    
+<span class="ln">42</span>    <span class="c1">//优化空间复杂度, 只放两个位置.
+</span><span class="ln">43</span><span class="c1"></span>    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">maxMoney3</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">num</span><span class="o">){</span>
+<span class="ln">44</span>        <span class="c1">//健壮性
+</span><span class="ln">45</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+<span class="ln">46</span>        <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
+<span class="ln">47</span>            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">48</span>        <span class="o">}</span>
+<span class="ln">49</span>        <span class="k">if</span> <span class="o">(</span><span class="n">length</span> <span class="o">==</span> <span class="n">1</span><span class="o">){</span>
+<span class="ln">50</span>            <span class="k">return</span> <span class="n">num</span><span class="o">[</span><span class="n">length</span><span class="o">-</span><span class="n">1</span><span class="o">];</span>
+<span class="ln">51</span>        <span class="o">}</span>
+<span class="ln">52</span>
+<span class="ln">53</span>        <span class="c1">//只需要两个变量, 优化空间复杂度从O(n)到O(1)
+</span><span class="ln">54</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">first</span> <span class="o">=</span> <span class="n">num</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+<span class="ln">55</span>        <span class="kt">int</span> <span class="n">second</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">num</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span>
+<span class="ln">56</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span><span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">57</span>            <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">second</span><span class="o">;</span>
+<span class="ln">58</span>            <span class="n">second</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">second</span><span class="o">,</span> <span class="n">first</span><span class="o">+</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+<span class="ln">59</span>            <span class="n">first</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+<span class="ln">60</span>        <span class="o">}</span>
+<span class="ln">61</span>
+<span class="ln">62</span>        <span class="k">return</span> <span class="n">second</span><span class="o">;</span>
+<span class="ln">63</span>    <span class="o">}</span>
+<span class="ln">64</span><span class="o">}</span>
+<span class="ln">65</span>
+</code></pre></div><h3 id="首尾相连">首尾相连</h3>
+<p>街道房间是圆形的. 第一个和最后一个也算是相邻的.</p>
+<p>由于第一个和最后一个是互斥的, 于是分解为两个子问题: 第一个房子到倒数第二个房子的最优解, 与第二个房子到最后一个房子的最优解. 分别求出来比较大小.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 2</span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">100</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">100</span><span class="o">};</span>
+<span class="ln"> 3</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span>
+<span class="ln"> 4</span>                <span class="n">maxMoney4</span><span class="o">(</span><span class="n">num</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">2</span><span class="o">),</span>
+<span class="ln"> 5</span>                <span class="n">maxMoney4</span><span class="o">(</span><span class="n">num</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">-</span><span class="n">1</span><span class="o">)</span>
+<span class="ln"> 6</span>        <span class="o">));</span>
+<span class="ln"> 7</span>    <span class="o">}</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="c1">//将下标作为变量, 分别进行最优解运算.
+</span><span class="ln">11</span><span class="c1"></span>    <span class="kd">static</span> <span class="kt">int</span> <span class="nf">maxMoney4</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">){</span>
+<span class="ln">12</span>        <span class="c1">//健壮性
+</span><span class="ln">13</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">num</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+<span class="ln">14</span>        <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
+<span class="ln">15</span>            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">16</span>        <span class="o">}</span>
+<span class="ln">17</span>        <span class="k">if</span> <span class="o">(</span><span class="n">length</span> <span class="o">==</span> <span class="n">1</span><span class="o">){</span>
+<span class="ln">18</span>            <span class="k">return</span> <span class="n">num</span><span class="o">[</span><span class="n">length</span><span class="o">-</span><span class="n">1</span><span class="o">];</span>
+<span class="ln">19</span>        <span class="o">}</span>
+<span class="ln">20</span>
+<span class="ln">21</span>        <span class="c1">//只需要两个变量, 优化空间复杂度从O(n)到O(1)
+</span><span class="ln">22</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">first</span> <span class="o">=</span> <span class="n">num</span><span class="o">[</span><span class="n">start</span><span class="o">];</span>
+<span class="ln">23</span>        <span class="kt">int</span> <span class="n">second</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">num</span><span class="o">[</span><span class="n">start</span><span class="o">],</span> <span class="n">num</span><span class="o">[</span><span class="n">start</span><span class="o">+</span><span class="n">1</span><span class="o">]);</span>
+<span class="ln">24</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">start</span><span class="o">+</span><span class="n">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">25</span>            <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">second</span><span class="o">;</span>
+<span class="ln">26</span>            <span class="n">second</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">second</span><span class="o">,</span> <span class="n">first</span><span class="o">+</span><span class="n">num</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+<span class="ln">27</span>            <span class="n">first</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+<span class="ln">28</span>        <span class="o">}</span>
+<span class="ln">29</span>
+<span class="ln">30</span>        <span class="k">return</span> <span class="n">second</span><span class="o">;</span>
+<span class="ln">31</span>    <span class="o">}</span>
+</code></pre></div><h3 id="二叉树">二叉树</h3>
+<p>父子关系就是相邻的情况.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 2</span>        <span class="n">TreeNode</span> <span class="n">node5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="ln"> 3</span>        <span class="n">TreeNode</span> <span class="n">node4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="ln"> 4</span>        <span class="n">TreeNode</span> <span class="n">node3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">node5</span><span class="o">);</span>
+<span class="ln"> 5</span>        <span class="n">TreeNode</span> <span class="n">node2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">node4</span><span class="o">);</span>
+<span class="ln"> 6</span>        <span class="n">TreeNode</span> <span class="n">node1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="n">node2</span><span class="o">,</span> <span class="n">node3</span><span class="o">);</span>
+<span class="ln"> 7</span>        <span class="c1">//传入根节点
+</span><span class="ln"> 8</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">dfs</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">(</span><span class="n">node1</span><span class="o">);</span>
+<span class="ln"> 9</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">dfs</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">dfs</span><span class="o">[</span><span class="n">1</span><span class="o">]));</span>
+<span class="ln">10</span>    <span class="o">}</span>
+<span class="ln">11</span>
+<span class="ln">12</span>
+<span class="ln">13</span><span class="c1">//深度优先算法
+</span><span class="ln">14</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">dfs</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">node</span><span class="o">){</span>
+<span class="ln">15</span>        <span class="c1">//int[]两个值, 一是选了这个节点select的最优解,第二个是没选这个节点not select的最优解
+</span><span class="ln">16</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">node</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln">17</span>            <span class="c1">//如果是null节点, 选与不选结果都是1.
+</span><span class="ln">18</span><span class="c1"></span>            <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">0</span><span class="o">,</span><span class="n">0</span><span class="o">};</span>
+<span class="ln">19</span>        <span class="o">}</span>
+<span class="ln">20</span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">l</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+<span class="ln">21</span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">r</span> <span class="o">=</span> <span class="n">dfs</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+<span class="ln">22</span>        <span class="c1">//选这个节点意味着不能选下面的节点
+</span><span class="ln">23</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">select</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">val</span> <span class="o">+</span> <span class="n">l</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">r</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+<span class="ln">24</span>        <span class="c1">//不选这个节点意味着选子节点, 选子节点最大的情况.
+</span><span class="ln">25</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">notSelect</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">l</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">l</span><span class="o">[</span><span class="n">1</span><span class="o">])</span> <span class="o">+</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">r</span><span class="o">[</span><span class="n">0</span><span class="o">],</span> <span class="n">r</span><span class="o">[</span><span class="n">1</span><span class="o">]);</span>
+<span class="ln">26</span>        <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">select</span><span class="o">,</span> <span class="n">notSelect</span><span class="o">};</span>
+<span class="ln">27</span>    <span class="o">}</span>
+</code></pre></div><h2 id="反转链表">反转链表</h2>
+<h3 id="1迭代">1.迭代</h3>
+<p>用变量保存当前节点和下一个节点的信息, 以此赋值.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReverseList</span> <span class="o">{</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 4</span>        <span class="n">ListNode</span> <span class="n">node5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">5</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="ln"> 5</span>        <span class="n">ListNode</span> <span class="n">node4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">4</span><span class="o">,</span> <span class="n">node5</span><span class="o">);</span>
+<span class="ln"> 6</span>        <span class="n">ListNode</span> <span class="n">node3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="n">node4</span><span class="o">);</span>
+<span class="ln"> 7</span>        <span class="n">ListNode</span> <span class="n">node2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">node3</span><span class="o">);</span>
+<span class="ln"> 8</span>        <span class="n">ListNode</span> <span class="n">node1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">node2</span><span class="o">);</span>
+<span class="ln"> 9</span>        <span class="n">ListNode</span> <span class="n">iterate</span> <span class="o">=</span> <span class="n">iterate</span><span class="o">(</span><span class="n">node1</span><span class="o">);</span>
+<span class="ln">10</span>    <span class="o">}</span>
+<span class="ln">11</span>
+<span class="ln">12</span>    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ListNode</span><span class="o">{</span>
+<span class="ln">13</span>        <span class="kt">int</span> <span class="n">val</span><span class="o">;</span>
+<span class="ln">14</span>        <span class="n">ListNode</span> <span class="n">next</span><span class="o">;</span>
+<span class="ln">15</span>
+<span class="ln">16</span>        <span class="kd">public</span> <span class="nf">ListNode</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">,</span> <span class="n">ListNode</span> <span class="n">next</span><span class="o">){</span>
+<span class="ln">17</span>            <span class="k">this</span><span class="o">.</span><span class="na">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+<span class="ln">18</span>            <span class="k">this</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+<span class="ln">19</span>        <span class="o">}</span>
+<span class="ln">20</span>    <span class="o">}</span>
+<span class="ln">21</span>
+<span class="ln">22</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ListNode</span> <span class="nf">iterate</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">){</span>
+<span class="ln">23</span>        <span class="c1">//保存前一个节点
+</span><span class="ln">24</span><span class="c1"></span>        <span class="n">ListNode</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="ln">25</span>        <span class="c1">//保存当前节点
+</span><span class="ln">26</span><span class="c1"></span>        <span class="n">ListNode</span> <span class="n">curr</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+<span class="ln">27</span>        <span class="n">ListNode</span> <span class="n">next</span><span class="o">;</span>
+<span class="ln">28</span>        <span class="k">while</span> <span class="o">(</span><span class="n">curr</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln">29</span>            <span class="c1">//先保存下一个节点的信息, 避免被覆盖
+</span><span class="ln">30</span><span class="c1"></span>            <span class="n">next</span> <span class="o">=</span> <span class="n">curr</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="ln">31</span>            <span class="c1">//在pre还未指向新的pre之前给自己赋值
+</span><span class="ln">32</span><span class="c1"></span>            <span class="n">curr</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">pre</span><span class="o">;</span>
+<span class="ln">33</span>            <span class="n">pre</span> <span class="o">=</span> <span class="n">curr</span><span class="o">;</span>
+<span class="ln">34</span>            <span class="n">curr</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+<span class="ln">35</span>        <span class="o">}</span>
+<span class="ln">36</span>        <span class="k">return</span> <span class="n">pre</span><span class="o">;</span>
+<span class="ln">37</span>    <span class="o">}</span>
+<span class="ln">38</span>
+<span class="ln">39</span>
+<span class="ln">40</span><span class="o">}</span>
+<span class="ln">41</span>
+</code></pre></div><h3 id="2迭代">2.迭代</h3>
+<p>以相似的方式重复, 类似于树结构, 从最里面开始遍历.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="n">ListNode</span> <span class="nf">recursion</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln"> 3</span>            <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="o">}</span>
+<span class="ln"> 5</span>        <span class="c1">//从最后往前修改
+</span><span class="ln"> 6</span><span class="c1"></span>        <span class="n">ListNode</span> <span class="n">new_head</span> <span class="o">=</span> <span class="n">recursion</span><span class="o">(</span><span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">);</span>
+<span class="ln"> 7</span>        <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span> <span class="c1">// 后一个指向前一个
+</span><span class="ln"> 8</span><span class="c1"></span>        <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">//断原来的链
+</span><span class="ln"> 9</span><span class="c1"></span>        <span class="k">return</span> <span class="n">new_head</span><span class="o">;</span>
+<span class="ln">10</span>    <span class="o">}</span>
 </code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/java-4-basic/">Java基础查漏补缺
@@ -530,6 +738,13 @@
           Java <span class="badge rounded-pill">9</span>
         </a><a href="/series/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机学习笔记">
           计算机学习笔记 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section><section class="taxonomy-tags row surface">
+      <h4>
+        <a href="/tags">标签</a>
+      </h4>
+      <div><a href="/tags/%E5%AE%89%E5%85%A8/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="安全">
+          安全 <span class="badge rounded-pill">2</span>
         </a></div>
     </section></div>
 </aside>
