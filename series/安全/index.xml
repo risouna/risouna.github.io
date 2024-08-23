@@ -6,7 +6,16 @@
     <description>Recent content in 安全 on さぁ、君、取りたまえ</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
-    <lastBuildDate>Sun, 24 Mar 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/%E5%AE%89%E5%85%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>安全阅读8.19~</title>
+      <link>/posts/tech/sec-read-20240819/</link>
+      <pubDate>Mon, 19 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/sec-read-20240819/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>3.24学习记录</title>
       <link>/posts/tech/sec-read-20240324/</link>

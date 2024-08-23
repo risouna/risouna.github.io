@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="算法刷题">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-07-28T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-07-28T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3997">
+<meta itemprop="wordCount" content="6143">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="算法刷题" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -155,7 +155,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-07-28
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>8 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>13 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
 
@@ -191,7 +191,34 @@
     <li><a href="#反转链表">反转链表</a>
       <ul>
         <li><a href="#1迭代">1.迭代</a></li>
-        <li><a href="#2迭代">2.迭代</a></li>
+        <li><a href="#2递归">2.递归</a></li>
+      </ul>
+    </li>
+    <li><a href="#素数个数统计">素数个数统计</a>
+      <ul>
+        <li><a href="#1暴力算法">1.暴力算法</a></li>
+        <li><a href="#2埃氏筛选">2.埃氏筛选</a></li>
+      </ul>
+    </li>
+    <li><a href="#删除排序数组中的重复项">删除排序数组中的重复项</a></li>
+    <li><a href="#寻找数组的中心下标">寻找数组的中心下标</a></li>
+    <li><a href="#x的平方根">X的平方根</a>
+      <ul>
+        <li><a href="#二分法">二分法</a></li>
+        <li><a href="#牛顿迭代">牛顿迭代</a></li>
+      </ul>
+    </li>
+    <li><a href="#数组中三个数的最大乘积">数组中三个数的最大乘积</a>
+      <ul>
+        <li><a href="#先排序后计算">先排序后计算</a></li>
+        <li><a href="#线性扫描-只找出前三最大和前二最小">线性扫描: 只找出前三最大和前二最小</a></li>
+      </ul>
+    </li>
+    <li><a href="#两数之和--无序数组">两数之和&ndash;无序数组</a></li>
+    <li><a href="#两数之和--有序数组">两数之和&ndash;有序数组</a>
+      <ul>
+        <li><a href="#二分查找">二分查找</a></li>
+        <li><a href="#双指针">双指针</a></li>
       </ul>
     </li>
   </ul>
@@ -630,7 +657,7 @@
 <span class="ln">39</span>
 <span class="ln">40</span><span class="o">}</span>
 <span class="ln">41</span>
-</code></pre></div><h3 id="2迭代">2.迭代</h3>
+</code></pre></div><h3 id="2递归">2.递归</h3>
 <p>以相似的方式重复, 类似于树结构, 从最里面开始遍历.</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="n">ListNode</span> <span class="nf">recursion</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">){</span>
 <span class="ln"> 2</span>        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
@@ -642,6 +669,269 @@
 </span><span class="ln"> 8</span><span class="c1"></span>        <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">//断原来的链
 </span><span class="ln"> 9</span><span class="c1"></span>        <span class="k">return</span> <span class="n">new_head</span><span class="o">;</span>
 <span class="ln">10</span>    <span class="o">}</span>
+</code></pre></div><h2 id="素数个数统计">素数个数统计</h2>
+<h3 id="1暴力算法">1.暴力算法</h3>
+<p>对每个数字x继续筛选, 看x是否会被小于根号x的数字整除. 可以用i * i &lt; x 表示根号.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PrimeSearch</span> <span class="o">{</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">bf</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">){</span>
+<span class="ln"> 5</span>        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 6</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 7</span>            <span class="n">count</span> <span class="o">+=</span> <span class="n">isPrime</span><span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">?</span> <span class="n">1</span> <span class="o">:</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 8</span>        <span class="o">}</span>
+<span class="ln"> 9</span>        <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+<span class="ln">10</span>    <span class="o">}</span>
+<span class="ln">11</span>
+<span class="ln">12</span>    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isPrime</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">13</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span> <span class="n">j</span> <span class="o">*</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">14</span>            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">%</span> <span class="n">j</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
+<span class="ln">15</span>                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="ln">16</span>            <span class="o">}</span>
+<span class="ln">17</span>        <span class="o">}</span>
+<span class="ln">18</span>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="ln">19</span>    <span class="o">}</span>
+<span class="ln">20</span><span class="o">}</span>
+<span class="ln">21</span>
+</code></pre></div><h3 id="2埃氏筛选">2.埃氏筛选</h3>
+<p>埃氏筛选: 找到一个质数, 立刻将这个质数所有的倍数都淘汰为合数.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">eratosthenes</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="c1">//由于数组下标的因素, 设置为n+1
+</span><span class="ln"> 4</span><span class="c1"></span>        <span class="n">Boolean</span><span class="o">[]</span> <span class="n">isPrime</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Boolean</span><span class="o">[</span><span class="n">n</span><span class="o">+</span><span class="n">1</span><span class="o">];</span> <span class="c1">//初始化为false
+</span><span class="ln"> 5</span><span class="c1"></span>        <span class="n">Arrays</span><span class="o">.</span><span class="na">fill</span><span class="o">(</span><span class="n">isPrime</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span> <span class="c1">//所有默认为true
+</span><span class="ln"> 6</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 7</span>            <span class="k">if</span> <span class="o">(</span><span class="n">isPrime</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+<span class="ln"> 8</span>                <span class="n">count</span><span class="o">++;</span>
+<span class="ln"> 9</span>                <span class="c1">//排除所有这个质数的倍数的合数.
+</span><span class="ln">10</span><span class="c1"></span>                <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">;</span> <span class="n">j</span><span class="o">+=</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">11</span>                    <span class="n">isPrime</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="ln">12</span>                <span class="o">}</span>
+<span class="ln">13</span>            <span class="o">}</span>
+<span class="ln">14</span>        <span class="o">}</span>
+<span class="ln">15</span>        <span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+<span class="ln">16</span>    <span class="o">}</span>
+</code></pre></div><h2 id="删除排序数组中的重复项">删除排序数组中的重复项</h2>
+<p>一个<strong>有序</strong>数组nums, 原地删除重复出现的元素, 使每个元素只出现一次, 返回删除后数组的<strong>新长度</strong></p>
+<p>不能使用额外的数组空间, 必须在原地修改数组并在使用O(1)额外空间的条件下完成.</p>
+<p>输入: [0,1,2,2,3,3,4]</p>
+<p>输出: 5</p>
+<p>Java中没有数组元素删除操作, 删除了只能置为null. 或者只能新建数组拷贝.</p>
+<p>双指针算法: i(慢指针)和j(快指针)依次指向第一个和第二个, 如果他们对应元素不相等, 则都+1; 如果对应元素相等, 那么j+1; 如果是相等之后出现了不相等, 那么这时将j所在位置的元素赋值给i+1所在位置的元素(nums[i+1]=nums[j]); 如果j到了最后一个, 则返回i.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SortedArrayDuplicates</span> <span class="o">{</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 4</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+<span class="ln"> 5</span>                <span class="n">removeDuplicates</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">})</span>
+<span class="ln"> 6</span>        <span class="o">);</span>
+<span class="ln"> 7</span>    <span class="o">}</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">removeDuplicates</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">){</span>
+<span class="ln">10</span>        <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">){</span>
+<span class="ln">11</span>            <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">12</span>        <span class="o">}</span>
+<span class="ln">13</span>
+<span class="ln">14</span>        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">15</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">16</span>            <span class="c1">//当不相等时, 如果是挨着的, 那么nums[i] = nums[j];无影响
+</span><span class="ln">17</span><span class="c1"></span>            <span class="c1">//如果不是挨着的, 那么会将重复的元素赋值为下一个不重复的元素
+</span><span class="ln">18</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">!=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">]){</span>
+<span class="ln">19</span>                <span class="n">i</span><span class="o">++;</span>
+<span class="ln">20</span>                <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">j</span><span class="o">];</span>
+<span class="ln">21</span>            <span class="o">}</span>
+<span class="ln">22</span>        <span class="o">}</span>
+<span class="ln">23</span>        
+<span class="ln">24</span>        <span class="k">return</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln">25</span>    <span class="o">}</span>
+<span class="ln">26</span><span class="o">}</span>
+<span class="ln">27</span>
+</code></pre></div><h2 id="寻找数组的中心下标">寻找数组的中心下标</h2>
+<p>给定一个整数数组nums, 返回数组&quot;中心下标&quot;的方法, 不存在返回-1, 有多个则返回最靠近左边的那个.</p>
+<p>中心下标是数组的一个下标, 其左侧的所有元素相加的和等于右侧所有元素相加的和. 中心下标可能出现在数组的两端.</p>
+<p>这道题的关键是理解题意, 左边等于右边, 这是不包括当前位置的值的. 于是思路有</p>
+<ol>
+<li>
+<p>轮到下标为i元素时, 判断0+1+..+i-1+ i  是否等于 sum - 0 - 1 - (i-1). 双方都加一个当前元素等于没有加.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">pivotIndex</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="kt">int</span> <span class="n">sumMinusPrev</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">nums</span><span class="o">).</span><span class="na">sum</span><span class="o">();</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">leftPlusCurr</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 5</span>            <span class="n">leftPlusCurr</span> <span class="o">+=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="ln"> 6</span>            <span class="k">if</span> <span class="o">(</span><span class="n">leftPlusCurr</span> <span class="o">==</span> <span class="n">sumMinusPrev</span><span class="o">){</span>
+<span class="ln"> 7</span>                <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+<span class="ln"> 8</span>            <span class="o">}</span>
+<span class="ln"> 9</span>            <span class="n">sumMinusPrev</span> <span class="o">-=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="ln">10</span>        <span class="o">}</span>
+<span class="ln">11</span>        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln">12</span>    <span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>既然左边右边是相等的, 那么2*(0+1+2+&hellip;+i-1) + i = sum总和.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">pivotIndex2</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">stream</span><span class="o">(</span><span class="n">nums</span><span class="o">).</span><span class="na">sum</span><span class="o">();</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">ima</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+<span class="ln"> 5</span>            <span class="k">if</span> <span class="o">(</span><span class="n">ima</span> <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">==</span> <span class="n">sum</span><span class="o">){</span>
+<span class="ln"> 6</span>                <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+<span class="ln"> 7</span>            <span class="o">}</span>
+<span class="ln"> 8</span>            <span class="n">ima</span> <span class="o">+=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="ln"> 9</span>        <span class="o">}</span>
+<span class="ln">10</span>        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln">11</span>    <span class="o">}</span>
+</code></pre></div></li>
+</ol>
+<p>验证:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">2</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">pivotIndex</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">1</span><span class="o">,</span><span class="n">7</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">6</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">6</span><span class="o">}));</span>
+<span class="ln">3</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">pivotIndex2</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">1</span><span class="o">,</span><span class="n">7</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">6</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">6</span><span class="o">}));</span>
+<span class="ln">4</span>    <span class="o">}</span>
+</code></pre></div><h2 id="x的平方根">X的平方根</h2>
+<p>不使用sqrt函数, 得到x的平方根的整数部分.</p>
+<h3 id="二分法">二分法</h3>
+<p>寻找i * i &lt; x 但 (i+1)*(i+1) &gt; x的值, 使用二分法缩减寻找次数.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">binarySearch</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">lP</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">rP</span> <span class="o">=</span> <span class="n">x</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="k">while</span> <span class="o">(</span><span class="n">lP</span> <span class="o">&lt;=</span> <span class="n">rP</span><span class="o">){</span>
+<span class="ln"> 5</span>            <span class="c1">//计算新的左右指针的中间值
+</span><span class="ln"> 6</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="o">(</span><span class="n">lP</span> <span class="o">+</span> <span class="n">rP</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+<span class="ln"> 7</span>            <span class="k">if</span> <span class="o">(</span><span class="n">mid</span> <span class="o">*</span> <span class="n">mid</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="o">){</span>
+<span class="ln"> 8</span>                <span class="n">lP</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln"> 9</span>                <span class="c1">//取小值
+</span><span class="ln">10</span><span class="c1"></span>                <span class="n">index</span> <span class="o">=</span> <span class="n">mid</span><span class="o">;</span>
+<span class="ln">11</span>            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+<span class="ln">12</span>                <span class="n">rP</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln">13</span>            <span class="o">}</span>
+<span class="ln">14</span>
+<span class="ln">15</span>        <span class="o">}</span>
+<span class="ln">16</span>        <span class="k">return</span> <span class="n">index</span><span class="o">;</span>
+<span class="ln">17</span>    <span class="o">}</span>
+</code></pre></div><h3 id="牛顿迭代">牛顿迭代</h3>
+<p>原理: x/n 与 n的均值比他们原来更趋近于根号x.</p>
+<p>原本的牛顿迭代是迭代选取的点对应切线与x轴交点的值(x1 = x0 - f(x0)/df(x0)),</p>
+<p>这里相当于是求x^2-x0=0方程的根, 化简之后就是(i + x/i)/2, 和牛顿迭代一致.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">newton</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="c1">//第一个参数值无所谓, 越接近根号x, 则迭代次数越少.
+</span><span class="ln"> 3</span><span class="c1"></span>        <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">sqrt</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">x</span><span class="o">);</span>
+<span class="ln"> 4</span>    <span class="o">}</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">double</span> <span class="nf">sqrt</span><span class="o">(</span><span class="kt">double</span> <span class="n">i</span><span class="o">,</span> <span class="kt">int</span> <span class="n">x</span><span class="o">){</span>
+<span class="ln"> 7</span>        <span class="kt">double</span> <span class="n">res</span> <span class="o">=</span> <span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">x</span><span class="o">/</span><span class="n">i</span><span class="o">)/</span><span class="n">2</span><span class="o">;</span>
+<span class="ln"> 8</span>        <span class="k">if</span> <span class="o">(</span><span class="n">res</span> <span class="o">==</span> <span class="n">i</span><span class="o">){</span>
+<span class="ln"> 9</span>            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+<span class="ln">10</span>        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+<span class="ln">11</span>            <span class="n">sqrt</span><span class="o">(</span><span class="n">res</span><span class="o">,</span> <span class="n">x</span><span class="o">);</span>
+<span class="ln">12</span>        <span class="o">}</span>
+<span class="ln">13</span>    <span class="o">}</span>
+</code></pre></div><h2 id="数组中三个数的最大乘积">数组中三个数的最大乘积</h2>
+<p>整形数组nums, 在数组中找出由三个数字组成的最大乘积, 并输出.</p>
+<p>当数组全为整数时, 最大乘积为前三个最大的数的乘积;</p>
+<p>当数组有一个负数时, 最大乘积为前三个最大的数的乘积;</p>
+<p>当数组由两个及以上的负数时, 最大乘积为前三个最大的数的乘积 和 最大的数与两个最小的数的乘积之大者.</p>
+<h3 id="先排序后计算">先排序后计算</h3>
+<p>算法复杂度取决于排序算法.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">sortAndCalc</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">){</span>
+<span class="ln">2</span>        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+<span class="ln">3</span>        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">nums</span><span class="o">);</span>
+<span class="ln">4</span>        <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span>
+<span class="ln">5</span>                <span class="n">nums</span><span class="o">[</span><span class="n">0</span><span class="o">]*</span><span class="n">nums</span><span class="o">[</span><span class="n">1</span><span class="o">]*</span><span class="n">nums</span><span class="o">[</span><span class="n">length</span><span class="o">-</span><span class="n">1</span><span class="o">],</span>
+<span class="ln">6</span>                <span class="n">nums</span><span class="o">[</span><span class="n">length</span><span class="o">-</span><span class="n">1</span><span class="o">]*</span><span class="n">nums</span><span class="o">[</span><span class="n">length</span><span class="o">-</span><span class="n">2</span><span class="o">]*</span><span class="n">nums</span><span class="o">[</span><span class="n">length</span><span class="o">-</span><span class="n">3</span><span class="o">]</span>
+<span class="ln">7</span>        <span class="o">);</span>
+<span class="ln">8</span>    <span class="o">}</span>
+</code></pre></div><h3 id="线性扫描-只找出前三最大和前二最小">线性扫描: 只找出前三最大和前二最小</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">getMax3AndMin2</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="kt">int</span> <span class="n">max1</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">,</span> <span class="n">max2</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">,</span> <span class="n">max3</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MIN_VALUE</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">min1</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">,</span> <span class="n">min2</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">num</span> <span class="o">:</span> <span class="n">nums</span><span class="o">){</span>
+<span class="ln"> 5</span>            <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">max1</span><span class="o">){</span>
+<span class="ln"> 6</span>                <span class="n">max3</span> <span class="o">=</span> <span class="n">max2</span><span class="o">;</span>
+<span class="ln"> 7</span>                <span class="n">max2</span> <span class="o">=</span> <span class="n">max1</span><span class="o">;</span>
+<span class="ln"> 8</span>                <span class="n">max1</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+<span class="ln"> 9</span>            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">max2</span><span class="o">){</span>
+<span class="ln">10</span>                <span class="n">max3</span> <span class="o">=</span> <span class="n">max2</span><span class="o">;</span>
+<span class="ln">11</span>                <span class="n">max2</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+<span class="ln">12</span>            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">max3</span><span class="o">){</span>
+<span class="ln">13</span>                <span class="n">max3</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+<span class="ln">14</span>            <span class="o">}</span>
+<span class="ln">15</span>
+<span class="ln">16</span>            <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">min1</span><span class="o">){</span>
+<span class="ln">17</span>                <span class="n">min2</span> <span class="o">=</span> <span class="n">min1</span><span class="o">;</span>
+<span class="ln">18</span>                <span class="n">min1</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+<span class="ln">19</span>            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="n">min2</span><span class="o">){</span>
+<span class="ln">20</span>                <span class="n">min2</span> <span class="o">=</span> <span class="n">num</span><span class="o">;</span>
+<span class="ln">21</span>            <span class="o">}</span>
+<span class="ln">22</span>        <span class="o">}</span>
+<span class="ln">23</span>
+<span class="ln">24</span>        <span class="k">return</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span>
+<span class="ln">25</span>                <span class="n">max1</span><span class="o">*</span><span class="n">max2</span><span class="o">*</span><span class="n">max3</span><span class="o">,</span>
+<span class="ln">26</span>                <span class="n">max1</span><span class="o">*</span><span class="n">min1</span><span class="o">*</span><span class="n">min2</span>
+<span class="ln">27</span>        <span class="o">);</span>
+<span class="ln">28</span>    <span class="o">}</span>
+</code></pre></div><h2 id="两数之和--无序数组">两数之和&ndash;无序数组</h2>
+<p>给定整数数组nums, 从中寻找两个数满足他们之和为给定目标target.</p>
+<p>不可重复使用元素, 返回两数的下标值, 以数组形式返回.</p>
+<p>可以使用暴力算法.</p>
+<p>或者利用map记录扫描过的数及下标. 这样空间复杂度会稍高.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="ln"> 2</span><span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="ln"> 3</span><span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TwoNumberForSum</span> <span class="o">{</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 8</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+<span class="ln"> 9</span>                <span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">solution</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">5</span><span class="o">,</span> <span class="n">6</span><span class="o">},</span> <span class="n">10</span><span class="o">))</span>
+<span class="ln">10</span>        <span class="o">);</span>
+<span class="ln">11</span>    <span class="o">}</span>
+<span class="ln">12</span>
+<span class="ln">13</span>
+<span class="ln">14</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">solution</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">){</span>
+<span class="ln">15</span>        <span class="n">Map</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="ln">16</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">17</span>            <span class="k">if</span> <span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">])){</span>
+<span class="ln">18</span>                <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">target</span> <span class="o">-</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]),</span> <span class="n">i</span><span class="o">};</span>
+<span class="ln">19</span>            <span class="o">}</span>
+<span class="ln">20</span>            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">i</span><span class="o">);</span>
+<span class="ln">21</span>        <span class="o">}</span>
+<span class="ln">22</span>        <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+<span class="ln">23</span>    <span class="o">}</span>
+<span class="ln">24</span><span class="o">}</span>
+<span class="ln">25</span>
+</code></pre></div><h2 id="两数之和--有序数组">两数之和&ndash;有序数组</h2>
+<h3 id="二分查找">二分查找</h3>
+<p>遍历左边的界限, 在界限之中应用二分查找target-nums[i]的数.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">twoSearch</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 3</span>            <span class="kt">int</span> <span class="n">low</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">high</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln"> 4</span>            <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="o">){</span>
+<span class="ln"> 5</span>                <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="o">(</span><span class="n">low</span> <span class="o">+</span> <span class="n">high</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+<span class="ln"> 6</span>                <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">==</span> <span class="n">target</span> <span class="o">-</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+<span class="ln"> 7</span>                    <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">i</span><span class="o">,</span> <span class="n">mid</span><span class="o">};</span>
+<span class="ln"> 8</span>                <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">mid</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">target</span> <span class="o">-</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+<span class="ln"> 9</span>                    <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln">10</span>                <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+<span class="ln">11</span>                    <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln">12</span>                <span class="o">}</span>
+<span class="ln">13</span>            <span class="o">}</span>
+<span class="ln">14</span>        <span class="o">}</span>
+<span class="ln">15</span>        <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+<span class="ln">16</span>    <span class="o">}</span>
+</code></pre></div><h3 id="双指针">双指针</h3>
+<p>前提是有序.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">twoPointer</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">target</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="kt">int</span> <span class="n">low</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">high</span><span class="o">){</span>
+<span class="ln"> 4</span>            <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">nums</span><span class="o">[</span><span class="n">low</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">high</span><span class="o">];</span>
+<span class="ln"> 5</span>            <span class="k">if</span> <span class="o">(</span><span class="n">sum</span> <span class="o">==</span> <span class="n">target</span><span class="o">){</span>
+<span class="ln"> 6</span>                <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">low</span><span class="o">,</span> <span class="n">high</span><span class="o">};</span>
+<span class="ln"> 7</span>            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">sum</span> <span class="o">&gt;</span> <span class="n">target</span><span class="o">){</span>
+<span class="ln"> 8</span>                <span class="n">high</span><span class="o">--;</span>
+<span class="ln"> 9</span>            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+<span class="ln">10</span>                <span class="n">low</span><span class="o">++;</span>
+<span class="ln">11</span>            <span class="o">}</span>
+<span class="ln">12</span>        <span class="o">}</span>
+<span class="ln">13</span>        <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+<span class="ln">14</span>    <span class="o">}</span>
 </code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/java-4-basic/">Java基础查漏补缺
@@ -705,13 +995,13 @@
   </div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/tech/java-0-audition-3/">软件维护管理面试
+  <ul><li><a href="/posts/tech/sec-read-20240819/">安全阅读8.19~
+</a></li><li><a href="/posts/tech/java-0-audition-3/">软件维护管理面试
 </a></li><li><a href="/posts/tech/java-0-audition-2/">京东笔试准备&amp;牛客网刷题
 </a></li><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
 </a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
 </a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
 </a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
-</a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
 </a></li></ul>
 </section><section class="taxonomy-categories row surface">
       <h4>
@@ -720,7 +1010,7 @@
       <div><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
           二次元 <span class="badge rounded-pill">24</span>
         </a><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
-          计算机 <span class="badge rounded-pill">15</span>
+          计算机 <span class="badge rounded-pill">16</span>
         </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
           文字类 <span class="badge rounded-pill">6</span>
         </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
@@ -737,7 +1027,7 @@
         </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
           Java <span class="badge rounded-pill">9</span>
         </a><a href="/series/%E5%AE%89%E5%85%A8/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="安全">
-          安全 <span class="badge rounded-pill">2</span>
+          安全 <span class="badge rounded-pill">3</span>
         </a></div>
     </section></div>
 </aside>
