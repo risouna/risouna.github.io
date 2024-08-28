@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="算法刷题">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-07-28T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-07-28T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="6143">
+<meta itemprop="wordCount" content="8141">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="算法刷题" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -155,7 +155,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-07-28
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>13 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>17 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
 
@@ -173,7 +173,7 @@
   <div class="offcanvas-body">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#1字符串搜索">1.字符串搜索</a>
+    <li><a href="#字符串搜索">字符串搜索</a>
       <ul>
         <li><a href="#bf-暴力破解">BF: 暴力破解</a></li>
         <li><a href="#rk算法-hash算法">RK算法: hash算法</a></li>
@@ -181,7 +181,7 @@
         <li><a href="#kmp算法">KMP算法</a></li>
       </ul>
     </li>
-    <li><a href="#2打家劫舍">2.打家劫舍</a>
+    <li><a href="#打家劫舍">打家劫舍</a>
       <ul>
         <li><a href="#初始问题">初始问题</a></li>
         <li><a href="#首尾相连">首尾相连</a></li>
@@ -221,10 +221,48 @@
         <li><a href="#双指针">双指针</a></li>
       </ul>
     </li>
+    <li><a href="#计算斐波那契数列">计算斐波那契数列</a>
+      <ul>
+        <li><a href="#暴力递归">暴力递归</a></li>
+        <li><a href="#去重递归">去重递归</a></li>
+        <li><a href="#双指针迭代">双指针迭代</a></li>
+      </ul>
+    </li>
+    <li><a href="#排列硬币">排列硬币</a>
+      <ul>
+        <li><a href="#暴力迭代">暴力迭代</a></li>
+        <li><a href="#二分查找-1">二分查找</a></li>
+        <li><a href="#牛顿迭代-1">牛顿迭代</a></li>
+      </ul>
+    </li>
+    <li><a href="#环形链表">环形链表</a>
+      <ul>
+        <li><a href="#普通循环">普通循环</a></li>
+        <li><a href="#双指针-1">双指针</a></li>
+      </ul>
+    </li>
+    <li><a href="#合并两个有序数组">合并两个有序数组</a>
+      <ul>
+        <li><a href="#合并后排序">合并后排序</a></li>
+        <li><a href="#双指针-2">双指针</a></li>
+        <li><a href="#倒着排">倒着排</a></li>
+      </ul>
+    </li>
+    <li><a href="#子数组最大平均数">子数组最大平均数</a>
+      <ul>
+        <li><a href="#滑动窗口">滑动窗口</a></li>
+      </ul>
+    </li>
+    <li><a href="#二叉树的最小深度">二叉树的最小深度</a>
+      <ul>
+        <li><a href="#深度优先">深度优先</a></li>
+        <li><a href="#广度优先">广度优先</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
-</div><div class="post-content mb-3" ><h2 id="1字符串搜索">1.字符串搜索</h2>
+</div><div class="post-content mb-3" ><h2 id="字符串搜索">字符串搜索</h2>
 <p>主串A: a, b, c, d, e, f, g</p>
 <p>模式串B: c, d, e</p>
 <p>判断B是否在A中, 存在返回在A中的下标, 不存在返回-1</p>
@@ -474,7 +512,7 @@
 <span class="ln">13</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
 <span class="ln">14</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">A</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="n">B</span><span class="o">));</span>
 <span class="ln">15</span>    <span class="o">}</span>
-</code></pre></div><h2 id="2打家劫舍">2.打家劫舍</h2>
+</code></pre></div><h2 id="打家劫舍">打家劫舍</h2>
 <p>动态规划三要素:</p>
 <ol>
 <li>最优子结构: 每一个问题的最优解都包含子问题的最优解(n的最优依赖的是n-1的最优)</li>
@@ -932,7 +970,248 @@
 <span class="ln">12</span>        <span class="o">}</span>
 <span class="ln">13</span>        <span class="k">return</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
 <span class="ln">14</span>    <span class="o">}</span>
-</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+</code></pre></div><h2 id="计算斐波那契数列">计算斐波那契数列</h2>
+<p>0, 1, 1, 2, 3, 5, 8, &hellip;. 后一项等于前面两项的和.</p>
+<h3 id="暴力递归">暴力递归</h3>
+<p>直接递归, 这样有些项存在严重的重复计算.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">BFRecursion</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">){</span>
+<span class="ln">2</span>        <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">3</span>        <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="k">return</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln">4</span>        <span class="k">return</span> <span class="n">BFRecursion</span><span class="o">(</span><span class="n">num</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">BFRecursion</span><span class="o">(</span><span class="n">num</span> <span class="o">-</span> <span class="n">2</span><span class="o">);</span>
+<span class="ln">5</span>    <span class="o">}</span>
+</code></pre></div><h3 id="去重递归">去重递归</h3>
+<p>用空间保存计算过的项. 时间O(n) 空间O(n)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">SavedRecursion</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="c1">//由于第一个是0, 所以需要多一个空间.
+</span><span class="ln"> 3</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">saveArr</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">num</span> <span class="o">+</span> <span class="n">1</span><span class="o">];</span>
+<span class="ln"> 4</span>        <span class="k">return</span> <span class="n">Recursion</span><span class="o">(</span><span class="n">saveArr</span><span class="o">,</span> <span class="n">num</span><span class="o">);</span>
+<span class="ln"> 5</span>    <span class="o">}</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">Recursion</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">saveArr</span><span class="o">,</span> <span class="kt">int</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 8</span>        <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 9</span>        <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="k">return</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln">10</span>        <span class="c1">//如果之前这个位置已经被运算, 直接返回.
+</span><span class="ln">11</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">saveArr</span><span class="o">[</span><span class="n">num</span><span class="o">]</span> <span class="o">!=</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">saveArr</span><span class="o">[</span><span class="n">num</span><span class="o">];</span>
+<span class="ln">12</span>        <span class="n">saveArr</span><span class="o">[</span><span class="n">num</span><span class="o">]</span> <span class="o">=</span> <span class="n">Recursion</span><span class="o">(</span><span class="n">saveArr</span><span class="o">,</span> <span class="n">num</span> <span class="o">-</span> <span class="n">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">Recursion</span><span class="o">(</span><span class="n">saveArr</span><span class="o">,</span> <span class="n">num</span> <span class="o">-</span> <span class="n">2</span><span class="o">);</span>
+<span class="ln">13</span>        <span class="k">return</span> <span class="n">saveArr</span><span class="o">[</span><span class="n">num</span><span class="o">];</span>
+<span class="ln">14</span>    <span class="o">}</span>
+</code></pre></div><h3 id="双指针迭代">双指针迭代</h3>
+<p>只需要两个位置保存, 节省了空间至O(1)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">TwoPointer</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span> <span class="k">return</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="kt">int</span> <span class="n">first</span> <span class="o">=</span> <span class="n">1</span><span class="o">,</span> <span class="n">second</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 5</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">2</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 6</span>            <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">first</span><span class="o">;</span>
+<span class="ln"> 7</span>            <span class="n">first</span> <span class="o">=</span> <span class="n">first</span> <span class="o">+</span> <span class="n">second</span><span class="o">;</span>
+<span class="ln"> 8</span>            <span class="n">second</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+<span class="ln"> 9</span>        <span class="o">}</span>
+<span class="ln">10</span>        <span class="k">return</span> <span class="n">first</span><span class="o">;</span>
+<span class="ln">11</span>    <span class="o">}</span>
+</code></pre></div><h2 id="排列硬币">排列硬币</h2>
+<p>n枚硬币, 将他们排列为阶梯形状, 第k行有k枚硬币.</p>
+<p>给定一个数字n, 找出可形成完整阶梯行的总行数. 就是可以剩, 不需要全部用完.</p>
+<h3 id="暴力迭代">暴力迭代</h3>
+<p>啥也不管, 一行一行地排</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">arrangeCoinBF</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+<span class="ln">2</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">3</span>            <span class="n">n</span> <span class="o">-=</span> <span class="n">i</span><span class="o">;</span>
+<span class="ln">4</span>            <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="n">1</span><span class="o">){</span>
+<span class="ln">5</span>                <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+<span class="ln">6</span>            <span class="o">}</span>
+<span class="ln">7</span>        <span class="o">}</span>
+<span class="ln">8</span>        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln">9</span>    <span class="o">}</span>
+</code></pre></div><h3 id="二分查找-1">二分查找</h3>
+<p>行数必定在0到n之间, 查找这之中满足求和=n的值, 找不到就返回最大的行使求和&lt;n.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">arrangeCoinSearch</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="kt">int</span> <span class="n">low</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="k">while</span> <span class="o">(</span><span class="n">low</span> <span class="o">&lt;</span> <span class="n">high</span><span class="o">){</span>
+<span class="ln"> 4</span>            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="o">(</span><span class="n">low</span> <span class="o">+</span> <span class="n">high</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+<span class="ln"> 5</span>            <span class="kt">int</span> <span class="n">predict</span> <span class="o">=</span> <span class="o">((</span><span class="n">mid</span> <span class="o">+</span> <span class="n">1</span><span class="o">)</span> <span class="o">*</span> <span class="n">mid</span><span class="o">)</span> <span class="o">/</span> <span class="n">2</span><span class="o">;</span>
+<span class="ln"> 6</span>            <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="n">predict</span><span class="o">){</span>
+<span class="ln"> 7</span>                <span class="k">return</span> <span class="n">mid</span><span class="o">;</span>
+<span class="ln"> 8</span>            <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="n">predict</span><span class="o">){</span>
+<span class="ln"> 9</span>                <span class="n">high</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln">10</span>            <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+<span class="ln">11</span>                <span class="n">low</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln">12</span>            <span class="o">}</span>
+<span class="ln">13</span>        <span class="o">}</span>
+<span class="ln">14</span>        <span class="k">return</span> <span class="n">low</span><span class="o">;</span>
+<span class="ln">15</span>    <span class="o">}</span>
+</code></pre></div><h3 id="牛顿迭代-1">牛顿迭代</h3>
+<p>给定总数n求行数x, 由于 (x^2 + x) /2= n, 想求对应的x, 实际上是函数f(x) = (x^2 + x) /2 - n的根, 于是可以采用牛顿迭代, 每次迭代x1 = x0 - f(x0)/df(x0) = (x0^2 + 2n)/(2x0+1), 如果从n开始迭代, 则第一次为</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">double</span> <span class="nf">newtonRecursion</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">,</span> <span class="kt">int</span> <span class="n">res</span><span class="o">){</span>
+<span class="ln">2</span>        <span class="n">res</span> <span class="o">=</span> <span class="o">(</span><span class="n">res</span> <span class="o">*</span> <span class="n">res</span> <span class="o">+</span> <span class="n">2</span> <span class="o">*</span> <span class="n">n</span><span class="o">)</span> <span class="o">/</span> <span class="o">(</span><span class="n">res</span> <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+<span class="ln">3</span>        <span class="k">if</span> <span class="o">(</span><span class="n">res</span> <span class="o">*</span> <span class="n">res</span> <span class="o">+</span> <span class="n">res</span> <span class="o">==</span> <span class="n">2</span> <span class="o">*</span> <span class="n">n</span><span class="o">){</span>
+<span class="ln">4</span>            <span class="k">return</span> <span class="n">res</span><span class="o">;</span>
+<span class="ln">5</span>        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+<span class="ln">6</span>            <span class="k">return</span> <span class="n">newtonRecursion</span><span class="o">(</span><span class="n">n</span><span class="o">,</span> <span class="n">res</span><span class="o">);</span>
+<span class="ln">7</span>        <span class="o">}</span>
+<span class="ln">8</span>    <span class="o">}</span>
+</code></pre></div><h2 id="环形链表">环形链表</h2>
+<p>给定额链表, 判断链表中是否有环(如果链表有某个节点可以通过连续跟踪next指针再次到该节点, 就存在环). 存在环返回true, 否则返回false.</p>
+<p>内部类:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="c1">//内部类
+</span><span class="ln"> 2</span><span class="c1"></span>    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ListNode</span><span class="o">{</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">val</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="n">ListNode</span> <span class="n">next</span><span class="o">;</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>        <span class="kd">public</span> <span class="nf">ListNode</span><span class="o">(</span><span class="kt">int</span> <span class="n">val</span><span class="o">,</span> <span class="n">ListNode</span> <span class="n">next</span><span class="o">){</span>
+<span class="ln"> 7</span>            <span class="k">this</span><span class="o">.</span><span class="na">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">;</span>
+<span class="ln"> 8</span>            <span class="k">this</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+<span class="ln"> 9</span>        <span class="o">}</span>
+<span class="ln">10</span>    <span class="o">}</span>
+<span class="ln">11</span>
+<span class="ln">12</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">13</span>        <span class="n">ListNode</span> <span class="n">node5</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">5</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="ln">14</span>        <span class="n">ListNode</span> <span class="n">node4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">4</span><span class="o">,</span> <span class="n">node5</span><span class="o">);</span>
+<span class="ln">15</span>        <span class="n">ListNode</span> <span class="n">node3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">3</span><span class="o">,</span> <span class="n">node4</span><span class="o">);</span>
+<span class="ln">16</span>        <span class="n">ListNode</span> <span class="n">node2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">node3</span><span class="o">);</span>
+<span class="ln">17</span>        <span class="n">ListNode</span> <span class="n">node1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">node2</span><span class="o">);</span>
+<span class="ln">18</span>        <span class="c1">//node5.next = node3;
+</span><span class="ln">19</span><span class="c1"></span>
+<span class="ln">20</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">isCycle</span><span class="o">(</span><span class="n">node1</span><span class="o">));</span>
+<span class="ln">21</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">isCycleTwoPointer</span><span class="o">(</span><span class="n">node1</span><span class="o">));</span>
+<span class="ln">22</span>    <span class="o">}</span>
+</code></pre></div><h3 id="普通循环">普通循环</h3>
+<p>时间O(n), 空间O(n)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="n">Boolean</span> <span class="nf">isCycle</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">&gt;</span> <span class="n">set</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+<span class="ln"> 3</span>        <span class="k">while</span> <span class="o">(</span><span class="n">head</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln"> 4</span>            <span class="k">if</span> <span class="o">(!</span><span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">head</span><span class="o">)){</span>
+<span class="ln"> 5</span>                <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="ln"> 6</span>            <span class="o">}</span>
+<span class="ln"> 7</span>            <span class="n">head</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="ln"> 8</span>        <span class="o">}</span>
+<span class="ln"> 9</span>        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="ln">10</span>    <span class="o">}</span>
+</code></pre></div><h3 id="双指针-1">双指针</h3>
+<p>如果快指针和慢指针可以重叠, 说明存在环; 如果快指针到达了null, 说明没有环.</p>
+<p>时间O(n), 空间O(1)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="n">Boolean</span> <span class="nf">isCycleTwoPointer</span><span class="o">(</span><span class="n">ListNode</span> <span class="n">head</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="n">ListNode</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="n">ListNode</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="ln"> 5</span>        <span class="k">while</span> <span class="o">(</span><span class="n">fast</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln"> 6</span>            <span class="k">if</span> <span class="o">(</span><span class="n">slow</span> <span class="o">==</span> <span class="n">fast</span><span class="o">)</span> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="ln"> 7</span>            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="ln"> 8</span>            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">.</span><span class="na">next</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+<span class="ln"> 9</span>        <span class="o">}</span>
+<span class="ln">10</span>        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="ln">11</span>    <span class="o">}</span>
+</code></pre></div><h2 id="合并两个有序数组">合并两个有序数组</h2>
+<p>两个有序整数数组nums1和nums2, 将nums2合并到nums1中, 使nums1成为一个有序数组. nums1和nums2元素个数分别为m和n, 假设nums1的空间大小等于m+n.</p>
+<h3 id="合并后排序">合并后排序</h3>
+<p>取决于排序的时间复杂度O(N*logN), 不消化额外空间</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="c1">//m为nums1实际元素个数, n为nums2实际元素个数
+</span><span class="ln">2</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">mergeAndSort</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums2</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+<span class="ln">3</span>        <span class="c1">//将数组2拷贝至数组1的后面.
+</span><span class="ln">4</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">nums2</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">nums1</span><span class="o">,</span> <span class="n">m</span><span class="o">,</span> <span class="n">n</span><span class="o">);</span>
+<span class="ln">5</span>        <span class="c1">//排序, 复杂度取决于排序的复杂度, 为N*logN
+</span><span class="ln">6</span><span class="c1"></span>        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">nums1</span><span class="o">);</span>
+<span class="ln">7</span>        <span class="k">return</span> <span class="n">nums1</span><span class="o">;</span>
+<span class="ln">8</span>    <span class="o">}</span>
+</code></pre></div><h3 id="双指针-2">双指针</h3>
+<p>需要消耗O(n)的空间</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">compareAndInsert</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums2</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="c1">//要求返回nums1, 所以我们需要处理一下.
+</span><span class="ln"> 3</span><span class="c1"></span>        <span class="kt">int</span><span class="o">[]</span> <span class="n">num1Copy</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="n">m</span><span class="o">];</span>
+<span class="ln"> 4</span>        <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">nums1</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">num1Copy</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">m</span><span class="o">);</span>
+<span class="ln"> 5</span>        <span class="kt">int</span> <span class="n">pointerNum1</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">pointerNum2</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 6</span>        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 7</span><span class="c1">//        int[] res = new int[m+n];
+</span><span class="ln"> 8</span><span class="c1"></span>
+<span class="ln"> 9</span>        <span class="k">while</span> <span class="o">(</span><span class="n">pointerNum1</span> <span class="o">&lt;</span> <span class="n">m</span> <span class="o">&amp;&amp;</span> <span class="n">pointerNum2</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">){</span>
+<span class="ln">10</span>            <span class="c1">//被选中的才会++, 且是先用后++.
+</span><span class="ln">11</span><span class="c1"></span>            <span class="n">nums1</span><span class="o">[</span><span class="n">i</span><span class="o">++]</span> <span class="o">=</span> <span class="n">num1Copy</span><span class="o">[</span><span class="n">pointerNum1</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">nums2</span><span class="o">[</span><span class="n">pointerNum2</span><span class="o">]</span> <span class="o">?</span> <span class="n">num1Copy</span><span class="o">[</span><span class="n">pointerNum1</span><span class="o">++]</span> <span class="o">:</span> <span class="n">nums2</span><span class="o">[</span><span class="n">pointerNum2</span><span class="o">++];</span>
+<span class="ln">12</span><span class="c1">//            if (nums1[pointerNum1] &gt; nums2[pointerNum2]){
+</span><span class="ln">13</span><span class="c1">//                res[i] = nums2[pointerNum2];
+</span><span class="ln">14</span><span class="c1">//                pointerNum2++;
+</span><span class="ln">15</span><span class="c1">//            }else {
+</span><span class="ln">16</span><span class="c1">//                res[i] = nums1[pointerNum1];
+</span><span class="ln">17</span><span class="c1">//                pointerNum1++;
+</span><span class="ln">18</span><span class="c1">//            }
+</span><span class="ln">19</span><span class="c1">//            i++;
+</span><span class="ln">20</span><span class="c1"></span>        <span class="o">}</span>
+<span class="ln">21</span>        <span class="k">if</span> <span class="o">(</span><span class="n">pointerNum2</span> <span class="o">&lt;</span> <span class="n">n</span><span class="o">){</span>
+<span class="ln">22</span>            <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">nums2</span><span class="o">,</span> <span class="n">pointerNum2</span><span class="o">,</span> <span class="n">nums1</span><span class="o">,</span> <span class="n">pointerNum1</span> <span class="o">+</span> <span class="n">pointerNum2</span><span class="o">,</span> <span class="n">m</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="n">pointerNum2</span> <span class="o">-</span><span class="n">pointerNum1</span><span class="o">);</span>
+<span class="ln">23</span>        <span class="o">}</span>
+<span class="ln">24</span>        <span class="k">if</span> <span class="o">(</span><span class="n">pointerNum1</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">){</span>
+<span class="ln">25</span>            <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">num1Copy</span><span class="o">,</span> <span class="n">pointerNum1</span><span class="o">,</span> <span class="n">nums1</span><span class="o">,</span> <span class="n">pointerNum1</span> <span class="o">+</span> <span class="n">pointerNum2</span><span class="o">,</span> <span class="n">m</span> <span class="o">+</span> <span class="n">n</span> <span class="o">-</span> <span class="n">pointerNum2</span> <span class="o">-</span><span class="n">pointerNum1</span><span class="o">);</span>
+<span class="ln">26</span>        <span class="o">}</span>
+<span class="ln">27</span>        <span class="k">return</span> <span class="n">nums1</span><span class="o">;</span>
+<span class="ln">28</span>    <span class="o">}</span>
+</code></pre></div><h3 id="倒着排">倒着排</h3>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">reverseMerge</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">m</span><span class="o">,</span> <span class="kt">int</span><span class="o">[]</span> <span class="n">nums2</span><span class="o">,</span> <span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 2</span>        <span class="kt">int</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">m</span> <span class="o">-</span> <span class="n">1</span><span class="o">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">m</span><span class="o">+</span><span class="n">n</span><span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>        <span class="k">while</span> <span class="o">(</span><span class="n">p1</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">p2</span> <span class="o">&gt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 6</span>            <span class="n">nums1</span><span class="o">[</span><span class="n">i</span><span class="o">--]</span> <span class="o">=</span> <span class="n">nums1</span><span class="o">[</span><span class="n">p1</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums2</span><span class="o">[</span><span class="n">p2</span><span class="o">]</span> <span class="o">?</span> <span class="n">nums1</span><span class="o">[</span><span class="n">p1</span><span class="o">--]</span> <span class="o">:</span> <span class="n">nums2</span><span class="o">[</span><span class="n">p2</span><span class="o">--];</span>
+<span class="ln"> 7</span>        <span class="o">}</span>
+<span class="ln"> 8</span>        <span class="c1">//有两种情况, 1是nums2下标先走完至-1, 这时无序任何操作
+</span><span class="ln"> 9</span><span class="c1"></span>        <span class="c1">//2是nums1下标先走完至-1, 这是nums2还有额外的元素需要复制
+</span><span class="ln">10</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">nums2</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">nums1</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">p2</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+<span class="ln">11</span>        <span class="k">return</span> <span class="n">nums1</span><span class="o">;</span>
+<span class="ln">12</span>    <span class="o">}</span>
+</code></pre></div><h2 id="子数组最大平均数">子数组最大平均数</h2>
+<p>给一个整数数组, 找出平均数最大且长度为k的下标连续的子数组, 并输出该最大平均数.</p>
+<p>输入: [1,12,-5,-6,50,3], k=4</p>
+<p>输出: 12.75</p>
+<p>最大平均数 (12-5-6+50)/4=12.75</p>
+<h3 id="滑动窗口">滑动窗口</h3>
+<p>是双指针的特例:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">double</span> <span class="nf">twoPointer</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="kt">int</span> <span class="n">pl</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">pr</span> <span class="o">=</span> <span class="n">k</span><span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="kt">int</span> <span class="n">maxSum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">pl</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">pr</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 5</span>            <span class="n">maxSum</span> <span class="o">+=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="ln"> 6</span>        <span class="o">}</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>        <span class="k">while</span> <span class="o">(</span><span class="n">pr</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">){</span>
+<span class="ln"> 9</span>            <span class="kt">int</span> <span class="n">tempSum</span> <span class="o">=</span> <span class="n">maxSum</span> <span class="o">-</span><span class="n">nums</span><span class="o">[</span><span class="n">pl</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">pr</span><span class="o">+</span><span class="n">1</span><span class="o">];</span>
+<span class="ln">10</span>            <span class="k">if</span> <span class="o">(</span><span class="n">tempSum</span> <span class="o">&gt;</span> <span class="n">maxSum</span><span class="o">)</span> <span class="n">maxSum</span> <span class="o">=</span> <span class="n">tempSum</span><span class="o">;</span>
+<span class="ln">11</span>            <span class="n">pl</span><span class="o">++;</span>
+<span class="ln">12</span>            <span class="n">pr</span><span class="o">++;</span>
+<span class="ln">13</span>        <span class="o">}</span>
+<span class="ln">14</span>
+<span class="ln">15</span>        <span class="k">return</span> <span class="n">1</span><span class="o">.</span><span class="na">0</span> <span class="o">*</span> <span class="n">maxSum</span><span class="o">/</span><span class="n">k</span><span class="o">;</span>
+<span class="ln">16</span>    <span class="o">}</span>
+</code></pre></div><p>由于长度固定, 故只需要一个指针:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">double</span> <span class="nf">slideWindow</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">,</span> <span class="kt">int</span> <span class="n">k</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 3</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 4</span>            <span class="n">sum</span> <span class="o">+=</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="ln"> 5</span>        <span class="o">}</span>
+<span class="ln"> 6</span>        <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">sum</span><span class="o">;</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">k</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln"> 9</span>            <span class="n">sum</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">-</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">k</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+<span class="ln">10</span>            <span class="n">max</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">sum</span><span class="o">,</span> <span class="n">max</span><span class="o">);</span>
+<span class="ln">11</span>        <span class="o">}</span>
+<span class="ln">12</span>
+<span class="ln">13</span>        <span class="k">return</span> <span class="n">1</span><span class="o">.</span><span class="na">0</span> <span class="o">*</span> <span class="n">max</span><span class="o">/</span><span class="n">4</span><span class="o">;</span>
+<span class="ln">14</span>    <span class="o">}</span>
+</code></pre></div><h2 id="二叉树的最小深度">二叉树的最小深度</h2>
+<p>最小深度是从根节点到最近叶子节点的最短路径上的节点数量.</p>
+<h3 id="深度优先">深度优先</h3>
+<p>先找到叶子节点, 然后从叶子节点往上找, 计算每个节点的最小深度(取左右叶子节点较小的那个+1.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span>	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">minDepth</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 2</span>        <span class="c1">//空节点
+</span><span class="ln"> 3</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 4</span>        <span class="c1">//叶子节点
+</span><span class="ln"> 5</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>        <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+<span class="ln"> 8</span>        <span class="c1">//寻找左右子节点中最小的深度
+</span><span class="ln"> 9</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">min</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">min</span><span class="o">,</span> <span class="n">minDepth</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">));</span>
+<span class="ln">10</span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">min</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">min</span><span class="o">,</span> <span class="n">minDepth</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">));</span>
+<span class="ln">11</span>
+<span class="ln">12</span>        <span class="c1">//最后加上本节点的1返回.
+</span><span class="ln">13</span><span class="c1"></span>        <span class="k">return</span> <span class="n">min</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
+<span class="ln">14</span>    <span class="o">}</span>
+</code></pre></div><h3 id="广度优先">广度优先</h3></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/java-4-basic/">Java基础查漏补缺
 </a>
@@ -996,8 +1275,8 @@
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
   <ul><li><a href="/posts/tech/sec-read-20240819/">安全阅读8.19~
-</a></li><li><a href="/posts/tech/java-0-audition-3/">软件维护管理面试
-</a></li><li><a href="/posts/tech/java-0-audition-2/">京东笔试准备&amp;牛客网刷题
+</a></li><li><a href="/posts/tech/java-0-audition-3/">面试准备-3
+</a></li><li><a href="/posts/tech/java-0-audition-2/">笔试选择题刷题
 </a></li><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
 </a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
 </a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
