@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="算法刷题">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-07-28T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-07-28T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="8141">
+<meta itemprop="wordCount" content="9030">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="算法刷题" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -155,7 +155,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-07-28
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>17 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>19 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
 
@@ -259,6 +259,9 @@
         <li><a href="#广度优先">广度优先</a></li>
       </ul>
     </li>
+    <li><a href="#最长连续递增序列">最长连续递增序列</a></li>
+    <li><a href="#柠檬水找零">柠檬水找零</a></li>
+    <li><a href="#三角形的最大周长">三角形的最大周长</a></li>
   </ul>
 </nav>
   </div>
@@ -1197,11 +1200,12 @@
 <p>最小深度是从根节点到最近叶子节点的最短路径上的节点数量.</p>
 <h3 id="深度优先">深度优先</h3>
 <p>先找到叶子节点, 然后从叶子节点往上找, 计算每个节点的最小深度(取左右叶子节点较小的那个+1.</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span>	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">minDepth</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
+<p>空间复杂度O(logN) 取决于树的深度, 时间复杂度O(N)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span>	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">minDepth</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">)</span> <span class="o">{</span>
 <span class="ln"> 2</span>        <span class="c1">//空节点
 </span><span class="ln"> 3</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
 <span class="ln"> 4</span>        <span class="c1">//叶子节点
-</span><span class="ln"> 5</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="n">1</span><span class="o">;</span>
+</span><span class="ln"> 5</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="n">1</span><span class="o">;</span>
 <span class="ln"> 6</span>
 <span class="ln"> 7</span>        <span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
 <span class="ln"> 8</span>        <span class="c1">//寻找左右子节点中最小的深度
@@ -1211,7 +1215,124 @@
 <span class="ln">12</span>        <span class="c1">//最后加上本节点的1返回.
 </span><span class="ln">13</span><span class="c1"></span>        <span class="k">return</span> <span class="n">min</span> <span class="o">+</span> <span class="n">1</span><span class="o">;</span>
 <span class="ln">14</span>    <span class="o">}</span>
-</code></pre></div><h3 id="广度优先">广度优先</h3></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+</code></pre></div><h3 id="广度优先">广度优先</h3>
+<p>一层一层遍历, 遍历到的第一个叶子节点就是最小深度.</p>
+<p>空间复杂度取决于队列O(N), 时间复杂度O(N)</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">minWidth</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">){</span>
+<span class="ln"> 2</span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span>        <span class="c1">//由于队列的性质, 它是广度遍历. 遍历完同一层才会遍历下一层
+</span><span class="ln"> 5</span><span class="c1"></span>        <span class="n">Queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">&gt;();</span>
+<span class="ln"> 6</span>        <span class="n">root</span><span class="o">.</span><span class="na">setDeep</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+<span class="ln"> 7</span>    	<span class="c1">//入队
+</span><span class="ln"> 8</span><span class="c1"></span>        <span class="n">queue</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">root</span><span class="o">);</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span>        <span class="k">while</span> <span class="o">(!</span><span class="n">queue</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()){</span>
+<span class="ln">11</span>            <span class="c1">//出队
+</span><span class="ln">12</span><span class="c1"></span>            <span class="n">TreeNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">poll</span><span class="o">();</span>
+<span class="ln">13</span>
+<span class="ln">14</span>            <span class="c1">//遍历到根节点直接返回
+</span><span class="ln">15</span><span class="c1"></span>            <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">node</span><span class="o">.</span><span class="na">right</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln">16</span>                <span class="k">return</span> <span class="n">node</span><span class="o">.</span><span class="na">deep</span><span class="o">;</span>
+<span class="ln">17</span>            <span class="o">}</span>
+<span class="ln">18</span>
+<span class="ln">19</span>            <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">20</span>                <span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">.</span><span class="na">setDeep</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">getDeep</span><span class="o">()</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+<span class="ln">21</span>                <span class="n">queue</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+<span class="ln">22</span>            <span class="o">}</span>
+<span class="ln">23</span>            <span class="k">if</span> <span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln">24</span>                <span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">.</span><span class="na">setDeep</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">getDeep</span><span class="o">()</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+<span class="ln">25</span>                <span class="n">queue</span><span class="o">.</span><span class="na">offer</span><span class="o">(</span><span class="n">node</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+<span class="ln">26</span>            <span class="o">}</span>
+<span class="ln">27</span>        <span class="o">}</span>
+<span class="ln">28</span>        
+<span class="ln">29</span>        <span class="c1">//非正常退出
+</span><span class="ln">30</span><span class="c1"></span>        <span class="k">return</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+<span class="ln">31</span>    <span class="o">}</span>
+</code></pre></div><h2 id="最长连续递增序列">最长连续递增序列</h2>
+<p>给定一个未排序的整数数组, 找到最长且连续递增的子序列, 并返回该序列的长度.</p>
+<p>方式一: 记录当前序列的开始位置, 如果后面的数字小于这个序列最后一个数, 则更新开始下标.</p>
+<p>方式二: 直接记录最大序列的长度和当前序列的长度.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MaxSeq</span> <span class="o">{</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 4</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">findLength</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">6</span><span class="o">,</span><span class="n">7</span><span class="o">}));</span>
+<span class="ln"> 5</span>    <span class="o">}</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">findLength</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">){</span>
+<span class="ln"> 8</span>        <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln"> 9</span>        <span class="kt">int</span> <span class="n">max</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">10</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">11</span>            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">])</span> <span class="n">start</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+<span class="ln">12</span>            <span class="n">max</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">max</span><span class="o">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>
+<span class="ln">13</span>        <span class="o">}</span>
+<span class="ln">14</span>        <span class="k">return</span> <span class="n">max</span><span class="o">;</span>
+<span class="ln">15</span>    <span class="o">}</span>
+<span class="ln">16</span><span class="o">}</span>
+<span class="ln">17</span>
+</code></pre></div><h2 id="柠檬水找零">柠檬水找零</h2>
+<p>每杯柠檬水5美元, 顾客排队买, 顾客只会付5, 10, 20美元, 必须给顾客正确找零. 一开始手里面没有任何零钱, 如果能正确找零返回true, 否则返回false.</p>
+<p>分析: 对于顾客付的5美元, 直接收下; 对于顾客付的10美元, 只能找5美元; 对于20美元, 可以三个5, 也可以10+5, 但是为了局部最优, 最好10+5. 因为这里5是万能的, 尽量减少使用.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LemonWater</span> <span class="o">{</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 4</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">isCanGiveChange</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">5</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">5</span><span class="o">,</span><span class="n">20</span><span class="o">}));</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>    <span class="o">}</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isCanGiveChange</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">){</span>
+<span class="ln"> 9</span>        <span class="c1">//5和10的票子数量
+</span><span class="ln">10</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">fiveNum</span> <span class="o">=</span> <span class="n">0</span><span class="o">,</span> <span class="n">tenNum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">11</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">:</span> <span class="n">nums</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">12</span>            <span class="k">switch</span> <span class="o">(</span><span class="n">num</span><span class="o">){</span>
+<span class="ln">13</span>                <span class="k">case</span> <span class="n">5</span><span class="o">:</span>
+<span class="ln">14</span>                    <span class="n">fiveNum</span><span class="o">++;</span>
+<span class="ln">15</span>                    <span class="k">break</span><span class="o">;</span>
+<span class="ln">16</span>                <span class="k">case</span> <span class="n">10</span><span class="o">:</span>
+<span class="ln">17</span>                    <span class="k">if</span> <span class="o">(</span><span class="n">fiveNum</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">){</span>
+<span class="ln">18</span>                        <span class="n">fiveNum</span><span class="o">--;</span>
+<span class="ln">19</span>                        <span class="n">tenNum</span><span class="o">++;</span>
+<span class="ln">20</span>                    <span class="o">}</span><span class="k">else</span>
+<span class="ln">21</span>                        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="ln">22</span>                    <span class="k">break</span><span class="o">;</span>
+<span class="ln">23</span>                <span class="k">case</span> <span class="n">20</span><span class="o">:</span>
+<span class="ln">24</span>                    <span class="k">if</span> <span class="o">(</span><span class="n">fiveNum</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">tenNum</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">){</span>
+<span class="ln">25</span>                        <span class="n">fiveNum</span><span class="o">--;</span>
+<span class="ln">26</span>                        <span class="n">tenNum</span><span class="o">--;</span>
+<span class="ln">27</span>                    <span class="o">}</span><span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">fiveNum</span> <span class="o">&gt;=</span> <span class="n">3</span><span class="o">){</span>
+<span class="ln">28</span>                        <span class="n">fiveNum</span> <span class="o">-=</span> <span class="n">3</span><span class="o">;</span>
+<span class="ln">29</span>                    <span class="o">}</span><span class="k">else</span>
+<span class="ln">30</span>                        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+<span class="ln">31</span>            <span class="o">}</span>
+<span class="ln">32</span>        <span class="o">}</span>
+<span class="ln">33</span>
+<span class="ln">34</span>        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="ln">35</span>    <span class="o">}</span>
+<span class="ln">36</span><span class="o">}</span>
+<span class="ln">37</span>
+</code></pre></div><h2 id="三角形的最大周长">三角形的最大周长</h2>
+<p>给一个正数数组arr, 返回由其3个数组成的, 面积不为0的三角形的周长可能的最大值.</p>
+<p>直接找最大和的三个数, 看看是否能形成三角形, 不行就减少最大数继续. 因为既然最大的三个数不行, 那么前两最大的数和任何一个数都不行了, 所以只能往下找.</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Triangle</span> <span class="o">{</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln"> 6</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">maxPerimeter</span><span class="o">(</span><span class="k">new</span> <span class="kt">int</span><span class="o">[]{</span><span class="n">3</span><span class="o">,</span><span class="n">6</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">2</span><span class="o">}));</span>
+<span class="ln"> 7</span>    <span class="o">}</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">maxPerimeter</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">nums</span><span class="o">){</span>
+<span class="ln">10</span>        <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">nums</span><span class="o">);</span>
+<span class="ln">11</span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="na">length</span> <span class="o">-</span> <span class="n">1</span><span class="o">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">2</span> <span class="o">;</span> <span class="n">i</span><span class="o">--)</span> <span class="o">{</span>
+<span class="ln">12</span>            <span class="k">if</span> <span class="o">(</span><span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">2</span><span class="o">]</span> <span class="o">&gt;</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]){</span>
+<span class="ln">13</span>                <span class="k">return</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">nums</span><span class="o">[</span><span class="n">i</span><span class="o">-</span><span class="n">2</span><span class="o">];</span>
+<span class="ln">14</span>            <span class="o">}</span>
+<span class="ln">15</span>        <span class="o">}</span>
+<span class="ln">16</span>        <span class="k">return</span> <span class="n">0</span><span class="o">;</span>
+<span class="ln">17</span>    <span class="o">}</span>
+<span class="ln">18</span><span class="o">}</span>
+<span class="ln">19</span>
+</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/java-4-basic/">Java基础查漏补缺
 </a>
@@ -1269,7 +1390,7 @@
     <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
   </div>
   <div class="col-xl-6">
-    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">我爱马克思! 我爱辩证法!</div>
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">直觉与思想高于一切</div>
     
   </div>
 </section><section class="recent-posts row surface">
