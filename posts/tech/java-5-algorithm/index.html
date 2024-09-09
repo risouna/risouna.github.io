@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="算法刷题">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-07-28T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-07-28T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="9030">
+<meta itemprop="wordCount" content="9299">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="算法刷题" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -262,6 +262,14 @@
     <li><a href="#最长连续递增序列">最长连续递增序列</a></li>
     <li><a href="#柠檬水找零">柠檬水找零</a></li>
     <li><a href="#三角形的最大周长">三角形的最大周长</a></li>
+    <li><a href="#二叉树遍历">二叉树遍历</a>
+      <ul>
+        <li><a href="#前序">前序</a></li>
+        <li><a href="#中序">中序</a></li>
+        <li><a href="#后序">后序</a></li>
+        <li><a href="#层序">层序</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -1332,6 +1340,69 @@
 <span class="ln">17</span>    <span class="o">}</span>
 <span class="ln">18</span><span class="o">}</span>
 <span class="ln">19</span>
+</code></pre></div><h2 id="二叉树遍历">二叉树遍历</h2>
+<h3 id="前序">前序</h3>
+<h4 id="递归实现">递归实现</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="c1">//前序:根左右
+</span><span class="ln">2</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">preorder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">){</span>
+<span class="ln">3</span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+<span class="ln">4</span>
+<span class="ln">5</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+<span class="ln">6</span>        <span class="n">preorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+<span class="ln">7</span>        <span class="n">preorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+<span class="ln">8</span>    <span class="o">}</span>
+</code></pre></div><h3 id="中序">中序</h3>
+<h4 id="递归实现-1">递归实现</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span> <span class="c1">//中序
+</span><span class="ln"> 2</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">midorder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">){</span>
+<span class="ln"> 3</span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln"> 6</span>            <span class="n">preorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+<span class="ln"> 7</span>        <span class="o">}</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+<span class="ln">10</span>
+<span class="ln">11</span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln">12</span>            <span class="n">preorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+<span class="ln">13</span>        <span class="o">}</span>
+<span class="ln">14</span>
+<span class="ln">15</span>    <span class="o">}</span>
+</code></pre></div><h3 id="后序">后序</h3>
+<h4 id="递归实现-2">递归实现</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="c1">//后序
+</span><span class="ln"> 2</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">postorder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">){</span>
+<span class="ln"> 3</span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln"> 6</span>            <span class="n">preorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">);</span>
+<span class="ln"> 7</span>        <span class="o">}</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+<span class="ln">10</span>            <span class="n">preorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">);</span>
+<span class="ln">11</span>        <span class="o">}</span>
+<span class="ln">12</span>
+<span class="ln">13</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+<span class="ln">14</span>    <span class="o">}</span>
+</code></pre></div><h3 id="层序">层序</h3>
+<h4 id="递归实现-3">递归实现</h4>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="c1">//层序遍历
+</span><span class="ln"> 2</span><span class="c1"></span>    <span class="c1">//这个参数i代表的第几层, 由于树不是完全的, 所以一定之间会有null值
+</span><span class="ln"> 3</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">levelorder</span><span class="o">(</span><span class="n">TreeNode</span> <span class="n">root</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="n">ArrayList</span> <span class="n">list</span><span class="o">){</span>
+<span class="ln"> 4</span>        <span class="k">if</span> <span class="o">(</span><span class="n">root</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+<span class="ln"> 7</span>        <span class="c1">//为防止数组越界, 这里提前填充至i.
+</span><span class="ln"> 8</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">length</span>  <span class="o">&lt;=</span> <span class="n">i</span><span class="o">){</span>
+<span class="ln"> 9</span>            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">-</span> <span class="n">length</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+<span class="ln">10</span>                <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">length</span><span class="o">+</span><span class="n">j</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+<span class="ln">11</span>            <span class="o">}</span>
+<span class="ln">12</span>        <span class="o">}</span>
+<span class="ln">13</span>
+<span class="ln">14</span>        <span class="n">list</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">root</span><span class="o">.</span><span class="na">val</span><span class="o">);</span>
+<span class="ln">15</span>        <span class="n">levelorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">left</span><span class="o">,</span> <span class="n">2</span><span class="o">*</span><span class="n">i</span><span class="o">,</span> <span class="n">list</span><span class="o">);</span>
+<span class="ln">16</span>        <span class="n">levelorder</span><span class="o">(</span><span class="n">root</span><span class="o">.</span><span class="na">right</span><span class="o">,</span> <span class="n">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">1</span><span class="o">,</span> <span class="n">list</span><span class="o">);</span>
+<span class="ln">17</span>    <span class="o">}</span>
 </code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/java-4-basic/">Java基础查漏补缺
@@ -1390,18 +1461,18 @@
     <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
   </div>
   <div class="col-xl-6">
-    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">直觉与思想高于一切</div>
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">直觉与思想高于一切, 喜欢道教, 喜欢自由潇洒无拘无束</div>
     
   </div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/tech/sec-read-20240819/">安全阅读8.19~
-</a></li><li><a href="/posts/tech/java-0-audition-3/">面试准备-3
+  <ul><li><a href="/posts/tech/java-0-audition-3/">面试准备-3
 </a></li><li><a href="/posts/tech/java-0-audition-2/">笔试选择题刷题
 </a></li><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
 </a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
 </a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
 </a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
+</a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
 </a></li></ul>
 </section><section class="taxonomy-categories row surface">
       <h4>
@@ -1410,7 +1481,7 @@
       <div><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
           二次元 <span class="badge rounded-pill">24</span>
         </a><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
-          计算机 <span class="badge rounded-pill">16</span>
+          计算机 <span class="badge rounded-pill">15</span>
         </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
           文字类 <span class="badge rounded-pill">6</span>
         </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
@@ -1427,7 +1498,7 @@
         </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
           Java <span class="badge rounded-pill">9</span>
         </a><a href="/series/%E5%AE%89%E5%85%A8/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="安全">
-          安全 <span class="badge rounded-pill">3</span>
+          安全 <span class="badge rounded-pill">2</span>
         </a></div>
     </section></div>
 </aside>
