@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>基础能力 on さぁ、君、取りたまえ</title>
+    <link>/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/</link>
+    <description>Recent content in 基础能力 on さぁ、君、取りたまえ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
+    <lastBuildDate>Sat, 23 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>C语言算法刷题</title>
+      <link>/posts/tech/basic-algorithm-c/</link>
+      <pubDate>Sat, 23 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-algorithm-c/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>鸟哥Linux教程</title>
+      <link>/posts/tech/basic-niaoge-linux/</link>
+      <pubDate>Sat, 23 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-niaoge-linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>编译原理</title>
+      <link>/posts/tech/basic-compilersprinciples/</link>
+      <pubDate>Fri, 15 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-compilersprinciples/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git&amp;gitlab</title>
+      <link>/posts/tech/basic-git/</link>
+      <pubDate>Tue, 12 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>菜鸟教程Linux教程</title>
+      <link>/posts/tech/basic-runnoob-linux/</link>
+      <pubDate>Mon, 11 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-runnoob-linux/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

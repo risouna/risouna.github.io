@@ -1,0 +1,1515 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>菜鸟教程Linux教程 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="菜鸟教程Linux教程">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-11T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-11-11T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="18185">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="菜鸟教程Linux教程" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/basic-runnoob-linux/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-11T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-11-11T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="菜鸟教程Linux教程"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">菜鸟教程Linux教程</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">菜鸟教程Linux教程
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-11-11
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>37 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy">#基础能力</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一linux系统启动过程">一、Linux系统启动过程</a>
+      <ul>
+        <li><a href="#1内核引导">1.内核引导</a></li>
+        <li><a href="#2运行init">2.运行init</a></li>
+        <li><a href="#3运行级别">3.运行级别</a></li>
+        <li><a href="#4系统初始化">4.系统初始化</a></li>
+        <li><a href="#5建立终端">5.建立终端</a></li>
+        <li><a href="#6用户登录系统">6.用户登录系统</a></li>
+        <li><a href="#7图形模式与文字模式的切换方式">7.图形模式与文字模式的切换方式</a></li>
+        <li><a href="#8linux关机">8.Linux关机</a></li>
+      </ul>
+    </li>
+    <li><a href="#二linux系统目录结构">二、Linux系统目录结构</a></li>
+    <li><a href="#三linux-远程登录">三、Linux 远程登录</a>
+      <ul>
+        <li><a href="#登陆到自己的linux上">登陆到自己的Linux上</a></li>
+        <li><a href="#利用ssh登录远程服务器">利用ssh登录远程服务器</a></li>
+      </ul>
+    </li>
+    <li><a href="#四linux文件基本属性">四、Linux文件基本属性</a>
+      <ul>
+        <li><a href="#linux文件属主和属组">Linux文件属主和属组</a></li>
+        <li><a href="#更改文件属性">更改文件属性</a></li>
+      </ul>
+    </li>
+    <li><a href="#五linux文件与目录管理">五、Linux文件与目录管理</a>
+      <ul>
+        <li><a href="#处理目录的常用命令">处理目录的常用命令</a></li>
+        <li><a href="#linux文件内容查看">Linux文件内容查看</a></li>
+        <li><a href="#linux链接概念">Linux链接概念</a></li>
+      </ul>
+    </li>
+    <li><a href="#六linux用户和用户组管理">六、Linux用户和用户组管理</a>
+      <ul>
+        <li><a href="#linux系统用户账号的管理">Linux系统用户账号的管理</a></li>
+        <li><a href="#linux系统用户组的管理">Linux系统用户组的管理</a></li>
+        <li><a href="#与用户账号有关的系统文件">与用户账号有关的系统文件</a></li>
+      </ul>
+    </li>
+    <li><a href="#七磁盘管理">七、磁盘管理</a>
+      <ul>
+        <li><a href="#df">df</a></li>
+        <li><a href="#du">du</a></li>
+        <li><a href="#fdisk">fdisk</a></li>
+        <li><a href="#磁盘格式化">磁盘格式化</a></li>
+        <li><a href="#磁盘检验">磁盘检验</a></li>
+        <li><a href="#磁盘挂载与卸除">磁盘挂载与卸除</a></li>
+      </ul>
+    </li>
+    <li><a href="#八vivim">八、vi/vim</a>
+      <ul>
+        <li><a href="#第一部分一般模式可用的光标移动复制粘贴搜索替换等">第一部分：一般模式可用的光标移动、复制粘贴、搜索替换等</a></li>
+        <li><a href="#第二部分一般模式切换到编辑模式的可用的按钮说明">第二部分：一般模式切换到编辑模式的可用的按钮说明</a></li>
+        <li><a href="#第三部分一般模式切换到指令行模式的可用的按钮说明">第三部分：一般模式切换到指令行模式的可用的按钮说明</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="一linux系统启动过程">一、Linux系统启动过程</h2>
+<h3 id="1内核引导">1.内核引导</h3>
+<p>当计算机打开电源后，首先是BIOS开机自检，按照BIOS中设置的启动设备（通常是硬盘）来启动。</p>
+<p>操作系统接管硬件以后，首先读入 /boot 目录下的内核文件。</p>
+<h3 id="2运行init">2.运行init</h3>
+<p>init 进程是系统所有进程的起点，你可以把它比拟成系统所有进程的老祖宗，没有这个进程，系统中任何进程都不会启动。</p>
+<p>init 程序首先是需要读取配置文件 /etc/inittab。</p>
+<h3 id="3运行级别">3.运行级别</h3>
+<p>许多程序需要开机启动。它们在Windows叫做&quot;服务&quot;（service），在Linux就叫做&quot;守护进程&quot;（daemon）。</p>
+<p>init进程的一大任务，就是去运行这些开机启动的程序。</p>
+<p>但是，不同的场合需要启动不同的程序，比如用作服务器时，需要启动Apache，用作桌面就不需要。</p>
+<p>Linux允许为不同的场合，分配不同的开机启动程序，这就叫做&quot;运行级别&quot;（runlevel）。也就是说，启动时根据&quot;运行级别&quot;，确定要运行哪些程序。</p>
+<p>Linux系统有7个运行级别(runlevel)：</p>
+<ul>
+<li>运行级别0：系统停机状态，系统默认运行级别不能设为0，否则不能正常启动</li>
+<li>运行级别1：单用户工作状态，root权限，用于系统维护，禁止远程登录</li>
+<li>运行级别2：多用户状态(没有NFS)</li>
+<li>运行级别3：完全的多用户状态(有NFS)，登录后进入控制台命令行模式</li>
+<li>运行级别4：系统未使用，保留</li>
+<li>运行级别5：X11控制台，登录后进入图形GUI模式</li>
+<li>运行级别6：系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动</li>
+</ul>
+<h3 id="4系统初始化">4.系统初始化</h3>
+<p>在init的配置文件中有这么一行：  si::sysinit:/etc/rc.d/rc.sysinit　它调用执行了/etc/rc.d/rc.sysinit，而rc.sysinit是一个bash shell的脚本，它主要是完成一些系统初始化的工作，rc.sysinit是每一个运行级别都要首先运行的重要脚本。</p>
+<p>它主要完成的工作有：激活交换分区，检查磁盘，加载硬件模块以及其它一些需要优先执行任务。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>l5:5:wait:/etc/rc.d/rc 5
+</code></pre></div><p>这一行表示以5为参数运行/etc/rc.d/rc，/etc/rc.d/rc是一个Shell脚本，它接受5作为参数，去执行/etc/rc.d/rc5.d/目录下的所有的rc启动脚本，/etc/rc.d/rc5.d/目录中的这些启动脚本实际上都是一些连接文件，而不是真正的rc启动脚本，真正的rc启动脚本实际上都是放在/etc/rc.d/init.d/目录下。</p>
+<p>而这些rc启动脚本有着类似的用法，它们一般能接受start、stop、restart、status等参数。</p>
+<p>/etc/rc.d/rc5.d/中的rc启动脚本通常是K或S开头的连接文件，对于以 S 开头的启动脚本，将以start参数来运行。</p>
+<p>而如果发现存在相应的脚本也存在K打头的连接，而且已经处于运行态了(以/var/lock/subsys/下的文件作为标志)，则将首先以stop为参数停止这些已经启动了的守护进程，然后再重新运行。</p>
+<p>这样做是为了保证是当init改变运行级别时，所有相关的守护进程都将重启。</p>
+<p>至于在每个运行级中将运行哪些守护进程，用户可以通过chkconfig或setup中的&quot;System Services&quot;来自行设定。</p>
+<h3 id="5建立终端">5.建立终端</h3>
+<p>rc执行完毕后，返回init。这时基本系统环境已经设置好了，各种守护进程也已经启动了。</p>
+<p>init接下来会打开6个终端，以便用户登录系统。在inittab中的以下6行就是定义了6个终端：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>1:2345:respawn:/sbin/mingetty tty1
+<span class="ln">2</span>2:2345:respawn:/sbin/mingetty tty2
+<span class="ln">3</span>3:2345:respawn:/sbin/mingetty tty3
+<span class="ln">4</span>4:2345:respawn:/sbin/mingetty tty4
+<span class="ln">5</span>5:2345:respawn:/sbin/mingetty tty5
+<span class="ln">6</span>6:2345:respawn:/sbin/mingetty tty6
+</code></pre></div><p>从上面可以看出在2、3、4、5的运行级别中都将以respawn方式运行mingetty程序，mingetty程序能打开终端、设置模式。</p>
+<p>同时它会显示一个文本登录界面，这个界面就是我们经常看到的登录界面，在这个登录界面中会提示用户输入用户名，而用户输入的用户将作为参数传给login程序来验证用户的身份。</p>
+<h3 id="6用户登录系统">6.用户登录系统</h3>
+<p>一般来说，用户的登录方式有三种：</p>
+<ul>
+<li>（1）命令行登录</li>
+<li>（2）ssh登录</li>
+<li>（3）图形界面登录</li>
+</ul>
+<p>对于运行级别为5的图形方式用户来说，他们的登录是通过一个图形化的登录界面。登录成功后可以直接进入 KDE、Gnome 等窗口管理器。</p>
+<p>而本文主要讲的还是文本方式登录的情况：当我们看到mingetty的登录界面时，我们就可以输入用户名和密码来登录系统了。</p>
+<p>Linux 的账号验证程序是 login，login 会接收 mingetty 传来的用户名作为用户名参数。</p>
+<p>然后 login 会对用户名进行分析：如果用户名不是 root，且存在 /etc/nologin 文件，login 将输出 nologin 文件的内容，然后退出。</p>
+<p>这通常用来系统维护时防止非root用户登录。只有/etc/securetty中登记了的终端才允许 root 用户登录，如果不存在这个文件，则 root 用户可以在任何终端上登录。</p>
+<p>/etc/usertty文件用于对用户作出附加访问限制，如果不存在这个文件，则没有其他限制。</p>
+<h3 id="7图形模式与文字模式的切换方式">7.图形模式与文字模式的切换方式</h3>
+<p>Linux预设提供了六个命令窗口终端机让我们来登录。</p>
+<p>默认我们登录的就是第一个窗口，也就是tty1，这个六个窗口分别为tty1,tty2 … tty6，你可以按下Ctrl + Alt + F1 ~ F6 来切换它们。</p>
+<p>如果你安装了图形界面，默认情况下是进入图形界面的，此时你就可以按Ctrl + Alt + F1 ~ F6来进入其中一个命令窗口界面。</p>
+<p>当你进入命令窗口界面后再返回图形界面只要按下Ctrl + Alt + F7 就回来了。</p>
+<h3 id="8linux关机">8.Linux关机</h3>
+<p>正确的关机流程为：sync &gt; shutdown &gt; reboot &gt; halt</p>
+<p>关机指令为：shutdown ，你可以man shutdown 来看一下帮助文档。</p>
+<p>例如你可以运行如下命令关机：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>sync 将数据由内存同步到硬盘中。
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>shutdown 关机指令，你可以man shutdown 来看一下帮助文档。例如你可以运行如下命令关机：
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>shutdown –h 10 ‘This server will shutdown after 10 mins’ 这个命令告诉大家，计算机将在10分钟后关机，并且会显示在登陆用户的当前屏幕中。
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>shutdown –h now 立马关机
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>shutdown –h 20:25 系统会在今天20:25关机
+<span class="ln">10</span>
+<span class="ln">11</span>shutdown –h +10 十分钟后关机
+<span class="ln">12</span>
+<span class="ln">13</span>shutdown –r now 系统立马重启
+<span class="ln">14</span>
+<span class="ln">15</span>shutdown –r +10 系统十分钟后重启
+<span class="ln">16</span>
+<span class="ln">17</span>reboot 就是重启，等同于 shutdown –r now
+<span class="ln">18</span>
+<span class="ln">19</span>halt 关闭系统，等同于shutdown –h now 和 poweroff
+</code></pre></div><p>最后总结一下，不管是重启系统还是关闭系统，首先要运行 <strong>sync</strong> 命令，把内存中的数据写到磁盘中。</p>
+<p>关机的命令有 <strong>shutdown –h now halt poweroff</strong> 和 <strong>init 0</strong> , 重启系统的命令有 <strong>shutdown –r now reboot init 6</strong>。</p>
+<p>halt 命令通知硬件来停止所有的 CPU 功能，但是仍然保持通电。你可以用它使系统处于低层维护状态。注意在有些情况会它会完全关闭系统。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span># halt             ### 停止机器
+<span class="ln">2</span># halt -p          ### 关闭机器、关闭电源
+<span class="ln">3</span># halt --reboot    ### 重启机器
+</code></pre></div><p>poweroff 会发送一个 ACPI 信号来通知系统关机。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span># poweroff           ### 关闭机器、关闭电源
+<span class="ln">2</span># poweroff --halt    ### 停止机器
+<span class="ln">3</span># poweroff --reboot  ### 重启机器
+</code></pre></div><p>reboot 命令 reboot 通知系统重启。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span># reboot           ### 重启机器
+<span class="ln">2</span># reboot --halt    ### 停止机器
+<span class="ln">3</span># reboot -p        ### 关闭机器
+</code></pre></div><h2 id="二linux系统目录结构">二、Linux系统目录结构</h2>
+<p>在 Linux 或 Unix 操作系统中，所有的文件和目录都被组织成以一个根节点开始的倒置的树状结构。</p>
+<p>文件系统的最顶层是由根目录开始的，系统使用 <strong>/</strong> 来表示根目录。在根目录之下的既可以是目录，也可以是文件，而每一个目录中又可以包含子目录文件。如此反复就可以构成一个庞大的文件系统。</p>
+<p>在Linux文件系统中有两个特殊的目录，一个用户所在的工作目录，也叫当前目录，可以使用一个点 <strong>.</strong> 来表示；另一个是当前目录的上一级目录，也叫父目录，可以使用两个点 <strong>..</strong> 来表示。</p>
+<p>树状目录结构：</p>
+<ul>
+<li>
+<p><strong>/bin</strong>：
+bin 是 Binaries (二进制文件) 的缩写, 这个目录存放着最经常使用的命令。</p>
+</li>
+<li>
+<p><strong>/boot：</strong>
+这里存放的是启动 Linux 时使用的一些核心文件，包括一些连接文件以及镜像文件。</p>
+</li>
+<li>
+<p><strong>/dev ：</strong>
+dev 是 Device(设备) 的缩写, 该目录下存放的是 Linux 的外部设备，在 Linux 中访问设备的方式和访问文件的方式是相同的。</p>
+</li>
+<li>
+<p><strong>/etc：</strong>
+etc 是 Etcetera(等等) 的缩写,这个目录用来存放所有的系统管理所需要的配置文件和子目录。</p>
+</li>
+<li>
+<p><strong>/home</strong>：
+用户的主目录，在 Linux 中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的，如上图中的 alice、bob 和 eve。</p>
+</li>
+<li>
+<p><strong>/lib</strong>：
+lib 是 Library(库) 的缩写这个目录里存放着系统最基本的动态连接共享库，其作用类似于 Windows 里的 DLL 文件。几乎所有的应用程序都需要用到这些共享库。</p>
+</li>
+<li>
+<p><strong>/lost+found</strong>：
+这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</p>
+</li>
+<li>
+<p><strong>/media</strong>：
+linux 系统会自动识别一些设备，例如U盘、光驱等等，当识别后，Linux 会把识别的设备挂载到这个目录下。</p>
+</li>
+<li>
+<p><strong>/mnt</strong>：
+系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在 /mnt/ 上，然后进入该目录就可以查看光驱里的内容了。</p>
+</li>
+<li>
+<p><strong>/opt</strong>：
+opt 是 optional(可选) 的缩写，这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</p>
+</li>
+<li>
+<p><strong>/proc</strong>：
+proc 是 Processes(进程) 的缩写，/proc 是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。
+这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，使别人无法ping你的机器：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all
+</code></pre></div></li>
+<li>
+<p><strong>/root</strong>：
+该目录为系统管理员，也称作超级权限者的用户主目录。</p>
+</li>
+<li>
+<p><strong>/sbin</strong>：
+s 就是 Super User 的意思，是 Superuser Binaries (超级用户的二进制文件) 的缩写，这里存放的是系统管理员使用的系统管理程序。</p>
+</li>
+<li>
+<p><strong>/selinux</strong>：
+这个目录是 Redhat/CentOS 所特有的目录，Selinux 是一个安全机制，类似于 windows 的防火墙，但是这套机制比较复杂，这个目录就是存放selinux相关的文件的。</p>
+</li>
+<li>
+<p><strong>/srv</strong>：
+该目录存放一些服务启动之后需要提取的数据。</p>
+</li>
+<li>
+<p><strong>/sys</strong>：</p>
+<p>这是 Linux2.6 内核的一个很大的变化。该目录下安装了 2.6 内核中新出现的一个文件系统 sysfs 。</p>
+<p>sysfs 文件系统集成了下面3种文件系统的信息：针对进程信息的 proc 文件系统、针对设备的 devfs 文件系统以及针对伪终端的 devpts 文件系统。</p>
+<p>该文件系统是内核设备树的一个直观反映。</p>
+<p>当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建。</p>
+</li>
+<li>
+<p><strong>/tmp</strong>：
+tmp 是 temporary(临时) 的缩写这个目录是用来存放一些临时文件的。</p>
+</li>
+<li>
+<p><strong>/usr</strong>：
+usr 是 unix system resources(unix 系统资源) 的缩写，这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于 windows 下的 program files 目录。</p>
+</li>
+<li>
+<p><strong>/usr/bin：</strong>
+系统用户使用的应用程序。</p>
+</li>
+<li>
+<p><strong>/usr/sbin：</strong>
+超级用户使用的比较高级的管理程序和系统守护程序。</p>
+</li>
+<li>
+<p><strong>/usr/src：</strong>
+内核源代码默认的放置目录。</p>
+</li>
+<li>
+<p><strong>/var</strong>：
+var 是 variable(变量) 的缩写，这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</p>
+</li>
+<li>
+<p><strong>/run</strong>：
+是一个临时文件系统，存储系统启动以来的信息。当系统重启时，这个目录下的文件应该被删掉或清除。如果你的系统上有 /var/run 目录，应该让它指向 run。</p>
+</li>
+</ul>
+<h2 id="三linux-远程登录">三、Linux 远程登录</h2>
+<h3 id="登陆到自己的linux上">登陆到自己的Linux上</h3>
+<p>密钥对已经生成了。你可以给你的密钥输入一个密码，（在Key Passphrase那里）也可以留空。然后点 Save public  key 保存公钥，点 Save private  Key 保存私钥。笔者建议你放到一个比较安全的地方，一来防止别人偷窥，二来防止误删除。接下来就该到远程 linux 主机上设置了。</p>
+<p>1）创建目录 /root/.ssh 并设置权限</p>
+<p>[root@localhost ~]# mkdir /root/.ssh mkdir 命令用来创建目录，以后会详细介绍，暂时只了解即可。</p>
+<p>[root@localhost ~]# chmod 700 /root/.ssh chmod 命令是用来修改文件属性权限的，以后会详细介绍。</p>
+<p>2）创建文件 / root/.ssh/authorized_keys</p>
+<p>[root@localhost ~]# vim /root/.ssh/authorized_keys vim 命令是编辑一个文本文件的命令，同样在后续章节详细介绍。</p>
+<p>3）打开刚才生成的public key 文件，建议使用写字板打开，这样看着舒服一些，复制从AAAA开头至 &ldquo;&mdash;- END SSH2  PUBLIC KEY &mdash;-&rdquo; 该行上的所有内容，粘贴到/root/.ssh/authorized_keys 文件中，要保证所有字符在一行。</p>
+<p>设置putty选项，点窗口左侧的SSh –&gt; Auth ，单击窗口右侧的Browse… 选择刚刚生成的私钥， 再点Open ，此时输入root，就不用输入密码就能登录了。</p>
+<h3 id="利用ssh登录远程服务器">利用ssh登录远程服务器</h3>
+<p>启动ssh：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>service sshd start
+</code></pre></div><p>登录远程服务器：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ssh -p 50022 my@127.0.0.1
+<span class="ln">2</span>输入密码：
+<span class="ln">3</span>my@127.0.0.1:
+</code></pre></div><p><strong>-p</strong> 后面是端口</p>
+<p><strong>my</strong> 是服务器用户名</p>
+<p><strong>127.0.0.1</strong> 是服务器 ip</p>
+<p>回车输入密码即可登录</p>
+<h2 id="四linux文件基本属性">四、Linux文件基本属性</h2>
+<p>为了保护系统的安全性，Linux 系统对不同的用户访问同一文件（包括目录文件）的权限做了不同的规定。不同的用户处于不同的地位，拥有不同的权限。</p>
+<p>在 Linux 中我们通常使用以下两个命令来修改文件或目录的所属用户与权限：</p>
+<ul>
+<li>chown (change owner) ： 修改所属用户与组。</li>
+<li>chmod (change mode) ： 修改用户的权限。</li>
+</ul>
+<p>在 Linux 中我们可以使用 ll 或者 ls –l 命令来显示一个文件的属性以及文件所属的用户和组</p>
+<p>在 Linux 中第一个字符代表这个文件是目录、文件或链接文件等等。</p>
+<ul>
+<li>当为 d 则是目录</li>
+<li>当为 - 则是文件；</li>
+<li>若是 l 则表示为链接文档(link file)；</li>
+<li>若是 b 则表示为装置文件里面的可供储存的接口设备(可随机存取装置)；</li>
+<li>若是 c 则表示为装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。</li>
+</ul>
+<p>接下来的字符中，以三个为一组，且均为 rwx 的三个参数的组合。其中， r 代表可读(read)、 w 代表可写(write)、 x 代表可执行(execute)。 要注意的是，这三个权限的位置不会改变，如果没有权限，就会出现减号  - 而已。</p>
+<p>所以每个文件的属性由左边第一部分的 10 个字符来确定：</p>
+<p>从左至右用 <strong>0-9</strong> 这些数字来表示。</p>
+<p>第 <strong>0</strong> 位确定文件类型，第 <strong>1-3</strong> 位确定属主（该文件的<strong>所有者</strong>）拥有该文件的权限。第4-6位确定属组（所有者的<strong>同组用户</strong>）拥有该文件的权限，第7-9位确定<strong>其他用户</strong>拥有该文件的权限。</p>
+<p>其中，第 <strong>1、4、7</strong> 位表示读权限，如果用 r 字符表示，则有读权限；第 <strong>2、5、8</strong> 位表示写权限，如果用 w 字符表示，则有写权限，；第 <strong>3、6、9</strong> 位表示可执行权限，如果用 x 字符表示，则有执行权限。</p>
+<h3 id="linux文件属主和属组">Linux文件属主和属组</h3>
+<p>对于文件来说，它都有一个特定的所有者，也就是对该文件具有所有权的用户。</p>
+<p>同时，在Linux系统中，用户是按组分类的，一个用户属于一个或多个组。</p>
+<p>文件所有者以外的用户又可以分为文件所属组的同组用户和其他用户。</p>
+<p>因此，Linux系统按文件所有者、文件所有者同组用户和其他用户来规定了不同的文件访问权限。</p>
+<p>对于 root 用户来说，一般情况下，文件的权限对其不起作用。</p>
+<h3 id="更改文件属性">更改文件属性</h3>
+<h4 id="chgrp更改文件属组">chgrp：更改文件属组</h4>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>chgrp [-R] 属组名 文件名
+</code></pre></div><p>参数选项</p>
+<ul>
+<li>-R：递归更改文件属组，就是在更改某个目录文件的属组时，如果加上 -R 的参数，那么该目录下的所有文件的属组都会更改。</li>
+</ul>
+<h4 id="chown更改文件所有者owner也可以同时更改文件所属组">chown：更改文件所有者（owner），也可以同时更改文件所属组。</h4>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>chown [–R] 所有者 文件名
+<span class="ln">2</span>chown [-R] 所有者:属组名 文件名
+</code></pre></div><p>进入 /root 目录（~）将install.log的拥有者改为bin这个账号：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~] cd ~
+<span class="ln">2</span>[root@www ~]# chown bin install.log
+<span class="ln">3</span>[root@www ~]# ls -l
+<span class="ln">4</span>-rw-r--r--  1 bin  users 68495 Jun 25 08:53 install.log
+</code></pre></div><p>将install.log的拥有者与群组改回为root：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# chown root:root install.log
+<span class="ln">2</span>[root@www ~]# ls -l
+<span class="ln">3</span>-rw-r--r--  1 root root 68495 Jun 25 08:53 install.log
+</code></pre></div><h4 id="chmod更改文件9个属性">chmod：更改文件9个属性</h4>
+<p>Linux文件属性有两种设置方法，一种是数字，一种是符号。</p>
+<p>Linux 文件的基本权限就有九个，分别是 <strong>owner/group/others(拥有者/组/其他)</strong> 三种身份各有自己的 <strong>read/write/execute</strong> 权限。</p>
+<h5 id="数字版">数字版：</h5>
+<p>文件的权限字符为： -rwxrwxrwx ， 这九个权限是三个三个一组的！其中，我们可以使用数字来代表各个权限，各权限的分数对照表如下：</p>
+<ul>
+<li>r:4</li>
+<li>w:2</li>
+<li>x:1</li>
+</ul>
+<p>选项与参数：</p>
+<ul>
+<li><strong>xyz</strong> : 就是刚刚提到的数字类型的权限属性，为 <strong>rwx</strong> 属性数值的相加。</li>
+<li><strong>-R</strong> : 进行递归(recursive)的持续变更，以及连同次目录下的所有文件都会变更</li>
+</ul>
+<h5 id="符号版">符号版：</h5>
+<p>以使用 <strong>u, g, o</strong> 来代表三种身份的权限。</p>
+<p>外， <strong>a</strong> 则代表 <strong>all</strong>，即全部的身份。读写的权限可以写成 r, w, x，也就是可以使用下表的方式来看：</p>
+<table>
+<thead>
+<tr>
+<th>chmod</th>
+<th>u g o a</th>
+<th>+(加入) -(除去) =(设定)</th>
+<th>r w x</th>
+<th>文件或目录</th>
+</tr>
+</thead>
+</table>
+<p>如果我们需要将文件权限设置为 <strong>-rwxr-xr&ndash;</strong> ，可以使用 chmod u=rwx,g=rx,o=r 文件名 来设定</p>
+<h2 id="五linux文件与目录管理">五、Linux文件与目录管理</h2>
+<h3 id="处理目录的常用命令">处理目录的常用命令</h3>
+<ul>
+<li>ls（英文全拼：list files）: 列出目录及文件名</li>
+<li>cd（英文全拼：change directory）：切换目录</li>
+<li>pwd（英文全拼：print work directory）：显示目前的目录</li>
+<li>mkdir（英文全拼：make directory）：创建一个新的目录</li>
+<li>rmdir（英文全拼：remove directory）：删除一个空的目录</li>
+<li>cp（英文全拼：copy file）: 复制文件或目录</li>
+<li>rm（英文全拼：remove）: 删除文件或目录</li>
+<li>mv（英文全拼：move file）: 移动文件与目录，或修改文件与目录的名称</li>
+</ul>
+<p>你可以使用 <em>man [命令]</em> 来查看各个命令的使用文档，如 ：man cp。</p>
+<h4 id="ls">ls</h4>
+<p>选项与参数：</p>
+<ul>
+<li>-a  ：全部的文件，连同隐藏文件( 开头为 . 的文件) 一起列出来(常用)</li>
+<li>-d  ：仅列出目录本身，而不是列出目录内的文件数据(常用)</li>
+<li>-l  ：长数据串列出，包含文件的属性与权限等等数据；(常用)</li>
+</ul>
+<p>将目录下的所有文件列出来(含属性与隐藏档)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# ls -al ~
+</code></pre></div><h4 id="cd">cd</h4>
+<h4 id="pwd">pwd</h4>
+<p>选项与参数：</p>
+<ul>
+<li>-P ：显示出确实的路径，而非使用链接 (link) 路径。</li>
+</ul>
+<p>实例：单纯显示出目前的工作目录：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# pwd
+<span class="ln">2</span>/root   &lt;== 显示出目录啦～
+</code></pre></div><p>实例显示出实际的工作目录，而非链接档本身的目录名而已。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# cd /var/mail   &lt;==注意，/var/mail是一个链接档
+<span class="ln">2</span>[root@www mail]# pwd
+<span class="ln">3</span>/var/mail         &lt;==列出目前的工作目录
+<span class="ln">4</span>[root@www mail]# pwd -P
+<span class="ln">5</span>/var/spool/mail   &lt;==怎么回事？有没有加 -P 差很多～
+<span class="ln">6</span>[root@www mail]# ls -ld /var/mail
+<span class="ln">7</span>lrwxrwxrwx 1 root root 10 Sep  4 17:54 /var/mail -&gt; spool/mail
+<span class="ln">8</span># 看到这里应该知道为啥了吧？因为 /var/mail 是链接档，链接到 /var/spool/mail 
+<span class="ln">9</span># 所以，加上 pwd -P 的选项后，会不以链接档的数据显示，而是显示正确的完整路径啊！
+</code></pre></div><h4 id="mkdir">mkdir</h4>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>mkdir [-mp] 目录名称
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-m ：配置文件的权限喔！直接配置，不需要看默认权限 (umask) 的脸色～</li>
+<li>-p ：帮助你直接将所需要的目录(包含上一级目录)递归创建起来！</li>
+</ul>
+<p>实例：请到/tmp底下尝试创建数个新目录看看：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# cd /tmp
+<span class="ln">2</span>[root@www tmp]# mkdir test    &lt;==创建一名为 test 的新目录
+<span class="ln">3</span>[root@www tmp]# mkdir test1/test2/test3/test4
+<span class="ln">4</span>mkdir: cannot create directory `test1/test2/test3/test4&#39;: 
+<span class="ln">5</span>No such file or directory       &lt;== 没办法直接创建此目录啊！
+<span class="ln">6</span>[root@www tmp]# mkdir -p test1/test2/test3/test4
+</code></pre></div><p>加了这个 -p 的选项，可以自行帮你创建多层目录！</p>
+<p>实例：创建权限为 <strong>rwx&ndash;x&ndash;x</strong> 的目录。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www tmp]# mkdir -m 711 test2
+<span class="ln">2</span>[root@www tmp]# ls -l
+<span class="ln">3</span>drwxr-xr-x  3 root  root 4096 Jul 18 12:50 test
+<span class="ln">4</span>drwxr-xr-x  3 root  root 4096 Jul 18 12:53 test1
+<span class="ln">5</span>drwx--x--x  2 root  root 4096 Jul 18 12:54 test2
+</code></pre></div><p>上面的权限部分，如果没有加上 -m 来强制配置属性，系统会使用默认属性。</p>
+<p>如果我们使用 -m ，如上例我们给予 -m 711 来给予新的目录 drwx&ndash;x&ndash;x 的权限。</p>
+<h4 id="rmdir">rmdir</h4>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span> rmdir [-p] 目录名称
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>**-p ：**从该目录起，一次删除多级空目录</li>
+</ul>
+<p>删除 runoob 目录</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www tmp]# rmdir runoob/
+</code></pre></div><p>将 mkdir 实例中创建的目录(/tmp 底下)删除掉！</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>[root@www tmp]# ls -l   &lt;==看看有多少目录存在？
+<span class="ln"> 2</span>drwxr-xr-x  3 root  root 4096 Jul 18 12:50 test
+<span class="ln"> 3</span>drwxr-xr-x  3 root  root 4096 Jul 18 12:53 test1
+<span class="ln"> 4</span>drwx--x--x  2 root  root 4096 Jul 18 12:54 test2
+<span class="ln"> 5</span>[root@www tmp]# rmdir test   &lt;==可直接删除掉，没问题
+<span class="ln"> 6</span>[root@www tmp]# rmdir test1  &lt;==因为尚有内容，所以无法删除！
+<span class="ln"> 7</span>rmdir: `test1&#39;: Directory not empty
+<span class="ln"> 8</span>[root@www tmp]# rmdir -p test1/test2/test3/test4
+<span class="ln"> 9</span>[root@www tmp]# ls -l        &lt;==您看看，底下的输出中test与test1不见了！
+<span class="ln">10</span>drwx--x--x  2 root  root 4096 Jul 18 12:54 test2
+</code></pre></div><p>利用 -p 这个选项，立刻就可以将 test1/test2/test3/test4 一次删除。</p>
+<p>不过要注意的是，这个 rmdir <strong>仅能删除空的目录</strong>，你可以使用 rm  命令来删除非空目录。</p>
+<h4 id="cp">cp</h4>
+<p>语法:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# cp [-adfilprsu] 来源档(source) 目标档(destination)
+<span class="ln">2</span>[root@www ~]# cp [options] source1 source2 source3 .... directory
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>**-a：**相当於 -pdr 的意思，至於 pdr 请参考下列说明；(常用)</li>
+<li>**-d：**若来源档为链接档的属性(link file)，则复制链接档属性而非文件本身；</li>
+<li>**-f：**为强制(force)的意思，若目标文件已经存在且无法开启，则移除后再尝试一次；</li>
+<li>**-i：**若目标档(destination)已经存在时，在覆盖时会先询问动作的进行(常用)</li>
+<li>**-l：**进行硬式链接(hard link)的链接档创建，而非复制文件本身；</li>
+<li>**-p：**连同文件的属性一起复制过去，而非使用默认属性(备份常用)；</li>
+<li>**-r：**递归持续复制，用於目录的复制行为；(常用)</li>
+<li>**-s：**复制成为符号链接档 (symbolic link)，亦即『捷径』文件；</li>
+<li>**-u：**若 destination 比 source 旧才升级 destination ！</li>
+</ul>
+<p>用 root 身份，将 root 目录下的 .bashrc 复制到 /tmp 下，并命名为 bashrc</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# cp ~/.bashrc /tmp/bashrc
+<span class="ln">2</span>[root@www ~]# cp -i ~/.bashrc /tmp/bashrc
+<span class="ln">3</span>cp: overwrite `/tmp/bashrc&#39;? n  &lt;==n不覆盖，y为覆盖
+</code></pre></div><h4 id="rm">rm</h4>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span> rm [-fir] 文件或目录
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-f  ：就是 force 的意思，忽略不存在的文件，不会出现警告信息；</li>
+<li>-i  ：互动模式，在删除前会询问使用者是否动作</li>
+<li>-r  ：递归删除啊！最常用在目录的删除了！这是非常危险的选项！！！</li>
+</ul>
+<h4 id="mv">mv</h4>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# mv [-fiu] source destination
+<span class="ln">2</span>[root@www ~]# mv [options] source1 source2 source3 .... directory
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-f  ：force 强制的意思，如果目标文件已经存在，不会询问而直接覆盖；</li>
+<li>-i  ：若目标文件 (destination) 已经存在时，就会询问是否覆盖！</li>
+<li>-u  ：若目标文件已经存在，且 source 比较新，才会升级 (update)</li>
+</ul>
+<h3 id="linux文件内容查看">Linux文件内容查看</h3>
+<ul>
+<li>cat  由第一行开始显示文件内容</li>
+<li>tac  从最后一行开始显示，可以看出 tac 是 cat 的倒着写！</li>
+<li>nl  显示的时候，顺道输出行号！</li>
+<li>more 一页一页的显示文件内容</li>
+<li>less 与 more 类似，但是比 more 更好的是，他可以往前翻页！</li>
+<li>head 只看头几行</li>
+<li>tail 只看尾巴几行</li>
+</ul>
+<h4 id="cat">cat</h4>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>cat [-AbEnTv]
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-A  ：相当於 -vET 的整合选项，可列出一些特殊字符而不是空白而已；</li>
+<li>-b  ：列出行号，仅针对非空白行做行号显示，空白行不标行号！</li>
+<li>-E  ：将结尾的断行字节 $ 显示出来；</li>
+<li>-n  ：列印出行号，连同空白行也会有行号，与 -b 的选项不同；</li>
+<li>-T  ：将 [tab] 按键以 ^I 显示出来；</li>
+<li>-v  ：列出一些看不出来的特殊字符</li>
+</ul>
+<h4 id="tac">tac</h4>
+<p>tac与cat命令刚好相反，文件内容从最后一行开始显示，可以看出 tac 是 cat 的倒着写！</p>
+<h4 id="nl">nl</h4>
+<p>显示行号</p>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>nl [-bnw] 文件
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-b  ：指定行号指定的方式，主要有两种：
+-b a ：表示不论是否为空行，也同样列出行号(类似 cat -n)；
+-b t ：如果有空行，空的那一行不要列出行号(默认值)；</li>
+<li>-n  ：列出行号表示的方法，主要有三种：
+-n ln ：行号在荧幕的最左方显示；
+-n rn ：行号在自己栏位的最右方显示，且不加 0 ；
+-n rz ：行号在自己栏位的最右方显示，且加 0 ；</li>
+<li>-w  ：行号栏位的占用的位数。</li>
+</ul>
+<h4 id="more">more</h4>
+<p>一页一页翻动</p>
+<p>在 more 这个程序的运行过程中，你有几个按键可以按的：</p>
+<ul>
+<li>空白键 (space)：代表向下翻一页；</li>
+<li>Enter     ：代表向下翻『一行』；</li>
+<li>/字串     ：代表在这个显示的内容当中，向下搜寻『字串』这个关键字；</li>
+<li>:f       ：立刻显示出档名以及目前显示的行数；</li>
+<li>q       ：代表立刻离开 more ，不再显示该文件内容。</li>
+<li>b 或 [ctrl]-b ：代表往回翻页，不过这动作只对文件有用，对管线无用。</li>
+</ul>
+<h4 id="less">less</h4>
+<p>less运行时可以输入的命令有：</p>
+<ul>
+<li>空白键  ：向下翻动一页；</li>
+<li>[pagedown]：向下翻动一页；</li>
+<li>[pageup] ：向上翻动一页；</li>
+<li>/字串   ：向下搜寻『字串』的功能；</li>
+<li>?字串   ：向上搜寻『字串』的功能；</li>
+<li>n     ：重复前一个搜寻 (与 / 或 ? 有关！)</li>
+<li>N     ：反向的重复前一个搜寻 (与 / 或 ? 有关！)</li>
+<li>q     ：离开 less 这个程序；</li>
+</ul>
+<h4 id="head">head</h4>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>head [-n number] 文件 
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-n  ：后面接数字，代表显示几行的意思</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# head /etc/man.config
+</code></pre></div><p>默认的情况中，显示前面 10 行！若要显示前 20 行，就得要这样：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# head -n 20 /etc/man.config
+</code></pre></div><h4 id="tail">tail</h4>
+<p>取出文件后面几行</p>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>tail [-n number] 文件 
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-n  ：后面接数字，代表显示几行的意思</li>
+<li>-f  ：表示持续侦测后面所接的档名，要等到按下[ctrl]-c才会结束tail的侦测</li>
+</ul>
+<h3 id="linux链接概念">Linux链接概念</h3>
+<p>Linux 链接分两种，一种被称为硬链接（Hard Link），另一种被称为符号链接（Symbolic Link）。默认情况下，ln 命令产生硬链接。</p>
+<h4 id="硬连接">硬连接</h4>
+<p>硬连接指通过索引节点来进行连接。在 Linux  的文件系统中，保存在磁盘分区中的文件不管是什么类型都给它分配一个编号，称为索引节点号(Inode Index)。在 Linux  中，多个文件名指向同一索引节点是存在的。比如：A 是 B 的硬链接（A 和 B 都是文件名），则 A 的目录项中的 inode 节点号与 B  的目录项中的 inode 节点号相同，即一个 inode 节点对应两个不同的文件名，两个文件名指向同一个文件，A 和 B  对文件系统来说是<strong>完全平等</strong>的。删除其中任何一个都不会影响另外一个的访问。</p>
+<p>硬连接的作用是允许一个文件拥有多个有效路径名，这样用户就可以建立硬连接到重要文件，以防止“误删”的功能。其原因如上所述，因为对应该目录的索引节点有一个以上的连接。只删除一个连接并不影响索引节点本身和其它的连接，**只有当最后一个连接被删除后，文件的数据块及目录的连接才会被释放。**也就是说，文件真正删除的条件是与之相关的所有硬连接文件均被删除。</p>
+<h4 id="软连接">软连接</h4>
+<p>另外一种连接称之为符号连接（Symbolic Link），也叫软连接。软链接文件有类似于 Windows  的快捷方式。它实际上是一个特殊的文件。在符号连接中，文件实际上是一个<strong>文本文件</strong>，其中包含的有另一文件的位置信息。比如：A 是 B 的软链接（A 和 B 都是文件名），A 的目录项中的 inode 节点号与 B 的目录项中的 inode 节点号不相同，A 和 B 指向的是两个不同的  inode，继而指向两块不同的数据块。但是 A 的数据块中存放的只是 B 的路径名（可以根据这个找到 B 的目录项）。A 和 B  之间是“主从”关系，如果 B 被删除了，A 仍然存在（因为两个是不同的文件），但指向的是一个无效的链接。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[oracle@Linux]$ touch f1          #创建一个测试文件f1
+<span class="ln">2</span>[oracle@Linux]$ ln f1 f2          #创建f1的一个硬连接文件f2
+<span class="ln">3</span>[oracle@Linux]$ ln -s f1 f3       #创建f1的一个符号连接文件f3
+<span class="ln">4</span>[oracle@Linux]$ ls -li            # -i参数显示文件的inode节点信息
+<span class="ln">5</span>total 0
+<span class="ln">6</span>9797648 -rw-r--r--  2 oracle oinstall 0 Apr 21 08:11 f1
+<span class="ln">7</span>9797648 -rw-r--r--  2 oracle oinstall 0 Apr 21 08:11 f2
+<span class="ln">8</span>9797649 lrwxrwxrwx  1 oracle oinstall 2 Apr 21 08:11 f3 -&gt; f1
+</code></pre></div><p>从上面的结果中可以看出，硬连接文件 f2 与原文件 f1 的 inode 节点相同，均为 9797648，然而符号连接文件的 inode 节点不同。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>[oracle@Linux]$ echo &#34;I am f1 file&#34; &gt;&gt;f1
+<span class="ln"> 2</span>[oracle@Linux]$ cat f1
+<span class="ln"> 3</span>I am f1 file
+<span class="ln"> 4</span>[oracle@Linux]$ cat f2
+<span class="ln"> 5</span>I am f1 file
+<span class="ln"> 6</span>[oracle@Linux]$ cat f3
+<span class="ln"> 7</span>I am f1 file
+<span class="ln"> 8</span>[oracle@Linux]$ rm -f f1
+<span class="ln"> 9</span>[oracle@Linux]$ cat f2
+<span class="ln">10</span>I am f1 file
+<span class="ln">11</span>[oracle@Linux]$ cat f3
+<span class="ln">12</span>cat: f3: No such file or directory
+</code></pre></div><p>通过上面的测试可以看出：当删除原始文件 f1 后，硬连接 f2 不受影响，但是符号连接 f3 文件无效</p>
+<p>依此您可以做一些相关的测试，可以得到以下全部结论：</p>
+<ul>
+<li>1).删除符号连接f3,对f1,f2无影响；</li>
+<li>2).删除硬连接f2，对f1,f3也无影响；</li>
+<li>3).删除原文件f1，对硬连接f2没有影响，导致符号连接f3失效；</li>
+<li>4).同时删除原文件f1,硬连接f2，整个文件会真正的被删除。</li>
+</ul>
+<h2 id="六linux用户和用户组管理">六、Linux用户和用户组管理</h2>
+<h3 id="linux系统用户账号的管理">Linux系统用户账号的管理</h3>
+<h4 id="添加账号">添加账号</h4>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>
+</code></pre></div><p>参数说明：</p>
+<ul>
+<li>
+<p>选项:</p>
+<ul>
+<li>-c comment 指定一段注释性描述。</li>
+<li>-d 目录 指定用户主目录，如果此目录不存在，则同时使用-m选项，可以创建主目录。</li>
+<li>-g 用户组 指定用户所属的用户组。</li>
+<li>-G 用户组，用户组 指定用户所属的附加组。</li>
+<li>-s Shell文件 指定用户的登录Shell。</li>
+<li>-u 用户号 指定用户的用户号，如果同时有-o选项，则可以重复使用其他用户的标识号。</li>
+</ul>
+</li>
+<li>
+<p>用户名:</p>
+<p>指定新账号的登录名。</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span># useradd -s /bin/sh -g group –G adm,root gem
+</code></pre></div><p>此命令新建了一个用户gem，该用户的登录Shell是 <code>/bin/sh</code>，它属于group用户组，同时又属于adm和root用户组，其中group用户组是其主组。</p>
+<p>这里可能新建组：<code>#groupadd group及groupadd adm</code></p>
+<p>增加用户账号就是在/etc/passwd文件中为新用户增加一条记录，同时更新其他系统文件如/etc/shadow, /etc/group等。</p>
+<p>Linux提供了集成的系统管理工具userconf，它可以用来对用户账号进行统一管理。</p>
+<h4 id="删除帐号">删除帐号</h4>
+<p>删除用户账号就是要将/etc/passwd等系统文件中的该用户记录删除，必要时还删除用户的主目录。</p>
+<p>删除一个已有的用户账号使用<code>userdel</code>命令，其格式如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>userdel 选项 用户名
+</code></pre></div><p>常用的选项是 -r，它的作用是把用户的主目录一起删除。</p>
+<p>例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span># userdel -r sam
+</code></pre></div><p>此命令删除用户sam在系统文件中（主要是/etc/passwd, /etc/shadow, /etc/group等）的记录，同时删除用户的主目录。</p>
+<h4 id="修改帐号">修改帐号</h4>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>usermod 选项 用户名
+</code></pre></div><p>常用的选项包括<code>-c, -d, -m, -g, -G, -s, -u以及-o等</code>，这些选项的意义与<code>useradd</code>命令中的选项一样，可以为用户指定新的资源值。</p>
+<p>另外，有些系统可以使用选项：-l 新用户名</p>
+<p>这个选项指定一个新的账号，即将原来的用户名改为新的用户名。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span># usermod -s /bin/ksh -d /home/z –g developer sam
+</code></pre></div><p>此命令将用户sam的登录Shell修改为ksh，主目录改为/home/z，用户组改为developer。</p>
+<h4 id="用户口令的管理">用户口令的管理</h4>
+<p>用户账号刚创建时没有口令，但是被系统锁定，无法使用，必须为其指定口令后才可以使用，即使是指定空口令。</p>
+<p>指定和修改用户口令的Shell命令是<code>passwd</code>。超级用户可以为自己和其他用户指定口令，普通用户只能用它修改自己的口令。命令的格式为：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>passwd 选项 用户名
+</code></pre></div><p>可使用的选项：</p>
+<ul>
+<li>-l 锁定口令，即禁用账号。</li>
+<li>-u 口令解锁。</li>
+<li>-d 使账号无口令。</li>
+<li>-f 强迫用户下次登录时修改口令。</li>
+</ul>
+<p>如果默认用户名，则修改当前用户的口令。</p>
+<h3 id="linux系统用户组的管理">Linux系统用户组的管理</h3>
+<p>不同Linux 系统对用户组的规定有所不同，如Linux下的用户属于与它同名的用户组，这个用户组在创建用户时同时创建。</p>
+<p>用户组的管理涉及用户组的添加、删除和修改。组的增加、删除和修改实际上就是对/etc/group文件的更新。</p>
+<h4 id="增加一个新的用户组">增加一个新的用户组</h4>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>groupadd 选项 用户组
+</code></pre></div><p>可以使用的选项有：</p>
+<ul>
+<li>-g GID 指定新用户组的组标识号（GID）。</li>
+<li>-o 一般与-g选项同时使用，表示新用户组的GID可以与系统已有用户组的GID相同。</li>
+</ul>
+<h4 id="删除一个已有的用户组">删除一个已有的用户组</h4>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>groupdel 用户组
+</code></pre></div><h4 id="修改用户组的属性">修改用户组的属性</h4>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>groupmod 选项 用户组
+</code></pre></div><p>常用的选项有：</p>
+<ul>
+<li>-g GID 为用户组指定新的组标识号。</li>
+<li>-o 与-g选项同时使用，用户组的新GID可以与系统已有用户组的GID相同。</li>
+<li>-n新用户组 将用户组的名字改为新名字</li>
+</ul>
+<h4 id="切换到其他用户组">切换到其他用户组</h4>
+<p>用户可以在登录后，使用命令newgrp切换到其他用户组，这个命令的参数就是目的用户组。例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>$ newgrp root
+</code></pre></div><p>这条命令将当前用户切换到root用户组，前提条件是root用户组确实是该用户的主组或附加组。类似于用户账号的管理，用户组的管理也可以通过集成的系统管理工具来完成。</p>
+<h3 id="与用户账号有关的系统文件">与用户账号有关的系统文件</h3>
+<p>完成用户管理的工作有许多种方法，但是每一种方法实际上都是对有关的系统文件进行修改。</p>
+<p>与用户和用户组相关的信息都存放在一些系统文件中，这些文件包括/etc/passwd, /etc/shadow, /etc/group等。</p>
+<h4 id="etcpasswd">/etc/passwd</h4>
+<p>Linux系统中的每个用户都在/etc/passwd文件中有一个对应的记录行，它记录了这个用户的一些基本属性。</p>
+<p>这个文件对所有用户都是可读的。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>root❌0:0:Superuser:/:
+<span class="ln"> 2</span>daemon❌1:1:System daemons:/etc:
+<span class="ln"> 3</span>bin❌2:2:Owner of system commands:/bin:
+<span class="ln"> 4</span>sys❌3:3:Owner of system files:/usr/sys:
+<span class="ln"> 5</span>adm❌4:4:System accounting:/usr/adm:
+<span class="ln"> 6</span>uucp❌5:5:UUCP administrator:/usr/lib/uucp:
+<span class="ln"> 7</span>auth❌7:21:Authentication administrator:/tcb/files/auth:
+<span class="ln"> 8</span>cron❌9:16:Cron daemon:/usr/spool/cron:
+<span class="ln"> 9</span>listen❌37:4:Network daemon:/usr/net/nls:
+<span class="ln">10</span>lp❌71:18:Printer administrator:/usr/spool/lp:
+<span class="ln">11</span>sam❌200:50:Sam san:/home/sam:/bin/sh
+</code></pre></div><p>从上面的例子我们可以看到，/etc/passwd中一行记录对应着一个用户，每行记录又被冒号(:)分隔为7个字段，其格式和具体含义如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>用户名:口令:用户标识号:组标识号:注释性描述:主目录:登录Shell
+</code></pre></div><p>系统中有一类用户称为伪用户（pseudo users）。</p>
+<p>这些用户在/etc/passwd文件中也占有一条记录，但是不能登录，因为它们的登录Shell为空。它们的存在主要是方便系统管理，满足相应的系统进程对文件属主的要求。</p>
+<p>常见的伪用户如下所示：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>伪 用 户 含 义 
+<span class="ln">2</span>bin 拥有可执行的用户命令文件 
+<span class="ln">3</span>sys 拥有系统文件 
+<span class="ln">4</span>adm 拥有帐户文件 
+<span class="ln">5</span>uucp UUCP使用 
+<span class="ln">6</span>lp lp或lpd子系统使用 
+<span class="ln">7</span>nobody NFS使用
+</code></pre></div><h4 id="etcshadow">/etc/shadow</h4>
+<p>由于/etc/passwd文件是所有用户都可读的，如果用户的密码太简单或规律比较明显的话，一台普通的计算机就能够很容易地将它破解，因此对安全性要求较高的Linux系统都把加密后的口令字分离出来，单独存放在一个文件中，这个文件是/etc/shadow文件。 有超级用户才拥有该文件读权限，这就保证了用户密码的安全性。</p>
+<p>它的文件格式与/etc/passwd类似，由若干个字段组成，字段之间用&quot;:&ldquo;隔开。这些字段是：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志
+</code></pre></div><ol>
+<li>&ldquo;登录名&quot;是与/etc/passwd文件中的登录名相一致的用户账号</li>
+<li>&ldquo;口令&quot;字段存放的是加密后的用户口令字，长度为13个字符。如果为空，则对应用户没有口令，登录时不需要口令；如果含有不属于集合 { ./0-9A-Za-z }中的字符，则对应的用户不能登录。</li>
+<li>&ldquo;最后一次修改时间&quot;表示的是从某个时刻起，到用户最后一次修改口令时的天数。时间起点对不同的系统可能不一样。例如在SCO Linux 中，这个时间起点是1970年1月1日。</li>
+<li>&ldquo;最小时间间隔&quot;指的是两次修改口令之间所需的最小天数。</li>
+<li>&ldquo;最大时间间隔&quot;指的是口令保持有效的最大天数。</li>
+<li>&ldquo;警告时间&quot;字段表示的是从系统开始警告用户到用户密码正式失效之间的天数。</li>
+<li>&ldquo;不活动时间&quot;表示的是用户没有登录活动但账号仍能保持有效的最大天数。</li>
+<li>&ldquo;失效时间&quot;字段给出的是一个绝对的天数，如果使用了这个字段，那么就给出相应账号的生存期。期满后，该账号就不再是一个合法的账号，也就不能再用来登录了。</li>
+</ol>
+<h4 id="etcgroup">/etc/group</h4>
+<p>当一个用户同时是多个组中的成员时，在/etc/passwd文件中记录的是用户所属的主组，也就是登录时所属的默认组，而其他组称为附加组。</p>
+<p>用户要访问属于附加组的文件时，必须首先使用newgrp命令使自己成为所要访问的组中的成员。</p>
+<p>用户组的所有信息都存放在/etc/group文件中。此文件的格式也类似于/etc/passwd文件，由冒号(:)隔开若干个字段，这些字段有：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>组名:口令:组标识号:组内用户列表
+</code></pre></div><ol>
+<li>&ldquo;组名&quot;是用户组的名称，由字母或数字构成。与/etc/passwd中的登录名一样，组名不应重复。</li>
+<li>&ldquo;口令&quot;字段存放的是用户组加密后的口令字。一般Linux 系统的用户组都没有口令，即这个字段一般为空，或者是*。</li>
+<li>&ldquo;组标识号&quot;与用户标识号类似，也是一个整数，被系统内部用来标识组。</li>
+<li>&ldquo;组内用户列表&quot;是属于这个组的所有用户的列表，不同用户之间用逗号(,)分隔。这个用户组可能是用户的主组，也可能是附加组。</li>
+</ol>
+<h2 id="七磁盘管理">七、磁盘管理</h2>
+<h3 id="df">df</h3>
+<p>检查文件系统的磁盘空间占用情况。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>df [-ahikHTm] [目录或文件名]
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li><code>-h</code>：以人类可读的方式显示输出结果（例如，使用 KB、MB、GB 等单位）。</li>
+<li><code>-T</code>：显示文件系统的类型。</li>
+<li><code>-t &lt;文件系统类型&gt;</code>：只显示指定类型的文件系统。</li>
+<li><code>-i</code>：显示 inode 使用情况。</li>
+<li><code>-H</code>：该参数是 <code>-h</code> 的变体，但是使用 1000 字节作为基本单位而不是 1024 字节。这意味着它会以 SI（国际单位制）单位（例如 MB、GB）而不是二进制单位（例如 MiB、GiB）来显示磁盘使用情况。</li>
+<li><code>-k</code>：这个选项会以 KB 作为单位显示磁盘空间使用情况。</li>
+<li><code>-a</code>：该参数将显示所有的文件系统，包括虚拟文件系统，例如 <code>proc</code>、<code>sysfs</code> 等。如果没有使用该选项，默认情况下，<code>df</code> 命令不会显示虚拟文件系统。</li>
+</ul>
+<h3 id="du">du</h3>
+<p>Linux du 命令也是查看使用空间的，但是与 df 命令不同的是 Linux du 命令是对文件和目录磁盘使用的空间的查看</p>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>du [-ahskm] 文件或目录名称
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-a  ：列出所有的文件与目录容量，因为默认仅统计目录底下的文件量而已。</li>
+<li>-h  ：以人们较易读的容量格式 (G/M) 显示；</li>
+<li>-s  ：仅显示指定目录或文件的总大小，而不显示其子目录的大小。</li>
+<li>-S  ：包括子目录下的总计，与 -s 有点差别。</li>
+<li>-k  ：以 KBytes 列出容量显示；</li>
+<li>-m  ：以 MBytes 列出容量显示；</li>
+</ul>
+<h3 id="fdisk">fdisk</h3>
+<p>fdisk 是 Linux 的磁盘分区表操作工具。</p>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>fdisk [-l] 装置名称
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-l  ：输出后面接的装置所有的分区内容。若仅有 fdisk -l 时，      则系统将会把整个系统内能够搜寻到的装置的分区均列出来。</li>
+</ul>
+<p>列出所有分区信息</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@AY120919111755c246621 tmp]# fdisk -l
+</code></pre></div><p>出你系统中的根目录所在磁盘，并查阅该硬盘内的相关信息</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>[root@www ~]# df /            &lt;==注意：重点在找出磁盘文件名而已
+<span class="ln"> 2</span>Filesystem           1K-blocks      Used Available Use% Mounted on
+<span class="ln"> 3</span>/dev/hdc2              9920624   3823168   5585388  41% /
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>[root@www ~]# fdisk /dev/hdc  &lt;==仔细看，不要加上数字喔！
+<span class="ln"> 6</span>The number of cylinders for this disk is set to 5005.
+<span class="ln"> 7</span>There is nothing wrong with that, but this is larger than 1024,
+<span class="ln"> 8</span>and could in certain setups cause problems with:
+<span class="ln"> 9</span>1) software that runs at boot time (e.g., old versions of LILO)
+<span class="ln">10</span>2) booting and partitioning software from other OSs
+<span class="ln">11</span>   (e.g., DOS FDISK, OS/2 FDISK)
+<span class="ln">12</span>
+<span class="ln">13</span>Command (m for help):     &lt;==等待你的输入！
+</code></pre></div><p>输入 m 后，就会看到底下这些命令介绍</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Command (m for help): m   &lt;== 输入 m 后，就会看到底下这些命令介绍
+<span class="ln"> 2</span>Command action
+<span class="ln"> 3</span>   a   toggle a bootable flag
+<span class="ln"> 4</span>   b   edit bsd disklabel
+<span class="ln"> 5</span>   c   toggle the dos compatibility flag
+<span class="ln"> 6</span>   d   delete a partition            &lt;==删除一个partition
+<span class="ln"> 7</span>   l   list known partition types
+<span class="ln"> 8</span>   m   print this menu
+<span class="ln"> 9</span>   n   add a new partition           &lt;==新增一个partition
+<span class="ln">10</span>   o   create a new empty DOS partition table
+<span class="ln">11</span>   p   print the partition table     &lt;==在屏幕上显示分割表
+<span class="ln">12</span>   q   quit without saving changes   &lt;==不储存离开fdisk程序
+<span class="ln">13</span>   s   create a new empty Sun disklabel
+<span class="ln">14</span>   t   change a partition&#39;s system id
+<span class="ln">15</span>   u   change display/entry units
+<span class="ln">16</span>   v   verify the partition table
+<span class="ln">17</span>   w   write table to disk and exit  &lt;==将刚刚的动作写入分割表
+<span class="ln">18</span>   x   extra functionality (experts only)
+</code></pre></div><p>离开 fdisk 时按下 <code>q</code>，那么所有的动作都不会生效！相反的， 按下<code>w</code>就是动作生效的意思。</p>
+<h3 id="磁盘格式化">磁盘格式化</h3>
+<p>磁盘分割完毕后自然就是要进行文件系统的格式化，格式化的命令非常的简单，使用 <code>mkfs</code>（make filesystem） 命令。</p>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>mkfs [-t 文件系统格式] 装置文件名
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-t  ：可以接文件系统格式，例如 ext3, ext2, vfat 等(系统有支持才会生效)</li>
+</ul>
+<p>看 mkfs 支持的文件格式</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# mkfs[tab][tab]
+<span class="ln">2</span>mkfs         mkfs.cramfs  mkfs.ext2    mkfs.ext3    mkfs.msdos   mkfs.vfat
+</code></pre></div><p>将分区 /dev/hdc6（可指定你自己的分区） 格式化为 ext3 文件系统：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>[root@www ~]# mkfs -t ext3 /dev/hdc6
+<span class="ln"> 2</span>mke2fs 1.39 (29-May-2006)
+<span class="ln"> 3</span>Filesystem label=                &lt;==这里指的是分割槽的名称(label)
+<span class="ln"> 4</span>OS type: Linux
+<span class="ln"> 5</span>Block size=4096 (log=2)          &lt;==block 的大小配置为 4K 
+<span class="ln"> 6</span>Fragment size=4096 (log=2)
+<span class="ln"> 7</span>251392 inodes, 502023 blocks     &lt;==由此配置决定的inode/block数量
+<span class="ln"> 8</span>25101 blocks (5.00%) reserved for the super user
+<span class="ln"> 9</span>First data block=0
+<span class="ln">10</span>Maximum filesystem blocks=515899392
+<span class="ln">11</span>16 block groups
+<span class="ln">12</span>32768 blocks per group, 32768 fragments per group
+<span class="ln">13</span>15712 inodes per group
+<span class="ln">14</span>Superblock backups stored on blocks:
+<span class="ln">15</span>        32768, 98304, 163840, 229376, 294912
+<span class="ln">16</span>
+<span class="ln">17</span>Writing inode tables: done
+<span class="ln">18</span>Creating journal (8192 blocks): done &lt;==有日志记录
+<span class="ln">19</span>Writing superblocks and filesystem accounting information: done
+<span class="ln">20</span>
+<span class="ln">21</span>This filesystem will be automatically checked every 34 mounts or
+<span class="ln">22</span>180 days, whichever comes first.  Use tune2fs -c or -i to override.
+<span class="ln">23</span># 这样就创建起来我们所需要的 Ext3 文件系统了！简单明了！
+</code></pre></div><h3 id="磁盘检验">磁盘检验</h3>
+<p>fsck（file system check）用来检查和维护不一致的文件系统。</p>
+<p>若系统掉电或磁盘发生问题，可利用fsck命令对文件系统进行检查。</p>
+<p>语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>fsck [-t 文件系统] [-ACay] 装置名称
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-t : 给定档案系统的型式，若在 /etc/fstab 中已有定义或 kernel 本身已支援的则不需加上此参数</li>
+<li>-s : 依序一个一个地执行 fsck 的指令来检查</li>
+<li>-A : 对/etc/fstab 中所有列出来的 分区（partition）做检查</li>
+<li>-C : 显示完整的检查进度</li>
+<li>-d : 打印出 e2fsck 的 debug 结果</li>
+<li>-p : 同时有 -A 条件时，同时有多个 fsck 的检查一起执行</li>
+<li>-R : 同时有 -A 条件时，省略 / 不检查</li>
+<li>-V : 详细显示模式</li>
+<li>-a : 如果检查有错则自动修复</li>
+<li>-r : 如果检查有错则由使用者回答是否修复</li>
+<li>-y : 选项指定检测每个文件是自动输入yes，在不确定那些是不正常的时候，可以执行 # fsck -y 全部检查修复。</li>
+</ul>
+<p>查看系统有多少文件系统支持的 fsck 命令：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# fsck[tab][tab]
+<span class="ln">2</span>fsck         fsck.cramfs  fsck.ext2    fsck.ext3    fsck.msdos   fsck.vfat
+</code></pre></div><p>强制检测 /dev/hdc6 分区:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# fsck -C -f -t ext3 /dev/hdc6 
+<span class="ln">2</span>fsck 1.39 (29-May-2006)
+<span class="ln">3</span>e2fsck 1.39 (29-May-2006)
+<span class="ln">4</span>Pass 1: Checking inodes, blocks, and sizes
+<span class="ln">5</span>Pass 2: Checking directory structure
+<span class="ln">6</span>Pass 3: Checking directory connectivity
+<span class="ln">7</span>Pass 4: Checking reference counts
+<span class="ln">8</span>Pass 5: Checking group summary information
+<span class="ln">9</span>vbird_logical: 11/251968 files (9.1% non-contiguous), 36926/1004046 blocks
+</code></pre></div><p>如果没有加上 -f 的选项，则由于这个文件系统不曾出现问题，检查的经过非常快速！若加上 -f 强制检查，才会一项一项的显示过程。</p>
+<h3 id="磁盘挂载与卸除">磁盘挂载与卸除</h3>
+<p>Linux 的磁盘挂载使用 <code>mount</code> 命令，卸载使用 <code>umount</code> 命令。</p>
+<p>磁盘挂载语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>mount [-t 文件系统] [-L Label名] [-o 额外选项] [-n]  装置文件名  挂载点
+</code></pre></div><p>用默认的方式，将刚刚创建的 /dev/hdc6 挂载到 /mnt/hdc6 上面！</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# mkdir /mnt/hdc6
+<span class="ln">2</span>[root@www ~]# mount /dev/hdc6 /mnt/hdc6
+</code></pre></div><p>磁盘卸载命令 <code>umount</code> 语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>umount [-fn] 装置文件名或挂载点
+</code></pre></div><p>选项与参数：</p>
+<ul>
+<li>-f ：强制卸除！可用在类似网络文件系统 (NFS) 无法读取到的情况下；</li>
+<li>-n ：不升级 /etc/mtab 情况下卸除。</li>
+</ul>
+<p>卸载/dev/hdc6</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[root@www ~]# umount /dev/hdc6     
+</code></pre></div><h2 id="八vivim">八、vi/vim</h2>
+<p>基本上 vi/vim 共分为三种模式，<strong>命令模式（Command Mode）、输入模式（Insert Mode）和命令行模式（Command-Line Mode）</strong>。</p>
+<h3 id="第一部分一般模式可用的光标移动复制粘贴搜索替换等">第一部分：一般模式可用的光标移动、复制粘贴、搜索替换等</h3>
+<table>
+<thead>
+<tr>
+<th>移动光标的方法</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>h 或 向左箭头键(←)</td>
+<td>光标向左移动一个字符</td>
+</tr>
+<tr>
+<td>j 或 向下箭头键(↓)</td>
+<td>光标向下移动一个字符</td>
+</tr>
+<tr>
+<td>k 或 向上箭头键(↑)</td>
+<td>光标向上移动一个字符</td>
+</tr>
+<tr>
+<td>l 或 向右箭头键(→)</td>
+<td>光标向右移动一个字符</td>
+</tr>
+<tr>
+<td>如果想要进行多次移动的话，例如向下移动 30 行，可以使用 &ldquo;30j&rdquo; 或 &ldquo;30↓&rdquo; 的组合按键</td>
+<td></td>
+</tr>
+<tr>
+<td>[Ctrl] + [f]</td>
+<td>屏幕『向下』移动一页，相当于 [Page Down]按键 	(常用)</td>
+</tr>
+<tr>
+<td>[Ctrl] + [b]</td>
+<td>屏幕『向上』移动一页，相当于 [Page Up] 按键 	(常用)</td>
+</tr>
+<tr>
+<td>[Ctrl] + [d]</td>
+<td>屏幕『向下』移动半页</td>
+</tr>
+<tr>
+<td>[Ctrl] + [u]</td>
+<td>屏幕『向上』移动半页</td>
+</tr>
+<tr>
+<td>+</td>
+<td>光标移动到非空格符的下一行</td>
+</tr>
+<tr>
+<td>-</td>
+<td>光标移动到非空格符的上一行</td>
+</tr>
+<tr>
+<td>n<space></td>
+<td>那个 n 表示『数字』，例如 20 。按下数字后再按空格键，光标会向右移动这一行的 n 	个字符。例如 20<space> 则光标会向后面移动 20 个字符距离。</td>
+</tr>
+<tr>
+<td>0 或功能键[Home]</td>
+<td>这是数字『 0 』：移动到这一行的最前面字符处 	(常用)</td>
+</tr>
+<tr>
+<td>$ 或功能键[End]</td>
+<td>移动到这一行的最后面字符处(常用)</td>
+</tr>
+<tr>
+<td>H</td>
+<td>光标移动到这个屏幕的最上方那一行的第一个字符</td>
+</tr>
+<tr>
+<td>M</td>
+<td>光标移动到这个屏幕的中央那一行的第一个字符</td>
+</tr>
+<tr>
+<td>L</td>
+<td>光标移动到这个屏幕的最下方那一行的第一个字符</td>
+</tr>
+<tr>
+<td>G</td>
+<td>移动到这个档案的最后一行(常用)</td>
+</tr>
+<tr>
+<td>nG</td>
+<td>n 为数字。移动到这个档案的第 n 行。例如 20G 则会移动到这个档案的第 20  	行(可配合 :set nu)</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>移动到这个档案的第一行，相当于 1G 啊！ 	(常用)</td>
+</tr>
+<tr>
+<td>n<Enter></td>
+<td>n 为数字。光标向下移动 n 行(常用)</td>
+</tr>
+<tr>
+<td>搜索替换</td>
+<td></td>
+</tr>
+<tr>
+<td>/word</td>
+<td>向光标之下寻找一个名称为 word 的字符串。例如要在档案内搜寻 vbird  	这个字符串，就输入 /vbird 即可！ 	(常用)</td>
+</tr>
+<tr>
+<td>?word</td>
+<td>向光标之上寻找一个字符串名称为 word 的字符串。</td>
+</tr>
+<tr>
+<td>n</td>
+<td>这个 n 是英文按键。代表重复前一个搜寻的动作。举例来说， 	如果刚刚我们执行 /vbird 去向下搜寻 vbird 这个字符串，则按下 n 后，会向下继续搜寻下一个名称为 vbird  	的字符串。如果是执行 ?vbird 的话，那么按下 n 则会向上继续搜寻名称为 vbird 的字符串！</td>
+</tr>
+<tr>
+<td>N</td>
+<td>这个 N 是英文按键。与 n 刚好相反，为『反向』进行前一个搜寻动作。 	例如 /vbird 后，按下 N 则表示『向上』搜寻 vbird 。</td>
+</tr>
+<tr>
+<td>使用 /word 配合 n 及 N 是非常有帮助的！可以让你重复的找到一些你搜寻的关键词！</td>
+<td></td>
+</tr>
+<tr>
+<td>:n1,n2s/word1/word2/g</td>
+<td>n1 与 n2 为数字。在第 n1 与 n2 行之间寻找 word1 这个字符串，并将该字符串取代为 	word2 ！举例来说，在 100 到 200 行之间搜寻 vbird 并取代为 VBIRD 则：  	『:100,200s/vbird/VBIRD/g』。(常用)</td>
+</tr>
+<tr>
+<td>:1,$s/word1/word2/g 或 :%s/word1/word2/g</td>
+<td>从第一行到最后一行寻找 word1 字符串，并将该字符串取代为 	word2 ！(常用)</td>
+</tr>
+<tr>
+<td>:1,$s/word1/word2/gc 或 :%s/word1/word2/gc</td>
+<td>从第一行到最后一行寻找 word1 字符串，并将该字符串取代为 	word2 ！且在取代前显示提示字符给用户确认 (confirm) 	是否需要取代！(常用)</td>
+</tr>
+<tr>
+<td>删除、复制与贴上</td>
+<td></td>
+</tr>
+<tr>
+<td>x, X</td>
+<td>在一行字当中，x 为向后删除一个字符 (相当于 [del] 按键)， 	 X 为向前删除一个字符(相当于 [backspace] 亦即是退格键) 	(常用)</td>
+</tr>
+<tr>
+<td>nx</td>
+<td>n 为数字，连续向后删除 n 个字符。举例来说，我要连续删除 10 个字符， 	『10x』。</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>剪切游标所在的那一整行(常用)，用 p/P 可以粘贴。</td>
+</tr>
+<tr>
+<td>ndd</td>
+<td>n 为数字。剪切光标所在的向下 n 行，例如 20dd 则是剪切 20 行(常用)，用 p/P 可以粘贴。</td>
+</tr>
+<tr>
+<td>d1G</td>
+<td>删除光标所在到第一行的所有数据</td>
+</tr>
+<tr>
+<td>dG</td>
+<td>删除光标所在到最后一行的所有数据</td>
+</tr>
+<tr>
+<td>d$</td>
+<td>删除游标所在处，到该行的最后一个字符</td>
+</tr>
+<tr>
+<td>d0</td>
+<td>那个是数字的 0 ，删除游标所在处，到该行的最前面一个字符</td>
+</tr>
+<tr>
+<td>yy</td>
+<td>复制游标所在的那一行(常用)</td>
+</tr>
+<tr>
+<td>nyy</td>
+<td>n 为数字。复制光标所在的向下 n 行，例如 20yy 则是复制 20 	行(常用)</td>
+</tr>
+<tr>
+<td>y1G</td>
+<td>复制游标所在行到第一行的所有数据</td>
+</tr>
+<tr>
+<td>yG</td>
+<td>复制游标所在行到最后一行的所有数据</td>
+</tr>
+<tr>
+<td>y0</td>
+<td>复制光标所在的那个字符到该行行首的所有数据</td>
+</tr>
+<tr>
+<td>y$</td>
+<td>复制光标所在的那个字符到该行行尾的所有数据</td>
+</tr>
+<tr>
+<td>p, P</td>
+<td>p 为将已复制的数据在光标下一行贴上，P 则为贴在游标上一行！ 	举例来说，我目前光标在第 20 行，且已经复制了 10 行数据。则按下 p 后， 	那 10 行数据会贴在原本的 20 行之后，亦即由 21 行开始贴。但如果是按下 P 呢？ 	那么原本的第 20 行会被推到变成 30 行。 	(常用)</td>
+</tr>
+<tr>
+<td>J</td>
+<td>将光标所在行与下一行的数据结合成同一行</td>
+</tr>
+<tr>
+<td>c</td>
+<td>重复删除多个数据，例如向下删除 10 行，[ 10cj ]</td>
+</tr>
+<tr>
+<td>u</td>
+<td>复原前一个动作。(常用)</td>
+</tr>
+<tr>
+<td>[Ctrl]+r</td>
+<td>重做上一个动作。(常用)</td>
+</tr>
+<tr>
+<td>这个 u 与 [Ctrl]+r 是很常用的指令！一个是复原，另一个则是重做一次～ 	利用这两个功能按键，你的编辑，嘿嘿！很快乐的啦！</td>
+<td></td>
+</tr>
+<tr>
+<td>.</td>
+<td>不要怀疑！这就是小数点！意思是重复前一个动作的意思。 	如果你想要重复删除、重复贴上等等动作，按下小数点『.』就好了！ 	(常用)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="第二部分一般模式切换到编辑模式的可用的按钮说明">第二部分：一般模式切换到编辑模式的可用的按钮说明</h3>
+<table>
+<thead>
+<tr>
+<th>进入输入或取代的编辑模式</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i, I</td>
+<td>进入输入模式(Insert mode)：  	i 为『从目前光标所在处输入』， I 为『在目前所在行的第一个非空格符处开始输入』。 	(常用)</td>
+</tr>
+<tr>
+<td>a, A</td>
+<td>进入输入模式(Insert mode)：  	a 为『从目前光标所在的下一个字符处开始输入』， A 	为『从光标所在行的最后一个字符处开始输入』。(常用)</td>
+</tr>
+<tr>
+<td>o, O</td>
+<td>进入输入模式(Insert mode)：  	这是英文字母 o 的大小写。o 为在目前光标所在的下一行处输入新的一行； 	O 为在目前光标所在的上一行处输入新的一行！(常用)</td>
+</tr>
+<tr>
+<td>r, R</td>
+<td>进入取代模式(Replace mode)：  	r 只会取代光标所在的那一个字符一次；R会一直取代光标所在的文字，直到按下 	ESC 为止；(常用)</td>
+</tr>
+<tr>
+<td>上面这些按键中，在 vi 画面的左下角处会出现『&ndash;INSERT&ndash;』或『&ndash;REPLACE&ndash;』的字样。 	由名称就知道该动作了吧！！特别注意的是，我们上面也提过了，你想要在档案里面输入字符时， 	一定要在左下角处看到 INSERT 或 REPLACE 才能输入喔！</td>
+<td></td>
+</tr>
+<tr>
+<td>[Esc]</td>
+<td>退出编辑模式，回到一般模式中(常用)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="第三部分一般模式切换到指令行模式的可用的按钮说明">第三部分：一般模式切换到指令行模式的可用的按钮说明</h3>
+<table>
+<thead>
+<tr>
+<th>指令行的储存、离开等指令</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:w</td>
+<td>将编辑的数据写入硬盘档案中(常用)</td>
+</tr>
+<tr>
+<td>:w!</td>
+<td>若文件属性为『只读』时，强制写入该档案。不过，到底能不能写入， 	还是跟你对该档案的档案权限有关啊！</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>离开 vi (常用)</td>
+</tr>
+<tr>
+<td>:q!</td>
+<td>若曾修改过档案，又不想储存，使用 ! 为强制离开不储存档案。</td>
+</tr>
+<tr>
+<td>注意一下啊，那个惊叹号 (!) 在 vi 当中，常常具有『强制』的意思～</td>
+<td></td>
+</tr>
+<tr>
+<td>:wq</td>
+<td>储存后离开，若为 :wq! 则为强制储存后离开 	(常用)</td>
+</tr>
+<tr>
+<td>ZZ</td>
+<td>这是大写的 Z 喔！如果修改过，保存当前文件，然后退出！效果等同于(保存并退出)</td>
+</tr>
+<tr>
+<td>ZQ</td>
+<td>不保存，强制退出。效果等同于 :q!。</td>
+</tr>
+<tr>
+<td>:w [filename]</td>
+<td>将编辑的数据储存成另一个档案（类似另存新档）</td>
+</tr>
+<tr>
+<td>:r [filename]</td>
+<td>在编辑的数据中，读入另一个档案的数据。亦即将 『filename』 	这个档案内容加到游标所在行后面</td>
+</tr>
+<tr>
+<td>:n1,n2 w [filename]</td>
+<td>将 n1 到 n2 的内容储存成 filename 这个档案。</td>
+</tr>
+<tr>
+<td>:! command</td>
+<td>暂时离开 vi 到指令行模式下执行 command 的显示结果！例如  	『:! ls /home』即可在 vi 当中察看 /home 底下以 ls 输出的档案信息！</td>
+</tr>
+<tr>
+<td>vim 环境的变更</td>
+<td></td>
+</tr>
+<tr>
+<td>:set nu</td>
+<td>显示行号，设定之后，会在每一行的前缀显示该行的行号</td>
+</tr>
+<tr>
+<td>:set nonu</td>
+<td>与 set nu 相反，为取消行号！</td>
+</tr>
+</tbody>
+</table></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li><li><a href="/posts/tech/js-1-vue/">Vue基础
+</a></li><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
+</a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
+</a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">26</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

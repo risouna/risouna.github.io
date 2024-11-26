@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>记第一次从gal中解包提取素材和剧本 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="记第一次从gal中解包提取素材和剧本">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2022-11-06T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2022-11-06T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1215">
+<meta itemprop="keywords" content=",," /><meta property="og:title" content="记第一次从gal中解包提取素材和剧本" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/gal-extract/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-06T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-11-06T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+<meta property="og:see_also" content="/posts/anime/shinainaru/" /><meta property="og:see_also" content="/posts/anime/akujo/" /><meta property="og:see_also" content="/posts/anime/shinai/" /><meta property="og:see_also" content="/posts/anime/white-album/" /><meta property="og:see_also" content="/posts/anime/todokanaikoi/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="记第一次从gal中解包提取素材和剧本"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">记第一次从gal中解包提取素材和剧本</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">记第一次从gal中解包提取素材和剧本
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2022-11-06
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>3 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/galgame/" class="post-taxonomy">#Galgame</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-前情">0. 前情</a></li>
+    <li><a href="#1-游戏解包cg提取">1. 游戏解包&amp;CG提取</a></li>
+    <li><a href="#2-剧本提取">2. 剧本提取</a></li>
+    <li><a href="#3-结尾">3. 结尾</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="0-前情">0. 前情</h2>
+<p>从9月开始，我的gal时间就是素晴日了，最近一口气在几天时间内完成了游戏的90%内容，三个结局，希实香线，HE线都全部通关了。我特别喜欢素晴日，而我表达喜欢的方式就是收集它相关的所以资源，各种cg立绘音乐cd特典什么的全都想要。而我去寻找cg时，发现那篇帖子的资源链接已经被百度封了，于是只得自己动手开干，这就是背景。</p>
+<h2 id="1-游戏解包cg提取">1. 游戏解包&amp;CG提取</h2>
+<p>从帖子中得知了解包用的软件是GARbro（这个名字我不忍吐槽，我还以为是我误看了pro），之后一切都非常顺利，成功从游戏中提取了图片，视频和音频。毕竟是10年前的游戏，就算是10周年特别版也没有修改底层系统，所以轻松提取了，全程傻瓜式操作。我发现这个系统和脏翅膀的系统是同一个。提取图片时我选择了转换格式为png，为的是最大的清晰度，当然文件体积也涨了好几倍。</p>
+<div align=center>
+<img src="/images/gal-extract_1.png"  width="80%" />  
+</div>
+<h2 id="2-剧本提取">2. 剧本提取</h2>
+<p>这一部是耗时最多的一步，原因在于剧本文件的编码。</p>
+<p>在游戏目录中arc的1开头的文件，正是游戏脚本文件，利用GARbro可以轻松提取出来，我尝试了很多编码，但无论用什么编码打开文本，浮现的始终是乱码。</p>
+<div align=center>
+<img src="/images/gal-extract_2.png"  width="80%" />  
+</div>
+这里推测可能性有两种，一是编码不对，二是编码大体是对的，但更重要的在于BGI系统自定义了许多的编码，或者是打乱了正常的编码。于是乎想要解决这个问题，我要么自己去核对推测编码自己破解，要么去找现成的轮子，别人已做的工作。我肯定选择后者，于是我开始了搜索，在汉化吧里面搜索“BGI”时我发现了线索，这将我引到了github，然后一下子找到了decoder。
+<div align=center>
+<img src="/images/gal-extract_3.png"  width="80%" />  
+</div>
+<p>这个是C#编写的，不过也不需要我理解除非我要看看它是怎么处理字符的。我用vscode编译了之后得到了docoder，就已经可以用了，但我还是瞥了眼代码。多么详细的注释啊！加上C#代码不是难理解和我编写小工具的经验，我觉得如果我想研究的话，我肯定看得懂！谢谢你，xupefei超人！！！你拯救了我的爱！</p>
+<div align=center>
+<img src="/images/gal-extract_4.png"  width="80%" />  
+</div>
+<p>好了，现在问题来到了最后一步。游戏脚本文件是很多的，我总不可能一下一下每个文件去运行吧？于是我想到了bat批处理脚本。在我快速回顾遍历bat脚本后，我惊讶地发现我需要的bat脚本只需一行代码：<code>for %%i in (.\other\*) do ( ScriptDecoder.exe %%i)</code> ，当然还可以在后面加个重定向，更加舒服。问题就此解决了~我成功得到了游戏脚本。在我后续对脏翅膀提取剧本时，又出现日语编码问题了，待续未完。</p>
+<div align=center>
+<img src="/images/gal-extract_5.png"  width="80%" />  
+</div>
+<h2 id="3-结尾">3. 结尾</h2>
+<p>不可全部否定功利主义是我的结论，所以我将成果发到了贴吧上祈求别人表扬~但功利主义始终不是我的结果，我想要幸福地活下去！无论是艺术形而上也好，还是悲剧人生（目前我喜欢的哲学家可不是叔本华和尼采，而是康德。我之前一直觉得数学是唯一真神，超脱宇宙，而当我在阅读纯理性批判时，感受到了康德也是位非常像数学家的哲学家，先天分析判断是数学似的）。</p>
+<p>“我喜欢的人是……诗人……也是剑客……哲学家……还是空气力学的先驱者……” 我会写很多东西来纪念，表达我对素晴日的爱。最后附上我解包出来的图片吧。</p>
+<center>
+    <img style="border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+    src="/images/gal-extract_6.png" width="70%">
+    <br>
+    <div style="color:orange; border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 2px;">谁不想要一个可爱的妹妹呢？</div>
+</center></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/bin/free-talk/">杂谈——阿西莫夫的小说&amp;简奥斯汀所处的时代&amp;1984
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/bin/subarashikihibi-1/">素晴日剧本片段
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/bin/free-talk/">杂谈——阿西莫夫的小说&amp;简奥斯汀所处的时代&amp;1984
+</a></li><li><a href="/posts/literature/lighting-ball/">《球状闪电》
+</a></li><li><a href="/posts/anime/soratane/"> 空種 -そらたね-
+</a></li><li><a href="/posts/anime/the-whole-sky/">満天
+</a></li><li><a href="/posts/other/stolz/">Stolz定理和一道例题
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">26</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

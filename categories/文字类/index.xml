@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>文字类 on さぁ、君、取りたまえ</title>
+    <link>/categories/%E6%96%87%E5%AD%97%E7%B1%BB/</link>
+    <description>Recent content in 文字类 on さぁ、君、取りたまえ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
+    <lastBuildDate>Fri, 16 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>《球状闪电》</title>
+      <link>/posts/literature/lighting-ball/</link>
+      <pubDate>Fri, 16 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/literature/lighting-ball/</guid>
+      <description>&lt;p&gt;有剧透，没看过原书建议不要点开。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>威塞克斯与维京人</title>
+      <link>/posts/literature/british-history-2/</link>
+      <pubDate>Thu, 28 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/literature/british-history-2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>罗马-不列颠到盎格鲁-撒克逊</title>
+      <link>/posts/literature/british-history-1/</link>
+      <pubDate>Wed, 20 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/literature/british-history-1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>阿玛兰妲——以前的孤独</title>
+      <link>/posts/literature/amaranta/</link>
+      <pubDate>Sat, 04 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/literature/amaranta/</guid>
+      <description>&lt;p&gt;百年孤独中阿玛兰妲的全部片段。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>梅尔基亚德斯、炼金室及羊皮卷——我对知识的原始印象（完成度15%）</title>
+      <link>/posts/literature/melquiades/</link>
+      <pubDate>Sat, 21 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/literature/melquiades/</guid>
+      <description>&lt;p&gt;百年孤独中关于梅尔基亚德斯（Melquíades）和科学相关的一部分片段。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>丽贝卡的一生</title>
+      <link>/posts/literature/rebeca/</link>
+      <pubDate>Sun, 13 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/literature/rebeca/</guid>
+      <description>&lt;p&gt;收集丽贝卡在百年孤独出现的所有片段。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

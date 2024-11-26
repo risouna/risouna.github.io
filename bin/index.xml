@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bins on さぁ、君、取りたまえ</title>
+    <link>/bin/</link>
+    <description>Recent content in Bins on さぁ、君、取りたまえ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
+    <lastBuildDate>Sun, 13 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="/bin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>素晴日剧本片段</title>
+      <link>/bin/subarashikihibi-1/</link>
+      <pubDate>Sun, 13 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/bin/subarashikihibi-1/</guid>
+      <description>&lt;p&gt;原句，部分词翻译（网络搜索，和整句翻译（来源于汉化组等）&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>杂谈——阿西莫夫的小说&amp;简奥斯汀所处的时代&amp;1984</title>
+      <link>/bin/free-talk/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/bin/free-talk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>日语笔记1</title>
+      <link>/bin/japanese-study-1/</link>
+      <pubDate>Tue, 31 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/bin/japanese-study-1/</guid>
+      <description>&lt;p&gt;（我已经厌烦了这种重复抄写笔记的方式，所以没有笔记2了——2022.11.13）&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一些无穷级数</title>
+      <link>/bin/math_history_1/</link>
+      <pubDate>Sat, 11 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/bin/math_history_1/</guid>
+      <description>&lt;p&gt;随便写写最近所看到的数学。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【废案/想法】网络社交空间</title>
+      <link>/bin/internet-social-space-1/</link>
+      <pubDate>Wed, 01 Dec 2021 00:00:00 +0800</pubDate>
+      
+      <guid>/bin/internet-social-space-1/</guid>
+      <description>&lt;p&gt;以前没写完的，写作日期为2021-05-07。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>聊聊猜疑</title>
+      <link>/bin/suspect-discuss/</link>
+      <pubDate>Fri, 05 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/bin/suspect-discuss/</guid>
+      <description>&lt;p&gt;随便写点什么。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ABNF - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="ABNF">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-11-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2139">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="ABNF" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/media-abnf/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-18T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-11-18T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ABNF"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">ABNF</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">ABNF
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-11-18
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>5 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#bnf">BNF</a></li>
+    <li><a href="#abnf">ABNF</a>
+      <ul>
+        <li><a href="#操作符">操作符</a></li>
+        <li><a href="#串联">串联</a></li>
+        <li><a href="#选择">选择</a></li>
+        <li><a href="#递增选择">递增选择</a></li>
+        <li><a href="#值范围">值范围</a></li>
+        <li><a href="#序列分组">序列分组</a></li>
+        <li><a href="#可变重复">可变重复</a></li>
+        <li><a href="#特定重复">特定重复</a></li>
+        <li><a href="#可选序列">可选序列</a></li>
+        <li><a href="#注释">注释</a></li>
+        <li><a href="#操作符优先级">操作符优先级</a></li>
+        <li><a href="#核心规则">核心规则</a></li>
+        <li><a href="#例子">例子</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="bnf">BNF</h2>
+<p>巴科斯范式(BNF: Backus-Naur Form 的缩写)是由 John Backus 和 Peter Naur 首先引入的用来描述计算机语言语法的符号集。现在，几乎每一位新编程语言书籍的作者都使用巴科斯范式来定义编程语言的语法规则。</p>
+<p>在BNF中，双引号中的字(&ldquo;word&rdquo;)代表着这些字符本身。而double_quote用来代表双引号。</p>
+<p>在双引号外的字（有可能有下划线）代表着语法部分。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>&lt; &gt; : 内包含的为必选项。 
+<span class="ln"> 2</span>[ ] : 内包含的为可选项。 
+<span class="ln"> 3</span>{ } : 内包含的为可重复0至无数次的项。 
+<span class="ln"> 4</span>| : 表示在其左右两边任选一项，相当于&#34;OR&#34;的意思。 
+<span class="ln"> 5</span>::= : 是“被定义为”的意思 
+<span class="ln"> 6</span>&#34;...&#34; : 术语符号 
+<span class="ln"> 7</span>[...] : 选项，最多出现一次 
+<span class="ln"> 8</span>{...} : 重复项，任意次数，包括 0 次 
+<span class="ln"> 9</span>(...) : 分组 
+<span class="ln">10</span>|  : 并列选项，只能选一个 
+<span class="ln">11</span>斜体字: 参数，在其它地方有解释 
+</code></pre></div><p>下面是是用BNF来定义的Java语言中的For语句的实例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>FOR_STATEMENT ::= 
+<span class="ln">2</span>      &#34;for&#34; &#34;(&#34; ( variable_declaration | 
+<span class="ln">3</span>  ( expression &#34;;&#34; ) | &#34;;&#34; ) 
+<span class="ln">4</span>      [ expression ] &#34;;&#34; 
+<span class="ln">5</span>      [ expression ] &#34;;&#34; 
+<span class="ln">6</span>      &#34;)&#34; statement
+</code></pre></div><h2 id="abnf">ABNF</h2>
+<p>RFC2234 定义了扩展的巴科斯范式(ABNF)。近年来在Internet的定义中 ABNF 被广泛使用。ABNF  做了更多的改进。扩充巴科斯-瑙尔范式(ABNF)基于了巴科斯-瑙尔范式(BNF)，但由它自己的语法和推导规则构成。这种元语言的发起原则是描述作为通信协议(双向规范)的语言的形式系统。它建档于 RFC 4234 中通常充当 IETF 通信协议的定义语言。</p>
+<p>ABNF 规定是一组推导规则，写为：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>规则 = 定义 ; 注释 CR LF
+</code></pre></div><p>这里的规则是大小写敏感的非终止符，定义由定义这个规则的符号序列，一个文档注释组成，并结束于回车换行。</p>
+<p>规则名字是大小写不敏感的: <code>&lt;rulename&gt;</code>, <code>&lt;Rulename&gt;</code>, <code>&lt;RULENAME&gt;</code> 和 <code>&lt;rUlENamE&gt;</code> 都提及同一个规则。规则名字由开始于一个字母的字母、数字和连字符组成。不要求用尖括号(“<code>&lt;</code>”, “<code>&gt;</code>”) (如 BNF 那样)包围规则名字。但是它们可以用来界定规则名字，比如在冗文中识别出规则名字的时候。</p>
+<p>ABNF 使用 7-位 ASCII 编码，在 8-位域中把高位置零。</p>
+<p>终结符由一个或多个数值字符指定。数值字符可以指定为跟随着基数(b = 二进制, d = 十进制, x = 十六进制)的一个百分号“<code>%</code>”，随后是这个数值，或数值的串联(用“<code>.</code>” 来指示)。例如回车可以指定为十进制的 <code>%d13</code> 或十六进制的 <code>%x0D</code>。回车换行可以指定为 <code>%d13.10</code>。</p>
+<p>文字正文通过使用包围在引号(<code>&quot;</code>)中字符串来指定。这些字符串是大小写不敏感的，使用的字符集是  US-ASCII。所以字符串“abc”将匹配“abc”, “Abc”, “aBc”, “abC”, “ABc”, “AbC”, “aBC” 和  “ABC”。对于大小写敏感匹配，必须定义明确的字符: 要匹配 “aBc” 定义将是 <code>%d97 %d66 %d99</code>。</p>
+<h3 id="操作符">操作符</h3>
+<p>空白被用来分隔定义的各个元素: 要使空格被识别为分割符则必须明确的包含它。</p>
+<h3 id="串联">串联</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>规则1 规则2   
+</code></pre></div><p>规则可以通过列出一序列的规则名字来定义。</p>
+<p>要匹配字符串“aba”可以使用下列规则:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>fu = %x61; a
+<span class="ln">2</span>bar = %x62; b
+<span class="ln">3</span>mumble = fu bar fu
+</code></pre></div><h3 id="选择">选择</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>规则1 / 规则2  
+</code></pre></div><p>规则可以通过用反斜杠(“<code>/</code>”)分隔的多选一规则来定义。</p>
+<p>要接受规则 &lt;fu&gt; 或规则 &lt;bar&gt; 可构造如下规则：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>fubar = fu / bar    
+</code></pre></div><h3 id="递增选择">递增选择</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>规则1 =/ 规则2  
+</code></pre></div><p>可以通过使用在规则名字和定义之间的“<code>=/</code>”来向一个规则增加补充选择。</p>
+<p>规则</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ruleset = alt1 / alt2 / alt3 / alt4 / alt5
+</code></pre></div><p>等价于</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ruleset = alt1 / alt2
+<span class="ln">2</span>ruleset =/ alt3
+<span class="ln">3</span>ruleset =/ alt4 / alt5
+</code></pre></div><h3 id="值范围">值范围</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>%c##-##     
+</code></pre></div><p>数值范围可以通过使用连字符(“<code>-</code>”)来指定。</p>
+<p>规则</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>OCTAL = &#34;0&#34; / &#34;1&#34; / &#34;2&#34; / &#34;3&#34; / &#34;4&#34; / &#34;5&#34; / &#34;6&#34; / &#34;7&#34;
+</code></pre></div><p>等价于</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>OCTAL = %x30-37
+</code></pre></div><h3 id="序列分组">序列分组</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>(规则1 规则2)  
+</code></pre></div><p>元素可以放置在圆括号中来组合定义中的规则。</p>
+<p>要匹配“elem fubar snafu”或“elem tarfu snafu”可以构造下列规则：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>group = elem (fubar / tarfu) snafu
+</code></pre></div><p>要匹配“elem fubar”或“tarfu snafu”可以构造下列规则：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>group = elem fubar / tarfu snafu
+<span class="ln">2</span>group = (elem fubar) / (tarfu snafu)
+</code></pre></div><h3 id="可变重复">可变重复</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>n*n规则     
+</code></pre></div><p>要指示一个元素的重复可以使用形式 <code>&lt;a&gt;*&lt;b&gt; 元素</code>。可选的 <code>&lt;a&gt;</code> 给出要包括的元素的最小数目，缺省为 0。可选的 <code>&lt;b&gt;</code> 给出要包括的元素的最大数目，缺省为无穷。</p>
+<p>对零或多个元素使用 <code>*元素</code>，对一或多个元素使用 <code>1*元素</code>，对二或三个元素使用 <code>2*3元素</code>。</p>
+<h3 id="特定重复">特定重复</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>n规则       
+</code></pre></div><p>要指示明确数目的元素可使用形式 <code>&lt;a&gt; 元素</code>，它等价于 <code>&lt;a&gt;*&lt;a&gt;元素</code>。</p>
+<p>使用 <code>2DIGIT</code> 得到两个数字，使用 <code>3DIGIT</code> 得到三个数字。(DIGIT 在下面的核心规则中定义)。</p>
+<h3 id="可选序列">可选序列</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[规则]        
+</code></pre></div><p>要指示可选元素下列构造是等价的：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[fubar snafu]
+<span class="ln">2</span>*1(fubar snafu)
+<span class="ln">3</span>0*1(fubar snafu)
+</code></pre></div><h3 id="注释">注释</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>; 注释       
+</code></pre></div><p>分号(“<code>;</code>”)开始一个注释并持续到此行的结束。</p>
+<h3 id="操作符优先级">操作符优先级</h3>
+<p>上述操作符有从最紧绑定(binding)到最松绑定的给定优先级:</p>
+<ol>
+<li>字符串，名字形成(formation)</li>
+<li>注释</li>
+<li>值范围</li>
+<li>重复</li>
+<li>分组，可选</li>
+<li>串联</li>
+<li>选择</li>
+</ol>
+<p>与串联一起使用选择操作符可以造成混淆，建议使用分组来做明确串联分组。</p>
+<h3 id="核心规则">核心规则</h3>
+<p>核心规则定义于 ABNF 标准中。</p>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>形式定义</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ALPHA</td>
+<td>%x41-5A / %x61-7A</td>
+<td>大写和小写 ASCII 字母 (A-Z a-z)</td>
+</tr>
+<tr>
+<td>DIGIT</td>
+<td>%x30-39</td>
+<td>数字 (0-9)</td>
+</tr>
+<tr>
+<td>HEXDIG</td>
+<td>DIGIT / &ldquo;A&rdquo; / &ldquo;B&rdquo; / &ldquo;C&rdquo; / &ldquo;D&rdquo; / &ldquo;E&rdquo; / &ldquo;F&rdquo;</td>
+<td>十六进制数字 (0-9 A-F a-f)</td>
+</tr>
+<tr>
+<td>DQUOTE</td>
+<td>%x22</td>
+<td>双引号</td>
+</tr>
+<tr>
+<td>SP</td>
+<td>%x20</td>
+<td>空格</td>
+</tr>
+<tr>
+<td>HTAB</td>
+<td>%x09</td>
+<td>水平tab</td>
+</tr>
+<tr>
+<td>WSP</td>
+<td>SP / HTAB</td>
+<td>空格和水平tab</td>
+</tr>
+<tr>
+<td>LWSP</td>
+<td>*(WSP / CRLF WSP)</td>
+<td>线性空白(晚于换行)</td>
+</tr>
+<tr>
+<td>VCHAR</td>
+<td>%x21-7E</td>
+<td>可见(打印)字符</td>
+</tr>
+<tr>
+<td>CHAR</td>
+<td>%x01-7F</td>
+<td>任何 7-位 US-ASCII 字符，不包括 NUL</td>
+</tr>
+<tr>
+<td>OCTET</td>
+<td>%x00-FF</td>
+<td>8 位数据</td>
+</tr>
+<tr>
+<td>CTL</td>
+<td>%x00-1F / %x7F</td>
+<td>控制字符</td>
+</tr>
+<tr>
+<td>CR</td>
+<td>%x0D</td>
+<td>回车</td>
+</tr>
+<tr>
+<td>LF</td>
+<td>%x0A</td>
+<td>换行</td>
+</tr>
+<tr>
+<td>CRLF</td>
+<td>CR LF</td>
+<td>互联网标准换行</td>
+</tr>
+<tr>
+<td>BIT</td>
+<td>&ldquo;0&rdquo; / &ldquo;1&rdquo;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="例子">例子</h3>
+<p>在巴科斯范式(BNF)条目中的邮政地址的例子可以被指定为：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>postal-address = name-part street zip-part
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>name-part = *(personal-part SP) last-name [SP suffix] CRLF
+<span class="ln"> 4</span>name-part = / personal-part CRLF
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>personal-part = first-name / (initial &#34;.&#34;)
+<span class="ln"> 7</span>first-name = *ALPHA
+<span class="ln"> 8</span>initial = ALPHA
+<span class="ln"> 9</span>last-name = *ALPHA
+<span class="ln">10</span>suffix = (&#34;Jr.&#34; / &#34;Sr.&#34; / 1*(&#34;I&#34; / &#34;V&#34; / &#34;X&#34;))
+<span class="ln">11</span>
+<span class="ln">12</span>street = [apt SP] house-num SP street-name CRLF
+<span class="ln">13</span>apt = 1*4DIGIT
+<span class="ln">14</span>house-num = 1*8（DIGIT / ALPHA）
+<span class="ln">15</span>street-name = 1*VCHAR
+<span class="ln">16</span>
+<span class="ln">17</span>zip-part = town-name &#34;,&#34; SP state 1*2SP zip-code CRLF
+<span class="ln">18</span>town-name = 1*(ALPHA / SP)
+<span class="ln">19</span>state = 2ALPHA
+<span class="ln">20</span>zip-code = 5DIGIT [&#34;-&#34; 4DIGIT]
+</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/other/prospect/">未来知识技能展望
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">26</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Java面试准备1 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Java面试准备1">
+<meta itemprop="description" content="本篇对面试的作用微乎其微"><meta itemprop="datePublished" content="2024-04-29T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-04-29T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="6749">
+<meta itemprop="keywords" content="," /><meta property="og:title" content="Java面试准备1" />
+<meta property="og:description" content="本篇对面试的作用微乎其微" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/java-0-audition/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-04-29T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-04-29T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+<meta property="og:see_also" content="/posts/tech/java-0-audition-4/" /><meta property="og:see_also" content="/posts/tech/java-0-audition-3/" /><meta property="og:see_also" content="/posts/tech/java-0-audition-2/" /><meta property="og:see_also" content="/posts/tech/java-6-autoconfiguration/" /><meta property="og:see_also" content="/posts/tech/java-5-algorithm/" /><meta property="og:see_also" content="/posts/tech/java-4-basic/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java面试准备1"/>
+<meta name="twitter:description" content="本篇对面试的作用微乎其微"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">Java面试准备1</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">Java面试准备1
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-04-29
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>14 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1jdkjrejvm三者区别和联系">1.JDK、JRE、JVM三者区别和联系</a></li>
+    <li><a href="#2和equals">2.==和equals</a></li>
+    <li><a href="#3final">3.final</a></li>
+    <li><a href="#4stringstringbufferstringbuilder">4.String、StringBuffer、StringBuilder</a></li>
+    <li><a href="#5重载和重写">5.重载和重写</a></li>
+    <li><a href="#6接口和抽象类">6.接口和抽象类</a></li>
+    <li><a href="#7list和set">7.List和Set</a></li>
+    <li><a href="#8hashcode与equals">8.hashCode与equals</a></li>
+    <li><a href="#9arraylist和linkedlist">9.ArrayList和LinkedList</a></li>
+    <li><a href="#10hashmap和hashtable">10.HashMap和HashTable</a></li>
+    <li><a href="#11concurrenthashmap原理">11.ConcurrentHashMap原理</a></li>
+    <li><a href="#12如何实现ioc容器">12.如何实现IOC容器</a></li>
+    <li><a href="#13字节码">13.字节码</a></li>
+    <li><a href="#14java类加载器">14.Java类加载器</a></li>
+    <li><a href="#15双亲委派委托模型">15.双亲委派（委托）模型</a></li>
+    <li><a href="#16java异常体系">16.Java异常体系</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1单例bean是单例模式吗">1.单例Bean是单例模式吗？</a></li>
+    <li><a href="#2bean的实例化和初始化有什么区别">2.Bean的实例化和初始化有什么区别？</a></li>
+    <li><a href="#3spring-aop如何实现和aspectj有什么区别">3.Spring AOP如何实现？和AspectJ有什么区别？</a></li>
+    <li><a href="#4spring事务如何实现">4.Spring事务如何实现？</a></li>
+    <li><a href="#5你是如何理解spring事务的传播机制的底层是如何实现的">5.你是如何理解Spring事务的传播机制的？底层是如何实现的？</a></li>
+    <li><a href="#6那些情况会导致spring事务失效对应原因">6.那些情况会导致Spring事务失效？对应原因？</a></li>
+    <li><a href="#7spring中bean创建的生命周期">7.Spring中Bean创建的生命周期</a></li>
+    <li><a href="#8spring中bean是线程安全的吗">8.Spring中Bean是线程安全的吗</a></li>
+    <li><a href="#9applicationcontext和beanfactory有什么区别">9.ApplicationContext和BeanFactory有什么区别</a></li>
+    <li><a href="#10spring容器的启动流程是怎样的">10.Spring容器的启动流程是怎样的</a></li>
+    <li><a href="#11spring为什么要用三级缓存来解决循环依赖">11.Spring为什么要用三级缓存来解决循环依赖</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1springbootapplication注解有什么用">1.@SpringBootApplication注解有什么用？</a></li>
+    <li><a href="#2springfactories有什么作用">2.spring.factories有什么作用？</a></li>
+    <li><a href="#3如何理解springboot自动配置">3.如何理解SpringBoot自动配置？</a></li>
+    <li><a href="#4springboot启动时做了哪些事">4.SpringBoot启动时做了哪些事？</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1springmvc的处理流程是什么">1.SpringMVC的处理流程是什么？</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><p>本篇对面试的作用微乎其微</p>
+<p>面试总结：问了我半个小时，一半多的重要的东西都答不上来，特别重要的是多线程，还有数据库。算是一场经历吧。</p>
+<p>本篇对面试的作用微乎其微, 这里面有很大部分不会被问到.</p>
+<p>面试需要的准备：</p>
+<ol>
+<li>视频看两遍，第二遍总结</li>
+<li>复习之前做过的Java项目</li>
+<li>复习之前看过的spring视频和代码。</li>
+</ol>
+<h1 id="一java基础">一、Java基础</h1>
+<h2 id="1jdkjrejvm三者区别和联系">1.JDK、JRE、JVM三者区别和联系</h2>
+<p>jdk是java开发工具，jre是java运行时环境，jvm是java虚拟机。</p>
+<p>jdk包含jre，jre中的bin就是jvm，lib就是类库。</p>
+<p>javac编译成class文件，class文件是字节码文件，由jvm解释为对应系统的机器码。</p>
+<h2 id="2和equals">2.==和equals</h2>
+<p>==对比栈的值，基本类型是变量值，引用类型是堆中内存对象的地址。equals默认是采用==比较。String中已经重写了equals方法，不然由于String是不可变的原因会不一样。</p>
+<h2 id="3final">3.final</h2>
+<p>final修饰变量，变量初始化后不可变；修饰类，类不可被继承；修饰方法，方法不能被子类覆盖，但是可以被重载。修饰引用类型，初始化后不能让其指向另一个对象，但引用值可以改变。</p>
+<p>局部内部类和匿名内部类只能访问局部final变量。这是因为外部类方法结束变量就会销毁，但是内部类对象可能还存在，所以复制一份局部变量供内部类使用，为了保证这两个变量一致，所以用final修饰。</p>
+<h2 id="4stringstringbufferstringbuilder">4.String、StringBuffer、StringBuilder</h2>
+<p>String 是final修饰的，不可变，每次操作会产生新对象。</p>
+<p>StringBuffer和StringBuilder都是在原对象上操作。</p>
+<p>StringBuffer是线程安全的，StringBuilder是线程不安全的。但是StringBuilder性能要高些。</p>
+<p>经常需要改变字符串就使用后面两个。</p>
+<p>优先使用StringBuilder，多线程使用共享变量使用StringBuffer</p>
+<h2 id="5重载和重写">5.重载和重写</h2>
+<p>重载：在同一个类中，方法名相同，参数类型不同，个数不同，顺序不同，方法返回值，修饰符可以不同。发生在编译。</p>
+<p>重写：发生在父子类，方法名、参数列表必须相同，返回值范围小于等于父类，抛出的异常范围小于等于父类，访问修饰符大于等于父类；如果父类方法修饰符为private则子类不能重写该方法。</p>
+<h2 id="6接口和抽象类">6.接口和抽象类</h2>
+<p>抽象类可以存在普通成员函数，而接口只能存在public abstract方法。</p>
+<p>抽象类的成员变量可以是各种类型的，而接口中的成员变量只能说public static final类型的。</p>
+<p>抽象类只能继承一个，接口可以实现多个。</p>
+<p>接口是对类的行为进行约束，约束了行为的有无，不对如何实现进行限制。对行为的抽象。is a的关系</p>
+<p>抽象类是为了代码复用，不同的类有相同的行为，都可以派生一‘个抽象类。是对类本质的抽象。like a的关系</p>
+<h2 id="7list和set">7.List和Set</h2>
+<p>List：有序，可以重复，按对象进入的顺序保存，允许多个null元素对象，使用迭代器遍历，还可以get（int index）</p>
+<p>Set：无序，不可重复，最多允许有一个null对象，取元素只能用迭代器。</p>
+<h2 id="8hashcode与equals">8.hashCode与equals</h2>
+<p>hashCode获取散列码，是int型整数，用于确定对象在hash表的索引位置。HashSet检查重复元素，就是比较hashCode看对应位置是否有值，没有就假设对象没有重复出现；有值才会调用equals方法检查两个对象是否真的相同（相同的对象hash值可能不同），相同就不会让其加入成功，不同重新散列到其他为止，这大大减少了equals次数。</p>
+<ol>
+<li>两个对象相等，hashcode相同，equals返回true</li>
+<li>两个对象hashcode相同，他们不一定相等</li>
+</ol>
+<h2 id="9arraylist和linkedlist">9.ArrayList和LinkedList</h2>
+<p>ArrayList：基于动态数组，连续内存存储，适合下标访问，扩容就是新建一个然后把原来的复制，插入数据会涉及到元素的移动。使用尾插法可以极大提高性能，比linkedlist快（创建node节点）。</p>
+<p>LinkedList：基于链表，存储在分散的内存，适合插入和删除不适合查询。遍历使用迭代器，get(i)需要对list遍历，indexof也是会遍历整个list。</p>
+<h2 id="10hashmap和hashtable">10.HashMap和HashTable</h2>
+<p>1.HashMap线程不安全，HashTable线程安全</p>
+<p>2.HashMap允许key value为空，HashTable不允许</p>
+<p>HashMap是数组+链表实现的。jdk8开始，数组长度超过64，链表高度超过8，链表转化为红黑树，元素以内部类Node节点存在。</p>
+<ul>
+<li>计算key的hash值，再二次hash得到一个数，这个数对数组长度取模，于是得到一个数组下标。</li>
+<li>如果没有产生hash冲突（对应下标位置没有元素），则直接创建Node存入数组</li>
+<li>产生hash冲突，先equals比较，相同就取代，不同判断链表高度插入链表，链表高度达到8，并且数组长度到64就转红黑树，长度低于6转回链表。</li>
+<li>key为null存在下标为0的位置</li>
+</ul>
+<h2 id="11concurrenthashmap原理">11.ConcurrentHashMap原理</h2>
+<p>线程安全版本的HashMap。</p>
+<p>jdk7：ReentrantLock+Segment+HashEntry。一个segment是一个HashEntry数组，每一个HashEntry是链表。</p>
+<p>查询：第一次hash定位到segment，第二次hash定位到元素所在链表的头部</p>
+<p>锁：Segment分段锁，Segment继承了ReentrantLock，锁定操作的segment，其余的Segment不受影响。并发度为segment个数，数组扩容不会影响其他segment。</p>
+<p>jdk8：</p>
+<h2 id="12如何实现ioc容器">12.如何实现IOC容器</h2>
+<ol>
+<li>配置文件，配置包扫描路径</li>
+<li>定义注解，表示控制层，服务层，数据持久层，依赖注入层，配置文件注解</li>
+<li>递归包路径获取class文件，将这些文件添加到set集合存储</li>
+<li>遍历set，获取在类上有指定注解的类，定义一个安全map存储这些对象，反射，确定需要交给IOC管理的类</li>
+<li>对需要注入的类进行依赖注入</li>
+</ol>
+<h2 id="13字节码">13.字节码</h2>
+<p>在机器和编译程序中加入了一层抽象的虚拟的机器。这台虚拟的机器在任何平台上都提供给编译程序一个共同的接口。于是编译程序只需要面向虚拟机，生成虚拟机理解的代码，再由虚拟机的解释器将字节码转换为特定系统的机器码执行。</p>
+<p>java源代码-&gt;编译器-&gt;jvm可执行的字节码-&gt;jvm-&gt;jvm的解释器-&gt;机器可执行的二进制机器码-&gt;程序运行</p>
+<p>好处：一定程度上解决了传统解释型语言执行效率低的问题；保留了解释型语言可移植的特点。java文件无需重新编译便可在多种平台运行。</p>
+<h2 id="14java类加载器">14.Java类加载器</h2>
+<p>JDK自带三个类加载器：bootstrap classloader，ExtClassLoader，AppClassLoader</p>
+<p>bootstrap classloader是ExtClassLoader父类加载器（不是直接继承），默认加载java_home/lib下的jar包和class文件。</p>
+<p>ExtClassLoader是AppClassLoader的父类加载器，负责加载java_home/lib/ext下的jar包和class文件</p>
+<p>AppClassLoader是自定义类加载器的父类，加载classpath的类文件。</p>
+<p>继承ClassLoader实现自定义加载器。</p>
+<h2 id="15双亲委派委托模型">15.双亲委派（委托）模型</h2>
+<p><img class="img-fluid" src="C:%5cUsers%5cbnaod1%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20240428154825794.png" alt="image-20240428154825794"  loading="lazy" />
+</p>
+<p>AppClassLoader中如果没有缓存，就往上委派，都是查找缓存，缓存没有就继续委派。到了最顶层缓存还是没有，查找加载路径，没有向下查找，继续查找加载路径。到发起加载的加载器为止。</p>
+<p>好处：为了安全性，避免用户自己编写的类动态替换Java的一些核心类。同时避免了类重复加载，相同的class文件被不同的加载器加载就是不同的两个类。</p>
+<h2 id="16java异常体系">16.Java异常体系</h2>
+<p>所有异常来自顶级父类Throwable，Throwable有两个子类：exception和error。</p>
+<p>error是程序无法处理的错误，一旦出现，程序被迫终止</p>
+<p>exception不会导致程序停止，又分为runtimeEception运行时异常（发生在程序运行过程中，导致程序当前线程执行失败）和checkedException检查异常（常常发生在程序编译过程中，导致程序编译不通过）。</p>
+<h1 id="二spring">二、Spring</h1>
+<h2 id="1单例bean是单例模式吗">1.单例Bean是单例模式吗？</h2>
+<p>但单例模式是指在一个JVM中，一个类只能构造出来一个对象</p>
+<p>单例Bean也是以一种单例模式，但是范围很小，只是一个beanName的范围，一个beanName对应一个Bean对象，不同的beanName对应不同的Bean对象（可以同一个类）。</p>
+<h2 id="2bean的实例化和初始化有什么区别">2.Bean的实例化和初始化有什么区别？</h2>
+<p>Spring创建Bean时，先创建一个对象，然后通过反射执行类构造方法得到一个Java对象，这个过程就是Bean的实例化。</p>
+<p>得到对象后进行依赖注入，之后就可以初始化了。Bean的初始化就是调用前面创建出来的Java对象中特定的方法，比如Java对象实现了InitializingBean接口，那么初始化就会执行Java对象的afterPropertiesSet()方法。</p>
+<h2 id="3spring-aop如何实现和aspectj有什么区别">3.Spring AOP如何实现？和AspectJ有什么区别？</h2>
+<p>AOP是利用的动态代理机制，如果Bean实现了接口，那么就会采用JDK动态代理来生成该接口的代理对象，如果一个Bean没有实现接口，就会采用CGLIB生成当前对象的代理对象。代理对象会代理原来的Bean对象，执行某个方法时会在原来的基础上增加一些切面逻辑，使得我们可以利用AOP来实现一些登录校验，权限控制等统一功能。</p>
+<p>AOP和AspectJ没有特别强的关系，AOP是面向切面编程，一种编程思想。AspectJ可以实现这种思想，它在编译器对类进行增强。而Spring AOP通过动态代理实现AOP，但底层实现和AspectJ不一样，只是注解的名字是相同的（before around after）</p>
+<h2 id="4spring事务如何实现">4.Spring事务如何实现？</h2>
+<ol>
+<li>底层是基于数据库事务和AOP机制。</li>
+<li>使用了@Transactional注解的Bean，会创建一个代理对象。调用代理对象的方法时，会先判断该方法是否加了@Transactional注解</li>
+<li>加了的话，会利用事务管理器创建一个数据库连接，修改数据库连接的AutoCommit属性为false，禁止自动提交。</li>
+<li>然后执行方法，执行方法中的sql</li>
+<li>执行完后没有异常就提交</li>
+<li>出现了异常，根据异常的类型是不是rollbackfor指定的，再选择是否回滚</li>
+</ol>
+<p>Spring事务的隔离级别对应的就是数据库的隔离级别</p>
+<h2 id="5你是如何理解spring事务的传播机制的底层是如何实现的">5.你是如何理解Spring事务的传播机制的？底层是如何实现的？</h2>
+<p>Spring事务的传播机制是Spring事务自己实现的（propagation）。这个传播机制是基于数据库连接的，新开一个事务就是新建一个数据库连接。</p>
+<h2 id="6那些情况会导致spring事务失效对应原因">6.那些情况会导致Spring事务失效？对应原因？</h2>
+<ol>
+<li>
+<p>方法内自调用：因为事务是基于AOP的，使用代理对象调用方法时事务才能生效。而在一个方法中调用this.xx()这个this不是代理对象，事务就会失效。</p>
+<p>解决办法：a 把调用的方法拆到另一个bean中</p>
+<p>​					b 自己注入自己</p>
+<p>​					c</p>
+</li>
+<li>
+<p>方法是private的：Spring事务会基于CGLIB进行AOP，而CGLIB会基于父子类生效。如果父类中的某个方法是private，子类就没有办法重写，也就没办法而外为其增加逻辑。</p>
+</li>
+<li>
+<p>方法是final的，和上者原理一样，子类不能重写父类的final方法</p>
+</li>
+<li>
+<p>单独的线程调用方法：如果不是同一个线程，就从ThreadLocal中拿不到数据库连接对象，这样自己只能新建一个，这个新建的的AutoCommit是true。</p>
+</li>
+<li>
+<p>没加@Configuration注解：springboot基本没有这个问题。如果是spring的话，没有加注解会导致map中存的DataSource和Mybatis和JdbcTemplate中的DataSource不相等。又会自己去创建连接。</p>
+</li>
+<li>
+<p>异常被吃掉：事务没有捕获到异常就不会回滚了</p>
+</li>
+<li>
+<p>类没有被Spring管理</p>
+</li>
+<li>
+<p>数据库不支持事务</p>
+</li>
+</ol>
+<h2 id="7spring中bean创建的生命周期">7.Spring中Bean创建的生命周期</h2>
+<ol>
+<li>推断构造方法</li>
+<li>实例化</li>
+<li>依赖注入（填充属性）</li>
+<li>处理Aware回调</li>
+<li>初始化前，处理@PostConstruct</li>
+<li>初始化，处理initializingBean接口</li>
+<li>初始化后，进行AOP</li>
+</ol>
+<h2 id="8spring中bean是线程安全的吗">8.Spring中Bean是线程安全的吗</h2>
+<p>这取决于Bean本身，Bean本身是无状态，就是线程安全；本身有状态，就是线程不安全。</p>
+<h2 id="9applicationcontext和beanfactory有什么区别">9.ApplicationContext和BeanFactory有什么区别</h2>
+<p>BeanFactory可以生成Bean，维护Bean。ApplicationContext继承自BeanFactory，有BeanFactory的特点，由于继承了其他接口，还有其他功能，如获取系统环境变量，国际化，事件发布等功能。</p>
+<h2 id="10spring容器的启动流程是怎样的">10.Spring容器的启动流程是怎样的</h2>
+<ol>
+<li>扫描，得到所有的BeanDefinition对象，存在Map中。</li>
+<li>筛选单例BeanDefinition创建Bean，对于多例Bean会在每次获取Bean时利用BeanDefinition去创建。</li>
+<li>利用BeanDefinition创建Bean就是Bean的创建生命周期，包括推断构造，实例化，依赖注入，初始化前，初始化，初始化后（AOP）</li>
+<li>单例Bean创建完了，Spring发布一个容器启动事件。</li>
+<li>Spring启动结束</li>
+</ol>
+<h2 id="11spring为什么要用三级缓存来解决循环依赖">11.Spring为什么要用三级缓存来解决循环依赖</h2>
+<p><img class="img-fluid" src="C:%5cUsers%5cbnaod1%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20240428174801831.png" alt="image-20240428174801831"  loading="lazy" />
+</p>
+<h1 id="三springboot">三、SpringBoot</h1>
+<h2 id="1springbootapplication注解有什么用">1.@SpringBootApplication注解有什么用？</h2>
+<p>它是一个复合注解，是@SpringBootConfiguration，@EnableAutoConfiguration，@ComponentScan三个注解的整合。</p>
+<p>@SpringBootConfiguration：相当于@Configuration，表示这是一个配置类</p>
+<p>@EnableAutoConfiguration：负责自动配置类的导入，将项目的自动配置类导入到Spring容器</p>
+<p>@ComponentScan：Spring容器会进行扫描，扫描路径为当前这个类所在的包路径</p>
+<h2 id="2springfactories有什么作用">2.spring.factories有什么作用？</h2>
+<p>spring.factories是SpringBoot SPI（扩展）机制实现的核心。</p>
+<p>在SpringBoot启动过程中，会找出项目中所有的spring.factories，从而向Spring容器添加各个spring.factories中指定的ApplicationListener，ApplicationContextInitializer，配置类。使得对SpringBoot做扩展非常容易。</p>
+<h2 id="3如何理解springboot自动配置">3.如何理解SpringBoot自动配置？</h2>
+<p>在Spring中，通常需要配置很多的Bean，比如Mybatis的SqlSessionFactory；AOP的@EnableAspectJAutoProxy注解等</p>
+<p>在SpringBoot中，内置了很多配置类，叫做自动配置类。在依赖了spring-boot-starer-web后会间接依赖到spring-boot-autoconfigure这个jar，里面就有很多自动配置类。</p>
+<h2 id="4springboot启动时做了哪些事">4.SpringBoot启动时做了哪些事？</h2>
+<ol>
+<li>判断当前应用的类型，如是不是web应用，是servlet还是webflux应用，不同类型后续会创建不同的Spring容器。</li>
+<li>根据类型创建Spring容器</li>
+<li>解析启动类，进行扫描，导入自动配置类并解析。</li>
+<li>启动tomcat或者jetty</li>
+<li>调用ApplicationRunner或CommandLineRunner</li>
+</ol>
+<h1 id="四springmvc">四、SpringMVC</h1>
+<h2 id="1springmvc的处理流程是什么">1.SpringMVC的处理流程是什么？</h2>
+<ol>
+<li>启动Tomcat中，创建DispatcherServlet对象，执行初始化逻辑</li>
+<li>DispatcherServlet初始化创建Spring容器，初始化中还要初始化HandlerMapping，HandlerAdapter等。</li>
+<li>SpringMVC提供了好几个HandlerMapping，其中有一个为RequestMappingHandlerMapping，它去寻找Spring容器中哪些加了@RequestMapping的方法。</li>
+<li>找到这些方法后，解析注解上指定的path，把path作为key，method作为value存到一个map中。</li>
+<li>DispatcherServlet接收到请求后，RequestMappingHandlerMapping就会根据请求路径找到对应method。</li>
+<li>解析各个参数，从请求中拿到对应值，执行method。</li>
+<li>执行完得到方法返回值，SpringMVC进一步解析，如果加了@ResponseBody就直接返回值给浏览器，没有的话根据返回值找页面。</li>
+</ol></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/anime/bokugashinouto/">僕が死のうと思ったのは
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/java-1-thread/">Java多线程
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/anime/bokugashinouto/">僕が死のうと思ったのは
+</a></li><li><a href="/posts/anime/shinainaru/"> 親愛なる世界へ
+</a></li><li><a href="/posts/anime/kimigahikarini/">君が光に変えて行く
+</a></li><li><a href="/posts/anime/fairytale/">Fairytale
+</a></li><li><a href="/posts/anime/kizuato/">傷跡
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">26</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

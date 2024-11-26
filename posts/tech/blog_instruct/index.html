@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>我的Hugo&#43;Github page搭建博客教程 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="我的Hugo&#43;Github page搭建博客教程">
+<meta itemprop="description" content="(多图警告！）给一些需要的朋友，互联网本身也有很多教程，反正有疑问的地方可以通过网站给出的链接询问~"><meta itemprop="datePublished" content="2021-11-27T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-11-27T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2486">
+<meta itemprop="keywords" content="," /><meta property="og:title" content="我的Hugo&#43;Github page搭建博客教程" />
+<meta property="og:description" content="(多图警告！）给一些需要的朋友，互联网本身也有很多教程，反正有疑问的地方可以通过网站给出的链接询问~" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/blog_instruct/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-27T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-11-27T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="我的Hugo&#43;Github page搭建博客教程"/>
+<meta name="twitter:description" content="(多图警告！）给一些需要的朋友，互联网本身也有很多教程，反正有疑问的地方可以通过网站给出的链接询问~"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">我的Hugo&#43;Github Page搭建博客教程</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">我的Hugo&#43;Github Page搭建博客教程
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2021-11-27
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>5 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#perface">PERFACE</a>
+      <ul>
+        <li><a href="#1教程方向">1.教程方向</a></li>
+        <li><a href="#2顺序结构">2.顺序结构</a></li>
+      </ul>
+    </li>
+    <li><a href="#一hugo">一、Hugo</a>
+      <ul>
+        <li><a href="#1hugo的下载和安装">1.Hugo的下载和安装</a></li>
+        <li><a href="#2hugo-theme下载和安装">2.Hugo Theme下载和安装</a></li>
+        <li><a href="#3hugo创建和写作文章">3.Hugo创建和写作文章</a></li>
+        <li><a href="#4调试站点和生成站点">4.调试站点和生成站点</a></li>
+      </ul>
+    </li>
+    <li><a href="#二github-page">二、Github Page</a>
+      <ul>
+        <li><a href="#1git">1.Git</a></li>
+        <li><a href="#2github-page">2.Github Page</a></li>
+      </ul>
+    </li>
+    <li><a href="#三域名购买和绑定github-page">三、域名购买和绑定Github Page</a></li>
+    <li><a href="#四附录">四、附录</a>
+      <ul>
+        <li><a href="#1md文章写作">1.Md文章写作</a></li>
+        <li><a href="#2hugo主题自定义">2.Hugo主题自定义</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><p>(多图警告！）给一些需要的朋友，互联网本身也有很多教程，反正有疑问的地方可以通过网站给出的链接询问~</p>
+<h2 id="perface">PERFACE</h2>
+<h3 id="1教程方向">1.教程方向</h3>
+<p>尽量简单易懂 <br>
+有问题反馈后会进行补充。</p>
+<h3 id="2顺序结构">2.顺序结构</h3>
+<p>按照Hugo，GIthub Page和Git，域名的顺序来写。由Hugo的基本操作，选择Theme后生成博客；通过Git上传博客内容至Github仓库，在仓库中设置Github page，最后的域名购买可绑定是可选择的。最后还会介绍一些需要使用的东西，如Md文档样式，hugo theme文件格式。</p>
+<h2 id="一hugo">一、Hugo</h2>
+<p>Hugo是由Go语言实现的静态网站生成器。可以快速生成静态网站。</p>
+<h3 id="1hugo的下载和安装">1.Hugo的下载和安装</h3>
+<p>Hugo下载地址：<a href="https://github.com/gohugoio/hugo/releases/download/v0.89.2/hugo_0.89.2_Windows-64bit.zip" target="_blank">Hugo 0.89.2</a>
+<br>
+下载了好后解压把文件放在一个位置，如我放在了D:\目录下（www3不用管）：</p>
+<div align=center>
+<img src="/images/blog_1.png"  width="75%" />  
+</div>
+<p> </p>
+<p>接下来配置环境变量，win和R键一起按，调出运行窗口，在其中输入“systempropertiesadvanced”回车：</p>
+<div align=center>
+<img src="/images/blog_2.png"  width="75%" />  
+</div>
+<p> </p>
+<p>出现系统属性窗口，点击右下角的“环境变量”，双击系统变量中的“Path”：</p>
+<div align=center>
+<img src="/images/blog_3.png"  width="75%" />  
+</div>
+<p> </p>
+<p>点击右边的新建，将你下载解压的hugo地址填上去：</p>
+<div align=center>
+<img src="/images/blog_4.png"  width="75%" />  
+</div>
+<p> </p>
+<p>检查是否安装成功，win+R键打开运行窗口，输入“cmd”回车，在命令提示符中输入“hugo -help”查看是否有以下信息出现，出现则安装成功：</p>
+<div align=center>
+<img src="/images/blog_5.png"  width="75%" />  
+</div>
+<p> </p>
+<p>在命令行窗口中输入“hugo new site 路径/名字” 就可以建立一个站点，例如以我的环境，输入&quot;hugo new site D:\hugo_0.82.1_Windows-64bit\www3&quot;。我上面的www3文件夹也是这么来的，文件夹名字可以随便取，我取的就是“www3”啦。</p>
+<div align=center>
+<img src="/images/blog_8.png"  width="75%" />  
+</div>
+<p> </p>
+<h3 id="2hugo-theme下载和安装">2.Hugo Theme下载和安装</h3>
+<p>安装好了Hugo，还需要安装一个主题，主题就是你搭建博客的style样式。主题地址：https://themes.gohugo.io/ ：</p>
+<div align=center>
+<img src="/images/blog_6.png"  width="75%" />  
+</div>
+<p> </p>
+<p>这里有非常非常多的主题，你喜欢哪款就点击进去，点击左下角的“Download”按钮，跳转到对应的github仓库，在绿色的code按钮下，点击“Download zip”就可以下载啦：</p>
+<div align=center>
+<img src="/images/blog_7.png"  width="75%" />  
+</div>
+<p> </p>
+<p>之前我们用hugo new site命令创建了一个站点，现在将下载的Theme放入站点中的theme文件夹，我这里已经放了3个theme了：</p>
+<div align=center>
+<img src="/images/blog_9.png"  width="75%" />  
+</div>
+<p> </p>
+<p>接下来导入theme的配置文件，这里不同的theme表现有些不同，先去下载theme的examplesite找一下，我遇到的有两种可能：<br>
+①存在一个config.toml，那么就把这个文件复制到站点根目录下去：</p>
+<div align=center>
+<img src="/images/blog_10.png"  width="75%" />  
+</div>
+<p> </p>
+<p>②没有config.toml而是一整个config文件夹，那么把这个文件夹复制到站点根目录下：</p>
+<div align=center>
+<img src="/images/blog_11.png"  width="75%" />  
+</div>
+<p> </p>
+<p>反正不管怎么样，这个东西或者文件夹就是配置文件了。这里面的设置都挺重要的，并且还有一些theme作者提供的额外功能，一般来说theme里面有教程，我这里附上我以前的配置，里面包含了url，网站语言，HTML title，使用的主体文件夹名等等，这个就自己探索吧。里面的配置随着主题的不同有很大的不同，一般来说作者会给出教程的，在下载主题文件夹里面找找。</p>
+<div align=center>
+<img src="/images/blog_12.png"  width="75%" />  
+</div>
+<p> </p>
+<h3 id="3hugo创建和写作文章">3.Hugo创建和写作文章</h3>
+<p>首先需要在之前生成site的那个文件夹内打开cmd窗口，先打开那个文件夹，然后在文件夹上方的那个地址栏中输入”cmd“即可实现：</p>
+<div align=center>
+<img src="/images/blog_13.png"  width="75%" />  
+</div>
+<p> </p>
+<p>之后我们就可以用命令来生成空文章了，在cmd中输入：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>hugo new xxx.md
+</code></pre></div><p>就在站点目录的content中生成了一个叫&quot;xxx.md&quot;的文件。有些站点的文章目录结构有些不同，像我的站点content里面还有文件夹，如我想在content\posts\文件夹里面生成空文章的话，可以输入：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>hugo new posts\new.md
+</code></pre></div><p>其他的目录就依次类推了。</p>
+<div align=center>
+<img src="/images/blog_14.png"  width="75%" />  
+</div>
+<p> </p>
+<p>打开自动生成的空文章，最上面就是生成空文章的一些信息，title表示文章标题，date表示发布日期，draft代表是否是草稿，如果文章是操作，在之后的生成过程中这篇文章是不会被生成的。当然这里不同主题的表现可能也有些不同，下面是图，这个就自己探索了，如果有疑问可以通过站内给出的联系方式问我。</p>
+<div align=center>
+<img src="/images/blog_15.png"  width="75%" />  
+</div>
+<p> </p>
+<p>之后就可以用md文档写文章了，md文章还是有很多样式的，并且可以插入HTML代码，之后的附录里会给一些md文章写作技巧。</p>
+<h3 id="4调试站点和生成站点">4.调试站点和生成站点</h3>
+<p>写好文章以后，还是在站点根目录的cmd窗口中输入<code>hugo server</code>或者<code>hugo server --buildDraft</code>来调试站点。其中第二个指的是将draft设置为true的站点也生成。</p>
+<div align=center>
+<img src="/images/blog_16.png"  width="75%" />  
+</div>
+<p> 
+默认地在浏览器中输入<code>localhost:1313</code>就可以看到你的站点啦~之后在网站的各个地方修改并且保存后，它会检测到改动，并且快速地重构站点，你可以立刻就看到改动后的样子。我现在写这篇文章就是这样做的哦！注意如果源代码出错了hugo server也是会构建不了的，需要重新再输入一次上面的指令。</p>
+<div align=center>
+<img src="/images/blog_17.png"  width="75%" />  
+</div>
+<p> 
+站点调试完成后，觉得差不多了想要上传，还是在站点根目录的cmd的窗口中输入：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>hugo
+</code></pre></div><p>就会生成站点啦。站点生成在站点根目录的“public”文件夹下面：</p>
+<div align=center>
+<img src="/images/blog_18.png"  width="75%" />  
+</div>
+<p> </p>
+<h2 id="二github-page">二、Github Page</h2>
+<p>静态站点的源代码hugo已经帮我们弄好了，现在怎么才能变成可以访问到呢？Github Page给我们提供了个非常方便的服务，可以将网站源代码上传至github仓库，设置好Github Page以后我们网站可以由github提供的域名：“username.github.io”访问到了，并且还可以绑定上自己买的域名。</p>
+<h3 id="1git">1.Git</h3>
+<p>首先需要注册个github账号，之后嘛……给你个链接：<a href="https://blog.csdn.net/mrjkzhangma/article/details/89466811" target="_blank">GIt使用</a>
+<br>
+配置好SSH key，把站点public文件上传到Github仓库就算成功啦。下面给出我站点仓库的截图，里面的东西和之前用<code>hugo</code>指令生成在public文件夹的东西是一模一样的，所以这部就是把public的东西搬过来。</p>
+<div align=center>
+<img src="/images/blog_19.png"  width="75%" />  
+</div>
+<p> 
+每次写完文章，用<code>hugo</code>生成了之后，都需要上传至Github仓库，这里我把我上传的过程写一下：<br>
+首先在网站public目录中打开Git，然后4条指令就搞定：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>git add .
+<span class="ln">2</span>git commit -m &#34;注释&#34;
+<span class="ln">3</span>git pull
+<span class="ln">4</span>git push origin master
+</code></pre></div><h3 id="2github-page">2.Github Page</h3>
+<p>在网站仓库的“settings”中倒数第二个“Pages”中设置，启用了之后自动就给一个域名，可以直接访问。</p>
+<h2 id="三域名购买和绑定github-page">三、域名购买和绑定Github Page</h2>
+<p>续待未完。</p>
+<h2 id="四附录">四、附录</h2>
+<h3 id="1md文章写作">1.Md文章写作</h3>
+<h3 id="2hugo主题自定义">2.Hugo主题自定义</h3></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/anime/akame/">《斩！赤红之瞳》与《穢翼のユースティア》类似的地方
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/bin/internet-social-space-1/">【废案/想法】网络社交空间
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/anime/akame/">《斩！赤红之瞳》与《穢翼のユースティア》类似的地方
+</a></li><li><a href="/bin/suspect-discuss/">聊聊猜疑
+</a></li><li><a href="/posts/literature/amaranta/">阿玛兰妲——以前的孤独
+</a></li><li><a href="/posts/literature/melquiades/">梅尔基亚德斯、炼金室及羊皮卷——我对知识的原始印象（完成度15%）
+</a></li><li><a href="/posts/literature/rebeca/">丽贝卡的一生
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">26</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

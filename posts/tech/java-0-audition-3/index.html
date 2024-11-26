@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Java面试准备3 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Java面试准备3">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-08-13T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-08-13T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="6152">
+<meta itemprop="keywords" content="," /><meta property="og:title" content="Java面试准备3" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/java-0-audition-3/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-08-13T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-08-13T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+<meta property="og:see_also" content="/posts/tech/java-0-audition-4/" /><meta property="og:see_also" content="/posts/tech/java-0-audition-2/" /><meta property="og:see_also" content="/posts/tech/java-6-autoconfiguration/" /><meta property="og:see_also" content="/posts/tech/java-5-algorithm/" /><meta property="og:see_also" content="/posts/tech/java-4-basic/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java面试准备3"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">Java面试准备3</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">Java面试准备3
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-08-13
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>13 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#jd">JD</a></li>
+    <li><a href="#个人介绍">个人介绍</a></li>
+    <li><a href="#知识准备">知识准备</a>
+      <ul>
+        <li><a href="#在校项目-问答系统">在校项目-问答系统</a></li>
+        <li><a href="#mybatis">MyBatis</a></li>
+        <li><a href="#springmvc开发流程">SpringMVC开发流程</a></li>
+        <li><a href="#springboot开发流程">SpringBoot开发流程</a></li>
+        <li><a href="#springcloud">SpringCloud</a></li>
+        <li><a href="#java三大特性">Java三大特性</a></li>
+        <li><a href="#工作中异常怎么处理">工作中异常怎么处理</a></li>
+        <li><a href="#throw和throws的区别">throw和throws的区别</a></li>
+        <li><a href="#八大排序算法">八大排序算法</a></li>
+        <li><a href="#list为什么输出内容而不是地址">List为什么输出内容而不是地址</a></li>
+        <li><a href="#常量优化机制">常量优化机制</a></li>
+        <li><a href="#为什么小数不能进行常量优化">为什么小数不能进行常量优化</a></li>
+        <li><a href="#http和https的区别">HTTP和HTTPS的区别</a></li>
+        <li><a href="#tcp协议三次握手和四次挥手">TCP协议三次握手和四次挥手</a></li>
+        <li><a href="#如何遍历map数据">如何遍历map数据</a></li>
+        <li><a href="#hashmap为什么要扩容">HashMap为什么要扩容</a></li>
+        <li><a href="#jvm内存模型">JVM内存模型</a></li>
+        <li><a href="#工作中sql如何优化的">工作中SQL如何优化的</a></li>
+        <li><a href="#spring和springmvc的区别实现原理">Spring和SpringMVC的区别(实现原理)</a></li>
+        <li><a href="#为什么用springboot-去掉ssm框架">为什么用SpringBoot, 去掉SSM框架</a></li>
+        <li><a href="#springmvc-springboot-springcloud三者区别">SpringMVC, SpringBoot, SpringCloud三者区别</a></li>
+        <li><a href="#autowired和resource区别">@Autowired和@resource区别</a></li>
+        <li><a href="#redis怎么用的-redis分布式锁">Redis怎么用的, Redis分布式锁</a></li>
+        <li><a href="#es如何同步数据">ES如何同步数据</a></li>
+        <li><a href="#开发项目流程">开发项目流程</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="jd">JD</h2>
+<p>职位描述：
+1、负责制定应用运维管理体系的标准、流程、规范及落地实施，探索、研究新的应用运维技术方向；
+2、负责应用服务系统的整体规划、架构设计及优化等工作，保障业务系统性能、可用性与稳定性；
+3、负责应用系统灾备体系的建立；
+4、负责处理系统方面日常变更、控制突发情况，对疑难问题进行分析并解决；
+5、参与设计和优化应用服务系统的监控报警系统、策略和实施。</p>
+<p>任职要求：
+1、本科学士及以上，计算机科学，软件科学技术，电子信息工程等相关专业，应届毕业生；
+2、有良好的Java基础知识，掌握Spring、SpringMVC、MyBatis、SpringBoot等主流框架技术的应用；具备良好的沟通交流能力、理解能力，条理清晰，认真负责，团队协作意识强；能够按要求撰写技术文档，有良好的工作计划制定和总结习惯；具有较强的学习和独立分析能力、工作责任心。</p>
+<h2 id="个人介绍">个人介绍</h2>
+<p>我是xxx, 我来自xxxx大学, 今年23岁, 我熟悉Java语法，了解Spring，SpringMVC，Springboot等常见web框架，熟悉Mybatis及MybatisPlus开发过程. 熟悉MySQL数据库，能熟练地进行增删改查等常见操作, 能编写复杂的SQL语句, 了解Mysql性能优化, 掌握SpringCloud微服务技术, 掌握分布式事务, 多线程等高性能开发技术. 在校期间获通过大学英语四级, 获得过计算机三级信息安全技术, 数学建模等奖项和证书.</p>
+<h2 id="知识准备">知识准备</h2>
+<p>其他需要的查阅我之前的笔记即可.</p>
+<h3 id="在校项目-问答系统">在校项目-问答系统</h3>
+<h3 id="mybatis">MyBatis</h3>
+<h3 id="springmvc开发流程">SpringMVC开发流程</h3>
+<h3 id="springboot开发流程">SpringBoot开发流程</h3>
+<p>使用的拦截器是HandlerInterceptor接口实现,  利用preHandle和afterCompletion做用户验证, 用户拦截和方向, 用户删除.</p>
+<h3 id="springcloud">SpringCloud</h3>
+<p>用户存储</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>private static final ThreadLocal&lt;Long&gt; tl = new ThreadLocal&lt;&gt;();
+</code></pre></div><p>拦截器实现GlobalFilter接口, 利用filter方法做拦截.</p>
+<p>JWT: 配置类实现keyPair方法利用加密文件和密码作为生成. 后面的keyPair来生成jwtSigner, 并且解密和加密都要用到.JWT.create()加密, JWT.of解密</p>
+<h3 id="java三大特性">Java三大特性</h3>
+<p>封装, 继承, 多态.</p>
+<p>1、封装，就是将类的某些信息隐藏在类内部，不允许外部程序直接访问，而是通过该类提供的方法来实现对隐藏信息的操作和访问。</p>
+<p>2、继承，就是子类拥有父类的所有属性和方法，从而实现了实现代码的复用。</p>
+<p>3、多态，就是父类引用指向子类对象，从而产生多种形态。</p>
+<h3 id="工作中异常怎么处理">工作中异常怎么处理</h3>
+<p>统一的异常处理包, 定义各种的异常. 有一个父异常继承的RuntimeException</p>
+<p>工作中一般是用try catch处理异常而不是直接抛出去, 在catch部分会构造自己定义的异常, 然后写上异常的原因, 并且还可能发送日志或邮件进行记录.</p>
+<h3 id="throw和throws的区别">throw和throws的区别</h3>
+<p><code>throws</code> 和 <code>throw</code> 是 Java 中间的关键词，但它们的用法不同。</p>
+<p><code>throws</code> 关键字用于声明一种方法可能抛出的异常类型。它通常出现在方法的声明中，其次是一种或多种异常类型。在方法体内，可能会出现异常，但不会进行异常处理。调用此方法的代码需要异常处理。</p>
+<p><code>throw</code> 关键字用于手动抛出异常。它通常用于方法体内部，后面有一个异常对象。它表示代码运行过程中有特殊情况，需要立即抛出异常。</p>
+<p>总之，<code>throws</code> 用于声明可能抛出的异常， <code>throw</code> 用于手动抛出异常。</p>
+<h3 id="八大排序算法">八大排序算法</h3>
+<p><strong>插入排序、希尔排序、选择排序、冒泡排序、归并排序、快速排序、堆排序、基数排序等</strong></p>
+<ol>
+<li>
+<p>插入排序不说了.</p>
+</li>
+<li>
+<p>希尔排序，也称递减增量排序算法，是插入排序的一种更高效的改进版本。但希尔排序是非稳定排序算法。</p>
+<p>希尔排序的基本思想: 先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序。</p>
+<p><a href="https://www.runoob.com/data-structures/shell-sort.html">https://www.runoob.com/data-structures/shell-sort.html</a></p>
+</li>
+<li>
+<p>选择排序, 首先在未排序序列中找到最小(大)元素，存放到排序序列的起始位置, 再从剩余未排序元素中继续寻找最小(大)元素，然后放到已排序序列的末尾。</p>
+</li>
+<li>
+<p>冒泡排序不说了.</p>
+</li>
+<li>
+<p>归并排序将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为二路归并。, 归并排序是递归算法的一个实例，这个算法中基本的操作是合并两个已排序的数组</p>
+</li>
+<li>
+<p>快速排序不说了</p>
+</li>
+<li>
+<p>堆排序, 堆是一个近似 完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。第一个非叶子节点，我们从它开始逐一向前分别把每个元素作为根节点进行 shift down 操作满足最大堆的性质。</p>
+<p>操作就是先把一个序列映射到堆上(完全二叉树) ,从第一个非叶子节点进行shift down, 如何从一个最大堆中取出一个元素，称为 shift down</p>
+<p><a href="https://www.runoob.com/data-structures/heap-sort.html">https://www.runoob.com/data-structures/heap-sort.html</a></p>
+</li>
+<li>
+<p>基数排序是桶排序的扩展，它的基本思想是：将整数按位数切割成不同的数字，然后按每个位数分别比较。
+具体做法是：将所有待比较数值统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后, 数列就变成一个有序序列。</p>
+</li>
+</ol>
+<h3 id="list为什么输出内容而不是地址">List为什么输出内容而不是地址</h3>
+<p><code>Object</code>类的<code>toString()</code>方法中,返回的是 <code>getClass().getName() + &quot;@&quot; + Integer.toHexString(hashCode())</code>也就是地址值,打印<code>ArrayList</code>对象没有输出地址值,便可知道<code>ArrayList</code>重写了<code>toString()</code>方法.</p>
+<p>不过这个重写是在外祖父那里重写的.</p>
+<h4 id="分析源码">分析源码:</h4>
+<ul>
+<li>
+<p>使用<code>Iterator</code>迭代器判断集合中是否含有元素,没有的话就只<strong>返回</strong>一对&quot;[]&quot;</p>
+</li>
+<li>
+<p>在循环外创建<code>StringBuilder</code>对象,先添加左方括号</p>
+</li>
+<li>
+<p>循环集合,添加当前元素到<code>StringBuilder</code>对象</p>
+</li>
+<li>
+<p>判断当前元素是否为最后一位,是则添加右方括号,执行<code>StringBuilder</code>的<code>toString()</code>方法并返回,</p>
+<p>不是则添加一个逗号一位空格,继续下一层循环</p>
+</li>
+</ul>
+<h3 id="常量优化机制">常量优化机制</h3>
+<p><a href="https://blog.csdn.net/li847250110/article/details/132112931">https://blog.csdn.net/li847250110/article/details/132112931</a></p>
+<p><strong>静态常量可以再编译器确定字面量，但常量并不一定在编译期就确定了, 也可以在运行时确定，所以 Java 针对某些情况制定了常量优化机制。</strong></p>
+<p>1、给一个变量赋值，如果“=”号右边是常量的表达式没有一个变量，那么就会在编译阶段计算该表达式的结果。
+2、然后判断该表达式的结果是否在左边类型所表示范围内。
+3、如果在，那么就赋值成功，如果不在，那么就赋值失败。</p>
+<p><strong>常量优化机制顾名思义，只能有常量参与表达式，不能有变量参与</strong></p>
+<p>这个有很多方面. 这里贴案例自己理解.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>byte b1  = 1 + 2;
+<span class="ln"> 2</span>System.out.println(b1);
+<span class="ln"> 3</span>// 输出结果 3
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>byte b1  = 3;
+<span class="ln"> 6</span>byte b2  = 4;
+<span class="ln"> 7</span>byte b3 = b1 + b2;
+<span class="ln"> 8</span>System.out.println(b3);  // 程序报错
+<span class="ln"> 9</span>
+<span class="ln">10</span>byte b1  = 3;
+<span class="ln">11</span>byte b2  = 4;
+<span class="ln">12</span>byte b3 = b1 + b2;
+<span class="ln">13</span>System.out.println(b3);  // 程序报错
+<span class="ln">14</span>byte b4 = b1 + 3;
+<span class="ln">15</span>System.out.println(b4);  // 程序报错
+<span class="ln">16</span>
+<span class="ln">17</span>byte b1  = 3;
+<span class="ln">18</span>byte b3 = b1 + 4;
+<span class="ln">19</span>System.out.println(b3);  // 程序报错
+<span class="ln">20</span>
+<span class="ln">21</span>byte b1  = 127 + 2;   
+<span class="ln">22</span>System.out.println(b4); // 程序报错
+<span class="ln">23</span>
+<span class="ln">24</span>int num1 = 10;
+<span class="ln">25</span>final int num2 = 10;
+<span class="ln">26</span>byte var1 = num1 + 20;  // 存在变量，编译报错
+<span class="ln">27</span>byte var2 = num2 + 20; // 编译通过
+<span class="ln">28</span>
+<span class="ln">29</span>int a = 1;
+<span class="ln">30</span>int b = 2;
+<span class="ln">31</span>int c = a + b;
+<span class="ln">32</span>System.out.println(c);
+<span class="ln">33</span>
+<span class="ln">34</span> byte b=1;
+<span class="ln">35</span> byte c=2;
+<span class="ln">36</span> byte d=1+2;//编译通过正常执行
+<span class="ln">37</span> //  byte e=b+c;//编译出错
+<span class="ln">38</span> byte e=(byte)(b+c);//强转之后不会出错
+<span class="ln">39</span>
+<span class="ln">40</span>
+<span class="ln">41</span>byte var = 10;
+<span class="ln">42</span>var = var + 20; // 编译报错，运算中存在变量
+<span class="ln">43</span>var += 20; // 等效于: var = (short) (var + 20); 没有走常量优化机制，而是进行了类型转换
+<span class="ln">44</span>
+<span class="ln">45</span>String s1 = &#34;abc&#34;;
+<span class="ln">46</span>String s2 = &#34;a&#34;+&#34;b&#34;+&#34;c&#34;;
+<span class="ln">47</span>System.out.println(s1 == s2); //true
+<span class="ln">48</span>
+<span class="ln">49</span>String a = &#34;a1&#34;;
+<span class="ln">50</span>String b = &#34;a&#34; + 1;
+<span class="ln">51</span>System.out.println((a == b));  //result = true
+<span class="ln">52</span>
+<span class="ln">53</span>String a = &#34;atrue&#34;;
+<span class="ln">54</span>String b = &#34;a&#34; + true;
+<span class="ln">55</span>System.out.println((a == b));  //result = true
+<span class="ln">56</span>
+<span class="ln">57</span>String a = &#34;a3.4&#34;;
+<span class="ln">58</span>String b = &#34;a&#34; + 3.4;
+<span class="ln">59</span>System.out.println((a == b));  //result = true
+<span class="ln">60</span>
+<span class="ln">61</span>
+<span class="ln">62</span>String s1 = &#34;ab&#34;;
+<span class="ln">63</span>String s2 = &#34;abc&#34;;
+<span class="ln">64</span>String s3 = s1 + &#34;c&#34;;
+<span class="ln">65</span>System.out.println(s3 == s2); //false
+<span class="ln">66</span>
+<span class="ln">67</span>
+</code></pre></div><h3 id="为什么小数不能进行常量优化">为什么小数不能进行常量优化</h3>
+<h3 id="http和https的区别">HTTP和HTTPS的区别</h3>
+<p>1、https协议需要到ca<strong>申请证书</strong>，一般免费证书较少，因而需要一定费用。</p>
+<p>2、http是超文本传输协议，信息是<strong>明文</strong>传输，https则是具有安全性的<strong>ssl加密传输</strong>协议。</p>
+<p>3、http和https使用的是完全不同的连接方式，用的<strong>端口也不一样</strong>，前者是80，后者是443。</p>
+<p>4、http的连接很简单，是<strong>无状态</strong>的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。</p>
+<h3 id="tcp协议三次握手和四次挥手">TCP协议三次握手和四次挥手</h3>
+<h4 id="三次握手开始交流">三次握手(开始交流)</h4>
+<p>第一次：客户端向服务端发送连接请求报文段，标识为syn（建立连接），产生一个序列号seq=x，表明传送数据时的第一个数据字节序号为 x</p>
+<p>第二次：服务端的TCP 收到连接请求报文段后，如果同意，则发挥连接同意报文</p>
+<p>服务端在连接同意报文中使用俩个标识SYN和ACK，其随机序列号为seq=y,确认序列号为ack=x+1</p>
+<p>第三次：客户端收到服务端的报文，发送确认报文ACK，随机序列号为seq=x+1，ack=y+1</p>
+<h4 id="四次挥手挥手再见">四次挥手(挥手再见)</h4>
+<p>TCP是基于全双工通信的，所以双方都可以主动释放连接。
+四次挥手的意义就在于，当 A 发送完最后一条数据之后，但可能B还有未发送给A 的数据。
+所以A在发送完收据后可以请求释放连接，此时B给与A响应，告诉A我知道你想断开连接，此时A还可以继续接收B发送的信息。
+在B处理完工作后，也请求释放连接。A同意后，就断开连接。
+这样可以保证数据正常可靠的交互。</p>
+<p>第一次：数据传输结束后，通信双方都可以释放连接</p>
+<p>假设A已经向B传输完数据，A就可以发生释放连接报文段，并停止发送数据，主动关闭TCP连接</p>
+<p>A 连接释放报文首部 FIN，其序列号 seq = u，等待 B 的确认。</p>
+<p>第二次：B收到后，发送确认报文，意思是我收到了确认号 ack = u+1，而这个报文段自己的序号为seq = v</p>
+<p>从A 到 B 这个方向的连接就释放了，TCP 连接处于半关闭状态。B 若发送数据,A仍需要接收</p>
+<p>第三次：当B发送完数据后，就可以释放连接。</p>
+<p>B 发出的连接释放报文 的 FIN，序号为w，ack仍为u+1</p>
+<p>第四次： A 收到连接释放报文后，必须发出确认。确认好 ack = w +1，序号seq = u+1。</p>
+<p>(ack都是在seq的基础上+1, 而sql要么是新生成的, 要么是ack的.)</p>
+<h3 id="如何遍历map数据">如何遍历map数据</h3>
+<ol>
+<li>
+<p>使用 <code>for-each</code> 循环遍历 <code>Map.Entry</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+<span class="ln">2</span>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Key: &#34;</span> <span class="o">+</span> <span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;, Value: &#34;</span> <span class="o">+</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="ln">3</span><span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>使用 for-each 循环遍历 keySet</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">())</span> <span class="o">{</span>
+<span class="ln">2</span>            <span class="n">Integer</span> <span class="n">value</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+<span class="ln">3</span>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Key: &#34;</span> <span class="o">+</span> <span class="n">key</span> <span class="o">+</span> <span class="s">&#34;, Value: &#34;</span> <span class="o">+</span> <span class="n">value</span><span class="o">);</span>
+<span class="ln">4</span>        <span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>使用 Iterator 遍历 Map.Entry</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="n">Iterator</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;&gt;</span> <span class="n">iterator</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span>
+<span class="ln">2</span>        <span class="k">while</span> <span class="o">(</span><span class="n">iterator</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+<span class="ln">3</span>            <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">=</span> <span class="n">iterator</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+<span class="ln">4</span>            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Key: &#34;</span> <span class="o">+</span> <span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;, Value: &#34;</span> <span class="o">+</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="ln">5</span>        <span class="o">}</span>
+</code></pre></div></li>
+<li>
+<p>使用 Stream API 遍历 Map</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln">1</span><span class="n">map</span><span class="o">.</span><span class="na">entrySet</span><span class="o">().</span><span class="na">stream</span><span class="o">()</span>
+<span class="ln">2</span>           <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">entry</span> <span class="o">-&gt;</span> <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Key: &#34;</span> <span class="o">+</span> <span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;, Value: &#34;</span> <span class="o">+</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">()));</span>
+<span class="ln">3</span>    <span class="o">}</span>
+<span class="ln">4</span>   
+</code></pre></div></li>
+</ol>
+<h3 id="hashmap为什么要扩容">HashMap为什么要扩容</h3>
+<p>HashMap的默认大小是16。</p>
+<p>当HashMap里面的元素个数超过临界值的时候会自动触发扩容。等于负载因子 乘以 容量大小，负载因子的默认值是0.75，而容量大小默认是16,。也就是说，第1次扩容的动作会在元素个数达到12的时候触发，扩容的大小是原来的2倍。HashMap的最大容量是Integer.MAX_VALUE也就是2的31次方减1。</p>
+<p>由于动态扩容机制的存在，所以我们在实际应用的时候，最好在集合初始化的时候明确去指定集合的大小，从而避免频繁扩容带来性能上的消耗。</p>
+<h3 id="jvm内存模型">JVM内存模型</h3>
+<p>方法区, 虚拟机栈, 本地方法栈, 堆(新生代, 老年代), 程序计数器</p>
+<h3 id="工作中sql如何优化的">工作中SQL如何优化的</h3>
+<ol>
+<li>对insert, 分成多个insert, 按主键顺序插入.同时手动事务提交. 或者用load指令</li>
+<li>对主键, 降低主键长度, 插入数据尽量顺序插入, 尽量不要使用UUID做主键或者其他自然主键, 如身份证, 业务操作避免对主键的修改.</li>
+<li>对order by, 根据排序字段建立合适的索引, 多字段排序时, 遵循最左前缀法则. 尽量使用覆盖索引, 多字段排序, 一个升序一个降序, 此时需要注意联合所以在创建时的规则, 如果不可避免的出现filesort, 大数据量排序时, 可以适当增大排序缓冲区大小</li>
+<li>对于group by, 还是根据分组字段创建索引, 准寻最左前缀法则</li>
+<li>对于limit分页, 一般分页查询时, 通过创建覆盖索引能够较好地提高性能, 可以通过覆盖查询+子查询的形式进行优化</li>
+<li>count,  count(*) ≈ count(1) &gt; count(主键) &gt; count(字段)</li>
+<li>update, Innodb的行锁是针对索引加的锁, 不是针对记录加的锁, 使用的条件一定要有索引不然就是表锁; 该索引不能失效, 否则行锁变为列锁</li>
+</ol>
+<h3 id="spring和springmvc的区别实现原理">Spring和SpringMVC的区别(实现原理)</h3>
+<p>Spring是一个综合性的<strong>应用程序开发框架</strong>，提供了<strong>依赖注入、面向切面编程、事务管理等功能</strong>，旨在简化企业级应用程序的开发。而Spring MVC是Spring框架中的一个<strong>模块</strong>，用于<strong>Web应用程序的开发</strong>，实现了MVC（Model-View-Controller）模式。</p>
+<p>Spring的<strong>核心功能</strong>是IoC容器和AOP，它可以帮助开发者管理对象之间的依赖关系，实现松耦合的应用程序设计。而Spring MVC的核心功能是控制器、视图解析器等Web相关组件，用于协调请求和响应之间的关系，实现Web应用程序的开发。</p>
+<p>Spring是一个<strong>综合性的框架</strong>，可以与其他模块集成，如Hibernate、iBatis、JMS、JDBC等。而Spring MVC是基于Spring功能之上添加的Web框架，它<strong>已经集成了</strong>这些模块的功能，使得开发者可以更快速地开发Web应用程序。</p>
+<h3 id="为什么用springboot-去掉ssm框架">为什么用SpringBoot, 去掉SSM框架</h3>
+<p>编码更简单(与第三方框架快速整合), 配置变得更简单(Application.yaml, 不需要多个配置文件), 部署更简单(启动类Application一键部署, 不需要tomcat).</p>
+<h3 id="springmvc-springboot-springcloud三者区别">SpringMVC, SpringBoot, SpringCloud三者区别</h3>
+<p>Spring和SpringMVC：Spring是一站式轻量级java开发框架，其核心是控制反转（IOC）和面向切面（AOP），为开发WEB层而开发的WEB(springMvc)、业务层(Ioc)、持久层(jdbcTemplate)SpringMVC是Spring基础上的MVC框架，主要处理web开发的路径映射和视图渲染，属于spring框架中web层开发的一部分；</p>
+<p>SpringMVC VS SpringBoot：SpringMVC属于企业WEB开发的MVC框架，包括前端视图开发、文件配置、后台接口逻辑开发等，XML、config等配置比较复杂；与SpringMVC框架相比，SpringBoot框架<strong>更注重微服务后台接口的开发</strong>，而不是前端视图的开发；</p>
+<p>SpringBoot和SpringCloud：SpringBoot采用默认大于配置的概念，集成了快速开发的多个Spring插件，自动过滤不需要配置的多余插件，简化了项目的开发配置过程，在一定程度上取消了xml配置，是一套快速配置开发的脚手架，单个微服务可以快速开发；SpringCloud的大部分功能插件都是基于SpringBoot实现的。SpringCloud注重整体<strong>微服务的整合和管理</strong>，整合和管理多个SpringBoot单个微服务；SpringCloud依赖于SpringBoot开发，SpringBoot可以独立开发；</p>
+<h3 id="autowired和resource区别">@Autowired和@resource区别</h3>
+<p>1.来源不同
+@Autowired 和 @Resource 来自不同的“父类”，其中 @Autowired 是 Spring 定义的注解，而 @Resource 是 Java 定义的注解</p>
+<p>2.依赖查找顺序不同
+依赖注入的功能，是通过先在 Spring IoC 容器中查找对象，再将对象注入引入到当前类中。而查找有分为两种实现：按名称（byName）查找或按类型（byType）查找，其中 @Autowired 和 @Resource 都是既使用了名称查找又使用了类型查找，但二者进行查找的顺序却截然相反。
+@Autowired 先根据类型（byType）查找，如果存在多个（Bean）再根据名称（byName）进行查找；
+@Resource 先根据名称（byName）查找，如果（根据名称）查找不到，再根据类型（byType）进行查找。</p>
+<p>3.支持的参数不同</p>
+<p>4.依赖注入的支持不同
+@Autowired 支持属性注入、构造方法注入和 Setter 注入，而 @Resource 只支持属性注入和 Setter 注入</p>
+<h3 id="redis怎么用的-redis分布式锁">Redis怎么用的, Redis分布式锁</h3>
+<h3 id="es如何同步数据">ES如何同步数据</h3>
+<h3 id="开发项目流程">开发项目流程</h3></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/java-0-audition-2/">Java面试准备2
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/js-1-vue/">Vue基础
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
+</a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
+</a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
+</a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
+</a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">26</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SDP协议解析C结构体 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="SDP协议解析C结构体">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-25T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-11-25T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3697">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="SDP协议解析C结构体" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/media-sdptoc/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-25T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-11-25T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SDP协议解析C结构体"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">SDP协议解析C结构体</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">SDP协议解析C结构体
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-11-25
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>8 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#实现特定sdp报文转化为c结构">实现特定SDP报文转化为C结构</a>
+      <ul>
+        <li><a href="#一根据sdp规范定义c结构体">一、根据SDP规范定义C结构体</a></li>
+        <li><a href="#二文件流模拟输入">二、文件流模拟输入</a></li>
+        <li><a href="#三字符处理转化结构体">三、字符处理转化结构体</a></li>
+        <li><a href="#四文件流模拟输出格式化打印结构体">四、文件流模拟输出&amp;格式化打印结构体</a></li>
+      </ul>
+    </li>
+    <li><a href="#实现解析任意sdp报文">实现解析任意SDP报文</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="实现特定sdp报文转化为c结构">实现特定SDP报文转化为C结构</h2>
+<h3 id="一根据sdp规范定义c结构体">一、根据SDP规范定义C结构体</h3>
+<p>下面是一个sdp报文：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>v=0
+<span class="ln"> 2</span>o=HWPSS 3427743244 1084119141 IN IP4 127.0.0.1
+<span class="ln"> 3</span>s=test1.mp4 // test1.mp4：媒体文件名
+<span class="ln"> 4</span>c=IN IP4 0.0.0.0
+<span class="ln"> 5</span>t=0 0
+<span class="ln"> 6</span>a=control:*
+<span class="ln"> 7</span>a=range:npt=0-44.000000
+<span class="ln"> 8</span>m=video 0 RTP/AVP 96  // 96：track-&gt;payload_type 视频：96音频：97
+<span class="ln"> 9</span>a=control:trackID=101 // 101：轨道ID。 视频：101，102， 103 音频： 201，202， 203，204， 205
+<span class="ln">10</span>a=rtpmap:96 MP4V-ES/90000
+<span class="ln">11</span>a=fmtp:96 profile-level-id=2;config=000001b0020;
+<span class="ln">12</span>m=audio 0 RTP/AVP 97
+<span class="ln">13</span>a=control:trackID=201
+<span class="ln">14</span>a=rtpmap:97 mpeg4-generic/24000/1
+<span class="ln">15</span>a=fmtp:97 streamtype=5;profile-level-id=15; mode=AAC-hbr; config=1308; SizeLength=13; IndexLength=3;IndexDeltaLength=3; Profile=1;
+</code></pre></div><p>需要注意的地方：</p>
+<ol>
+<li>媒体数目， 媒体内的a字段数目都是不固定的。如果用C语言结构体装的话，可能需要内存分配和指针等东西。（目前想法是可以通过柔性数组处理实现）</li>
+<li>单个字段内的数据组成也是不定的，可以先暂时取出文本域，再将文本域通过空格分为数组，至于之后的具体是什么内容，可以另写函数处理。</li>
+</ol>
+<p>目前暂时就定义这个报文里面有的东西。</p>
+<h3 id="二文件流模拟输入">二、文件流模拟输入</h3>
+<h4 id="读文件demo">读文件demo</h4>
+<p>feof函数判断文件结尾，fgets读取一行，遇到换行停止（会读取换行符）。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="ln"> 2</span><span class="cp"></span>
+<span class="ln"> 3</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+<span class="ln"> 4</span>	<span class="n">FILE</span> <span class="o">*</span><span class="n">file</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="ln"> 5</span>	<span class="kt">char</span> <span class="n">buff</span><span class="p">[</span><span class="mi">255</span><span class="p">];</span>
+<span class="ln"> 6</span>	
+<span class="ln"> 7</span>	<span class="n">file</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;sdp.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
+<span class="ln"> 8</span>	<span class="k">if</span><span class="p">(</span><span class="n">file</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+<span class="ln"> 9</span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Error opening file&#34;</span><span class="p">);</span>
+<span class="ln">10</span>		<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">11</span>	<span class="p">}</span>
+<span class="ln">12</span>	
+<span class="ln">13</span>	<span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">feof</span><span class="p">(</span><span class="n">file</span><span class="p">)){</span>
+<span class="ln">14</span>		<span class="n">fgets</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="p">(</span><span class="n">FILE</span><span class="o">*</span><span class="p">)</span><span class="n">file</span><span class="p">);</span>
+<span class="ln">15</span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s&#34;</span><span class="p">,</span> <span class="n">buff</span><span class="p">);</span>
+<span class="ln">16</span>	<span class="p">}</span>
+<span class="ln">17</span>
+<span class="ln">18</span>		
+<span class="ln">19</span>	<span class="n">fclose</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+<span class="ln">20</span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">21</span><span class="p">}</span>
+<span class="ln">22</span>
+</code></pre></div><h3 id="三字符处理转化结构体">三、字符处理转化结构体</h3>
+<p>核心思想：</p>
+<ul>
+<li>先初始分配一个默认的内存， 存放1个媒体， 且a行只有1个。</li>
+<li>先扫描一遍文本，记录会话a行， 媒体个数， 各个媒体的a行个数。</li>
+<li>如果在上面的过程中遇到了多个a，多个m，使用字段记录变动的字段，再立刻使用realloc进行动态拓展。</li>
+</ul>
+<p>遇到的问题：</p>
+<ol>
+<li>多维数组指针索引遍历问题， 这个去翻C Primer Plus的302页即可。（已解决）</li>
+<li>结构体中的柔性数组内存分配。（以解决）</li>
+<li>字符打印始终是乱码，乱码出现在柔性数组那里，会话部分有些乱码有些没有，且每次乱码的位置都是固定的。但是后面的柔性数组没有乱码。</li>
+<li>好像malloc的内存自动会释放，如果自己再调用free的话会报<code>free(): double free detected in tcache 2</code>（已解决）</li>
+<li>不额外写printf的话会报malloc(): corrupted top size的错误， 非常奇怪。</li>
+</ol>
+<p>头文件sdp_handle.h：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="cp">#ifndef SDP_HANDLE_H
+</span><span class="ln"> 2</span><span class="cp">#define SDP_HANDLE_H
+</span><span class="ln"> 3</span><span class="cp">#define STR_LENGTH 64 
+</span><span class="ln"> 4</span><span class="cp">#define DEFAULT_MEDIA_ATTRIBUTE 2
+</span><span class="ln"> 5</span><span class="cp">#define DEFAULT_SESSION_ATTRIBUTE 2
+</span><span class="ln"> 6</span><span class="cp"></span>
+<span class="ln"> 7</span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">_media</span> <span class="p">{</span>
+<span class="ln"> 8</span>	<span class="kt">char</span> <span class="n">information</span><span class="p">[</span><span class="n">STR_LENGTH</span><span class="p">];</span> <span class="c1">//m
+</span><span class="ln"> 9</span><span class="c1"></span>	<span class="kt">int</span> <span class="n">a_count</span><span class="p">;</span> <span class="c1">//记录一个媒体的a行个数
+</span><span class="ln">10</span><span class="c1"></span>	<span class="kt">char</span> <span class="n">attribute</span><span class="p">[][</span><span class="n">STR_LENGTH</span><span class="p">];</span> <span class="c1">//a
+</span><span class="ln">11</span><span class="c1"></span><span class="p">}</span> <span class="n">Media</span><span class="p">;</span>
+<span class="ln">12</span>
+<span class="ln">13</span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">_session</span> <span class="p">{</span>
+<span class="ln">14</span>	<span class="kt">char</span> <span class="n">version</span><span class="p">;</span> <span class="c1">//v
+</span><span class="ln">15</span><span class="c1"></span>	<span class="kt">char</span> <span class="n">originator</span><span class="p">[</span><span class="n">STR_LENGTH</span><span class="p">];</span> <span class="c1">//o
+</span><span class="ln">16</span><span class="c1"></span>	<span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="n">STR_LENGTH</span><span class="p">];</span> <span class="c1">//s
+</span><span class="ln">17</span><span class="c1"></span>	<span class="kt">char</span> <span class="n">connection_information</span><span class="p">[</span><span class="n">STR_LENGTH</span><span class="p">];</span> <span class="c1">//c
+</span><span class="ln">18</span><span class="c1"></span>	<span class="kt">int</span> <span class="n">time_active</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">//t
+</span><span class="ln">19</span><span class="c1"></span>	<span class="kt">int</span> <span class="n">media_count</span><span class="p">;</span> <span class="c1">//记录一次会话的媒体个数
+</span><span class="ln">20</span><span class="c1"></span>	<span class="n">Media</span><span class="o">*</span> <span class="n">media</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span> <span class="c1">//m,由于变长数组只能有一个，暂时写死
+</span><span class="ln">21</span><span class="c1"></span>	<span class="kt">int</span> <span class="n">a_count</span><span class="p">;</span> <span class="c1">//记录会话的a属性个数
+</span><span class="ln">22</span><span class="c1"></span>	<span class="kt">char</span> <span class="n">attribute</span><span class="p">[][</span><span class="n">STR_LENGTH</span><span class="p">];</span> <span class="c1">//a
+</span><span class="ln">23</span><span class="c1"></span><span class="p">}</span> <span class="n">Session</span><span class="p">;</span>
+<span class="ln">24</span>
+<span class="ln">25</span>
+<span class="ln">26</span><span class="c1">//字符串处理为结构体
+</span><span class="ln">27</span><span class="c1"></span><span class="kt">void</span> <span class="nf">handle_line_to_struct</span><span class="p">(</span><span class="n">Session</span><span class="o">*</span> <span class="n">session</span><span class="p">,</span> <span class="n">FILE</span><span class="o">*</span> <span class="n">file</span><span class="p">);</span>
+<span class="ln">28</span><span class="c1">//打印会话信息到控制台
+</span><span class="ln">29</span><span class="c1"></span><span class="kt">void</span> <span class="nf">print_session</span><span class="p">(</span><span class="n">Session</span> <span class="n">session</span><span class="p">);</span>
+<span class="ln">30</span><span class="c1">//将会话信息持久化到文件
+</span><span class="ln">31</span><span class="c1"></span><span class="kt">void</span> <span class="nf">save_session</span><span class="p">(</span><span class="n">Session</span> <span class="n">session</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">file_name</span><span class="p">);</span> 
+<span class="ln">32</span><span class="c1">//创建会话内存
+</span><span class="ln">33</span><span class="c1"></span><span class="n">Session</span><span class="o">*</span>  <span class="nf">malloc_session</span><span class="p">(</span><span class="n">Session</span><span class="o">*</span> <span class="n">session</span><span class="p">);</span>
+<span class="ln">34</span><span class="c1">//清理会话内存
+</span><span class="ln">35</span><span class="c1"></span><span class="kt">void</span> <span class="nf">destory_session</span><span class="p">(</span><span class="n">Session</span><span class="o">*</span> <span class="n">session</span><span class="p">);</span>
+<span class="ln">36</span><span class="c1">//创建媒体内存
+</span><span class="ln">37</span><span class="c1"></span><span class="n">Media</span><span class="o">*</span> <span class="nf">malloc_media</span><span class="p">(</span><span class="n">Media</span><span class="o">*</span> <span class="n">media</span><span class="p">);</span>
+<span class="ln">38</span><span class="c1">//清理媒体内存
+</span><span class="ln">39</span><span class="c1"></span><span class="kt">void</span> <span class="nf">destory_media</span><span class="p">(</span><span class="n">Media</span><span class="o">*</span> <span class="n">media</span><span class="p">);</span>
+<span class="ln">40</span><span class="c1">//字符串指针复制函数
+</span><span class="ln">41</span><span class="c1"></span><span class="kt">void</span> <span class="nf">strcpy_p</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">from</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">dest</span><span class="p">,</span> <span class="kt">char</span> <span class="n">stopsign</span><span class="p">);</span>
+<span class="ln">42</span>
+<span class="ln">43</span>
+<span class="ln">44</span><span class="cp">#endif
+</span></code></pre></div><p>函数文件sdp_handle.c：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">  1</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="ln">  2</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="ln">  3</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="ln">  4</span><span class="cp">#include</span> <span class="cpf">&lt;stdbool.h&gt;</span><span class="cp">
+</span><span class="ln">  5</span><span class="cp">#include</span> <span class="cpf">&#34;sdp_handle.h&#34;</span><span class="cp">
+</span><span class="ln">  6</span><span class="cp"></span>
+<span class="ln">  7</span>
+<span class="ln">  8</span><span class="c1">//----------------------处理字符函数----------------
+</span><span class="ln">  9</span><span class="c1">//处理字符串为结构体
+</span><span class="ln"> 10</span><span class="c1"></span><span class="kt">void</span> <span class="nf">handle_line_to_struct</span><span class="p">(</span><span class="n">Session</span><span class="o">*</span> <span class="n">session</span><span class="p">,</span> <span class="n">FILE</span><span class="o">*</span> <span class="n">file</span><span class="p">){</span>
+<span class="ln"> 11</span>	<span class="kt">char</span> <span class="n">buff</span><span class="p">[</span><span class="mi">255</span><span class="p">];</span> <span class="c1">//缓冲区
+</span><span class="ln"> 12</span><span class="c1"></span>	<span class="kt">int</span> <span class="n">handled_a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//记录已经处理的会话a行数
+</span><span class="ln"> 13</span><span class="c1"></span>	<span class="kt">int</span> <span class="n">handled_a_m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//记录单个媒体已经处理的a行数
+</span><span class="ln"> 14</span><span class="c1"></span>
+<span class="ln"> 15</span>	<span class="c1">//1.读取文件
+</span><span class="ln"> 16</span><span class="c1"></span>	<span class="c1">//TODO 定义安全检查函数
+</span><span class="ln"> 17</span><span class="c1"></span>	<span class="c1">//TODO 错误处理
+</span><span class="ln"> 18</span><span class="c1"></span>	<span class="k">while</span><span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+<span class="ln"> 19</span>		<span class="n">fgets</span><span class="p">(</span><span class="n">buff</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="p">(</span><span class="n">FILE</span><span class="o">*</span><span class="p">)</span><span class="n">file</span><span class="p">);</span>
+<span class="ln"> 20</span>		<span class="kt">char</span><span class="o">*</span> <span class="n">str</span> <span class="o">=</span> <span class="n">buff</span><span class="p">;</span>
+<span class="ln"> 21</span>
+<span class="ln"> 22</span>		<span class="c1">//报文末尾判断
+</span><span class="ln"> 23</span><span class="c1"></span>		<span class="k">if</span><span class="p">(</span><span class="n">feof</span><span class="p">(</span><span class="n">file</span><span class="p">)){</span>
+<span class="ln"> 24</span>			<span class="k">break</span><span class="p">;</span>
+<span class="ln"> 25</span>		<span class="p">}</span>
+<span class="ln"> 26</span>	
+<span class="ln"> 27</span>		<span class="c1">//2.对每行进行parse
+</span><span class="ln"> 28</span><span class="c1"></span>		<span class="c1">//char* seperate = strchr(str, &#39;=&#39;); //显式地区分类别和文本
+</span><span class="ln"> 29</span><span class="c1"></span>		<span class="kt">char</span> <span class="n">type</span> <span class="o">=</span> <span class="o">*</span><span class="n">str</span><span class="p">;</span> <span class="c1">//字段类别头
+</span><span class="ln"> 30</span><span class="c1"></span>		<span class="kt">char</span><span class="o">*</span> <span class="n">begin</span> <span class="o">=</span> <span class="n">str</span><span class="o">+</span><span class="mi">2</span><span class="p">;</span> <span class="c1">//文本的开始
+</span><span class="ln"> 31</span><span class="c1"></span>		<span class="c1">//printf(&#34;%c\n&#34;, type);
+</span><span class="ln"> 32</span><span class="c1"></span>		<span class="k">switch</span><span class="p">(</span><span class="n">type</span><span class="p">){</span>
+<span class="ln"> 33</span>			<span class="c1">//TODO 覆盖一般SDP报文的内容
+</span><span class="ln"> 34</span><span class="c1"></span>			<span class="k">case</span> <span class="sc">&#39;v&#39;</span><span class="o">:</span>
+<span class="ln"> 35</span>				<span class="c1">//暂时假设v字段只有1位
+</span><span class="ln"> 36</span><span class="c1"></span>				<span class="n">session</span><span class="o">-&gt;</span><span class="n">version</span> <span class="o">=</span> <span class="o">*</span><span class="n">begin</span><span class="p">;</span> 
+<span class="ln"> 37</span>				<span class="k">break</span><span class="p">;</span>
+<span class="ln"> 38</span>			<span class="k">case</span> <span class="sc">&#39;o&#39;</span><span class="o">:</span>
+<span class="ln"> 39</span>				<span class="n">strcpy_p</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">session</span><span class="o">-&gt;</span><span class="n">originator</span><span class="p">,</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="ln"> 40</span>				<span class="k">break</span><span class="p">;</span>
+<span class="ln"> 41</span>			<span class="k">case</span> <span class="sc">&#39;s&#39;</span><span class="o">:</span>
+<span class="ln"> 42</span>				<span class="n">strcpy_p</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">session</span><span class="o">-&gt;</span><span class="n">name</span><span class="p">,</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="ln"> 43</span>				<span class="k">break</span><span class="p">;</span>
+<span class="ln"> 44</span>			<span class="k">case</span> <span class="sc">&#39;c&#39;</span><span class="o">:</span>
+<span class="ln"> 45</span>				<span class="n">strcpy_p</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">session</span><span class="o">-&gt;</span><span class="n">connection_information</span><span class="p">,</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="ln"> 46</span>				<span class="k">break</span><span class="p">;</span>
+<span class="ln"> 47</span>			<span class="k">case</span> <span class="sc">&#39;t&#39;</span><span class="o">:</span>
+<span class="ln"> 48</span>				<span class="c1">//由于时间有可能是长位的，采用atoi函数
+</span><span class="ln"> 49</span><span class="c1"></span>				<span class="kt">char</span><span class="o">*</span> <span class="n">devide</span> <span class="o">=</span> <span class="n">strchr</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="sc">&#39; &#39;</span><span class="p">);</span>
+<span class="ln"> 50</span>				<span class="n">devide</span><span class="o">++</span><span class="p">;</span>
+<span class="ln"> 51</span>				<span class="kt">char</span> <span class="n">start_time</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+<span class="ln"> 52</span>				<span class="kt">char</span> <span class="n">stop_time</span><span class="p">[</span><span class="mi">20</span><span class="p">];</span>
+<span class="ln"> 53</span>				<span class="n">strcpy_p</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="sc">&#39; &#39;</span><span class="p">);</span>
+<span class="ln"> 54</span>				<span class="n">strcpy_p</span><span class="p">(</span><span class="n">devide</span><span class="p">,</span> <span class="n">stop_time</span><span class="p">,</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="ln"> 55</span>				<span class="n">session</span><span class="o">-&gt;</span><span class="n">time_active</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">start_time</span><span class="p">);</span>
+<span class="ln"> 56</span>				<span class="n">session</span><span class="o">-&gt;</span><span class="n">time_active</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">stop_time</span><span class="p">);</span>
+<span class="ln"> 57</span>				<span class="k">break</span><span class="p">;</span>
+<span class="ln"> 58</span>			<span class="k">case</span> <span class="sc">&#39;m&#39;</span><span class="o">:</span>
+<span class="ln"> 59</span>				<span class="c1">//创建媒体
+</span><span class="ln"> 60</span><span class="c1"></span>				<span class="n">Media</span><span class="o">*</span> <span class="n">media</span><span class="p">;</span>
+<span class="ln"> 61</span>				<span class="n">media</span> <span class="o">=</span> <span class="n">malloc_media</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="ln"> 62</span>				<span class="n">handled_a_m</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//计数器清零
+</span><span class="ln"> 63</span><span class="c1"></span>				<span class="n">strcpy_p</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">media</span><span class="o">-&gt;</span><span class="n">information</span><span class="p">,</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="ln"> 64</span>				<span class="o">*</span><span class="p">(</span><span class="n">session</span><span class="o">-&gt;</span><span class="n">media</span> <span class="o">+</span> <span class="n">session</span><span class="o">-&gt;</span><span class="n">media_count</span><span class="p">)</span><span class="o">=</span> <span class="n">media</span><span class="p">;</span> <span class="c1">//赋值给对应的媒体段
+</span><span class="ln"> 65</span><span class="c1"></span>				<span class="n">session</span><span class="o">-&gt;</span><span class="n">media_count</span><span class="o">++</span><span class="p">;</span>
+<span class="ln"> 66</span>				<span class="n">media</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="ln"> 67</span>				<span class="k">break</span><span class="p">;</span>
+<span class="ln"> 68</span>			<span class="k">case</span> <span class="sc">&#39;a&#39;</span><span class="o">:</span>
+<span class="ln"> 69</span>				<span class="c1">//判断a行的归属
+</span><span class="ln"> 70</span><span class="c1"></span>				<span class="k">if</span><span class="p">(</span><span class="n">session</span><span class="o">-&gt;</span><span class="n">media_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+<span class="ln"> 71</span>					<span class="c1">//1.处理session的a
+</span><span class="ln"> 72</span><span class="c1"></span>					<span class="c1">//如果a段的内存不够，进行扩容
+</span><span class="ln"> 73</span><span class="c1"></span>					<span class="k">if</span><span class="p">(</span><span class="n">handled_a</span> <span class="o">&gt;=</span> <span class="n">session</span><span class="o">-&gt;</span><span class="n">a_count</span><span class="p">){</span>
+<span class="ln"> 74</span>						<span class="n">session</span><span class="o">-&gt;</span><span class="n">a_count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//一次扩容1行
+</span><span class="ln"> 75</span><span class="c1"></span>						<span class="n">session</span> <span class="o">=</span> <span class="n">malloc_session</span><span class="p">(</span><span class="n">session</span><span class="p">);</span>
+<span class="ln"> 76</span>					<span class="p">}</span>
+<span class="ln"> 77</span>					<span class="c1">//对应位置进行复制字符串
+</span><span class="ln"> 78</span><span class="c1"></span>					<span class="n">strcpy_p</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">session</span><span class="o">-&gt;</span><span class="n">attribute</span><span class="o">+</span><span class="n">handled_a</span><span class="p">),</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="ln"> 79</span>					<span class="n">handled_a</span><span class="o">++</span><span class="p">;</span>
+<span class="ln"> 80</span>				<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="ln"> 81</span>					<span class="c1">//2.处理media的a
+</span><span class="ln"> 82</span><span class="c1"></span>					<span class="c1">//还是先检查内存是否足够
+</span><span class="ln"> 83</span><span class="c1"></span>					<span class="n">Media</span><span class="o">*</span> <span class="n">media_now</span><span class="p">;</span>
+<span class="ln"> 84</span>					<span class="n">media_now</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">session</span><span class="o">-&gt;</span><span class="n">media</span><span class="o">+</span><span class="p">(</span><span class="n">session</span><span class="o">-&gt;</span><span class="n">media_count</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+<span class="ln"> 85</span>					<span class="k">if</span><span class="p">(</span><span class="n">handled_a_m</span> <span class="o">&gt;=</span> <span class="n">media_now</span><span class="o">-&gt;</span><span class="n">a_count</span><span class="p">){</span>
+<span class="ln"> 86</span>						<span class="n">media_now</span><span class="o">-&gt;</span><span class="n">a_count</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">//一次扩容1行
+</span><span class="ln"> 87</span><span class="c1"></span>						<span class="n">media_now</span> <span class="o">=</span> <span class="n">malloc_media</span><span class="p">(</span><span class="n">media_now</span><span class="p">);</span>
+<span class="ln"> 88</span>					<span class="p">}</span>
+<span class="ln"> 89</span>					<span class="c1">//对应位置进行复制
+</span><span class="ln"> 90</span><span class="c1"></span>					<span class="n">strcpy_p</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">media_now</span><span class="o">-&gt;</span><span class="n">attribute</span><span class="o">+</span><span class="n">handled_a_m</span><span class="p">),</span> <span class="sc">&#39;\n&#39;</span><span class="p">);</span>
+<span class="ln"> 91</span>					<span class="n">handled_a_m</span><span class="o">++</span><span class="p">;</span>
+<span class="ln"> 92</span>				<span class="p">}</span>
+<span class="ln"> 93</span>				<span class="k">break</span><span class="p">;</span>		
+<span class="ln"> 94</span>			<span class="k">default</span><span class="o">:</span>
+<span class="ln"> 95</span>				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Unkown Type:%c</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">type</span><span class="p">);</span>
+<span class="ln"> 96</span>		<span class="p">}</span>
+<span class="ln"> 97</span>	<span class="p">}</span>
+<span class="ln"> 98</span>	
+<span class="ln"> 99</span><span class="p">}</span>
+<span class="ln">100</span>
+<span class="ln">101</span><span class="c1">//复制字符串函数
+</span><span class="ln">102</span><span class="c1"></span><span class="kt">void</span> <span class="nf">strcpy_p</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">from</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">dest</span><span class="p">,</span> <span class="kt">char</span> <span class="n">stopsign</span><span class="p">){</span>
+<span class="ln">103</span>	<span class="c1">//复制
+</span><span class="ln">104</span><span class="c1"></span>	<span class="k">for</span><span class="p">(;</span> <span class="o">*</span><span class="n">from</span> <span class="o">!=</span> <span class="n">stopsign</span><span class="p">;</span> <span class="n">from</span><span class="o">++</span><span class="p">,</span> <span class="n">dest</span><span class="o">++</span><span class="p">){</span>
+<span class="ln">105</span>		<span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="o">*</span><span class="n">from</span><span class="p">;</span>
+<span class="ln">106</span>	<span class="p">}</span>
+<span class="ln">107</span>	<span class="c1">//最后面加&#39;\0&#39;
+</span><span class="ln">108</span><span class="c1"></span>	<span class="o">*</span><span class="n">dest</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+<span class="ln">109</span><span class="p">}</span>
+<span class="ln">110</span>
+<span class="ln">111</span>
+<span class="ln">112</span><span class="c1">//-----------------输出函数-----------------
+</span><span class="ln">113</span><span class="c1"></span>
+<span class="ln">114</span><span class="c1">//打印会话信息到控制台
+</span><span class="ln">115</span><span class="c1"></span><span class="kt">void</span> <span class="nf">print_session</span><span class="p">(</span><span class="n">Session</span> <span class="n">session</span><span class="p">){</span>
+<span class="ln">116</span>	<span class="c1">//printf(&#34;\n&#34;);
+</span><span class="ln">117</span><span class="c1"></span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Session Information:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">118</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;------------------------------</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">119</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;version:%c</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">session</span><span class="p">.</span><span class="n">version</span><span class="p">);</span>
+<span class="ln">120</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;originator:%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">session</span><span class="p">.</span><span class="n">originator</span><span class="p">);</span>
+<span class="ln">121</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;name:%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">session</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+<span class="ln">122</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;connection information:%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">session</span><span class="p">.</span><span class="n">connection_information</span><span class="p">);</span>
+<span class="ln">123</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;time_active, start:%d, end:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">session</span><span class="p">.</span><span class="n">time_active</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">session</span><span class="p">.</span><span class="n">time_active</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="ln">124</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;attribute:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">125</span>	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">session</span><span class="p">.</span><span class="n">a_count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="ln">126</span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">session</span><span class="p">.</span><span class="n">attribute</span><span class="o">+</span><span class="n">i</span><span class="p">)));</span>
+<span class="ln">127</span>	<span class="p">}</span>
+<span class="ln">128</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">129</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">130</span>
+<span class="ln">131</span>	<span class="k">if</span><span class="p">(</span><span class="n">session</span><span class="p">.</span><span class="n">media_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+<span class="ln">132</span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;No Media Information!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">133</span>	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="ln">134</span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Media Information:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">135</span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;------------------------------</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">136</span>		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">session</span><span class="p">.</span><span class="n">media_count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="ln">137</span>			<span class="n">Media</span><span class="o">*</span> <span class="n">media_now</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">session</span><span class="p">.</span><span class="n">media</span><span class="o">+</span><span class="n">i</span><span class="p">);</span>
+<span class="ln">138</span>			<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Media %d:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+<span class="ln">139</span>			<span class="n">printf</span><span class="p">(</span><span class="s">&#34;information:%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">media_now</span><span class="o">-&gt;</span><span class="n">information</span><span class="p">);</span>
+<span class="ln">140</span>			<span class="n">printf</span><span class="p">(</span><span class="s">&#34;attribute:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">141</span>			<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">media_now</span><span class="o">-&gt;</span><span class="n">a_count</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+<span class="ln">142</span>				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">media_now</span><span class="o">-&gt;</span><span class="n">attribute</span> <span class="o">+</span> <span class="n">j</span><span class="p">));</span>
+<span class="ln">143</span>			<span class="p">}</span>
+<span class="ln">144</span>			<span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">145</span>		<span class="p">}</span>
+<span class="ln">146</span>	<span class="p">}</span>
+<span class="ln">147</span><span class="p">}</span>
+<span class="ln">148</span>
+<span class="ln">149</span>
+<span class="ln">150</span>
+<span class="ln">151</span><span class="c1">//会话持久化到rst文件
+</span><span class="ln">152</span><span class="c1"></span><span class="kt">void</span> <span class="nf">save_session</span><span class="p">(</span><span class="n">Session</span> <span class="n">session</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">file_name</span><span class="p">){</span>
+<span class="ln">153</span>	<span class="c1">//1.创建文件
+</span><span class="ln">154</span><span class="c1"></span>	<span class="n">FILE</span><span class="o">*</span> <span class="n">write_file</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s">&#34;w+&#34;</span><span class="p">);</span>
+<span class="ln">155</span>
+<span class="ln">156</span>	<span class="c1">//2.写入文件
+</span><span class="ln">157</span><span class="c1"></span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;Session Information:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">158</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;------------------------------</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">159</span>
+<span class="ln">160</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;#. &#34;</span><span class="p">);</span>
+<span class="ln">161</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;version: &#34;</span><span class="p">);</span>
+<span class="ln">162</span>	<span class="n">fputc</span><span class="p">(</span><span class="n">session</span><span class="p">.</span><span class="n">version</span><span class="p">,</span> <span class="n">write_file</span><span class="p">);</span>
+<span class="ln">163</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">164</span>
+<span class="ln">165</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;#. &#34;</span><span class="p">);</span>
+<span class="ln">166</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;originator: &#34;</span><span class="p">);</span>
+<span class="ln">167</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;%s</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">session</span><span class="p">.</span><span class="n">originator</span><span class="p">);</span>
+<span class="ln">168</span>
+<span class="ln">169</span>
+<span class="ln">170</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;#. &#34;</span><span class="p">);</span>
+<span class="ln">171</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;name: &#34;</span><span class="p">);</span>
+<span class="ln">172</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;%s</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">session</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+<span class="ln">173</span>
+<span class="ln">174</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;#. &#34;</span><span class="p">);</span>
+<span class="ln">175</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;connection information: &#34;</span><span class="p">);</span>
+<span class="ln">176</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;%s</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">session</span><span class="p">.</span><span class="n">connection_information</span><span class="p">);</span>
+<span class="ln">177</span>
+<span class="ln">178</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;#. &#34;</span><span class="p">);</span>
+<span class="ln">179</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;time_active, start: &#34;</span><span class="p">);</span>
+<span class="ln">180</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="n">session</span><span class="p">.</span><span class="n">time_active</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="ln">181</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;, end: &#34;</span><span class="p">);</span>
+<span class="ln">182</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;%d</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">session</span><span class="p">.</span><span class="n">time_active</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="ln">183</span>
+<span class="ln">184</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;#. &#34;</span><span class="p">);</span>
+<span class="ln">185</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;attribute: </span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">186</span>	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">session</span><span class="p">.</span><span class="n">a_count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="ln">187</span>		<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;	- %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">session</span><span class="p">.</span><span class="n">attribute</span><span class="o">+</span><span class="n">i</span><span class="p">)));</span>
+<span class="ln">188</span>	<span class="p">}</span>
+<span class="ln">189</span>	<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">190</span>
+<span class="ln">191</span>	<span class="k">if</span><span class="p">(</span><span class="n">session</span><span class="p">.</span><span class="n">media_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+<span class="ln">192</span>		<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;No Media Information!</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">193</span>	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="ln">194</span>		<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;Media Information:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">195</span>		<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;------------------------------</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">196</span>		<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">session</span><span class="p">.</span><span class="n">media_count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="ln">197</span>			<span class="n">Media</span><span class="o">*</span> <span class="n">media_now</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">session</span><span class="p">.</span><span class="n">media</span><span class="o">+</span><span class="n">i</span><span class="p">);</span>
+<span class="ln">198</span>
+<span class="ln">199</span>			<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;Media %d:</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+<span class="ln">200</span>
+<span class="ln">201</span>			<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;information:&#34;</span><span class="p">);</span>
+<span class="ln">202</span>			<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;%s</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">media_now</span><span class="o">-&gt;</span><span class="n">information</span><span class="p">);</span>
+<span class="ln">203</span>
+<span class="ln">204</span>			<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;attribute:</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">205</span>			<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">media_now</span><span class="o">-&gt;</span><span class="n">a_count</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+<span class="ln">206</span>				<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;#. &#34;</span><span class="p">);</span>
+<span class="ln">207</span>				<span class="n">fprintf</span><span class="p">(</span><span class="n">write_file</span><span class="p">,</span> <span class="s">&#34;%s</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="n">media_now</span><span class="o">-&gt;</span><span class="n">attribute</span> <span class="o">+</span> <span class="n">j</span><span class="p">));</span>
+<span class="ln">208</span>			<span class="p">}</span>
+<span class="ln">209</span>		<span class="p">}</span>
+<span class="ln">210</span>	<span class="p">}</span>
+<span class="ln">211</span>
+<span class="ln">212</span>	<span class="c1">//3.关闭文件
+</span><span class="ln">213</span><span class="c1"></span>	<span class="n">fclose</span><span class="p">(</span><span class="n">write_file</span><span class="p">);</span>
+<span class="ln">214</span>
+<span class="ln">215</span><span class="p">}</span>
+<span class="ln">216</span>
+<span class="ln">217</span>
+<span class="ln">218</span>
+<span class="ln">219</span>
+<span class="ln">220</span><span class="c1">//----------------处理内存-------------------
+</span><span class="ln">221</span><span class="c1"></span>
+<span class="ln">222</span><span class="c1">//分配会话内存
+</span><span class="ln">223</span><span class="c1"></span><span class="n">Session</span><span class="o">*</span> <span class="nf">malloc_session</span><span class="p">(</span><span class="n">Session</span><span class="o">*</span> <span class="n">session</span><span class="p">){</span>
+<span class="ln">224</span>	<span class="n">Session</span><span class="o">*</span> <span class="n">session_new</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="ln">225</span>	<span class="k">if</span><span class="p">(</span><span class="n">session</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+<span class="ln">226</span>		<span class="c1">//初始化
+</span><span class="ln">227</span><span class="c1"></span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Initial session memory:%ld</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Session</span><span class="p">)</span> <span class="o">+</span> <span class="n">DEFAULT_SESSION_ATTRIBUTE</span> <span class="o">*</span> <span class="n">STR_LENGTH</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+<span class="ln">228</span>		<span class="n">session_new</span> <span class="o">=</span> <span class="p">(</span><span class="n">Session</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Session</span><span class="p">)</span> <span class="o">+</span> <span class="n">DEFAULT_SESSION_ATTRIBUTE</span> <span class="o">*</span> <span class="n">STR_LENGTH</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+<span class="ln">229</span>		<span class="n">session_new</span><span class="o">-&gt;</span><span class="n">a_count</span><span class="o">=</span><span class="n">DEFAULT_SESSION_ATTRIBUTE</span><span class="p">;</span>
+<span class="ln">230</span>		<span class="n">session_new</span><span class="o">-&gt;</span><span class="n">media_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">231</span>	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+<span class="ln">232</span>		<span class="c1">//根据a_count动态分配内存
+</span><span class="ln">233</span><span class="c1"></span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Realloc session memory:%ld</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Session</span><span class="p">)</span> <span class="o">+</span> <span class="n">session</span><span class="o">-&gt;</span><span class="n">a_count</span> <span class="o">*</span> <span class="n">STR_LENGTH</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+<span class="ln">234</span>		<span class="n">session_new</span> <span class="o">=</span> <span class="p">(</span><span class="n">Session</span><span class="o">*</span><span class="p">)</span><span class="n">realloc</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Session</span><span class="p">)</span> <span class="o">+</span> <span class="n">session</span><span class="o">-&gt;</span><span class="n">a_count</span> <span class="o">*</span> <span class="n">STR_LENGTH</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">));</span>
+<span class="ln">235</span>	<span class="p">}</span>
+<span class="ln">236</span>
+<span class="ln">237</span>	<span class="c1">//判断内存是否分配成功
+</span><span class="ln">238</span><span class="c1"></span>	<span class="k">if</span><span class="p">(</span><span class="n">session_new</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+<span class="ln">239</span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;No aviliable memory for session!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">240</span>	<span class="p">}</span>
+<span class="ln">241</span>
+<span class="ln">242</span>	<span class="k">return</span> <span class="n">session_new</span><span class="p">;</span>
+<span class="ln">243</span><span class="p">}</span>
+<span class="ln">244</span>
+<span class="ln">245</span><span class="c1">//清理会话内存
+</span><span class="ln">246</span><span class="c1"></span><span class="kt">void</span> <span class="nf">destory_session</span><span class="p">(</span><span class="n">Session</span><span class="o">*</span> <span class="n">session</span><span class="p">){</span>
+<span class="ln">247</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Clear session memory</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">248</span>	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">session</span><span class="o">-&gt;</span><span class="n">media_count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="ln">249</span>		<span class="n">destory_media</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">session</span><span class="o">-&gt;</span><span class="n">media</span><span class="o">+</span><span class="n">i</span><span class="p">));</span>
+<span class="ln">250</span>	<span class="p">}</span>
+<span class="ln">251</span>	<span class="n">free</span><span class="p">(</span><span class="n">session</span><span class="p">);</span>
+<span class="ln">252</span>	<span class="n">session</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="ln">253</span><span class="p">}</span>
+<span class="ln">254</span>
+<span class="ln">255</span><span class="c1">//分配媒体内存
+</span><span class="ln">256</span><span class="c1"></span><span class="n">Media</span><span class="o">*</span> <span class="nf">malloc_media</span><span class="p">(</span><span class="n">Media</span><span class="o">*</span> <span class="n">media</span><span class="p">){</span>
+<span class="ln">257</span>	<span class="n">Media</span><span class="o">*</span> <span class="n">media_new</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="ln">258</span>	<span class="c1">//初始化判断
+</span><span class="ln">259</span><span class="c1"></span>	<span class="k">if</span><span class="p">(</span><span class="n">media</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+<span class="ln">260</span>		<span class="c1">//新分配内存
+</span><span class="ln">261</span><span class="c1"></span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Malloc new media memory</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">262</span>		<span class="n">media_new</span> <span class="o">=</span> <span class="p">(</span><span class="n">Media</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Media</span><span class="p">)</span> <span class="o">+</span> <span class="n">DEFAULT_MEDIA_ATTRIBUTE</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="n">STR_LENGTH</span><span class="p">);</span>
+<span class="ln">263</span>		<span class="n">media_new</span><span class="o">-&gt;</span><span class="n">a_count</span> <span class="o">=</span> <span class="n">DEFAULT_MEDIA_ATTRIBUTE</span><span class="p">;</span>
+<span class="ln">264</span>	<span class="p">}</span><span class="k">else</span><span class="p">{</span>		
+<span class="ln">265</span>		<span class="c1">//动态根据参数a_count分配内存
+</span><span class="ln">266</span><span class="c1"></span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Realloc media memory</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">267</span>		<span class="n">media_new</span> <span class="o">=</span> <span class="n">realloc</span><span class="p">(</span><span class="n">media</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Media</span><span class="p">)</span><span class="o">+</span><span class="n">media</span><span class="o">-&gt;</span><span class="n">a_count</span><span class="o">*</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="o">*</span><span class="n">STR_LENGTH</span><span class="p">);</span>
+<span class="ln">268</span>	<span class="p">}</span>
+<span class="ln">269</span>	
+<span class="ln">270</span>	<span class="c1">//内存分配失败检验
+</span><span class="ln">271</span><span class="c1"></span>	<span class="k">if</span><span class="p">(</span><span class="n">media_new</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+<span class="ln">272</span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;No memory aviliable for media</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">273</span>	<span class="p">}</span>
+<span class="ln">274</span>	
+<span class="ln">275</span>	<span class="k">return</span> <span class="n">media_new</span><span class="p">;</span>
+<span class="ln">276</span><span class="p">}</span>
+<span class="ln">277</span>
+<span class="ln">278</span><span class="c1">//清理媒体内存
+</span><span class="ln">279</span><span class="c1"></span><span class="kt">void</span> <span class="nf">destory_media</span><span class="p">(</span><span class="n">Media</span><span class="o">*</span> <span class="n">media</span><span class="p">){</span>
+<span class="ln">280</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Clear media memory</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">281</span>	<span class="n">free</span><span class="p">(</span><span class="n">media</span><span class="p">);</span>
+<span class="ln">282</span>	<span class="n">media</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="ln">283</span><span class="p">}</span>
+<span class="ln">284</span>
+</code></pre></div><h3 id="四文件流模拟输出格式化打印结构体">四、文件流模拟输出&amp;格式化打印结构体</h3>
+<p>对应函数在上面那节已经给出。</p>
+<p>main.c文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="ln"> 2</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span><span class="ln"> 3</span><span class="cp">#include</span> <span class="cpf">&#34;sdp_handle.h&#34;</span><span class="cp">
+</span><span class="ln"> 4</span><span class="cp"></span>
+<span class="ln"> 5</span><span class="c1">//TODO 修复不打印额外字符会出现：malloc(): corrupted top size的bug
+</span><span class="ln"> 6</span><span class="c1">//命令行参数1作读取的sdp报文文件
+</span><span class="ln"> 7</span><span class="c1"></span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[]){</span>
+<span class="ln"> 8</span>	<span class="c1">//文件指针
+</span><span class="ln"> 9</span><span class="c1"></span>	<span class="n">FILE</span> <span class="o">*</span><span class="n">file</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="ln">10</span>	<span class="c1">//会话结构体
+</span><span class="ln">11</span><span class="c1"></span>	<span class="n">Session</span><span class="o">*</span> <span class="n">session</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="ln">12</span>
+<span class="ln">13</span>	<span class="c1">//合法性检验
+</span><span class="ln">14</span><span class="c1"></span>	<span class="n">file</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;sdp.txt&#34;</span><span class="p">,</span> <span class="s">&#34;r&#34;</span><span class="p">);</span>
+<span class="ln">15</span>	<span class="k">if</span><span class="p">(</span><span class="n">file</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+<span class="ln">16</span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Error opening file&#34;</span><span class="p">);</span>
+<span class="ln">17</span>		<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">18</span>	<span class="p">}</span>
+<span class="ln">19</span>	<span class="c1">//printf(&#34;Open file success\n&#34;);
+</span><span class="ln">20</span><span class="c1"></span>
+<span class="ln">21</span>	<span class="c1">//创建新会话
+</span><span class="ln">22</span><span class="c1"></span>	<span class="n">session</span> <span class="o">=</span> <span class="n">malloc_session</span><span class="p">(</span><span class="n">session</span><span class="p">);</span>
+<span class="ln">23</span>
+<span class="ln">24</span>	<span class="c1">//解析sdp.txt文件
+</span><span class="ln">25</span><span class="c1"></span>	<span class="n">handle_line_to_struct</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">file</span><span class="p">);</span>
+<span class="ln">26</span>	<span class="c1">//关闭文件
+</span><span class="ln">27</span><span class="c1"></span>	<span class="n">fclose</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+<span class="ln">28</span>
+<span class="ln">29</span>	<span class="c1">//打印结构体到控制台
+</span><span class="ln">30</span><span class="c1"></span>	<span class="n">print_session</span><span class="p">(</span><span class="o">*</span><span class="n">session</span><span class="p">);</span>
+<span class="ln">31</span>
+<span class="ln">32</span>	<span class="c1">//保存结构体为rst文件
+</span><span class="ln">33</span><span class="c1"></span>	<span class="n">save_session</span><span class="p">(</span><span class="o">*</span><span class="n">session</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="ln">34</span>
+<span class="ln">35</span>	<span class="c1">//回收内存
+</span><span class="ln">36</span><span class="c1"></span>	<span class="n">destory_session</span><span class="p">(</span><span class="n">session</span><span class="p">);</span>
+<span class="ln">37</span>
+<span class="ln">38</span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">39</span><span class="p">}</span>
+</code></pre></div><p>Makefile：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>out: main.o sdp_handle.o
+<span class="ln"> 2</span>	gcc -o out main.o sdp_handle.o
+<span class="ln"> 3</span>
+<span class="ln"> 4</span>sdp_handle.o:sdp_handle.c
+<span class="ln"> 5</span>	gcc -c sdp_handle.c 
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>main.o: main.c
+<span class="ln"> 8</span>	gcc -c main.c 
+<span class="ln"> 9</span>
+<span class="ln">10</span>
+<span class="ln">11</span>clean:
+<span class="ln">12</span>	rm main.o sdp_handle.o out
+<span class="ln">13</span>
+<span class="ln">14</span>run:
+<span class="ln">15</span>	./out sdp.rst
+</code></pre></div><p>命令行输出测试：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>./out sdp.rst
+<span class="ln"> 2</span>Initial session memory:384
+<span class="ln"> 3</span>Malloc new media memory
+<span class="ln"> 4</span>Malloc new media memory
+<span class="ln"> 5</span>Realloc media memory
+<span class="ln"> 6</span>Session Information:
+<span class="ln"> 7</span>------------------------------
+<span class="ln"> 8</span>version:0
+<span class="ln"> 9</span>originator:HWPSS 3427743244 1084119141 IN IP4 127.0.0.1
+<span class="ln">10</span>name:test1.mp4
+<span class="ln">11</span>connection information:IN IP4 0.0.0.0
+<span class="ln">12</span>time_active, start:0, end:0
+<span class="ln">13</span>attribute:
+<span class="ln">14</span>cont��{�
+<span class="ln">15</span>*p
+<span class="ln">16</span>
+<span class="ln">17</span>
+<span class="ln">18</span>Media Information:
+<span class="ln">19</span>------------------------------
+<span class="ln">20</span>Media 1:
+<span class="ln">21</span>information:video 0 RTP/AVP 96
+<span class="ln">22</span>attribute:
+<span class="ln">23</span>control:trackID=101
+<span class="ln">24</span>fmtp:96 profile-level-id=2;config=000001b0020;
+<span class="ln">25</span>
+<span class="ln">26</span>Media 2:
+<span class="ln">27</span>information:audio 0 RTP/AVP 97
+<span class="ln">28</span>attribute:
+<span class="ln">29</span>control:trackID=201
+<span class="ln">30</span>rtpmap:97 mpeg4-generic/24000/1
+<span class="ln">31</span>fmtp:97 streamtype=5;profile-level-id=15; mode=AAC-hbr; config=1308; SizeLength=13; IndexLength=3;IndexDeltaLength=3; Profile=1;
+<span class="ln">32</span>
+<span class="ln">33</span>Clear session memory
+<span class="ln">34</span>Clear media memory
+<span class="ln">35</span>Clear media memory
+</code></pre></div><p>写文件输出测试：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Information:
+<span class="ln"> 2</span>------------------------------
+<span class="ln"> 3</span>#. version: 0
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>#. originator: HWPSS 3427743244 1084119141 IN IP4 127.0.0.1
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>#. name: test1.mp4
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>#. connection information: IN IP4 0.0.0.0
+<span class="ln">10</span>
+<span class="ln">11</span>#. time_active, start: 0, end: 0
+<span class="ln">12</span>
+<span class="ln">13</span>#. attribute: 
+<span class="ln">14</span>	- contx�s�
+<span class="ln">15</span>	- �
+<span class="ln">16</span>
+<span class="ln">17</span>
+<span class="ln">18</span>Media Information:
+<span class="ln">19</span>------------------------------
+<span class="ln">20</span>Media 1:
+<span class="ln">21</span>
+<span class="ln">22</span>information:video 0 RTP/AVP 96
+<span class="ln">23</span>
+<span class="ln">24</span>attribute:
+<span class="ln">25</span>
+<span class="ln">26</span>#. control:trackID=101
+<span class="ln">27</span>
+<span class="ln">28</span>#. fmtp:96 profile-level-id=2;config=000001b0020;
+<span class="ln">29</span>
+<span class="ln">30</span>Media 2:
+<span class="ln">31</span>
+<span class="ln">32</span>information:audio 0 RTP/AVP 97
+<span class="ln">33</span>
+<span class="ln">34</span>attribute:
+<span class="ln">35</span>
+<span class="ln">36</span>#. control:trackID=201
+<span class="ln">37</span>
+<span class="ln">38</span>#. rtpmap:97 mpeg4-generic/24000/1
+<span class="ln">39</span>
+<span class="ln">40</span>#. fmtp:97 streamtype=5;profile-level-id=15; mode=AAC-hbr; config=1308; SizeLength=13; IndexLength=3;IndexDeltaLength=3; Profile=1;
+</code></pre></div><p>可见还是存在些许问题的，有些字段始终是乱码的， 但是找不到原因。</p>
+<h2 id="实现解析任意sdp报文">实现解析任意SDP报文</h2>
+<p>尚未解决问题：</p>
+<ul>
+<li>各结构体需定义完善，覆盖所有可能的字段</li>
+<li>session段规定的一些字段是media段的默认值</li>
+<li>有些字段如果media段规定，session段不需要规定</li>
+<li>optional字段需要注意</li>
+<li>文本域里面的文本解析分离</li>
+<li>需要判断报文的可用性，判断格式是否符合规范</li>
+</ul>
+<p>暂时不考虑。</p>
+<h2 id="参考">参考</h2>
+<p>下面是做这次小软件参考的链接：</p>
+<p><a href="https://blog.csdn.net/mzgxinhua/article/details/140378699" target="_blank">C语言中的结构体指针_结构体指针c语言-CSDN博客</a>
+</p>
+<p><a href="https://www.runoob.com/cprogramming/c-structures.html" target="_blank">C 结构体 | 菜鸟教程</a>
+</p>
+<p><a href="https://cloud.tencent.com/developer/information/%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8fgets%e9%98%b2%e6%ad%a2%e7%bc%93%e5%86%b2%e5%8c%ba%e6%ba%a2%e5%87%ba%ef%bc%9f" target="_blank">如何使用fgets防止缓冲区溢出？_如何防止fgets在缓冲区溢出时多次运行？_防止缓冲区溢出 - 腾讯云开发者社区 - 腾讯云</a>
+</p>
+<p><a href="https://zhuanlan.zhihu.com/p/707084631" target="_blank">C语言基础—文件读写 - 知乎</a>
+</p>
+<p><a href="https://blog.csdn.net/kklvsports/article/details/43316893" target="_blank">vim 配置c/c++开发环境_vim配置c++开发环境 deepin-CSDN博客</a>
+</p>
+<p><a href="https://www.zhihu.com/question/47691414/answer/2886411655" target="_blank">(84 封私信 / 10 条消息) 如何在 Linux 下利用 Vim 搭建 C/C++ 开发环境? - 知乎</a>
+</p>
+<p><a href="https://blog.csdn.net/qq_42834817/article/details/125200083" target="_blank">结构体嵌套问题的常见错误_c语言 结构体里嵌套结构体数组-CSDN博客</a>
+</p>
+<p><a href="https://blog.csdn.net/wads23456/article/details/100099543" target="_blank">【转载】在linux下使用gcc/g++编译多个.h .c 文件_arm-linux-gnueabi-gcc编译多个。c 。h文件-CSDN博客</a>
+</p>
+<p><a href="https://blog.csdn.net/qq_64293926/article/details/127347451" target="_blank">C语言动态内存分配_使用realloc重新分配内存后,务必要将原有地址使用free释放,否则会出现内存泄-CSDN博客</a>
+</p>
+<p><a href="https://blog.csdn.net/xuaner8786/article/details/139836105" target="_blank">「C系列」C 错误处理_c语言错误处理-CSDN博客</a>
+</p>
+<p><a href="https://blog.csdn.net/qq_44827929/article/details/125452855" target="_blank">realloc(): invalid next size: C语言报错-CSDN博客</a>
+</p>
+<p><a href="https://www.cnblogs.com/fortunely/p/12672934.html" target="_blank">C&gt; fgets读取文件最后一行重复问题 - 明明1109 - 博客园</a>
+</p>
+<p><a href="https://blog.csdn.net/weixin_63279307/article/details/128412296" target="_blank">C语言打印输出字符串的几种方法_c语言输出字符串-CSDN博客</a>
+</p>
+<p><a href="https://www.jb51.net/article/259037.htm" target="_blank">C++结构体中变长数组的使用问题分解刨析_C 语言_脚本之家</a>
+</p>
+<p><a href="https://blog.csdn.net/2201_75915488/article/details/141053146" target="_blank">C语言——指针（数组，函数）_数组指针-CSDN博客</a>
+</p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">26</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

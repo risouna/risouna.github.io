@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on さぁ、君、取りたまえ</title>
+    <link>/series/java/</link>
+    <description>Recent content in Java on さぁ、君、取りたまえ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
+    <lastBuildDate>Sun, 20 Oct 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java面试准备4</title>
+      <link>/posts/tech/java-0-audition-4/</link>
+      <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-0-audition-4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java面试准备3</title>
+      <link>/posts/tech/java-0-audition-3/</link>
+      <pubDate>Tue, 13 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-0-audition-3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java面试准备2</title>
+      <link>/posts/tech/java-0-audition-2/</link>
+      <pubDate>Thu, 08 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-0-audition-2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>项目: swagger的自动装配</title>
+      <link>/posts/tech/java-6-autoconfiguration/</link>
+      <pubDate>Sat, 03 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-6-autoconfiguration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>算法刷题</title>
+      <link>/posts/tech/java-5-algorithm/</link>
+      <pubDate>Sun, 28 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-5-algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java基础查漏补缺</title>
+      <link>/posts/tech/java-4-basic/</link>
+      <pubDate>Thu, 13 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-4-basic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL学习笔记</title>
+      <link>/posts/tech/java-2-mysql/</link>
+      <pubDate>Sat, 25 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-2-mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SpringCloud学习笔记</title>
+      <link>/posts/tech/java-3-spring-cloud/</link>
+      <pubDate>Sat, 25 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-3-spring-cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java多线程</title>
+      <link>/posts/tech/java-1-thread/</link>
+      <pubDate>Thu, 09 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-1-thread/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java面试准备1</title>
+      <link>/posts/tech/java-0-audition/</link>
+      <pubDate>Mon, 29 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-0-audition/</guid>
+      <description>&lt;p&gt;本篇对面试的作用微乎其微&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

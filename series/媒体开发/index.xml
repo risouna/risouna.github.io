@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>媒体开发 on さぁ、君、取りたまえ</title>
+    <link>/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/</link>
+    <description>Recent content in 媒体开发 on さぁ、君、取りたまえ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
+    <lastBuildDate>Mon, 25 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SDP协议解析C结构体</title>
+      <link>/posts/tech/media-sdptoc/</link>
+      <pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-sdptoc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RDF-4566 SDP协议阅读</title>
+      <link>/posts/tech/media-sdp/</link>
+      <pubDate>Tue, 19 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-sdp/</guid>
+      <description>&lt;p&gt;不想看了.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ABNF</title>
+      <link>/posts/tech/media-abnf/</link>
+      <pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-abnf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>菜鸟教程Shell</title>
+      <link>/posts/tech/media-misc-shell/</link>
+      <pubDate>Thu, 14 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-misc-shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rst语法</title>
+      <link>/posts/tech/media-misc-rst/</link>
+      <pubDate>Wed, 13 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-misc-rst/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

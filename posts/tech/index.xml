@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tech on さぁ、君、取りたまえ</title>
+    <link>/posts/tech/</link>
+    <description>Recent content in Tech on さぁ、君、取りたまえ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
+    <lastBuildDate>Mon, 25 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SDP协议解析C结构体</title>
+      <link>/posts/tech/media-sdptoc/</link>
+      <pubDate>Mon, 25 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-sdptoc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C语言算法刷题</title>
+      <link>/posts/tech/basic-algorithm-c/</link>
+      <pubDate>Sat, 23 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-algorithm-c/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>鸟哥Linux教程</title>
+      <link>/posts/tech/basic-niaoge-linux/</link>
+      <pubDate>Sat, 23 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-niaoge-linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RDF-4566 SDP协议阅读</title>
+      <link>/posts/tech/media-sdp/</link>
+      <pubDate>Tue, 19 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-sdp/</guid>
+      <description>&lt;p&gt;不想看了.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ABNF</title>
+      <link>/posts/tech/media-abnf/</link>
+      <pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-abnf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>编译原理</title>
+      <link>/posts/tech/basic-compilersprinciples/</link>
+      <pubDate>Fri, 15 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-compilersprinciples/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>菜鸟教程Shell</title>
+      <link>/posts/tech/media-misc-shell/</link>
+      <pubDate>Thu, 14 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-misc-shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rst语法</title>
+      <link>/posts/tech/media-misc-rst/</link>
+      <pubDate>Wed, 13 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-misc-rst/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git&amp;gitlab</title>
+      <link>/posts/tech/basic-git/</link>
+      <pubDate>Tue, 12 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>菜鸟教程Linux教程</title>
+      <link>/posts/tech/basic-runnoob-linux/</link>
+      <pubDate>Mon, 11 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-runnoob-linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C&#43;&#43;基础查漏补缺</title>
+      <link>/posts/tech/cpp-1-basic/</link>
+      <pubDate>Mon, 28 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/cpp-1-basic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java面试准备4</title>
+      <link>/posts/tech/java-0-audition-4/</link>
+      <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-0-audition-4/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vue基础</title>
+      <link>/posts/tech/js-1-vue/</link>
+      <pubDate>Wed, 16 Oct 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/js-1-vue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java面试准备3</title>
+      <link>/posts/tech/java-0-audition-3/</link>
+      <pubDate>Tue, 13 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-0-audition-3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java面试准备2</title>
+      <link>/posts/tech/java-0-audition-2/</link>
+      <pubDate>Thu, 08 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-0-audition-2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>项目: swagger的自动装配</title>
+      <link>/posts/tech/java-6-autoconfiguration/</link>
+      <pubDate>Sat, 03 Aug 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-6-autoconfiguration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>算法刷题</title>
+      <link>/posts/tech/java-5-algorithm/</link>
+      <pubDate>Sun, 28 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-5-algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java基础查漏补缺</title>
+      <link>/posts/tech/java-4-basic/</link>
+      <pubDate>Thu, 13 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-4-basic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL学习笔记</title>
+      <link>/posts/tech/java-2-mysql/</link>
+      <pubDate>Sat, 25 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-2-mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SpringCloud学习笔记</title>
+      <link>/posts/tech/java-3-spring-cloud/</link>
+      <pubDate>Sat, 25 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-3-spring-cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java多线程</title>
+      <link>/posts/tech/java-1-thread/</link>
+      <pubDate>Thu, 09 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-1-thread/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Java面试准备1</title>
+      <link>/posts/tech/java-0-audition/</link>
+      <pubDate>Mon, 29 Apr 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/java-0-audition/</guid>
+      <description>&lt;p&gt;本篇对面试的作用微乎其微&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Kali添加环境变量</title>
+      <link>/posts/tech/env-var/</link>
+      <pubDate>Fri, 07 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/env-var/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>记第一次从gal中解包提取素材和剧本</title>
+      <link>/posts/tech/gal-extract/</link>
+      <pubDate>Sun, 06 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/gal-extract/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>记一次简单的救砖经历</title>
+      <link>/posts/tech/phone-root/</link>
+      <pubDate>Sun, 01 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/phone-root/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>我的Hugo&#43;Github page搭建博客教程</title>
+      <link>/posts/tech/blog_instruct/</link>
+      <pubDate>Sat, 27 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/blog_instruct/</guid>
+      <description>&lt;p&gt;(多图警告！）给一些需要的朋友，互联网本身也有很多教程，反正有疑问的地方可以通过网站给出的链接询问~&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

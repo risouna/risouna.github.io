@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>git&gitlab - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="git&amp;gitlab">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-12T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-11-12T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1606">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="git&amp;gitlab" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/basic-git/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-12T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-11-12T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="git&amp;gitlab"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">Git&amp;gitlab</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">Git&amp;gitlab
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-11-12
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>4 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy">#基础能力</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#git">git</a></li>
+    <li><a href="#gitlab">Gitlab</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="git">git</h2>
+<p>1.创建repository仓库</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>git --version
+<span class="ln">2</span>mkdir my-cool-website
+<span class="ln">3</span>cd my-cool-website
+<span class="ln">4</span>git status #在不知道怎么办时获取一些信息
+<span class="ln">5</span>git init #初始化仓库
+<span class="ln">6</span>git status
+</code></pre></div><p>2.设置用户信息</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>## global 全局配置
+<span class="ln">2</span>git config --global user.name &#34;Valenti Despa&#34;
+<span class="ln">3</span>git config --global user.email &#34;valenti@example.com&#34;
+</code></pre></div><p>3.第一次commit提交</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>git commit #无文件提交(文件没有变化)
+<span class="ln">2</span>vim readme.md #:x保存退出
+<span class="ln">3</span>git status #出现未跟踪文件
+<span class="ln">4</span>git add readme.md #添加追踪文件（暂存区）
+<span class="ln">5</span>git status #出现要提交的变更
+<span class="ln">6</span>git commit -m &#34;My first commit&#34;
+</code></pre></div><p>4.一次提交多个文件</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>vim index.html
+<span class="ln">2</span>vim readme.md
+<span class="ln">3</span>git status #出现未跟踪的文件以及待提交的变更
+<span class="ln">4</span>#一个一个添加
+<span class="ln">5</span>#git add readme.md index.html
+<span class="ln">6</span>git add . #全部添加
+</code></pre></div><p>5.取消暂存区的文件的变更</p>
+<p>这样做不意味着原文件的变更取消了</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>git reset HEAD readme.md
+<span class="ln">2</span>git status
+<span class="ln">3</span>git commit -m &#34;Added first page&#34;
+<span class="ln">4</span>
+<span class="ln">5</span>git add .
+<span class="ln">6</span>git status
+<span class="ln">7</span>git commit -m &#34;Improve readme&#34;
+<span class="ln">8</span>git status
+<span class="ln">9</span>
+</code></pre></div><p>6.查看变更</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>git log 
+<span class="ln">2</span>git log --patch #查看更详细的变更
+</code></pre></div><p>7.提交文件夹</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>mkdir temp
+<span class="ln">2</span>git status #git不跟踪文件夹
+<span class="ln">3</span>#插入空文件
+<span class="ln">4</span>touch temp/.gitkeep
+<span class="ln">5</span>git status
+<span class="ln">6</span>git add .
+<span class="ln">7</span>git commit -m &#34;Added temp folder&#34;
+</code></pre></div><p>8.删除文件</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>#未跟踪文件
+<span class="ln"> 2</span>touch newfile.txt
+<span class="ln"> 3</span>git status #未跟踪文件
+<span class="ln"> 4</span>rm newfile.txt
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>#在跟踪文件
+<span class="ln"> 7</span>rm -rf -- temp #删除在跟踪目录
+<span class="ln"> 8</span>git status
+<span class="ln"> 9</span>git add . #暂存区删除目录
+<span class="ln">10</span>git commit -m &#34;Removed temp folder&#34;
+</code></pre></div><p>9..gitignore文件</p>
+<p>有些文件在目录中但是不想让他们在仓库中，使用gitignore排除他们。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>mkdir config
+<span class="ln"> 2</span>touch config/private.txt
+<span class="ln"> 3</span>git status
+<span class="ln"> 4</span>vim .gitignore
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>config
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>git status
+<span class="ln"> 9</span>git add .
+<span class="ln">10</span>git commit -m &#34;Added gitignore configuration&#34;
+</code></pre></div><p>10.创建分支</p>
+<p>创建实验性的东西， 开发新功能等。这样不会影响主分支</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>git checkout -b feature/new-table #创建新分支并切换
+<span class="ln"> 2</span>git status
+<span class="ln"> 3</span>vim index.html
+<span class="ln"> 4</span>git add .
+<span class="ln"> 5</span>git commit -m &#34;Added table&#34;
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>git checkout master #回到主分支
+<span class="ln"> 8</span>cat index.html #没有变化
+<span class="ln"> 9</span>
+<span class="ln">10</span>git checkout feature/new-table
+</code></pre></div><p>11.合并分支</p>
+<p>这里只是出现简单合并。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>git branch -d featrue/new-table #删除分支出现error
+<span class="ln">2</span>
+<span class="ln">3</span>git checkout master
+<span class="ln">4</span>git merge feature/new-table
+<span class="ln">5</span>git log
+<span class="ln">6</span>
+<span class="ln">7</span>#合并模式为fastforward， 这只会在当master没有出现更改情况下的合并
+<span class="ln">8</span>git branch -d featrue/new-table 
+</code></pre></div><p>12.高级分支场景</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>git checkout -b bugfix/table
+<span class="ln"> 2</span>vim index.html
+<span class="ln"> 3</span>git add .
+<span class="ln"> 4</span>git status
+<span class="ln"> 5</span>git commit -m &#34;Added table cell&#34;
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>git checkout master
+<span class="ln"> 8</span>vim readme.md
+<span class="ln"> 9</span>git add .
+<span class="ln">10</span>git commit -m &#34;Learning branching&#34;
+<span class="ln">11</span>
+<span class="ln">12</span>#这时出现了双分支。两分支无共同父
+<span class="ln">13</span>git merge bugfix/table 
+<span class="ln">14</span>#这时使用的是recursive 递归策略
+<span class="ln">15</span>
+</code></pre></div><p>13.获取另一个分支的修改</p>
+<p>这样可以使得两个分支在一些文件保持一直， 可以进行快速合并</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>git checkout -b bugfix/table-2
+<span class="ln"> 2</span>vim index.html
+<span class="ln"> 3</span>git add .
+<span class="ln"> 4</span>git commit -m &#34;Added 2nd cell&#34;
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>git checkout master
+<span class="ln"> 7</span>vim readme.md
+<span class="ln"> 8</span>git add .
+<span class="ln"> 9</span>git commit -m &#34;Learning rebaseing&#34;
+<span class="ln">10</span>
+<span class="ln">11</span>#不能进行快速合并
+<span class="ln">12</span>
+<span class="ln">13</span>git checkout bugfix/table-2
+<span class="ln">14</span>#bugfix/table-2获取，master的修改
+<span class="ln">15</span>git rebase master
+<span class="ln">16</span>
+<span class="ln">17</span>git log
+<span class="ln">18</span>git checkout master
+<span class="ln">19</span>#快速合并
+<span class="ln">20</span>git merge bugfix/table-2
+</code></pre></div><p>14.解决合并冲突</p>
+<p>合并冲突通常是两次提交修改到了同一文件甚至三同一行</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>#准备
+<span class="ln"> 2</span>git checkout -b bugfix/table-3
+<span class="ln"> 3</span>vim index.html
+<span class="ln"> 4</span>git add .
+<span class="ln"> 5</span>git commit -m &#34;Rename cell&#34;
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>git checkout master
+<span class="ln"> 8</span>vim index.html #修改同一行
+<span class="ln"> 9</span>git add .
+<span class="ln">10</span>git commit -m &#34;Renamed in My cell&#34;
+<span class="ln">11</span>
+<span class="ln">12</span>#冲突
+<span class="ln">13</span>git merge bugfix/table-3 #冲突
+<span class="ln">14</span>git status #both modified: index.html
+<span class="ln">15</span>git merge --abort #停止合并
+<span class="ln">16</span>git status #一切都好
+<span class="ln">17</span>
+<span class="ln">18</span>git checkout bugfix/table-3
+<span class="ln">19</span>git rebase master #冲突
+<span class="ln">20</span>git rebase --abort #停止同步
+<span class="ln">21</span>
+<span class="ln">22</span>#解决
+<span class="ln">23</span>git merge bugfix/table-3 #冲突
+<span class="ln">24</span>git status #both modified: index.html
+<span class="ln">25</span>vim index.html #出现HEAD， 分支等信息， 告诉你那里冲突了
+<span class="ln">26</span>#解决冲突， 可以使用ide打开更好解决。
+<span class="ln">27</span>
+<span class="ln">28</span>#告诉git已经处理好冲突
+<span class="ln">29</span>git add index.html
+<span class="ln">30</span>git commit -m &#34;Resolve conflict&#34;
+<span class="ln">31</span>git status
+</code></pre></div><p>15.在远程仓库开发</p>
+<ol>
+<li>
+<p>创建新的项目</p>
+</li>
+<li>
+<p>创建新仓库或者推送已有仓库</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>git init
+<span class="ln">2</span>   
+<span class="ln">3</span>#origin是后面链接的别名
+<span class="ln">4</span>git remote add origin git@gitlab.---.team:---/my-cool-website.git
+<span class="ln">5</span>   
+<span class="ln">6</span>git remote -v #显示所有远程库
+</code></pre></div></li>
+<li>
+<p>推送变化</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>#注意如果没有sshkey需要生成并上传到代码平台
+<span class="ln">2</span>ssh-keygem -t rsa -C &#34;...&#34;
+<span class="ln">3</span>   
+<span class="ln">4</span>#只推送master
+<span class="ln">5</span>git push origin master
+</code></pre></div></li>
+</ol>
+<h2 id="gitlab">Gitlab</h2>
+<p>1.gitlab web界面</p>
+<p>可以查看提交commit看看那些内容发生了变化</p>
+<p>可以master旁边添加分支</p>
+<p>可以快速改变文件内容而不需要在本地改变</p>
+<p>2.web界面中commit</p>
+<p>直接edit文件，然后commit就行</p>
+<p>3.从远程拉取变化到本地</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>git pull
+<span class="ln">2</span>git pull origin master
+</code></pre></div><p>4.解决冲突</p>
+<p>本地commit之后， web那里也收到了同一文件的commit, 这是本地不能push</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>#方法一：
+<span class="ln"> 2</span>#先把远程的冲突pull过来
+<span class="ln"> 3</span>git pull origin master
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>#进行冲突处理。merge commit  
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>#方法二：
+<span class="ln"> 8</span>#直接同步为远端的master
+<span class="ln"> 9</span>git reset --hard origin/master
+<span class="ln">10</span>
+<span class="ln">11</span>#或者rebase， 解决冲突/自动合并 
+<span class="ln">12</span>git pull origin master --rebase
+</code></pre></div><p>5.克隆远端仓库</p>
+<p>clone按钮有连接</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>git clone 链接
+</code></pre></div><p>6.将分支合并到master</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>git pull 更新
+<span class="ln"> 2</span>git checkout -b feature/cool-table
+<span class="ln"> 3</span>git add .
+<span class="ln"> 4</span>git commit -m &#34;Text change&#34;
+<span class="ln"> 5</span>#推送远端分支
+<span class="ln"> 6</span>git push origin feature/cool-table
+<span class="ln"> 7</span>#进行merge request， 请求合并到主分支
+<span class="ln"> 8</span>访问连接， 或者gitlab上merge‘
+<span class="ln"> 9</span>
+<span class="ln">10</span>vim index.html
+<span class="ln">11</span>git add .
+<span class="ln">12</span>git commit -m &#34;fix&#34;
+<span class="ln">13</span>git push origin feature/cool-table
+<span class="ln">14</span>这样再次更改也会反映在merge中。
+<span class="ln">15</span>squash commit可以合并多个commit， 保持历史记录整洁
+</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/media-misc-rst/">Rst语法
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li><li><a href="/posts/tech/js-1-vue/">Vue基础
+</a></li><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
+</a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">26</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

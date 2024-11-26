@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RDF-4566 SDP协议阅读 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="RDF-4566 SDP协议阅读">
+<meta itemprop="description" content="不想看了."><meta itemprop="datePublished" content="2024-11-19T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-11-19T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="4652">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="RDF-4566 SDP协议阅读" />
+<meta property="og:description" content="不想看了." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/media-sdp/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-19T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-11-19T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RDF-4566 SDP协议阅读"/>
+<meta name="twitter:description" content="不想看了."/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">RDF-4566 SDP协议阅读</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">RDF-4566 SDP协议阅读
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-11-19
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>10 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#sdprfc-4566原文件阅读">SDP（rfc-4566）原文件阅读</a>
+      <ul>
+        <li><a href="#1introduction">1.Introduction</a></li>
+        <li><a href="#2glossary-of-terms">2.Glossary of Terms</a></li>
+        <li><a href="#3examples-of-sdp-usage">3.Examples of SDP Usage</a></li>
+        <li><a href="#4requirements-and-recommendations">4.Requirements and Recommendations</a></li>
+        <li><a href="#5-sdp-specification">5. SDP Specification</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><p>不想看了.</p>
+<h2 id="sdprfc-4566原文件阅读">SDP（rfc-4566）原文件阅读</h2>
+<p>rfc-4566， SDP(Session Description Protocol 会话描述协议) 协议原文件解读。由于是第一次阅读RFC，所以会比较详尽，以后的RFC文档只抓关键，其他的需要时查阅。</p>
+<p>参考：</p>
+<p><a href="https://www.rfc-editor.org/info/rfc4566">https://www.rfc-editor.org/info/rfc4566</a></p>
+<p>中文的翻译部分参考:</p>
+<p><a href="https://blog.csdn.net/jisuanji111111/article/details/120956930">https://blog.csdn.net/jisuanji111111/article/details/120956930</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/429477119">https://zhuanlan.zhihu.com/p/429477119</a></p>
+<p>这里我只贴出英文和必要的和一些没有翻译的中文， 全中文查阅上面的链接。</p>
+<hr>
+<p>SDP is intended for describing multimedia sessions for the purposes of session announcement, session invitation, and other forms of multimedia session initiation.</p>
+<h3 id="1introduction">1.Introduction</h3>
+<p>场景：When initiating multimedia teleconferences, voice-over-IP calls, streaming video, or other sessions,</p>
+<p>需求：there is a requirement to convey <strong>media details</strong>, <strong>transport addresses</strong>, and <strong>other session description metadata</strong> to the participants.</p>
+<p>简单描述： SDP provides a standard representation for such information, irrespective of how that information is transported.  SDP is purely a format for session description &ndash; it does not incorporate a transport protocol, and it is intended to use different transport protocols as appropriate（单纯的会话描述格式， 不包括传输协议，灵活运用）。It is not intended to support negotiation of session content or media encodings</p>
+<h3 id="2glossary-of-terms">2.Glossary of Terms</h3>
+<p>三个重要术语：会议、会话、会话描述</p>
+<ul>
+<li>
+<p><strong>Conference</strong>: A multimedia conference is a set of two or more
+communicating users along with the software they are using to
+communicate.</p>
+</li>
+<li>
+<p><strong>Session</strong>: A multimedia session is a set of multimedia senders and
+receivers and the data streams flowing from senders to receivers.
+A multimedia conference is an example of a multimedia session.</p>
+</li>
+<li>
+<p><strong>Session Description</strong>: A well-defined format for conveying sufficient
+information to discover and participate in a multimedia session.</p>
+</li>
+</ul>
+<p>RFC通用关键字：</p>
+<p>The key words &ldquo;MUST&rdquo;, &ldquo;MUST NOT&rdquo;, &ldquo;REQUIRED&rdquo;, &ldquo;SHALL&rdquo;, &ldquo;SHALL NOT&rdquo;, &ldquo;SHOULD&rdquo;, &ldquo;SHOULD NOT&rdquo;, &ldquo;RECOMMENDED&rdquo;, &ldquo;MAY&rdquo;, and &ldquo;OPTIONAL&rdquo; in this document are to be interpreted as described in RFC 2119 [3].</p>
+<h3 id="3examples-of-sdp-usage">3.Examples of SDP Usage</h3>
+<ol>
+<li>用于SIP协议中的session descriptions信息。</li>
+<li>用于部分RTSP服务器和客户端关于parameters for media delivery的沟通</li>
+<li>用于携带电子邮件和www的会话信息描述， 它没有传输可靠的性质</li>
+<li>用作会话目录用于多播会话场景</li>
+</ol>
+<h3 id="4requirements-and-recommendations">4.Requirements and Recommendations</h3>
+<p>目的：Thus far, multicast-based sessions on the Internet have differed from many other forms of conferencing in that anyone receiving the traffic can join the session (unless the session traffic is encrypted).  In such an environment, SDP serves two primary purposes.  It is a means to communicate the existence of a session, and it is a means to convey sufficient information to enable joining and participating in the session.  In a unicast environment, only the latter purpose is likely to be relevant.</p>
+<p>SDP session decription包括：</p>
+<ul>
+<li>Session name and purpose</li>
+<li>Time(s) the session is active</li>
+<li>The media comprising the session</li>
+<li>Information needed to receive those media (addresses, ports, formats, etc.)</li>
+</ul>
+<p>其他可能信息：</p>
+<ul>
+<li>Information about the bandwidth to be used by the session</li>
+<li>Contact information for the person responsible for the session</li>
+</ul>
+<p>SDP用途：In general, SDP must convey sufficient information to enable applications to join a session (with the possible exception of encryption keys) and to announce the resources to be used to any non-participants that may need to know.  (This latter feature is primarily useful when SDP is used with a multicast session announcement protocol.)</p>
+<h4 id="41-media-and-transport-information">4.1. Media and Transport Information</h4>
+<p>SDP应携带的关于媒体和传输的信息</p>
+<p>An SDP session description includes the following <strong>media information</strong>:</p>
+<ul>
+<li>The <strong>type</strong> of media (video, audio, etc.)</li>
+<li>The transport <strong>protocol</strong> (RTP/UDP/IP, H.320, etc.)</li>
+<li>The <strong>format</strong> of the media (H.261 video, MPEG video, etc.)</li>
+</ul>
+<p>In addition to media format and transport protocol, SDP conveys address and port details.  For an <strong>IP multicast session</strong>, these comprise:</p>
+<ul>
+<li>
+<p>The multicast group address for media</p>
+</li>
+<li>
+<p>The transport port for media</p>
+</li>
+</ul>
+<p>This address and port are the destination address and destination port of the multicast stream, whether being sent, received, or both.</p>
+<p>For <strong>unicast IP sessions</strong>, the following are conveyed:</p>
+<ul>
+<li>
+<p>The remote address for media</p>
+</li>
+<li>
+<p>The remote transport port for media</p>
+</li>
+</ul>
+<p>The semantics of this address and port depend on the media and transport protocol defined.  By default, this <strong>SHOULD be the remote address and remote port to which data is sent</strong>.  Some media types may redefine this behaviour, but this is NOT RECOMMENDED since it complicates implementations (including middleboxes that must parse the addresses to open Network Address Translation (NAT) or firewall pinholes).</p>
+<h4 id="42-timing-information">4.2. Timing Information</h4>
+<p>时间信息， 应该是有界的。</p>
+<p>Sessions may be either bounded or unbounded in time.  Whether or not they are bounded, they may be only active at specific times.  SDP can convey:</p>
+<ul>
+<li>
+<p>An arbitrary list of start and stop times bounding the session</p>
+</li>
+<li>
+<p>For each bound, repeat times such as &ldquo;every Wednesday at 10am for one hour&rdquo;</p>
+</li>
+</ul>
+<p>This timing information is <strong>globally consistent</strong>, irrespective of local time zone or daylight saving time (see Section 5.9). （关于时间全球一致的：）</p>
+<h4 id="43-private-sessions">4.3. Private Sessions</h4>
+<p>可以通过加密session description实现私有会话， 可以通过private announcement传递加密密钥和加密方案</p>
+<p>private sessions are typically conveyed by encrypting the session description during distribution. The details of how encryption is performed are dependent on the mechanism used to convey SDP; mechanisms are currently defined for SDP transported using SAP [14] and SIP [15]</p>
+<p>If a session announcement is private, it is possible to use that private announcement to convey encryption keys necessary to decode each of the media in a conference, including enough information to know which encryption scheme is used for each media.</p>
+<h4 id="44-obtaining-further-information-about-a-session">4.4. Obtaining Further Information about a Session</h4>
+<p>应携带足够的足以参与会话的信息</p>
+<p>A session description should convey enough information to decide whether or not to participate in a session. SDP may include additional pointers in the form of Uniform Resource Identifiers(URIs) for more information about the session.</p>
+<h4 id="45-categorisation">4.5. Categorisation</h4>
+<p>过滤会话描述， 通过属性a。</p>
+<p>When many session descriptions are being distributed by SAP, or any other advertisement mechanism, it may be desirable to filter session announcements that are of interest from those that are not. SDP supports a categorisation mechanism for sessions that is capable of being automated (the &ldquo;a=cat:&rdquo; attribute; see Section 6).</p>
+<h4 id="46-internationalisation">4.6. Internationalisation</h4>
+<p>国际化。要求UTF8编码的ISO 10646字符集应用于部分字段， 为了压缩可以在其他字段使用其他字符集。</p>
+<p>The SDP specification recommends the use of the ISO 10646 character sets in the UTF-8 encoding [5] to allow many different languages to be represented. However, to assist in compact representations, SDP
+also allows other character sets such as ISO 8859-1 to be used when desired. Internationalisation only applies to free-text fields (session name and background information), and not to SDP as a whole.</p>
+<h3 id="5-sdp-specification">5. SDP Specification</h3>
+<p>规范。一些字符规定， 一些格式规定，一些行为规定及其原因</p>
+<ol>
+<li>An SDP session description is entirely textual using the ISO 10646 character set in UTF-8 encoding. SDP field names and attribute names use only the US-ASCII subset of UTF-8, but textual fields and attribute values MAY use the full ISO 10646 character set. Field and attribute values that use the full UTF-8 character set are never directly compared, hence there is no requirement for UTF-8 normalisation.</li>
+<li>The textual form, as opposed to a binary encoding such as ASN.1 or XDR, was chosen to enhance portability, to enable a variety of transports to be used, and to allow flexible, text-based toolkits to be used to generate and process session descriptions.</li>
+<li>However, since SDP may be used in environments where the maximum permissible size of a session description is limited, the <strong>encoding is deliberately compact</strong>.</li>
+<li>Also, since announcements may be transported via very unreliable means or damaged by an intermediate caching server, the encoding was designed with <strong>strict order and formatting rules</strong> so that most errors would result in malformed session announcements that could be detected easily and discarded.</li>
+<li>This also allows <strong>rapid discarding of encrypted session announcements</strong> for which a receiver does not have the correct key.</li>
+</ol>
+<p>SDP会话描述综述。会话层，媒体层，可选项。</p>
+<p>An SDP session description consists of a number of lines of text of the form:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>&lt;type&gt;=&lt;value&gt;
+</code></pre></div><p>where &lt;type&gt; MUST be exactly one case-significant character and &lt;value&gt; is structured text whose format depends on &lt;type&gt;. In general, &lt;value&gt; is either a number of fields delimited by a single space character or a free format string, and is case-significant unless a specific field defines otherwise. Whitespace MUST NOT be used on either side of the &ldquo;=&rdquo; sign.</p>
+<p>An SDP session description consists of a session-level section followed by zero or more media-level sections. The session-level part starts with a &ldquo;v=&rdquo; line and continues to the first media-level section. Each media-level section starts with an &ldquo;m=&rdquo; line and continues to the next media-level section or end of the whole session description. In general, session-level values are the default for all media unless overridden by an equivalent media-level value.</p>
+<p>Some lines in each description are REQUIRED and some are OPTIONAL, but all MUST appear in exactly the order given here (the fixed order greatly enhances error detection and allows for a simple parser). OPTIONAL items are marked with a &ldquo;*&rdquo;.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session description
+<span class="ln"> 2</span>	v= (protocol version)(协议版本)
+<span class="ln"> 3</span>	o= (originator and session identifier)(创建者和会话标识符)
+<span class="ln"> 4</span>	s= (session name)(会话名称)
+<span class="ln"> 5</span>	i=* (session information)(会话信息)
+<span class="ln"> 6</span>	u=* (URI of description)(描述的URI)
+<span class="ln"> 7</span>	e=* (email address)(邮箱地址)
+<span class="ln"> 8</span>	p=* (phone number)(电话)
+<span class="ln"> 9</span>	c=* (connection information -- not required if included in all media)(连接信息 - 如果包		含在媒体信息中，则不需要该字段)
+<span class="ln">10</span>	b=* (zero or more bandwidth information lines)(零行或多行带宽信息)
+<span class="ln">11</span>	One or more time descriptions (&#34;t=&#34; and &#34;r=&#34; lines; see below)
+<span class="ln">12</span>	z=* (time zone adjustments)(时区调整)
+<span class="ln">13</span>	k=* (encryption key)(加密密钥)
+<span class="ln">14</span>	a=* (zero or more session attribute lines)(零行或多行会话属性)
+<span class="ln">15</span>	Zero or more media descriptions
+<span class="ln">16</span>	
+<span class="ln">17</span>Time description
+<span class="ln">18</span>	t= (time the session is active)(会话活跃时间)
+<span class="ln">19</span>	r=* (zero or more repeat times)(零次或多次会话重复次数)
+<span class="ln">20</span>	
+<span class="ln">21</span>Media description, if present
+<span class="ln">22</span>	m= (media name and transport address)(媒体名称和传输地址)
+<span class="ln">23</span>	i=* (media title)(媒体标题)
+<span class="ln">24</span>	c=* (connection information -- optional if included at
+<span class="ln">25</span>		session level)(连接信息 - 如果包含在会话信息中，则不需要该字段)
+<span class="ln">26</span>	b=* (zero or more bandwidth information lines)(零行或多行带宽信息)
+<span class="ln">27</span>	k=* (encryption key)(加密密钥)
+<span class="ln">28</span>	a=* (zero or more media attribute lines)(零行或多行媒体属性)
+</code></pre></div><ul>
+<li>
+<p>The set of type letters is deliberately small and not intended to be extensible &ndash; an SDP parser MUST completely ignore any session description that contains a type letter that it does not understand.</p>
+</li>
+<li>
+<p>a属性用作扩展：The attribute mechanism (&ldquo;a=&rdquo; described below) is the primary means for extending SDP and tailoring it to particular applications or media.</p>
+</li>
+<li>
+<p>Some attributes (the ones listed in Section 6 of this memo) have a defined meaning, but others may be added on an application-, media-, or session-specific basis.</p>
+</li>
+<li>
+<p>忽略没有规范的内容：An SDP parser MUST ignore any attribute it doesn’t understand.</p>
+</li>
+<li>
+<p>外部引用：An SDP session description may contain URIs that reference external content in the &ldquo;u=&rdquo;, &ldquo;k=&rdquo;, and &ldquo;a=&rdquo; lines. These URIs may be dereferenced in some cases, making the session description non-self- contained.</p>
+</li>
+<li>
+<p>所有媒体的默认属性：The connection (&ldquo;c=&quot;) and attribute (&ldquo;a=&quot;) information in the session-level section applies to all the media of that session unless overridden by connection information or an attribute of the same name
+in the media description. For instance, in the example below, each media behaves as if it were given a &ldquo;recvonly&rdquo; attribute.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>v=0
+<span class="ln"> 2</span>o=jdoe 2890844526 2890842807 IN IP4 10.47.16.5
+<span class="ln"> 3</span>s=SDP Seminar
+<span class="ln"> 4</span>i=A Seminar on the session description protocol
+<span class="ln"> 5</span>u=http://www.example.com/seminars/sdp.pdf
+<span class="ln"> 6</span>e=j.doe@example.com (Jane Doe)
+<span class="ln"> 7</span>c=IN IP4 224.2.17.12/127
+<span class="ln"> 8</span>t=2873397496 2873404696
+<span class="ln"> 9</span>a=recvonly
+<span class="ln">10</span>m=audio 49170 RTP/AVP 0
+<span class="ln">11</span>m=video 51372 RTP/AVP 99
+<span class="ln">12</span>a=rtpmap:99 h263-1998/90000
+</code></pre></div></li>
+<li>
+<p>文本域的一些特殊字符：Text fields such as the session name and information are octet（八位字节） strings that may contain any octet with the exceptions of 0x00 (Nul), 0x0a (ASCII newline), and 0x0d (ASCII carriage return).</p>
+</li>
+<li>
+<p>协议结尾：The sequence CRLF (0x0d0a) is used to end a record, although parsers SHOULD be tolerant and also accept records terminated with a single newline character.</p>
+</li>
+<li>
+<p>如何解析：If the &ldquo;a=charset&rdquo; attribute is not present, these octet strings MUST be interpreted as containing ISO-10646 characters in UTF-8 encoding (the presence of the &ldquo;a=charset&rdquo; attribute may force some fields to be interpreted differently).</p>
+</li>
+<li>
+<p>包含域名的使用：A session description can contain domain names in the &ldquo;o=&rdquo;, &ldquo;u=&rdquo;, &ldquo;e=&rdquo;, &ldquo;c=&rdquo;, and &ldquo;a=&rdquo; lines. Any domain name used in SDP MUST comply with [1], [2].</p>
+</li>
+<li>
+<p>域名的编码：Internationalised domain names (IDNs) MUST be represented using the ASCII Compatible Encoding (ACE) form defined in [11] and MUST NOT be directly represented in UTF-8 or any other encoding (this requirement is for compatibility with RFC 2327 and other SDP-related standards, which predate the development of internationalised domain names).</p>
+</li>
+</ul>
+<h4 id="51-protocol-version-v">5.1. Protocol Version (&ldquo;v=&quot;)</h4>
+<p>目前只有版本0</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>v=0
+</code></pre></div><p>The &ldquo;v=&rdquo; field gives the version of the Session Description Protocol. This memo defines version 0. There is no minor version number.</p>
+<h4 id="52-origin-o">5.2. Origin (&ldquo;o=&quot;)</h4>
+<p>会话组织者，会话标识符，版本号</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>o=&lt;username&gt; &lt;sess-id&gt; &lt;sess-version&gt; &lt;nettype&gt; &lt;addrtype&gt; &lt;unicast-address&gt;
+</code></pre></div><p>The &ldquo;o=&rdquo; field gives the originator of the session (her username and the address of the user’s host) plus a session identifier and version number:</p>
+<ul>
+<li><code>&lt;username&gt;</code>（不能有空格） is the user’s login on the originating host, or it is &ldquo;-&rdquo; if the originating host does not support the concept of user IDs. The <code>&lt;username&gt;</code> MUST NOT contain spaces.</li>
+<li><code>&lt;sess-id&gt;</code> （基于这个字段的所有属性通过工具生成）is a numeric string such that the tuple of <code>&lt;username&gt;, &lt;sess-id&gt;, &lt;nettype&gt;, &lt;addrtype&gt;</code>, and <code>&lt;unicast-address&gt; </code>forms a globally unique identifier for the session. The method of <code>&lt;sess-id&gt;</code> allocation is up to the creating tool, but it has been suggested that a Network Time Protocol (NTP) format timestamp be used to ensure uniqueness [13].</li>
+<li><code>&lt;sess-version&gt;</code>（版本信息，通过工具生成） is a version number for this session description. Its usage is up to the creating tool, so long as（只要） <code>&lt;sess-version&gt;</code> is increased when a modification is made to the session data. Again, it is RECOMMENDED that an NTP format timestamp is used.</li>
+<li><code>&lt;nettype&gt;</code>（网络类型。一般就是IN了） is a text string giving the type of network. Initially &ldquo;IN&rdquo; is defined to have the meaning &ldquo;Internet&rdquo;, but other values MAY be registered in the future (see Section 8).</li>
+<li><code>&lt;addrtype&gt;</code>（地址类型） is a text string giving the type of the address that follows. Initially &ldquo;IP4&rdquo; and &ldquo;IP6&rdquo; are defined, but other values MAY be registered in the future (see Section 8).</li>
+<li><code>&lt;unicast-address&gt;</code>（创建会话者的地址，最好使用域名，不要使用内网地址） is the address of the machine from which the session was created. For an address type of IP4, this is either the fully qualified domain name of the machine or the dotted- decimal representation of the IP version 4 address of the machine. For an address type of IP6, this is either the fully qualified domain name of the machine or the compressed textual representation of the IP version 6 address of the machine. For both IP4 and IP6, the fully qualified domain name is the form that SHOULD be given unless this is unavailable, in which case the globally unique address MAY be substituted. A local IP address MUST NOT be used in any context where the SDP description might leave the scope in which the address is meaningful (for example, a local address MUST NOT be included in an application-level referral that might leave the scope).</li>
+</ul>
+<p>综述：In general, the &ldquo;o=&rdquo; field serves as a globally unique identifier for this version of this session description, and the subfields excepting the version taken together identify the session irrespective of any modifications.</p>
+<p>安全考虑可以随意填充username和unicast：For privacy reasons, it is sometimes desirable to obfuscate（混淆） the username and IP address of the session originator. If this is a concern, an arbitrary <code>&lt;username&gt;</code> and private <code>&lt;unicast-address&gt;</code> MAY be chosen to populate（填充） the &ldquo;o=&rdquo; field, provided that these are selected in a manner that does not affect the global uniqueness of the field.</p>
+<h4 id="53-session-name-s">5.3. Session Name (&ldquo;s=&quot;)</h4>
+<p>文字会话名。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>s=&lt;session name&gt;
+</code></pre></div><p>The &ldquo;s=&rdquo; field is the textual session name. There MUST be one and only one &ldquo;s=&rdquo; field per session description. The &ldquo;s=&rdquo; field MUST NOT be empty and SHOULD contain ISO 10646 characters (but see also the &ldquo;a=charset&rdquo; attribute). If a session has no meaningful name, the value &ldquo;s= &quot; SHOULD be used (i.e., a single space as the session name).</p>
+<h4 id="54-session-information-i">5.4. Session Information (&ldquo;i=&quot;)</h4>
+<p>会话的一些描述信息。用作媒体域时是分类标签各个媒体</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>i=&lt;session description&gt;
+</code></pre></div><p>作为会话的描述信息：The &ldquo;i=&rdquo; field provides textual information about the session. There MUST be at most one session-level &ldquo;i=&rdquo; field per session description, and at most one &ldquo;i=&rdquo; field per media. If the &ldquo;a=charset&rdquo; attribute is present, it specifies the character set used in the &ldquo;i=&rdquo; field. If the &ldquo;a=charset&rdquo; attribute is not present, the &ldquo;i=&rdquo; field MUST contain ISO 10646 characters in UTF-8 encoding.</p>
+<p>区分同一会话下同一类型的媒体：A single &ldquo;i=&rdquo; field MAY also be used for each media definition. In media definitions, &ldquo;i=&rdquo; fields are primarily intended for labelling media streams. As such, they are most likely to be useful when a single session has more than one distinct media stream of the same media type. An example would be two different whiteboards, one for slides and one for feedback and questions.</p>
+<p>The &ldquo;i=&rdquo; field is intended to provide a free-form human-readable description of the session or the purpose of a media stream. It is not suitable for parsing by automata（自动机）.</p>
+<h4 id="55-uri-u">5.5. URI (&ldquo;u=&quot;)</h4>
+<p>关于会话其他信息的uri。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>u=&lt;uri&gt;
+</code></pre></div><p>A URI is a Uniform Resource Identifier as used by WWW clients [7]. The URI should be a pointer to additional information about the session. This field is OPTIONAL, but if it is present it MUST be specified before the first media field. No more than one URI field is allowed per session description.</p>
+<h4 id="56-email-address-and-phone-number-e-and-p">5.6. Email Address and Phone Number (&ldquo;e=&rdquo; and &ldquo;p=&quot;)</h4>
+<p>会议负责人的联系方式。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>e=&lt;email-address&gt;
+<span class="ln">2</span>p=&lt;phone-number&gt;
+</code></pre></div><p>The &ldquo;e=&rdquo; and &ldquo;p=&rdquo; lines specify contact information for the person responsible for the conference. This is not necessarily the same person that created the conference announcement.</p>
+<p>Inclusion of an email address or phone number is OPTIONAL. Note that the previous version of SDP specified that either an email field or a phone field MUST be specified, but this was widely ignored. The change brings the specification into line with common usage.</p>
+<p>If an email address or phone number is present, it MUST be specified before the first media field. More than one email or phone field can be given for a session description.</p>
+<p>Phone numbers SHOULD be given in the form of an international public telecommunication number (see ITU-T Recommendation E.164) preceded by a &ldquo;+&rdquo;. Spaces and hyphens may be used to split up a phone field to aid readability if desired. For example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>p=+1 617 555-6011 
+</code></pre></div><p>Both email addresses and phone numbers can have an OPTIONAL free text string associated with them, normally giving the name of the person who may be contacted. This MUST be enclosed in parentheses if it is present. For example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>e=j.doe@example.com (Jane Doe)
+</code></pre></div><p>The alternative RFC 2822 [29] name quoting convention is also allowed for both email addresses and phone numbers. For example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>e=Jane Doe &lt;j.doe@example.com&gt;
+</code></pre></div><p>The free text string SHOULD be in the ISO-10646 character set with UTF-8 encoding, or alternatively in ISO-8859-1 or other encodings if the appropriate session-level &ldquo;a=charset&rdquo; attribute is set.</p>
+<h4 id="57-connection-data-c">5.7. Connection Data (&ldquo;c=&quot;)</h4>
+<p>连接数据。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>c=&lt;nettype&gt; &lt;addrtype&gt; &lt;connection-address&gt;
+</code></pre></div><p>The &ldquo;c=&rdquo; field contains connection data.</p>
+<p>A session description MUST contain either at least one &ldquo;c=&rdquo; field in each media description or a single &ldquo;c=&rdquo; field at the session level. It MAY contain a single session-level &ldquo;c=&rdquo; field and additional &ldquo;c=&rdquo; field(s) per media description, in which case the per-media values override the session-level settings for the respective media.</p>
+<p>The first sub-field (&quot;<code>&lt;nettype&gt;</code>&quot;) is the network type, which is a text string giving the type of network. Initially, &ldquo;IN&rdquo; is defined to have the meaning &ldquo;Internet&rdquo;, but other values MAY be registered in the future (see Section 8).</p>
+<p>The second sub-field (&quot;<code>&lt;addrtype&gt;</code>&quot;) is the address type. This allows SDP to be used for sessions that are not IP based. This memo only defines IP4 and IP6, but other values MAY be registered in the future (see Section 8).</p>
+<p>The third sub-field (&quot;<code>&lt;connection-address&gt;</code>&quot;) is the connection address. OPTIONAL sub-fields MAY be added after the connection address depending on the value of the <code>&lt;addrtype&gt;</code> field.</p>
+<p>When the <code>&lt;addrtype&gt;</code> is IP4 and IP6, the connection address is defined
+as follows:</p>
+<ul>
+<li>多播场景：If the session is multicast, the connection address will be an IP multicast group address. If the session is not multicast, then the connection address contains the unicast IP address of the expected data source or data relay or data sink as determined by additional attribute fields. It is not expected that unicast addresses will be given in a session description that is communicated by a multicast announcement, though this is not prohibited.</li>
+<li>Sessions using an IPv4 multicast connection address MUST also have a time to live (TTL) value present in addition to the multicast address. The TTL and the address together define the scope with which multicast packets sent in this conference will be sent. TTL values MUST be in the range 0-255. Although the TTL MUST be specified, its use to scope multicast traffic is deprecated（不赞同使用TTL限制多播流量）; applications SHOULD use an administratively scoped address instead.</li>
+</ul>
+<p>The TTL for the session is appended to the address using a slash as a separator. An example is:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>c=IN IP4 224.2.36.42/127
+</code></pre></div><p>IPv6 multicast does not use TTL scoping, and hence the TTL value MUST NOT be present for IPv6 multicast. It is expected that IPv6 scoped addresses will be used to limit the scope of conferences.</p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/media-abnf/">ABNF
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">26</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

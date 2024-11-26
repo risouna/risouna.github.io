@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Java面试准备2 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Java面试准备2">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-08-08T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-08-08T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="10805">
+<meta itemprop="keywords" content="," /><meta property="og:title" content="Java面试准备2" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/java-0-audition-2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-08-08T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-08-08T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+<meta property="og:see_also" content="/posts/tech/java-0-audition-4/" /><meta property="og:see_also" content="/posts/tech/java-0-audition-3/" /><meta property="og:see_also" content="/posts/tech/java-6-autoconfiguration/" /><meta property="og:see_also" content="/posts/tech/java-5-algorithm/" /><meta property="og:see_also" content="/posts/tech/java-4-basic/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java面试准备2"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">Java面试准备2</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">Java面试准备2
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-08-08
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>22 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/java/" class="post-taxonomy">#Java</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#京东2019春招京东java开发类试卷">京东2019春招京东Java开发类试卷</a></li>
+    <li><a href="#数据结构">数据结构</a>
+      <ul>
+        <li><a href="#数组">数组</a></li>
+        <li><a href="#字符串">字符串</a></li>
+        <li><a href="#链表">链表</a></li>
+        <li><a href="#栈">栈</a></li>
+        <li><a href="#队列">队列</a></li>
+      </ul>
+    </li>
+    <li><a href="#基础算法">基础算法</a>
+      <ul>
+        <li><a href="#复杂度">复杂度</a></li>
+        <li><a href="#排序">排序</a></li>
+        <li><a href="#查找">查找</a></li>
+        <li><a href="#哈希">哈希</a></li>
+        <li><a href="#递归">递归</a></li>
+      </ul>
+    </li>
+    <li><a href="#计算机基础">计算机基础</a>
+      <ul>
+        <li><a href="#设计模式">设计模式</a></li>
+        <li><a href="#网络基础">网络基础</a></li>
+        <li><a href="#数据库">数据库</a></li>
+        <li><a href="#操作系统">操作系统</a></li>
+      </ul>
+    </li>
+    <li><a href="#java">Java</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><p>题目来源: <a href="https://www.nowcoder.com/">https://www.nowcoder.com/</a></p>
+<p>好像是以选择题的形式, 所以暂时准备选择题.</p>
+<p>刷了一下感觉没什么意思, 还是搞算法吧.</p>
+<h2 id="京东2019春招京东java开发类试卷">京东2019春招京东Java开发类试卷</h2>
+<ol>
+<li>
+<p>在对问题的解空间树进行搜索的方法中，一个结点有<strong>多次机会成为活结点</strong>的是: 回溯法</p>
+</li>
+<li>
+<p>京东商城plus会员的消费记录金额分别为900，512，613，700，810，若采用<strong>选择排序算法</strong>对其进行从小到大的排序，第三趟排序结果为：512，613，700，900，810</p>
+<p>(关于选择排序: 给定一个数组arr,其长度为n;
+第一次从 arr[0] 到 arr[n-1] 中选取一个最值（按照需求，可以是最大值，可以是最小值，下同）与arr[0]进行交换;
+第二次从arr[1] 到 arr[n-1] 中选取一个最值与arr[1]进行交换；
+以此类推，直到arr[n-2]到arr[n-1]中选出最值交换后即完成排序。)</p>
+</li>
+<li>
+<p>线性链表中的各元素在存储空间中的位置不一定是连续的，且各元素的存储顺序也是任意的</p>
+</li>
+<li>
+<p>关于TCP协议的描述，错误的是可提供多播服务, 广播和多播仅应用于UDP；TCP是一个面向连接的协议.</p>
+</li>
+<li>
+<p>在 bash shell 环境下，当一命令正在执行时，按下 control-Z 会将前台任务转入后台</p>
+</li>
+<li>
+<p>对象间存在一对多关系，当一个对象被修改时，则会自动通知它的依赖对象，采用<strong>观察者模式</strong>设计模式最好 (观察者模式：对象间存在一对多关系，如果一个对象被修改时，会自动通知它的依赖对象。)</p>
+</li>
+<li>
+<p>关于redis说法错误的是分区可以让Redis管理更大的内存. Redis Cluster在设计中没有使用一致性哈希(Consistency Hashing),而是使用数据分片引入哈希槽(hash slot)来实现</p>
+</li>
+<li>
+<p>元数据区区域不属于新生代.  Java 中的堆是 JVM 所管理的最大的一块内存空间，主要用于存放各种类的实例对象。 在 Java 中，堆被划分成两个不同的区域：新生代 ( Young )、老年代 ( Old )。新生代 ( Young ) 又被划分为三个区域：Eden、From Survivor、To Survivor。这样划分的目的是为了使 JVM 能够更好的管理堆内存中的对象，包括内存的分配以及回收。</p>
+</li>
+<li>
+<p>程序:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>int a =100,b=50,c=a---b,d=a---b;
+<span class="ln">2</span>        System.out.println(a);
+<span class="ln">3</span>        System.out.println(b);
+<span class="ln">4</span>        System.out.println(c);
+<span class="ln">5</span>        System.out.println(d);
+</code></pre></div><p>输出98 50 50 49, 这样看: a&ndash; -b,  a&ndash; -b.</p>
+</li>
+<li>
+<p>JVM内存不包含Heap Frame. 包含Heap, Stacks, PC寄存器</p>
+</li>
+<li>
+<p>java有8种基本类型，请问byte、int、long、char、float、double、boolean各占1 4 8 2 4 8 1字节.</p>
+</li>
+<li>
+<p>程序:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>Integer a = 1;
+<span class="ln">2</span>Integer b = 1;
+<span class="ln">3</span>Integer c = 500;
+<span class="ln">4</span>Integer d = 500;
+<span class="ln">5</span>System.out.print(a == b);
+<span class="ln">6</span>System.out.print(c == d);
+</code></pre></div><p>返回true、false. Integer类型在-128&ndash;&gt;127范围之间是被缓存了的，也就是每个对象的内存地址是相同的，赋值就直接从缓存中取，不会有新的对象产生，而大于这个范围，将会重新创建一个Integer对象，也就是new一个对象出来，当然地址就不同了，也就！=；</p>
+</li>
+<li>
+<p>java8中，HashMap类用到了解决哈希冲突的<strong>开放定址法</strong></p>
+</li>
+<li>
+<p>当我们需要所有线程都执行到某一处，才进行后面的的代码执行我们可以使用CyclicBarrier. CountDownLatch 是等待一组线程执行完，才执行后面的代码。此时这组线程已经执行完。 CyclicBarrier 是等待一组线程至某个状态后再同时全部继续执行线程。此时这组线程还未执行完。</p>
+</li>
+<li>
+<p>volatile能保证数据的可见性，但不能完全保证数据的原子性，synchronized即保证了数据的可见性也保证了原子性.   volatile关键字是线程同步的轻量级实现，所以volatile性能肯定比synchronized关键字要好。但是volatile关键字只能<strong>用于变量</strong>而synchronized关键字可以<strong>修饰方法以及代码块</strong>。实际开发中使用 synchronized 关键字的场景还是更多一些。</p>
+<p>多线程访问volatile关键字不会发生阻塞，而synchronized关键字可能会发生阻塞</p>
+<p>volatile关键字能保证数据的<strong>可见性</strong>，但不能保证数据的原子性。synchronized关键字<strong>两者都能保证</strong>。</p>
+<p>volatile关键字主要用于解决变量在多个线程之间的可见性，而 synchronized关键字解决的是多个线程之间访问资源的同步性。</p>
+</li>
+<li>
+<p>在方法中，修改一个基础类型的参数不会影响原始参数值; 在方法中，改变一个对象参数的引用不会影响到原始引用(Java中方法的参数传递都是值传递); 在方法中，修改一个对象的属性会影响原始对象参数; 在方法中，修改集合和Maps的元素会影响原始集合参数.</p>
+</li>
+<li>
+<p>spring默认使用jdk动态代理，那么下面配置&lt;aop:aspectj-autoproxy proxy-target-class=&ldquo;true&rdquo;/&gt;是开启强制使用cglib代理</p>
+</li>
+<li>
+<p>算法的基本要素有对数据对象的运算和操作和算法的控制结构.</p>
+</li>
+<li>
+<p>执行以下shell语句，可以生成/test文件的是（假定执行前没有/test文件）：touch /test, a=\touch /test, &gt;/test</p>
+</li>
+<li>
+<p>不合法的shell头是(不合法指运行会报错)：!#/bin/bas (如果不是#!开头的话默认都是认为是注释的)</p>
+</li>
+<li>
+<p>可以用来获取shell脚本参数的是$1, $*</p>
+</li>
+<li>
+<p>Redis支持的数据类型是  String hash list set sortedset</p>
+</li>
+</ol>
+<h2 id="数据结构">数据结构</h2>
+<h3 id="数组">数组</h3>
+<ol>
+<li>长度为n 的非空顺序表，若在第i个位置插入新的元素X，则i的取值范围是 1≤i≤n+1，需要移动的元素个数为n-i+1</li>
+<li>数组A[8][10] 中（下标均从0开始）， 每个元素的长度为3个字节，按列存储时，元素A[4][7]的起始地址为（SA为数组存储时的首地址）SA+180</li>
+<li>稀疏矩阵压缩的存储方法是三元组, 十字链表.</li>
+</ol>
+<h3 id="字符串">字符串</h3>
+<ol>
+<li>
+<p>执行以下代码段(程序已包含所有必需的头文件)会输出4, 3</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>  char a[] = &#34;abc&#34;;
+<span class="ln">2</span>  char b[] = {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;};
+<span class="ln">3</span>  printf(&#34;%d, %d&#34;, sizeof(a), sizeof(b));
+</code></pre></div><p>不同的是数组a的长度是4个字符，而数组b的长度为3个字符，因为字符串后面会有一个'\0&rsquo;作为结束符</p>
+</li>
+<li>
+<p>有如下一段代码，The phrase of PRAISE has 42 letters and occupies 43 memory cells.是该段代码的正确输出。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>int  main(){
+<span class="ln">2</span>  printf(&#34;The phrase of PRAISE has %zd letters &#34;,strlen(PRAISE));
+<span class="ln">3</span>  printf(&#34;and occupies %zd memory cells.&#34;,sizeof(PRAISE));
+<span class="ln">4</span>  return 0;
+<span class="ln">5</span>}
+</code></pre></div><p>使用strlen可得到字符串中包括空格和标点符号在内的字符数。</p>
+<p>使用sizeof运算符，得到的数会更大，因为它会把字符串末尾不可见的空字符也计算在内</p>
+</li>
+<li>
+<p>设栈的初始状态为空，当字符序列 &ldquo;a3_&rdquo; 作为栈的输入时，输出长度为 3 的且可以用作 C 语言标识符的字符串序列有3个。(C语言的标识符不能以数字开头，去除3a_和3_a  答案为3)</p>
+</li>
+<li>
+<p>已知串 S= &ldquo;babab &ldquo;, 其 Next 数值序列为01123.</p>
+<p>Next数值序列需要计算字符串前缀和后缀最长匹配相同的长度加一而得。</p>
+<p>第1位一定是0</p>
+<p>看S第一位“b” ，没有前缀和后缀 所以一般第2位一定是1（0+1）；</p>
+<p>看S.substring（0,2）“ba” 前缀b后缀a，相等长度为0，第3位是1（0+1）；</p>
+<p>看S.substring（0,3）“bab” 前缀b=后缀b，相等长度为1，第4位是2（1+1）；</p>
+<p>看S.substring（0,4）“baba” 前缀ba=后缀ba，相等长度为2，第5位是3（2+1）；</p>
+<p>则S的Next数值序列为 01123</p>
+</li>
+<li>
+<p>Java中，String类型的数据存放有两种情况；</p>
+<p>如果是String s=“nowcoder”,则是放在字符串常量池中。</p>
+<p>如果是String ss=new String(&ldquo;nowcoder&rdquo;)，则是放在堆中。</p>
+</li>
+<li>
+<p>由 4 个 &ldquo;1&rdquo; 和 4 个 &ldquo;0&rdquo; 组成的 8 位二进制补码，能表示的最小整数是：-121. 最大和最小分别是01111000 10000111,那么10000111的原码是11111001为-121</p>
+</li>
+<li>
+<p>已知一段文本有1382个字符，使用了1382个字节进行存储，这段文本全部是由a、b、c、d、e这5个字符组成，a出现了354次，b出现了483次，c出现了227次，d出现了96次，e出现了232次，对这5个字符使用哈夫曼（Huffman）算法进行编码，则</p>
+<p><strong>A正确</strong>，Huffman树就是求最优解。可以有多套方案，但最终每套方案生成的编码长度都相同且都是最优解。</p>
+<p><strong>B错误</strong>，我们可以将左子树定为1右子树定为0也可以反之，不同的方案获得的编码值是不同的，但每个字符的编码长度是固定的。</p>
+<p><strong>C正确</strong>，不同的方案影响的只是通向节点的路径为0还是1，而不会影响Huffman树的层次结构</p>
+<p><strong>D正确</strong>，生成了Huffman树之后，我们就能看到，出现频率越高的节点越靠近根，深度越小即编码值尾数越短；出现频率越低的节点越远离根，深度越大即编码位数越长。</p>
+</li>
+<li>
+<p>字符串是一种对象, 是一种数据类型, 是一种引用数据类型.</p>
+</li>
+</ol>
+<h3 id="链表">链表</h3>
+<ol>
+<li>
+<p>关于线性表的说法不正确的是线性表中的每个结点都有且只有一个直接前趋和直接后继。</p>
+<p>线性表中的数据元素可以是数字、字符、记录等不同类型。(Object类)</p>
+<p>线性表中包含的数据元素个数不是任意的。(顺序表提前分配好空间)</p>
+<p>存在这样的线性表：表中各结点都没有直接前趋和直接后继。(空表, 单元素表)</p>
+<p>是正确的.</p>
+</li>
+<li>
+<p>某线性表中最常用的操作是在最后一个元素之后插入一个元素和删除第一个元素,则采用仅有尾指针的单循环链表存储方式最节省运算时间。</p>
+</li>
+</ol>
+<h3 id="栈">栈</h3>
+<ol>
+<li>链栈与顺序栈相比，其特点之一是通常不会出现栈满的情况。采用链栈不必预先估计栈的最大容量，只要系统有可用空间，就不会溢出。</li>
+<li>new 创建对象时，对象的内存和指向对象的指针分别分配在堆区，栈区</li>
+<li>堆：自己做菜自己吃，什么时候收盘子自己知道，但是可能会浪费（产生碎片），因为可能自己一个人吃不完。  桟：公司食堂，你吃饭由食堂工作人员帮你打饭和分配位置，吃完了工作人员帮你收盘子。你浪费粮食（碎片）那是不可能的，因为食堂会把碎片拿去喂猪。</li>
+<li>局部变量是分配在栈上的，new出来的对象是分配在堆上的</li>
+<li>用俩个栈模拟实现一个队列，如果栈的容量分别是O和P(O&gt;P)，那么模拟实现的队列最大容量是2P+1</li>
+</ol>
+<h3 id="队列">队列</h3>
+<ol>
+<li>
+<p>用链接方式存储的队列，在进行删除运算时头、尾指针可能都要修改.</p>
+<p>1&gt; 当有多于一个节点时，链表表示的队列的删除操作只需要修改头指针即可，将头指针定义为head=head.next   此时不需要修改尾指针；</p>
+<p>2&gt; 当队列只有一个节点时，该节点既是头又是尾，如果head==tail 则需要修改尾指针将队列置空。</p>
+</li>
+<li>
+<p>已知循环队列存储在一维数组A[0..n-1]中，且队列非空时 front 和 rear 分别指向队头和队尾元素。若初始时队列为空，且要求第 1 个进入队列的元素存储在 A[0]处，则初始时 front和 rear 的值分别是0， n-1.</p>
+<p>当进元素时，rear将后移，以便指向新的队尾元素。出队时，front后移，更新指向新的队头。</p>
+<p>反推，front不用动，但是rear要退一个位置，往哪退？按照循环，第一个元素位置可以直接到最后一个位置上，因此，如图所示。所以在数组中初态就是0，n-1.</p>
+</li>
+<li>
+<p>某带链的队列初始状态为 front=rear=NULL 。经过一系列正常的入队与退队操作后， front=rear=10 。该队列中的元素个数为1.</p>
+<p>初始时 front=rear=0 , 插入第 1 个元素时， rear+1 指向该元素， front+1 也指向该元素，插入第 2 个元素时 rear+1 ， front 不变，删除 1 个元素时 front+1 。即 front=rear 不为空时带链的队列中只有一个元素。</p>
+</li>
+</ol>
+<h2 id="基础算法">基础算法</h2>
+<h3 id="复杂度">复杂度</h3>
+<ol>
+<li>
+<p>设某堆中有 n 个结点，则在该堆中插入一个新结点的时间复杂度为 O(log2n)</p>
+</li>
+<li>
+<p>归并排序法的最好时间复杂度和此情况下的空间复杂度分别是O(nlogn) 和O(n)</p>
+</li>
+<li>
+<p>一个算法所需时间由下述递归方程表示：T(n)=2T(n/2)+n, 该算法的时间复杂度是O(n*log(n))</p>
+</li>
+<li>
+<p>给定一个递归算法的时间复杂度表达式，为T(n)=4T(n/2)+3n^2+2n , 则该算法的时间复杂度为O(n^2 * logn)</p>
+<p>(master公式: T(N)=a*T(N/b) + O(N^d), 则当logba &lt; d时, O(N^d)); 当logba&gt;d, O(N^logba); 当logba=d, O(N^d * logN) ) logba是以b为底a的对数.</p>
+</li>
+<li></li>
+</ol>
+<h3 id="排序">排序</h3>
+<ol>
+<li>
+<p>归并排序平均时间复杂度为O(nlogn)</p>
+<p>选择排序平均时间复杂度为O(n^2)</p>
+<p>希尔排序平均时间复杂度为O(n^1.5)</p>
+<p>堆排序平均时间复杂度为O(nlogn)</p>
+<p>冒泡排序平均时间复杂度O(n^2)</p>
+</li>
+<li>
+<p>插入排序是一种最简单的排序方法，它的基本操作是将一个记录<strong>插入到已排好序的有序表中</strong>，从而得到一个新的、记录数增1的有序表。</p>
+<p>冒泡排序每轮排序从前往后扫，如果当前位置的数比其后面相邻的数大，则交换两个位置的数。</p>
+<p>希尔排序为插入排序的改进，先将序列<strong>分成若干个子序列进行直接插入排序</strong>，待整个序列中的记录“基本有序”是，再对全体记录进行依次直接插入排序。</p>
+<p>快速排序从未排序序列中选择一个元素，该元素将当前参加排序的那些元素分成前后两个部分，前一部分中所有元素都小于等于所选元素，后一部分中所有元素都大于等于所选元素，而所选元素处在排序的最终位置。</p>
+</li>
+<li>
+<p>采用递归方式对顺序表进行快速排序, 递归次数与每次划分后得到的分区处理顺序无关</p>
+</li>
+<li>
+<p>基本有序的情况下：快排最慢，堆排最快。</p>
+<p>直接插入排序是数据越有序越快，最快时间复杂度可达到O(n)  .</p>
+<p>选择排序无论何时都是O（n^2）</p>
+<p>归并排序固定O(n*log n)，有序只是减少了元素交换次数。</p>
+<p>快速排序越有序越慢，它要从后到前遍历找比基准小的，时间复杂度达到O(n)</p>
+</li>
+<li>
+<p>精俭排序，即一对数字不进行两次和两次以上的比较，是“精俭排序”的是插入排序, 归并排序</p>
+</li>
+</ol>
+<h3 id="查找">查找</h3>
+<h3 id="哈希">哈希</h3>
+<ol>
+<li>
+<p>设哈希表长m=13,哈希函数H(key)=key MOD 11。表中已有4个节点:addr(16)=5,addr(28)=6,addr(84)=7,addr(19)=8，其余地址为空,如用线性探测再散列处理冲突，则关键字为38的地址为9</p>
+</li>
+<li>
+<p>假设把整数关键码K散列到有N个槽的散列表，h(k)=k mod N是好的散列函数, 而h(k)=(k + Random(N )) mod N；Random(N)返回一个0到N-1的整数不是.  使用随机函数可以使得数更均匀随机地分布在各个槽中，但当查找时由于散列函数是个随机函数所以得到的值对应的槽内可能压根没有放关键码k，可能会使得查找失败。</p>
+</li>
+<li>
+<p>一个线性序列（30，14，40，63，22，5），假定采用散列函数Hash(key)=key%7来计算散列地址，将其散列存储在A[0~6]中，采用链地址法解决冲突。若查找每个元素的概率相同，则查找成功的平均查找长度是4/3.</p>
+</li>
+<li>
+<p>线程安全的map在JDK 1.5及其更高版本环境 有哪几种方法可以实现:</p>
+<p>Map map = new ConcurrentHashMap();</p>
+<p>Map map = Collections.synchronizedMap(new HashMap());</p>
+<p>1.HashMap,TreeMap 未进行同步考虑，是线程不安全的。</p>
+<p>2.HashTable 和 ConcurrentHashMap 都是线程安全的。区别在于他们对加锁的范围不同，HashTable 对整张Hash表进行加锁，而ConcurrentHashMap将Hash表分为16桶(segment)，每次只对需要的桶进行加锁。</p>
+<p>3.Collections 类提供了synchronizedXxx()方法，可以将指定的集合包装成线程同步的集合。比如， List  list = Collections.synchronizedList(new ArrayList()); Set  set = Collections.synchronizedSet(new HashSet());</p>
+</li>
+</ol>
+<h3 id="递归">递归</h3>
+<ol>
+<li>
+<p>求解第n个斐波那契数的递归写法，分析它的时间复杂度是O(2^N)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>int func(unsigned int n)
+<span class="ln">2</span>{
+<span class="ln">3</span>  if(n&lt;2)
+<span class="ln">4</span>    return n;
+<span class="ln">5</span>  return fabonaci(n-1) + fabonaci(n-2);
+<span class="ln">6</span>}
+</code></pre></div></li>
+</ol>
+<h2 id="计算机基础">计算机基础</h2>
+<h3 id="设计模式">设计模式</h3>
+<ol>
+<li>
+<p>如果需要在不影响其他对象的情况下，以动态，透明的方式给对象添加职责，应该选择装饰模式.</p>
+</li>
+<li>
+<p>假设一个电源总开关可以控制四盏灯、一个风扇、一台空调和一台电视机的启动和关闭。通过该电源总开关可以同时控制上述所有电器设备，可以使用外观模式来模拟设计该系统。</p>
+</li>
+<li>
+<p>不同级别的用户对同一对象拥有不同的访问权利或某个客户端不能直接操作到某个对象，但又必须和那个对象有所互动，这种情况最好使用Proxy模式设计模式。</p>
+</li>
+<li>
+<p>KFC套餐一般包含主食（如汉堡、鸡肉卷等）和饮料（如果汁、可乐等）等组成部分，不同的套餐有不同的组成部分，而KFC的服务员可以根据顾客的要求，一步一步装配这些组成部分，构造一份完整的套餐，然后返回给顾客。可以使用建造者模式描述KFC如何创建套餐。</p>
+</li>
+<li>
+<p>创建型模式关注的是对象创建</p>
+</li>
+<li>
+<p>共享网络设备模拟：很多网络设备都是支持共享的，如交换机、集线器等，多台终端计算机可以连接同一台网络设备，并通过该网络设备进行数据转发。共享网络设备可以使用享元模式模拟共享网络设备的设计原理。</p>
+</li>
+<li>
+<p>策略模式和模板模式的联系与区别
+策略模式和模板模式在某些应用场景下可以互换。
+模板模式使用的是继承关系实现，策略模式使用的是组合关系实现。
+模板模式倾向于把解决问题过程定义为一个完整框架，把过程中的若干实现步骤延迟到子类中实现。</p>
+</li>
+<li>
+<p>用户已经有一个两相插座，最的又买了一个三相插座。现在用户想使用新的三相插座来使用三相的洗衣机和二相插座的电视机，这种问题可以使用适配器模式模式来进行设计。</p>
+</li>
+<li>
+<p>在模拟毛笔的使用过程中提供了大中小3种型号的画笔，够绘制5种不同颜色。我们可以使用桥接来模拟实现模拟毛笔的使用。</p>
+</li>
+<li>
+<p>关于简单工厂模式与工厂方法模式</p>
+<p>1、简单工厂模式中包含判断什么对象的逻辑，而工厂方法模式则需要调用者判断要实例化什么具体类型的工厂进而创建出想要的对象。当增加新类时，简单工厂模式需要修改工厂类，而工厂方法模式不需要，因此工厂方法模式遵守了开闭原则，而简单工厂模式没遵守。</p>
+<p>2、简单工厂模式因为采用了静态方法，所以不利于继承，而工厂方法模式恰恰相反，需要利用到继承来从抽象工厂中派生出各种各样的具体工厂。</p>
+<p>3、工厂模式就是为了消除if else</p>
+</li>
+<li>
+<p>工厂模式可理解为：当客户获取产品时，工厂模式作为获取产品的接口。</p>
+<p>1、简单工厂模式：由接口直接负责获取产品</p>
+<p>2、工厂方法模式：客户必须清楚地指出想获取哪种产品；由接口的子类负责获取产品</p>
+<p>3、抽象工厂模式：客户不知道其想获取哪种产品；由接口中判断调用哪个子类，通过子类获取产品。</p>
+</li>
+</ol>
+<h3 id="网络基础">网络基础</h3>
+<ol>
+<li><a href="http://www.tsinghua.edu.cn/" target="_blank">www.tsinghua.edu.cn</a>
+</li>
+</ol>
+<p>cn：顶级域名</p>
+<p>edu：二级域名</p>
+<p>tsinghua：三级域名</p>
+<p>www：主机名（<strong>万维网主机</strong>）</p>
+<ol start="2">
+<li>
+<p>DNS（端口53）同时占用UDP和TCP是公认的，DNS在进行区域传输或者响应报文超过512字节的时候使用TCP协议，其它时候则使用UDP协议。</p>
+</li>
+<li>
+<p>IP数据报分片在信源机或者路由器，重组在目的机</p>
+</li>
+<li>
+<p>一台交换机具有 24 个 10/100Mbps 全双工端口和 2 个 1000Mbps 全双工端口，如果所有的端口都工作在全双工状态，那么交换机总带宽等于8.8Gbps。</p>
+</li>
+</ol>
+<h3 id="数据库">数据库</h3>
+<ol>
+<li>
+<p>设有两个数据库表，父表和子表之间是一对多的联系，为控制子表和父表的关联，可以设置&quot;参照完整性规则&rdquo;，为此要求这两个表在父表连接字段上建立主索引，在子表连接字段上建立普通索引.</p>
+</li>
+<li>
+<p>Mysql中表student_table(id,name,birth,sex)，插入如下记录：</p>
+<p>(&lsquo;1004&rsquo; , &lsquo;张三&rsquo; ,&lsquo;2000-08-06&rsquo; , &lsquo;男&rsquo;);
+(&lsquo;1009&rsquo; , &lsquo;李四&rsquo;, &lsquo;2000-01-01&rsquo;, &lsquo;男&rsquo;);
+(&lsquo;1010&rsquo; , &lsquo;李四&rsquo;, &lsquo;2001-01-01&rsquo;, &lsquo;男&rsquo;);
+(&lsquo;1006&rsquo; , &lsquo;王五&rsquo;, &lsquo;2000-08-06&rsquo; , &lsquo;女&rsquo;);
+(&lsquo;1008&rsquo; , &lsquo;张三&rsquo;, &lsquo;2002-12-01&rsquo;, &lsquo;女&rsquo;);
+(&lsquo;1012&rsquo; , &lsquo;张三&rsquo;, &lsquo;2001-12-01&rsquo;, &lsquo;女&rsquo;);
+(&lsquo;1011&rsquo; , &lsquo;李四&rsquo;, &lsquo;2002-08-06&rsquo; , &lsquo;女&rsquo;);</p>
+<p>执行</p>
+<p>select t1.<em>,t2.</em>
+from (
+select * from student_table where sex = &lsquo;男&rsquo; ) t1 
+right join 
+(select * from student_table where sex = &lsquo;女&rsquo;)t2 
+on t1.name = t2.name ; 
+的结果行数是5</p>
+<p>1）不论左右连接，两表排序都是先写的放在左边，后写的放在右边
+2）左右连接中，以谁为主表，则其信息全部保存。从表中有多于一项符合条件的，则额外重复一次主表从而列出全部从表情况</p>
+</li>
+<li>
+<p>ACCESS中表和数据库的关系是一个数据库可以包含多个表</p>
+</li>
+<li>
+<p>3NF消除主属性对码的部分和传递函数依赖规范化为BCNF。</p>
+</li>
+<li>
+<p>数据库三级模式体系结构的划分，有利于保持数据库的 数据独立性</p>
+</li>
+<li>
+<p>在高并发的线上事务中，几乎无法避免锁等待或死锁的产生</p>
+</li>
+<li>
+<p>有关系 R 和 S ， R －（ R － S ）的运算等价于R∩S</p>
+</li>
+<li>
+<p>左连接时，结果集的行数可能大于左表的行数</p>
+</li>
+<li>
+<p>概念数据模型是现实世界到信息世界的第一层抽象。 数据结构模型是对现实世界进行的第二层抽象。</p>
+</li>
+</ol>
+<h3 id="操作系统">操作系统</h3>
+<ol>
+<li>相比于单道程序设计（内存中仅有一道作业），多道程序设计按照一定的作业调度算法将作业队列中的作业调入内存，使他们共享CPU和各种资源。因此需要更大的内存以容纳超过一道的作业。</li>
+<li>不管系统中是否有线程，进程都是拥有资源的独立单位. 用户级线程切换不涉及内核，在进程的时间片内，由用户程序控制线程的切换，然后使用进程获取的资源. 对于普通的操作系统，未引入线程的话，<strong>进程是系统进行资源分</strong>  <strong>配和调度的独立单位</strong>。在多处理机操作系统中，引入线程后，<strong>进程是资源的分配单</strong>  <strong>位或者叫做资源的容器，线程是处理机的调度单位</strong>。</li>
+<li>renice命令可以改变进程的优先级</li>
+<li>使用一个信号量协调6个进程对4个同类临界资源的访问, 信号量值可以出现-2 到 4</li>
+<li>连续分配方式可能产生外部碎片，可以考虑采用“紧凑”的方法将内存中所有作业进行移动，从而使得外部碎片集中在一起形成一个大的分区。为了使移动后的作业能正常运行，需要进行动态重定位.</li>
+<li>为了实现设备独立性，在操作系统中，用户在使用I/O设备时，通常采用逻辑设备名</li>
+<li>软链接也叫符号链接, 如果原始文件被删除，所有指向它的软链接也都被破坏, 软链接指明了原始文件的位置，用户需要对原始文件的位置有访问权限才可以使用, 软链接可以跨文件系统，可以指向远程文件系统的文件</li>
+<li>页表的作用是实现从页号到物理块号的地址映射</li>
+<li>32位处理器是指处理器的数据总线是32位的</li>
+<li>静态重定位的时机是程序装入时</li>
+<li>在段式存储管理中，一个段是一个不定长的连续区域。</li>
+</ol>
+<h2 id="java">Java</h2>
+<ol>
+<li>
+<p>抽象类必须有“abstract class”修饰, 抽象类是可以实现接口的，而且抽象类也可以继承自抽象类 , 抽象类指有abstract修饰的class，其可以包含抽象方法，也可以不包含 , 抽象类和接口都是不能被实例化的，只有具体的类才可以被实例化</p>
+</li>
+<li>
+<p>下面程序的运行结果是pongping</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+<span class="ln"> 2</span>    
+<span class="ln"> 3</span>    <span class="n">Thread</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln"> 4</span>           <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln"> 5</span>                <span class="n">pong</span><span class="o">();</span>
+<span class="ln"> 6</span>           <span class="o">}</span>
+<span class="ln"> 7</span>     <span class="o">};</span>
+<span class="ln"> 8</span>    
+<span class="ln"> 9</span>    <span class="n">t</span><span class="o">.</span><span class="na">run</span><span class="o">();</span>
+<span class="ln">10</span>    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;ping&#34;</span><span class="o">);</span>
+<span class="ln">11</span><span class="o">}</span>
+<span class="ln">12</span>    
+<span class="ln">13</span>   <span class="kd">static</span> <span class="kt">void</span> <span class="nf">pong</span><span class="o">()</span> <span class="o">{</span>
+<span class="ln">14</span>     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&#34;pong&#34;</span><span class="o">);</span>
+<span class="ln">15</span>    <span class="o">}</span>
+<span class="ln">16</span>    
+<span class="ln">17</span>       
+</code></pre></div><p>t.run是调用的Thead类中的run()方法，t.start才是执行线程，所以这题就是执行普通run()方法，先输出pong，在输出ping。  t.start是另起线程，与当前线程同时竞争cpu资源，结果存在不确定性</p>
+</li>
+<li>
+<p>Log4j的日志打印级别不可以在运行时重新设置</p>
+</li>
+<li>
+<p>方法重载：同一类中的相同的方法名，参数和返回值均可不同。  方法重写：之类对父类已经实现的方法重新定义。</p>
+</li>
+<li>
+<p>int a = &lsquo;2&rsquo;,这种定义与int a = 2是完全不同的</p>
+<p>int a = &lsquo;2&rsquo;中的数字2使用单引号来表示字符2，字符2对用的ascii码值是50，因此这种情况下，a的值是50</p>
+<p>int a = 2中的数字2表示了数字本身，这种情况下，a的值是2</p>
+</li>
+<li>
+<p>创建并启动线程的过程为：定义线程-&gt;实例化线程-&gt;启动线程。</p>
+<p>定义线程有两种方式，一种是继承java.lang.Thread类，一种是实现java.lang.Runnable接口。这两种方式实例化线程区别在于，如果是继承了Thread类，直接new一个对象就可以了，如果是实现了Runnable接口的类，则需要用Thread的构造方法new Thread(new MyRunnable()).start()</p>
+</li>
+<li>
+<p>CMS垃圾回收器在初始标记, 重新标记阶段是没用用户线程参与的</p>
+</li>
+<li>
+<p>事务隔离级别是由数据库系统实现的</p>
+</li>
+<li>
+<p>new URL()时必须捕获检查异常，但这个异常是由于字符串格式和URL不符导致的，与网址是否存在无关。URL的toString方法返回字符串，无论网址是否存在。</p>
+</li>
+<li>
+<p>抽象类中可以有普通成员变量，接口中没有普通成员变量。抽象类和接口中都可以包含静态成员常量。一个类可以实现多个接口，但只能继承一个抽象类. 抽象类中可以包含非抽象的普通方法，接口中的方法必须是抽象的，不能有非抽象的普通方法。</p>
+</li>
+<li>
+<p>java中创建对象有以下几种方法：</p>
+<p>1.用new语句创建对象，这是最常用的创建对象的方式。</p>
+</li>
+</ol>
+<pre><code>​    2.运用反射手段，调用java.lang.Class或者java.lang.reflect.Constructor类的newInstance()实例方法。  
+
+   3.调用对象的clone()方法。  
+
+   4.运用反序列化手段，调用java.io.ObjectInputStream对象的readObject()方法.  
+</code></pre>
+<ol start="12">
+<li>
+<p>下面的输出结果是false</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo</span> <span class="o">{</span>
+<span class="ln"> 2</span>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span>
+<span class="ln"> 3</span>  <span class="o">{</span>
+<span class="ln"> 4</span>    <span class="n">String</span> <span class="n">str</span><span class="o">=</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+<span class="ln"> 5</span>    <span class="k">if</span><span class="o">(</span><span class="n">str</span><span class="o">==</span><span class="s">&#34;hello&#34;</span><span class="o">)</span>
+<span class="ln"> 6</span>    <span class="o">{</span>
+<span class="ln"> 7</span>      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;true&#34;</span><span class="o">);</span>
+<span class="ln"> 8</span>    <span class="o">}</span>      
+<span class="ln"> 9</span>    <span class="k">else</span>     <span class="o">{</span>
+<span class="ln">10</span>      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;false&#34;</span><span class="o">);</span>
+<span class="ln">11</span>    <span class="o">}</span>
+<span class="ln">12</span>  <span class="o">}</span>
+<span class="ln">13</span><span class="o">}</span>
+</code></pre></div><p>==判断的是对象引用地址是否相同， String str=new String(&ldquo;hello&rdquo;); 这句话new了一个新的String对象，所以地址与&quot;hello&quot;字符串常量的地址不同，答案为false 如果判断字符串是否相等应给用str.equals(&ldquo;hello&rdquo;)方法</p>
+</li>
+<li>
+<p>ArrayList list = new ArrayList(20);中的list扩充0次. Arraylist默认数组大小是10，扩容后的大小是扩容前的1.5倍，最大值小于Integer 的最大值减8，如果新创建的集合有带初始值，默认就是传入的大小，也就不会扩容</p>
+</li>
+<li>
+<p>以下代码结果是代码可以编译运行，输出“AB.B”。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">foo</span> <span class="o">{</span>
+<span class="ln"> 2</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">sgf</span><span class="o">[])</span> <span class="o">{</span>
+<span class="ln"> 3</span>     
+<span class="ln"> 4</span>        <span class="n">StringBuffer</span> <span class="n">a</span><span class="o">=</span><span class="k">new</span> <span class="n">StringBuffer</span><span class="o">(</span><span class="s">&#34;A&#34;</span><span class="o">);</span>
+<span class="ln"> 5</span>     
+<span class="ln"> 6</span>        <span class="n">StringBuffer</span> <span class="n">b</span><span class="o">=</span><span class="k">new</span> <span class="n">StringBuffer</span><span class="o">(</span><span class="s">&#34;B&#34;</span><span class="o">);</span>
+<span class="ln"> 7</span>     
+<span class="ln"> 8</span>        <span class="n">operate</span><span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">);</span>
+<span class="ln"> 9</span>     
+<span class="ln">10</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">+</span><span class="s">&#34;.&#34;</span><span class="o">+</span><span class="n">b</span><span class="o">);</span>
+<span class="ln">11</span>    <span class="o">}</span>
+<span class="ln">12</span>    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">operate</span><span class="o">(</span><span class="n">StringBuffer</span> <span class="n">x</span><span class="o">,</span><span class="n">StringBuffer</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+<span class="ln">13</span>        <span class="n">x</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">y</span><span class="o">);</span>
+<span class="ln">14</span>        <span class="n">y</span><span class="o">=</span><span class="n">x</span><span class="o">;</span>
+<span class="ln">15</span>    <span class="o">}</span>
+<span class="ln">16</span><span class="o">}</span>
+</code></pre></div><p>a,b,x,y就是四个指针. “=”, y就指向了x所指向的目标即是a指向的对象，因此原来b所指向的目标并没有发生任何改变。</p>
+</li>
+<li>
+<p>下列程序运行的结果good and gbc</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="ln"> 1</span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Example</span><span class="o">{</span>
+<span class="ln"> 2</span>    <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="s">&#34;good&#34;</span><span class="o">);</span>
+<span class="ln"> 3</span>    <span class="kt">char</span><span class="o">[</span> <span class="o">]</span> <span class="n">ch</span> <span class="o">=</span> <span class="o">{</span> <span class="sc">&#39;a&#39;</span> <span class="o">,</span> <span class="sc">&#39;b&#39;</span> <span class="o">,</span> <span class="sc">&#39;c&#39;</span> <span class="o">};</span>
+<span class="ln"> 4</span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[]){</span>
+<span class="ln"> 5</span>        <span class="n">Example</span> <span class="n">ex</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Example</span><span class="o">();</span>
+<span class="ln"> 6</span>        <span class="n">ex</span><span class="o">.</span><span class="na">change</span><span class="o">(</span><span class="n">ex</span><span class="o">.</span><span class="na">str</span><span class="o">,</span><span class="n">ex</span><span class="o">.</span><span class="na">ch</span><span class="o">);</span>
+<span class="ln"> 7</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">ex</span><span class="o">.</span><span class="na">str</span> <span class="o">+</span> <span class="s">&#34; and &#34;</span><span class="o">);</span>
+<span class="ln"> 8</span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">ex</span><span class="o">.</span><span class="na">ch</span><span class="o">);</span>
+<span class="ln"> 9</span>    <span class="o">}</span>
+<span class="ln">10</span>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">change</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">,</span><span class="kt">char</span> <span class="n">ch</span><span class="o">[</span> <span class="o">]){</span>
+<span class="ln">11</span>        <span class="n">str</span> <span class="o">=</span> <span class="s">&#34;test ok&#34;</span><span class="o">;</span>
+<span class="ln">12</span>        <span class="n">ch</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="sc">&#39;g&#39;</span><span class="o">;</span>
+<span class="ln">13</span>    <span class="o">}</span>
+<span class="ln">14</span><span class="o">}</span>
+</code></pre></div><p>首先说下String确实是个不可变对象，这个不可变是JDK特有的，写JAVA的人特意针对的</p>
+<p>但是这与本题无关，题目中的形参str只是原引用ex.str的一个引用副本，传的是一个副本地址值，这个值与ex.str地址值是不一样的,但是它们同时指向了堆中的对象new   String(&ldquo;good&rdquo;)，当你在函数中改变形参也就是地址的副本值也就是这句str=&ldquo;test   ok&quot;只是将副本地址指向常量&quot;test     ok&rdquo;，并没有改变原ex.str的指向方向，它还是指向对象new String(&ldquo;good&rdquo;)的</p>
+<p>char数组与String一样传的也是地址的副本，但是关键是形参ch它没有新的指向     ch[0]只是ch在指向原对象时改变了对象的内部结构, 所以在ex.ch指向与它是同一个对象的情况下当然也会随之变化</p>
+</li>
+<li>
+<p>静态方法中没有this关键词，因为静态方法是和类同时被加载的，而this是随着对象的创建存在的，静态比对象优先存在. 静态可以访问静态，但静态不能访问非静态而非静态可以访问静态。</p>
+<p>在静态方法中可直接调用本类的静态方法，也可以通过类名.静态方法名的方式来调用其他类的静态方法</p>
+<p>静态方法不能直接调用实例方法和对象，但可以通过在静态方法中创建类的实例的方式间接调用。</p>
+</li>
+<li>
+<p>HashMap是非线程安全的，其对应的线程安全类是HashTable</p>
+<p>Vector(相当于一个线程安全的List), StringBuffer(相当于一个线程安全的StringBuilder), Properties是线程安全的</p>
+</li>
+<li>
+<p>interface中的方法默认为public abstract 的 ，变量默认为public static final</p>
+<p>接口中不允许有static类型的方法</p>
+<p>JDK8及以后，允许我们在接口中定义static方法和default方法。</p>
+<p>在jdk8之前，interface之中可以定义变量和方法，变量必须是public、static、final的，方法必须是public、abstract的。这些修饰符都是默认的</p>
+</li>
+</ol></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/java-0-audition-3/">Java面试准备3
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/java-6-autoconfiguration/">项目: Swagger的自动装配
+</a></li><li><a href="/posts/tech/java-5-algorithm/">算法刷题
+</a></li><li><a href="/posts/tech/java-4-basic/">Java基础查漏补缺
+</a></li><li><a href="/posts/tech/java-2-mysql/">MySQL学习笔记
+</a></li><li><a href="/posts/tech/java-3-spring-cloud/">SpringCloud学习笔记
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
+</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
+</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">26</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

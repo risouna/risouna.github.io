@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Other on さぁ、君、取りたまえ</title>
+    <link>/posts/other/</link>
+    <description>Recent content in Other on さぁ、君、取りたまえ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
+    <lastBuildDate>Fri, 15 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="/posts/other/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>未来知识技能展望</title>
+      <link>/posts/other/prospect/</link>
+      <pubDate>Fri, 15 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/other/prospect/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>笔记规范</title>
+      <link>/posts/other/note-rule/</link>
+      <pubDate>Thu, 14 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/other/note-rule/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Stolz定理和一道例题</title>
+      <link>/posts/other/stolz/</link>
+      <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/other/stolz/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>2021年的总结</title>
+      <link>/posts/other/2021/</link>
+      <pubDate>Thu, 30 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/other/2021/</guid>
+      <description>&lt;p&gt;今年是Eustia的一年。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>学习概率论的一些随意思考</title>
+      <link>/posts/other/probability-theory/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/other/probability-theory/</guid>
+      <description>&lt;p&gt;阅读本篇对考试没有什么帮助，感兴趣就随便看看，看之后反而可能会学不懂概率，因为用的符号有些不一样~&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>广告位招租/Advertising space for rent</title>
+      <link>/posts/other/ads/</link>
+      <pubDate>Sun, 02 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/other/ads/</guid>
+      <description>&lt;p&gt;广告位~广告位~&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>第一次弄博客</title>
+      <link>/posts/other/first-post/</link>
+      <pubDate>Sat, 01 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/other/first-post/</guid>
+      <description>&lt;p&gt;First post&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
