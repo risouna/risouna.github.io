@@ -17,7 +17,7 @@ git commit -m "%declation%"
 echo;
  
 echo Ö´ÐÐgit pull
-git pull
+git pull origin master
 echo;
  
 echo Ö´ÐÐgit push origin master
