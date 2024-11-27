@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RTP：实时应用传输协议 （RFC3550） - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="RTP：实时应用传输协议 （RFC3550）">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-27T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-11-27T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="13128">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="RTP：实时应用传输协议 （RFC3550）" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/media-rtp/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-27T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-11-27T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RTP：实时应用传输协议 （RFC3550）"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+
+<script type="text/javascript" src="js/Valine.min.js"></script>
+<script type="text/javascript" src="js/cave-draw.min.js"></script>
+<script type="text/javascript" src="js/katex.min.css"></script>
+<script type="text/javascript" src="js/katex.min.js"></script>
+<script type="text/javascript" src="js/auto-render.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">RTP：实时应用传输协议 （RFC3550）</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">RTP：实时应用传输协议 （RFC3550）
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-11-27
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>27 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-引言">1. 引言</a></li>
+    <li><a href="#2-rtp使用场景">2. RTP使用场景</a>
+      <ul>
+        <li><a href="#21-简单多播音频会议simple-multicast-audio-conference">2.1 简单多播音频会议（Simple Multicast Audio Conference）</a></li>
+        <li><a href="#22-音频和视频会议audio-and-video-conference">2.2 音频和视频会议（Audio and Video Conference）</a></li>
+        <li><a href="#23-混频器和转换器mixers-and-translators">2.3 混频器和转换器（Mixers and Translators）</a></li>
+        <li><a href="#24-分层编码layered-encodings">2.4 分层编码（Layered Encodings）</a></li>
+      </ul>
+    </li>
+    <li><a href="#3定义definitions">3.定义（definitions)</a></li>
+    <li><a href="#4-字节序对齐和时间格式">4. 字节序,对齐和时间格式</a></li>
+    <li><a href="#5-rtp数据传输协议">5. RTP数据传输协议</a>
+      <ul>
+        <li><a href="#51-rtp固定头中的各字段">5.1 RTP固定头中的各字段</a></li>
+        <li><a href="#52-复用rtp会话">5.2 复用RTP会话</a></li>
+        <li><a href="#53-对于rtp包头特性说明的修改">5.3 对于RTP包头特性说明的修改</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-rtp控制协议rtcp">6. RTP控制协议RTCP</a>
+      <ul>
+        <li><a href="#61-rtcp包格式">6.1 RTCP包格式</a></li>
+        <li><a href="#62-rtcp传输时间间隔">6.2 RTCP传输时间间隔</a></li>
+      </ul>
+    </li>
+    <li><a href="#63-rtcp包的发送和接收规则">6.3 RTCP包的发送和接收规则</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><p><a href="https://blog.csdn.net/cindylx422/article/details/7515795">https://blog.csdn.net/cindylx422/article/details/7515795</a></p>
+<p>我目前还不能理解，有些地方很抽象。这东西比计网的很多东西还要抽象。</p>
+<h2 id="1-引言">1. 引言</h2>
+<p>RTP在多点传送（多播）或单点传送（单播）的网络服务上，提供端对端的网络传输功能，适合应用程序传输实时数据，如：音频，视频或者仿真数据。</p>
+<p>RTP没有为实时服务提供资源预留的功能，也不能保证QoS（服务质量）。数据传输功能由一个控制协议（RTCP）来扩展，通过扩展，可以用一种方式对数据传输进行监测控制。RTCP被设计成和下面的传输层和网络层无关。RTP控制协议RTCP，用于监控服务质量和传送会议中一个参与者的信息。后者对“宽松控制”的会议可能已经足够，但是并没有必要去支持一个应用所有的控制需求。控制功能可能完全或部分地包含于一个单独的会议控制协议（如SIP等）</p>
+<p>RTP被设计为可扩展的，用来提供一个专门的应用程序需要的信息，并经常地集成到应用程序处理中，而不是作为一个单独的层被实现。RTP是一个故意不完成的协议框架。</p>
+<h2 id="2-rtp使用场景">2. RTP使用场景</h2>
+<h3 id="21-简单多播音频会议simple-multicast-audio-conference">2.1 简单多播音频会议（Simple Multicast Audio Conference）</h3>
+<p>使用Internet的IP多播服务来进行语音通讯。通过一些分配机制，工作组主持人获得一个多播的组地址和一对端口。一个端口用于音频数据，另一个端口用于控制（RTCP）数据包。该地址和端口信息发布给<strong>预定的参与者</strong>。如果有私密性要求，则可用章节9.1中说明的方法，对数据和控制包进行加密。</p>
+<p>每个与会者所使用的音频会议应用程序，都以small  chunk形式（比方说20毫秒一段）来发送音频数据。每个音频数据块都前缀RTP报头；RTP报头和数据然后包含在UDP包中。RTP报头指明了各个包里音频编码的类型（如PCM, ADPCM,LPC），这样发送方可以在会议过程中改变编码格式，例如，为了要适应一个低带宽的参与者，或是要应付网络拥塞。</p>
+<p>为了应对偶而会<strong>丢失和重排包</strong>或造成<strong>时长不等</strong>的延迟，RTP报头里包含时间戳和序列号，这样就允许接收方重构 源的时间轴。</p>
+<p>为了知道<strong>实际参与者</strong>和接受到的<strong>数据的好坏</strong>情况， 会议中每个音频应用程序，都周期性地多播一个附加着用户名的接收报告到RTCP端口。接收报告指明了当前说话者被收听到的状况，可用于控制自适应性的编码。除了用户名外，可以包含其他标识信息，只要符合控制带宽限制。一个参与者在离开会议时发送RTCP BYE包。</p>
+<h3 id="22-音频和视频会议audio-and-video-conference">2.2 音频和视频会议（Audio and Video Conference）</h3>
+<p>一个会议如果同时使用音频和视频媒体，则二者传输时使用不同的RTP会话。也就是说，两种媒体中RTP包和RTCP包的传输，是使用两个不同的UDP端口对和（或）多播地址。在RTP层次，音频和视频会话没有直接的耦合；一个同时参加两个会话的参与者，在两个会话的RTCP包中，SHOULD 使用<strong>相同的规范名</strong>，这样两个会话就发生关联（耦合）了。</p>
+<p>这样分割的其中一个目的是允许一些会议参与者只接受自己选择的某一个媒体（或者音频，或者视频）。更进一步的说明在章节5.2给出。尽管两种媒体区分开来了，但通过两个会话RTCP包内载有的<strong>计时信息</strong>，同源的音频与视频还是能够同步回放。</p>
+<h3 id="23-混频器和转换器mixers-and-translators">2.3 混频器和转换器（Mixers and Translators）</h3>
+<p>场景一：一个地方的参与者只能低速接入会议，而其他大部分参与者都能享受高速连接：</p>
+<p>在只能低速接入的地方，放置一个减质量音频编码的RTP层次的中继（称作混频器）。混频器将重新同步输入的音频包，重建发送方产生的20ms固定间隔，混频已重建过的音频流为单一的流，转换音频编码为低带宽格式，最后通过低带宽连接转发数据包流（package stream)。RTP报头为混频器提供了一种方法，使其能辨识出对混频后的包有用的源，从而保证提供给接收方正确的说话者指示。</p>
+<p>场景二：，一些预定参与者尽管有高带宽连接，但不能通过IP多播直接接入会议（位于一个不允许任何IP包通过的应用层防火墙后面）：</p>
+<p>需要另一种称为转换器的RTP层次中继。可以在防火墙两侧分别安装一个转换器，外侧转换器将所有多播包通过安全连接转入内侧转换器，内侧转换器再转发给内部网的一个多播组（multicast group)。</p>
+<h3 id="24-分层编码layered-encodings">2.4 分层编码（Layered Encodings）</h3>
+<p>为了匹配接收方的能力（容量）以及适应网络拥塞，多媒体应用程序应当能够调整其传输速率。许多应用实现把调适传输速率的责任放在源端。这种做法在多播传输中并不好，因为不同接收方对带宽存在着冲突性需求。这经常导致最小公分母的场景，网格中最小的管道支配了全部实况多媒体“广播”的质量和保真度。</p>
+<p>相反地，可以把分层编码和分层传输系统组合起来，从而把调适速率的责任放在接收端。在IP多播之上的RTP上下文中，对一个横跨多个RTP会话（每个会话在独自多播组上开展）的分级表示信号(a hierarchically represented signal)，源能够把它的分层（layers)分割成条。  接收方仅需合并适当的多播组子集，就能适应异种网络和控制接收带宽。</p>
+<h2 id="3定义definitions">3.定义（definitions)</h2>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RTP payload</td>
+<td>通过RTP传输的包中的数据，例如，音频样本或压缩好的视频数据。</td>
+</tr>
+<tr>
+<td>RTP packet</td>
+<td>一种数据包，其组成部分有：一个固定RTP报头，一个可能为空的作用源（contributing  sources）列表（见下文），以及负载数据。一些下层协议可能要求对RTP包的封装进行定义。一般地，下层协议的一个包包含一个RTP包，但若封装方法允许，也可包含数个RTP包（见章节11）。</td>
+</tr>
+<tr>
+<td>RTCP packet</td>
+<td>一种控制包，其组成部分有：一个类似RTP包的固定报头，后跟一个结构化的部分，该部分具体元素依不同RTCP包的类型而定。格式的定义见章节６。一般地，多个RTCP包将在一个下层协议的包中以合成RTCP包的形式传输；这依靠RTCP包的固定报头中的长度字段来实现。</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>传输协议用来在同一主机中区分不同目的地的一种抽象。TCP/IP协议使用正整数来标识不同端口。[12]　OSI传输层使用的传输选择器（TSEL,the transport  selectors）等同于这里的端口。RTP需依靠低层协议提供的多种机制，如“端口”用以多路复用会话中的RTP和RTCP包。</td>
+</tr>
+<tr>
+<td>Transport address</td>
+<td>是网络地址与端口的结合，用来标识一个传输层次的终端，例如一个IP地址与一个UDP端口。包是从源传输地址发送到目的传输地址。</td>
+</tr>
+<tr>
+<td>RTP media type</td>
+<td>一个RTP媒体类型是一个单独RTP会话所载有的负载类型的集合。RTP配置文件把RTP媒体类型指派给RTP负载类型。</td>
+</tr>
+<tr>
+<td>Multimedia session</td>
+<td>在一个参与者公共组中，并发的RTP会话的集合。例如，一个视频会议（为多媒体会话）可能包含一个音频RTP会话和一个视频RTP会话。</td>
+</tr>
+<tr>
+<td>RTP session</td>
+<td>一群参与者通过RTP进行通信时所产生的关联。一个参与者可能同时参与多个RTP会话。在一个多媒体会话中，除非编码方式把多种媒体多路复用到一个单一数据流中，否则每种媒体都将使用各自的RTCP包，通过单独的RTP会话来传送。通过使用不同的目的传输地址对（一个网络地址加上一对分别用于RTP和RTCP的端口，构成了一个传输地址对）来接收不同的会话，参与者能把多个RTP会话区隔开来。单个RTP会话中的所有参与者，可能共享一个公用目的传输地址对，比如IP多播的情况；也可能各自使用不同的目的传输地址对，比如个体单播网络地址加上一个端口对。对于单播的情况，参与者可能使用相同端口对来收听其他所有参与者，也可能对来其他每个参与者使用不同的端口对来收听。   <br/>  RTP会话间相互区别的特征，在于每个RTP会话都维护一个用于SSRC标识符的独立完整的空间。RTP会话所包含的参与者组，由能接收SSRC标识符的参与者组成，这些SSRC标识符由RTP（同步源或作用源）或RTCP中的任意参与者传递。例如，考虑下述情况，用单播UDP实现的三方会议，每方都用不同的端口对来收听其他两方。如果收到一方的数据，就只把RTCP反馈发送给那一方，则会议就相当于由三个单独的点到点RTP会话构成；如果收到一方的数据，却把RTCP反馈发送另两方，则会议就是由一个多方（multi-party)RTP会话构成。后者模拟了三方间进行IP多播通信时的行为。   <br/> RTP框架允许上述规定发生变化，但一个特定的控制协议或者应用程序在设计时常常对变化作出约束。</td>
+</tr>
+<tr>
+<td>Synchronization source (SSRC)</td>
+<td>RTP包流的源，用RTP报头中32位数值的SSRC标识符进行标识，使其不依赖于网络地址。一个同步源的所有包构成了相同计时和序列号空间的一部分，这样接收方就可以把一个同步源的包放在一起，来进行重放。举些同步源的例子，像来自同一信号源的包流的发送方，如麦克风、摄影机、RTP混频器（见下文）就是同步源。一个同步源可能随着时间变化而改变其数据格式，如音频编码。SSRC标识符是一个随机选取的值，它在特定的RTP会话中是全局唯一（globally  unique）的（见章节8）。参与者并不需要在一个多媒体会议的所有RTP会话中，使用相同的SSRC标识符；SSRC标识符的绑定通过RTCP（见章节6.5.1）。如果参与者在一个RTP会话中生成了多个流，例如来自多个摄影机，则每个摄影机都必须标识成单独的同步源。</td>
+</tr>
+<tr>
+<td>Contributing source (CSRC)</td>
+<td>若一个RTP包流的源，对由RTP混频器生成的组合流起了作用，则它就是一个作用源。对特定包的生成起作用的源，其SSRC标识符组成的列表，被混频器插入到包的RTP报头中。这个列表叫做CSRC表。相关应用的例子如，在音频会议中，混频器向所有的说话人（talker)指出，谁的话语（speech)将被组合到即将发出的包中，即便所有的包都包含在同一个（混频器的）SSRC标识符中，也可让听者（接收者）可以清楚谁是当前说话人。</td>
+</tr>
+<tr>
+<td>End system</td>
+<td>一种应用程序，它产生发送出的RTP包中内容，或者使用接收到的RTP包中内容。在一个特定的RTP会话中，一个终端系统可以扮演一个或多个同步源角色，但通常是一个。   <br/>  混频器（Mixer)：一种中间系统，它从一个或多个源中接收RTP包，可能改变其数据格式，再按某种方式把这些包组合成一个新的包，然后转发出去。由于多个输入源的计时一般不会同步，所以混频器会对各个流的计时作出调整，并为组合流生成一个新的计时。因此，混频器将被标识成它所产生所有数据包的同步源。</td>
+</tr>
+<tr>
+<td>Translator</td>
+<td>一种中间系统，它转发RTP包而不改变各包的同步源标识符。转换器的例子如下：不作混频地转变编码的设备，把多播复制到单播的重复装置，以及防火墙里应用层次的过滤器。</td>
+</tr>
+<tr>
+<td>Monitor</td>
+<td>一种应用程序，它接收RTP会话参与者所发送的RTCP包，特别是接收报告（reception  report)，而且对当前服务质量进行评估，评估结果用于分配监视任务，故障诊断和长期统计。监视器常常被内建到参与会话的应用程序中，但也可以是一个的独立的应用程序——不参加会话、也不发送或接收RTP数据包（因为它们在不同的端口上）。这些被称作第三方监视器。还有一种情况也是可以接受的，第三方监视器只接收但不发送数据包，或者另外地算入到会话中。</td>
+</tr>
+<tr>
+<td>Non-RTP means</td>
+<td>为提供一个可用的服务，可能还需要其他的协议和机制。特别地，对多媒体会议来说，一个控制协议可以发布多播地址，发布加密密钥，协商所用的加密算法，以及为没有预定义负载类型值的格式，建立负载类型值和其所代表的负载格式之间的动态映射。其他协议的例子如下：会话初始化协议（SIRFC3261[13]），ITU推荐的H.323[14]，还有使用SDP(RFC2327[15])的应用程序，如RTSP(RFC 2326[16]). 对于简单的应用程序，电子邮件或者会议数据库也可能用到。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-字节序对齐和时间格式">4. 字节序,对齐和时间格式</h2>
+<h2 id="5-rtp数据传输协议">5. RTP数据传输协议</h2>
+<h3 id="51-rtp固定头中的各字段">5.1 RTP固定头中的各字段</h3>
+<p>RTP头有以下格式:</p>
+<p>Real Time Transport Protocol</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>    0                   1                   2                   3
+<span class="ln"> 2</span>    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+<span class="ln"> 3</span>   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+<span class="ln"> 4</span>   |V=2|P|X|  CC   |M|     PT      |       sequence number         |
+<span class="ln"> 5</span>   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+<span class="ln"> 6</span>   |                           timestamp                           |
+<span class="ln"> 7</span>   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+<span class="ln"> 8</span>   |           synchronization source (SSRC) identifier            |
+<span class="ln"> 9</span>   +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+<span class="ln">10</span>   |            contributing source (CSRC) identifiers             |
+<span class="ln">11</span>   |                             ....                              |
+<span class="ln">12</span>   +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</code></pre></div><p>前12个字节出现在每个RTP包中，仅仅在被混合器插入时，才出现CSRC识别符列表。这些域有以下意义：</p>
+<ul>
+<li>
+<p>**version (V)：**2 bits</p>
+<p>此域定义了RTP的版本。此协议定义的版本是2。(值1被RTP草案版本使用，值0用在最初&quot;vat&quot;语音工具使用的协议中。)</p>
+</li>
+<li>
+<p>**padding (P)：**1 bit</p>
+<p>若设置了padding位，则该packet在尾端包含一到多个padding octets，padding octets  不算作负载的一部分。padding的最后一个字节指明可以忽略多少个 padding  octets（包括它自己）。padding可能在某些要求固定块大小的加密算法中需要，或者用于在底层数据单元中传输多个RTP包。</p>
+</li>
+<li>
+<p>**extension (X)：**1 bits</p>
+<p>若设置<strong>extension</strong>位，固定头后面MUST跟随一个（且仅一个）头扩展，头扩展的格式定义与Section 5.3.1。</p>
+</li>
+<li>
+<p>**CSRC count (CC)：**4 bits</p>
+<p>CSRC计数包含了跟在固定头后面CSRC识别符的数目。</p>
+</li>
+<li>
+<p>**marker (M)：**1 bit</p>
+<p>标志的解释由具体<em>profile</em>规定。它用来允许在比特流中标记重要的事件，如帧边界。</p>
+</li>
+<li>
+<p>**payload type (PT)：**7bits</p>
+<p>此域定义了负载的格式，由具体应用决定其解释。协议可以规定负载类型码和负载格式之间一个默认的匹配。其他的负载类型码可以通过非RTP方法动态定义。RTP发送端在任意给定时间发出一个单独的RTP负载类型；此域不用来复用不同的媒体流。</p>
+</li>
+<li>
+<p><strong>sequence number</strong>:16 bits</p>
+<p>每发送一个RTP数据包，序列号加1，接收端可以据此检测丢包和重建包序列。序列号的初始值是随机的(不可预测)，以使即便在源本身不加密时(有时包要通过翻译器，它会这样做)，对加密算法泛知的普通文本攻击也会更加困难。</p>
+</li>
+<li>
+<p><strong>timestamp:</strong> 32 bits</p>
+<p>时间戳反映了RTP数据包中第一个字节的采样时间。（采样时钟必须来源于一个及时的单调、线性递增时钟，以便允许同步和去除网络引起的数据包抖动（见章节6.4.1）。该时钟的分辨率必须满足期望的同步精度和测量数据包到来时的抖动的需要（一种典型的时钟分辨率不满足情况是每个视频帧仅一个时钟周期）时钟频率依赖于负载数据的格式，并在描述文件（profile）中或者是在负载格式描述中（payload format specification）进行静态描述。也可以通过非RTP方法（non-RTP means）对负载格式动态描述。
+如果RTP包是周期性产生的，那么将使用由采样时钟决定的名义上的采样时刻，而不是读取系统时间。例如，对一个固定速率的音频，采样时钟（时间戳时钟）将在每个周期内增加1。如果一个音频从输入设备中读取含有160个采样周期的块，那么对每个块，时间戳的值增加160，而不考虑该块是否用一个包传递或是被丢弃。
+时间戳的初始值应当是随机的，就像序号一样。几个连续的RTP包如果（逻辑上）是同时产生的，如：属于同一个视频帧的RTP包，将有相同的时间戳。如果数据并不是以它采样的顺序进行传输，那么连续的RTP包可以包含不是单调递增（或递减）的时间戳（RTP包的序列号仍然是单调变化的）。
+不同媒体流的RTP时间戳可能以不同的速率增长。而且会有独立的随机偏移量。因此，虽然这些时间戳足以重构一个单独的流的时序，但直接比较不同的媒体流的时间戳不能有效的进行同步。对于每一个媒体，我们把与采样时刻相关联的RTP时间戳与来自于参考时钟上的时间戳（NTP）相关联（相反，对于每一种媒体，RTP时间戳通过与一个参考时间戳wallclock配对的方法来与采样时刻联系起来。）。参考时钟的时间戳表示了（对应于RTP时间戳的）数据的采样时刻。（即：RTP时间戳可用来实现不同媒体流的同步，NTP时间戳解决了RTP时间戳有随机偏移量的问题。）参考时钟用于同步所有媒体的共同时间（参考时间戳为所有媒体所公用，以此来实现同步）。这一时间戳对（RTP时间戳和NTP时间戳），用于判断RTP时间戳和NTP时间戳的对应关系，以进行媒体流的同步。它们不是在每一个数据包中都被发送，而在发送速率更低的RTCP的SR（发送者报告）中。即RTP时间戳记录当前是第几个采样数据，NTP时间戳记录当前数据包相对于参考时钟（1900年1月1日0点算起，当前时间相对于该时刻所经过的秒数）的绝对时间。
+选取采样时间作为RTP时间戳的参考点是因为它可以被传输的终节点获知，而且对所有媒体内容有一个相同的定义，再者是它不受编码延迟或其它数据处理的约束。目的是为了对所有在同一时刻采样的媒体进行同步。
+如果传输的数据是存贮好的，而不是实时采样等到的，那么会使用从参考时钟得到的虚的表示时间线（virtual presentation  timeline虚拟表示时间表）以确定存贮数据中的每个媒体下一帧或下一个单元应该呈现的时间（还是时刻？？？）。此种情况下RTP时间戳反映了每一个单元应当回放的时间（时刻？？？）。这就是说，每个单元的RTP时间戳将会和参考时钟相关。真正的回放将由接收者决定。</p>
+<p>为事先录制的视频插播实时音频旁白的例子阐述了选择采样时刻作为参考点的重要性。在这种情况下，视频会在“本地”播放给解说员观看，同时会通过RTP向外界传输。RTP传输的一个视频帧的“采样时刻”将会被建立，建立的方法是将RTP包的时间戳与该视频帧播放给旁白者的时刻（参考时钟）相比较（即当前的采样序号结合绝对时间得出“采样时刻”）。包含有解说员解说的的音频RTP包，它的采样时刻将会在音频被采样的时刻，通过与同一参考时钟相比较而建立。音频和视频甚至可以被不同的主机传输只要这两个主机的参考时钟通过比如NTP之类的途径实现了同步。接受者能够使用RTCP SR包中的时间戳对从而将音频和视频同步。</p>
+</li>
+<li>
+<p>**SSRC：**32 bits</p>
+<p>用以识别同步源。标识符应该被随机生成，以使在同一个RTP会话期中没有任何两个同步源有相同的SSRC识别符。一个用于创造随机标示符的示例算法在A.6第六章讲述。尽管多个源选择同一个SSRC识别符的概率很低，所有RTP实现工具都必须准备检测和解决冲突。第8章讲述了冲突的可能性及其解决机制。若一个源改变本身的源传输地址，必须选择新的SSRC识别符，以避免被当作一个环路源(see Section 8.2)。</p>
+</li>
+<li>
+<p>**CSRC列表：**0到15项，每项32bits</p>
+<p>CSRC列表指出了对此包中负载内容的所有贡献源。识别符的数目在CC域中给定。若有贡献源多于15个，仅识别15个。CSRC识别符由混合器插入(see Section  7.1)，并列出所有贡献源的SSRC识别符。例如语音包，混合产生新包的所有源的SSRC标识符都被列出，以在接收端处正确指示参与者。</p>
+</li>
+</ul>
+<h3 id="52-复用rtp会话">5.2 复用RTP会话</h3>
+<p>省略第一段</p>
+<p>独立的音频和视频流不应该在一个RTP会话中传输然后根据负载的类型或SSRC来解除复用。包含不同RTP媒体类型的交错包，并且这些包使用同一SSRC将会引起下面一系列问题。</p>
+<ol>
+<li>假设，两个共用相同RTP会话和相同SSRC标识的音频流，其中一个改变了编码，由此需要一个不同的负载类型。这时就没有办法来识别究竟是哪个音频流改变了编码。</li>
+<li>SSRC标示符是被定义用来确定一个单一的时序和序列号空间。如果媒体的时钟频率不同，那么交错的多种媒体负载类型需要不同的时序空间和不同的序列号空间，由此来指出哪种负载类型发生了数据包丢失。</li>
+<li>RTCP发送方和接受方报告只能对每一个SSRC标示符表述一种时序和序列号空间，并且不能加载负载类型域。</li>
+<li>RTP混合器不能够将不兼容的交叉流合并到一种数据流中。</li>
+</ol>
+<p>为每一种媒体采用一个不同的SSRC标示符，但是仍然将他们放在一个RTP会话中传输可以避免前两个问题，但无法避免最后两个。
+另一方面，复用同一媒体的有联系的源于一个使用不同SSRC标示符的RTP会话中是关于多播会话的规范。上述的问题不适用于：比如说，一个RTP混合器能够合并多种音源，并且同样的待遇适用于所有的音源。在最后两个问题不会发生的其他情况下，同一媒体的数据流复用（这些数据流使用不同的SSRC）也可以是适当的。</p>
+<h3 id="53-对于rtp包头特性说明的修改">5.3 对于RTP包头特性说明的修改</h3>
+<p>已经存在的RTP数据包包头被认为已经满足通常所有应用类型的需要。然而，为了符合ALF设计原则，该包头可以通过修改或作一些定义在特性说明中的增加的方法实现个性定制。同时，仍然允许与特性独立的显示和记录工具产生作用。</p>
+<ul>
+<li>标示位和负载类型域携带profile-specific信息，但是它们被存储在固定的包头中，因为很多应用程序被预计需要它们，否则可能需要增加另外32位来存储它们。包含这些域的八位字节可能被一个profile重新定义，从而适应于不同的需求，例如增加和减少标示位。但是只要有标示位，都必须有一个在该字节的msb；以让特性独立的(profile-independent)监视器能够观察到包丢失模式和标示位之间的相互关系。</li>
+<li>​    Additional information that is required for a particular payload  format, such as a video encoding, should be carried in the payload  section of the packet. This might be in a header that is always present  at the start of the payload section, or might be indicated by a reserved value in the data pattern.</li>
+<li>如果一种特殊的应用需要独立于负载类型的附加功能，那么这些应用执行的profile应该定义附加的固定域，这些固定域应该紧跟着SSRC域。这些应用能够快捷地访问这些附加域，而这时那些profile-independent监视器和记录器仍然能够通过解释前12个字节来处理RTP数据包。</li>
+</ul>
+<p>如果事实证明一种附加的功能在所有文件中被普遍需求，那时，就需要定义一个新版本的RTP包头。</p>
+<h4 id="531-rtp头扩展">5.3.1 RTP头扩展</h4>
+<p>RTP提供扩展机制以允许实现个性化：某些新的与负载格式独立的功能要求的附加信息在RTP数据包头中传输。设计此扩展机制可以使其它没有扩展的交互忽略此头扩展。RTP头扩展的格式如下图所示。 注意特殊负载类型需要的附加信息不能使用这种头扩展，而是应该被存贮在数据包的负载部分中。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span> 0                   1                   2                   3
+<span class="ln">2</span> 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+<span class="ln">3</span>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+<span class="ln">4</span>|      defined  by  profile     |           length              |
+<span class="ln">5</span>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+<span class="ln">6</span>|                        header  extension                      |
+<span class="ln">7</span>|                             ....                              |
+</code></pre></div><p>若RTP头中的扩展比特位置1，则一个长度可变的头扩展部分被加到RTP固定头之后。头扩展包含16比特的长度域，指示扩展项中32比特字的个数，不包括4个字节扩展头(因此零是有效值)。RTP固定头之后只允许有一个头扩展。为允许多个互操作实现独立生成不同的头扩展，或某种特定实现有多种不同的头扩展，扩展项的前16比特用以识别标识符或参数。这16比特的格式由具体实现的上层协议定义。基本的RTP说明并不定义任何头扩展本身。</p>
+<h2 id="6-rtp控制协议rtcp">6. RTP控制协议RTCP</h2>
+<h3 id="61-rtcp包格式">6.1 RTCP包格式</h3>
+<p>这部分定义了几个RTCP包类型，可以传送不同的<strong>控制信息</strong>：</p>
+<ul>
+<li><strong>SR：</strong> 发送者报告，描述当前发送者的的发送和接收统计；</li>
+<li>**RR：**接收者报告，描述非当前发送者的接收统计；</li>
+<li>**SDES：**源描述项，其中包括规范名(CNAME)；</li>
+<li>**BYE：**表明参与者将结束会话；</li>
+<li>**APP：**应用特定功能。</li>
+</ul>
+<p>每个RTCP包以与RTP数据包类似的固定头部起始，接着是根据RTCP包类型而可能长度不同的结构化元素，但是必须结尾于32位边界（即该RTCP包的总位数可以被32整除）。对齐要求和每个包固定头部中的长度域使RTCP包&quot;可堆叠&quot;，即可以将多个RTCP包形成一个复合RTCP包，在底层协议(如UDP)中，通常都是将复合包作为一个包传输的。  在RTCP复合包中不明确指定有多少个RTCP包，而是依靠底层协议提供(该复合包的)总长度来决定该复合包的结束（UDP在头部包含一个field，指定其长度）。</p>
+<p>复合包中的每个RTCP包可以单独处理，而无需考虑包复合的顺序。然而，为了实现RTCP协议的某些功能，添加以下限制：</p>
+<ul>
+<li>接收统计信息(在SR或RR中)只要带宽允许应该尽可能经常的发送，以达到统计的最大分辨率。因此每个周期发送的RTCP复合包必须包含一个报告包。</li>
+<li>新的参与者需要尽快接收一个源的规范名以识别数据源并开始关联媒体以实现唇形同步。因此，每个包中必须包含SDES CNAME，除非复合包被分割以进行部分加密（见9.1节的描述）。</li>
+<li>必须限制首次在复合包中出现的包类型的数目，以增加在第一个字中常数比特的数目，这样可以增加RTCP包的有效性，以区分误传的RTP包和其他无关的包。</li>
+</ul>
+<p>因此，所有RTCP包必须以复合包的形式发送。复合包中至少有两个RTCP包。具有以下格式：</p>
+<ul>
+<li>**加密前缀：**当且仅当复合包被加密时，对每个RTCP复合包前缀一个32位随机数。如果加密需要padding，必须添加到复合包的最后一个封包中。</li>
+<li>**SR或RR：**复合包中的第一个RTCP包必须是一个报告包，以利于附录A.2中描述的头部验证。即使还没有数据发送和接收，该限制也是适用的。此时必须发送一个空的RR包，同样必须在复合包中搭配一个其他的RTCP包，即使是BYE。</li>
+<li>**额外的RR：**若被报告的接收统计源数目超过SR/RR包中最大允许的31个，附加的RR必须跟在最初的报告包后面。
+**SDES：**除了9.1节描述的情况外，每个RTCP复合包都必须包含一个SDES包。</li>
+<li>**BYE或APP：**其他RTCP包类型（非SR/RR/SDES packet），包括那些尚未定义的，可以遵循任何顺序，除了BYE必须是最后一个封包(每个BYE包都包含一个给定的SSRC/CSRC)。</li>
+</ul>
+<p>每个RTP参与者在一个报告间隔内应只发送一个RTCP复合包，以便正确估计每个参与者的RTCP带宽。除非像9.1节描述的情况——把一个RTCP复合包分割以进行加密。如果数据源的个数太多，以至于不能把RR包都放到同一个RTCP复合包中而不超过路径MTU，那么可在每个间隔中发送RR包的子集。在多个发送间隔中，所有的RR包应该被等概率的选中，这样就可以报告所有数据源的接收数据的情况。</p>
+<p>为了分摊the packet overhead，推荐Translators and  Mixers在可行的时候，把来自多个source的各自的RTCP  packet综合到一个复合包。如果一个RTCP复合包的长度超过了路径MTU，则它应当被分割为多个更短的复合包来传输（以什么规则segment？）。这不会影响对RTCP带宽的估计，因为每一个复合包至少代表了一个参与者。要注意的是每个RTCP复合包必须以SR或RR包开头。</p>
+<p>应该忽略那些未知类型的输入RTCP包。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>   if encrypted: random 32-bit integer
+<span class="ln"> 2</span>   |
+<span class="ln"> 3</span>   |[--------- packet --------][---------- packet ----------][-packet-]
+<span class="ln"> 4</span>   |
+<span class="ln"> 5</span>   |                receiver            chunk        chunk
+<span class="ln"> 6</span>   V                reports           item  item   item  item
+<span class="ln"> 7</span>   --------------------------------------------------------------------
+<span class="ln"> 8</span>   R[SR #sendinfo #site1#site2][SDES #CNAME PHONE #CNAME LOC][BYE##why]
+<span class="ln"> 9</span>   --------------------------------------------------------------------
+<span class="ln">10</span>   |                                                                  |
+<span class="ln">11</span>   |&lt;-----------------------  compound packet -----------------------&gt;|
+<span class="ln">12</span>   |&lt;--------------------------  UDP packet -------------------------&gt;|
+<span class="ln">13</span>
+<span class="ln">14</span>   #: SSRC/CSRC identifier
+</code></pre></div><h3 id="62-rtcp传输时间间隔">6.2 RTCP传输时间间隔</h3>
+<p>RTP被设计为自动适应不同的规模的会话――从几个参与者到几千个参与者的会话。例如，在一个音频会议中，data traffic is  inherently self-limiting（速率是自我限制的），因为同时只会有一个或两个人说话；因此在组播分发的情况下，任何link上的data  rate都保持相对固定，不管有多少个参与者。尽管如此，control traffic却不是self-limiting。如果来自每个参与者的接收报告以恒定速率发送，则控制流量将随着参与者数量的增加而线性增长。因此，必须通过动态计算RTCP分组传输之间的间隔来降低速率。</p>
+<p>对每一个会话，我们假定数据传输受到一个上限――会话带宽的限制。会话带宽分配给所有的参与者。这个带宽会被预留，并由网络所限制。如果没有预留，基于环境的其他约束将会确定合理的最大带宽供会话使用，这就是会话带宽。会话带宽在一定程度上独立于媒体编码，但媒体编码却依赖于会话带宽。</p>
+<p>在涉及媒体应用时，会话带宽参数最好由一个会话控制应用提供。但媒体应用可能设置一个默认参数。此参数由单个发送者选择的编码方式的数据带宽算出。会话管理可能会基于多播范围的规则或其他标准确定带宽限制。所有的参与者应使用相同的会话带宽值以保证计算出相同的RTCP间隔。
+控制传输带宽应当是会话带宽的一小部分，这部分所占总的会话带宽的百分比应是已知的。一小部分：传输协议的首要功能是传输数据；已知：控制传输带宽可以被放进带宽描述中提供给资源预留协议，并且使每个参与者都可以独立的计算出他所占有的带宽份额。</p>
+<p>控制传输带宽作为额外的一部分加入到会话带宽中。建议RTCP控制传输带宽为RTCP会话带宽的5%。其中的1/4分配给发送者；当发送者的比例超过所有参与者的1/4时，其RTCP控制带宽相应增加。所有的会话参与者必须使用相同的常数（以上提到的百分比），以便计算出相同的发送时间间隔。这些常数应在一个特殊的描述文件中确定。</p>
+<p>计算出的RTCP复合包的发送时间间隔应该有一个下限，以免参与者数量较少时大量发送RTCP包。这也使网络暂时断开时，发送间隔不会太小。在应用开始时，一个延迟应加到第一个的TCP复合包发送之前，以便从其他参与者接收RTCP复合包。这样，发送时间间隔能更快的收敛到正确的值。这个延迟可以设为最小时间间隔的一半。固定的时间间隔建议为5秒。</p>
+<p>一个实现可能使RTCP最小发送时间间隔与会话带宽参数成比例。则应满足下列约束：</p>
+<ul>
+<li>对多播会话，只有活动的数据发送者使用减小的最小化的值计算RTCP复合包的发送时间间隔。</li>
+<li>对单播会话，减小的值也可能被不是活动的数据发送者使用，发送初始的RTCP复合包之前的延迟可能是0。</li>
+<li>对所有会话，在计算参与者的离开时间时，这个固定最小值会被用到。因此，不使用减小的值进行RTCP包的发送，就不会被其他参与者提前宣布超时。</li>
+<li>减小的最小时间间隔建议为：360/sb(秒)，其中sb：会话带宽（千字节/秒）。当sb&gt;72kb/s时，最小时间间隔将小于5s。
+6.3节所描述的算法和附录A.7将实现本节列出的目标：
+○计算出的RTCP包的时间间隔与组中参与者的人数成正比。（参与者越多，发送时间间隔越长，每个参与者占有的RTCP带宽越小）。</li>
+<li>RTCP包的（真实）时间间隔是计算出的时间间隔的0.5～1.5倍之间某个随机的值，以避免所有的参与者意外的同步。</li>
+<li>RTCP复合包的平均大小将会被动态估计，包括所有发送的包和接收的包。以自动适应携带的控制信息数量的变化。</li>
+<li>由于计算出的时间间隔依赖于组中的人数。因此，当一个的用户加入一个已经存在的会话或者大量的用户几乎同时加入一个新的会话时，就会有意外的初始化效应。这些新用户将在开始时错误的估计组中的人数（估计太小）。因此他们的RTCP包的发送时间间隔就会太短。如果许多用户同时加入一个会话，这个问题就很重要了。为了处理这处问题考虑了一种叫“时间重估”的算法。这个算法使得组中人数增加时，用户能够支持RTCP包的传输。</li>
+<li>当有用户离开会话，不管是发送BYE包还是超时，组中的人数会减少。计算出的时间间隔也应当减少。因此，应用“逆向重估”算法，使组中的成员更快的减少他们的时间间隔，以对组中的人数减少做出响应。</li>
+<li>BYE包的处理和其他RTCP包的处理不同。BYE包的发送用到一个“放弃支持”算法。以避免大量的BYE包同时发送，使大量参与者同时离开会话。
+这个算法适用于所有参与者都允许RTCP包的情况。此时，会话带宽＝每个发送者的带宽×会话中参与者的总人数。详细算法见随后小节，附录A.7给出了算法的一个实现。</li>
+</ul>
+<h4 id="621-维持会话成员的人数">6.2.1 维持会话成员的人数</h4>
+<p>当侦听到新的站点的时候，应当把他们加入计数。每一个登录都应在表中创建一条记录，并以SSRC或CSRC进行索引。新的登录直到接收到含有SSRC的包或含有与此SSRC相联系的规范名的SDES包才视为有效（见附录A.1）。当一个与SSRC标识符相对RTCP　BYE包收到时，登录会被从表中删除。除非一个“掉队”的数据包到达，使登录重新创建。
+如果在几个RTCP报告时间间隔内没有RTP或RTCP包收到，一个参与者可能标记另外一个站点静止，并删除它。这是针对丢包提供的一个很强健的机制。所有站点对这个超时时间间隔乘子应大体相同，以使这种超时机制正常工作。因此这个乘子应在特别的描述文件中确定。
+对于一个有大量参与者的会话，维持并存贮一个有所有参与者的SSRC及各项信息的表几乎是不可能的。因此，只可以只存贮SSRC。其他算法类似。关键的问题就是，任何算法都不应当低估组的规模，虽然它有可能被高估。</p>
+<h2 id="63-rtcp包的发送和接收规则">6.3 RTCP包的发送和接收规则</h2>
+<p>下面列出了如何发送RTCP包，当接收到的TCP包时该干什么的规则。
+为执行规则，一个会话参与者就维持下列变量：
+tp:　RTCP包发送的最后时间。
+tc: 当前时间。
+tn: 估计的下一个RTCP包要发送的时间。
+pmembers: tn最后被重新计算时，会计的会话成员的人数。
+members: 会话成员人数的当前估计。
+senders: 会话成员中发送者人数的估计。
+rtcp_bw: 目标RTCP带宽。例如用于会话中所有成员的RTCP带宽。单位bit/s。这将是程序开始时，指定给“会话带宽”参数的一部分。
+we_sent: 自当前第二个前面的RTCP发送后，应用程序又发送了数据，则此项为true。
+avg_rtcp_size: 此参与者收到的和发送的RTCP复合包的平均大小。单位：bit。按6.2节，此大小包括底层传输层和网络层协议头。
+initial: 如果应用程序还未发送RTCP包，则标记为true。
+许多规则都用到了RTCP包传输的“计算时间间隔”。此时间间隔将在随后的小节描述。</p>
+<h4 id="631-计算rtcp传输时间间隔">6.3.1 计算RTCP传输时间间隔</h4></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/media-coroutine-begin/">协程
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/media-lightrtp/">Lightrtp学习
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/media-lightrtp/">Lightrtp学习
+</a></li><li><a href="/posts/tech/media-coroutine-begin/">协程
+</a></li><li><a href="/posts/tech/basic-mermaid/">Mermaid
+</a></li><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-lightrtp/">Lightrtp学习
+</a></li><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a></li><li><a href="/posts/tech/media-coroutine-begin/">协程
+</a></li><li><a href="/posts/tech/basic-mermaid/">Mermaid
+</a></li><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">30</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">8</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">6</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

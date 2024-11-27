@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="关于">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2021-05-01T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2021-05-01T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="297">
+<meta itemprop="wordCount" content="296">
 <meta itemprop="keywords" content="" /><meta property="og:title" content="关于" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -24,7 +24,6 @@
 <meta name="twitter:title" content="关于"/>
 <meta name="twitter:description" content=""/>
 <meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
-
 <script type="text/javascript">
 	document.addEventListener("DOMContentLoaded", function() {
   renderMathInElement(document.body, {
@@ -49,8 +48,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script src="https://cdn.jsdelivr.net/gh/flatblowfish/cave-draw/dist/cave-draw.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+
+<script type="text/javascript" src="js/Valine.min.js"></script>
+<script type="text/javascript" src="js/cave-draw.min.js"></script>
+<script type="text/javascript" src="js/katex.min.css"></script>
+<script type="text/javascript" src="js/katex.min.js"></script>
+<script type="text/javascript" src="js/auto-render.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/">
       
@@ -184,9 +187,9 @@
 <h2 id="站点进化史">站点进化史</h2>
 <ol>
 <li>2021-05-01 五一假期时，注册域名+hugo+cloudflare建本静态网站，使用的是dream主题</li>
-<li>2021-07-28 暑假时更换主题，主要还是想突出阅读感而不是花里胡哨。</li>
+<li>2021-07-28 暑假时更换主题，主要还是想突出阅读感。</li>
 <li>2023-02 添加了valine无后端评论。</li>
-<li>2024-11 移除部分js cdn, 移除KeTax, 所以目前网站有数学公式的页面会受影响.</li>
+<li>2024-11 为了提升网站访问速度, 削弱CDN源的不稳定性移除部分js cdn,  同时站内提供对应js.</li>
 </ol></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/other/first-post/">第一次弄博客
@@ -246,7 +249,11 @@
   </div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+  <ul><li><a href="/posts/tech/media-lightrtp/">Lightrtp学习
+</a></li><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a></li><li><a href="/posts/tech/media-coroutine-begin/">协程
+</a></li><li><a href="/posts/tech/basic-mermaid/">Mermaid
+</a></li><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
 </a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
 </a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
 </a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
@@ -255,17 +262,13 @@
 </a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
 </a></li><li><a href="/posts/other/note-rule/">笔记规范
 </a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
-</a></li><li><a href="/posts/tech/media-misc-rst/">Rst语法
-</a></li><li><a href="/posts/tech/basic-git/">Git&amp;gitlab
-</a></li><li><a href="/posts/tech/basic-runnoob-linux/">菜鸟教程Linux教程
-</a></li><li><a href="/posts/tech/cpp-1-basic/">C&#43;&#43;基础查漏补缺
 </a></li></ul>
 </section><section class="taxonomy-categories row surface">
       <h4>
         <a href="/categories">分类</a>
       </h4>
       <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
-          计算机 <span class="badge rounded-pill">26</span>
+          计算机 <span class="badge rounded-pill">30</span>
         </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
           二次元 <span class="badge rounded-pill">24</span>
         </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
@@ -283,10 +286,10 @@
           Java <span class="badge rounded-pill">10</span>
         </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
           Galgame <span class="badge rounded-pill">9</span>
-        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
-          基础能力 <span class="badge rounded-pill">5</span>
         </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
-          媒体开发 <span class="badge rounded-pill">5</span>
+          媒体开发 <span class="badge rounded-pill">8</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">6</span>
         </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
           Cpp <span class="badge rounded-pill">1</span>
         </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">

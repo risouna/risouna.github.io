@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>lightrtp学习 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="lightrtp学习">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-27T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-11-27T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3450">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="lightrtp学习" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/media-lightrtp/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-27T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-11-27T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="lightrtp学习"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.9819e4e2411e150748363de90ec254ddcda514cc29bb1238a532433adb77735b.css" integrity="sha256-mBnk4kEeFQdINj3pDsJU3c2lFMwpuxI4pTJDOtt3c1s=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+
+<script type="text/javascript" src="js/Valine.min.js"></script>
+<script type="text/javascript" src="js/cave-draw.min.js"></script>
+<script type="text/javascript" src="js/katex.min.css"></script>
+<script type="text/javascript" src="js/katex.min.js"></script>
+<script type="text/javascript" src="js/auto-render.min.js"></script></head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">Lightrtp学习</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">Lightrtp学习
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-11-27
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>7 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#说明">说明</a></li>
+    <li><a href="#基础知识">基础知识</a></li>
+    <li><a href="#函数说明">函数说明</a>
+      <ul>
+        <li><a href="#stringh">&lt;string.h&gt;</a></li>
+        <li><a href="#syssocketh">sys/socket.h</a></li>
+        <li><a href="#netinetinh">netinet/in.h</a></li>
+      </ul>
+    </li>
+    <li><a href="#通信规范">通信规范</a>
+      <ul>
+        <li><a href="#c语言中的rtp">C语言中的RTP</a></li>
+        <li><a href="#c语言中的udp">C语言中的UDP</a></li>
+      </ul>
+    </li>
+    <li><a href="#编程技巧">编程技巧</a></li>
+    <li><a href="#程序流程图">程序流程图</a></li>
+    <li><a href="#makefile">Makefile</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="说明">说明</h2>
+<p>company内部项目，故不贴出源代码，只记录学习到的知识。</p>
+<p>这次学习深深知道了阅读文档和源码的重要性，以及C语言的精密性，多多学习！</p>
+<h2 id="基础知识">基础知识</h2>
+<p>首先1字节(Byte)是8位(bit)。一般网络，文件编程都是以字节为单位。</p>
+<p>在Linux中，一些类型的存储大小如下：（uname -m查看）</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>Linux i686(32位)</th>
+<th>Linux x86_64(64位)</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char</td>
+<td>1字节</td>
+<td>1字节</td>
+<td>1字节</td>
+</tr>
+<tr>
+<td>unsigned char</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>unsigned short</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>unsigned int</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>long</td>
+<td>4</td>
+<td>8</td>
+<td>4</td>
+</tr>
+<tr>
+<td>unsigned long</td>
+<td>4</td>
+<td>8</td>
+<td>4</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>long int</td>
+<td>4</td>
+<td>8</td>
+<td>4</td>
+</tr>
+<tr>
+<td>long long</td>
+<td>8</td>
+<td>8</td>
+<td>8</td>
+</tr>
+<tr>
+<td>long double</td>
+<td>12</td>
+<td>16</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+<p>C语言为了方便精确编程定义了很多类型：</p>
+<ul>
+<li>uint16_t：unsigned short，无符号16位整数</li>
+<li>uint32_t：unsigned int，无符号32位整数</li>
+<li>socklen_t：unsigned int， 无符号32位整数， 用于表示socket地址结构长度的数据类型。</li>
+<li>size_t： unsigned long， 是一种用于表示内存大小的数据类型， 说明说Linux 64位系统中内存大小是8字节。</li>
+<li>ssize_t: long.</li>
+</ul>
+<h2 id="函数说明">函数说明</h2>
+<h3 id="stringh">&lt;string.h&gt;</h3>
+<h4 id="1memcpy">1.memcpy</h4>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="kt">void</span> <span class="o">*</span><span class="nf">memcpy</span><span class="p">(</span><span class="kt">void</span> <span class="n">dest</span><span class="p">[</span><span class="kr">restrict</span> <span class="p">.</span><span class="n">n</span><span class="p">],</span> <span class="k">const</span> <span class="kt">void</span> <span class="n">src</span><span class="p">[</span><span class="kr">restrict</span> <span class="p">.</span><span class="n">n</span><span class="p">],</span> <span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+</code></pre></div><p>针对内存块进行的拷贝。</p>
+<ol>
+<li>
+<p>函数memcpy从source的位置开始向后复制num个字节的数据到destination指向的内存位置（右边的数据拷贝到左边来）</p>
+</li>
+<li>
+<p>函数遇到'\0&rsquo;不会停下来</p>
+</li>
+<li>
+<p>如果source和destination有任何的重叠，复制的结果都是未定义的</p>
+</li>
+<li>
+<p>返回值：memcpy拷贝结束后，返回的是目标空间的起始地址,而且是void*类型（实现各种类型数据的拷贝）</p>
+</li>
+<li>
+<p>使用该函数，需要引用头文件：string.h0</p>
+</li>
+</ol>
+<h4 id="2memset">2.memset</h4>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="kt">void</span> <span class="o">*</span><span class="nf">memset</span><span class="p">(</span><span class="kt">void</span> <span class="n">s</span><span class="p">[.</span><span class="n">n</span><span class="p">],</span> <span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">n</span><span class="p">);</span>
+</code></pre></div><p>初始化函数，作用是将某一块内存中的全部设置为指定的值。</p>
+<ul>
+<li><code>s</code>指向要填充的内存块。</li>
+<li><code>c</code>是要被设置的值。</li>
+<li><code>n</code>是要被设置该值的字符数。</li>
+<li>返回类型是一个指向存储区s的指针。</li>
+</ul>
+<p>memset函数是按照<strong>字节</strong>对内存块进行初始化，其实c的实际范围应该在0~255，因为memset函数只能取c的后八位给所输入范围的每个字节。也就是说<strong>无论c多大只有后八位二进制是有效的</strong>。</p>
+<h3 id="syssocketh">sys/socket.h</h3>
+<h4 id="1socket">1.socket</h4>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="kt">int</span> <span class="nf">socket</span><span class="p">(</span><span class="kt">int</span> <span class="n">domain</span><span class="p">,</span> <span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="kt">int</span> <span class="n">protocol</span><span class="p">);</span>
+</code></pre></div><p>建立一个协议族为domain、协议类型为type、协议编号为protocol的套接字文件描述符</p>
+<p>如果函数调用成功，会返回一个标识这个套接字的文件描述符，失败的时候返回-1。</p>
+<p>函数参数：</p>
+<ul>
+<li>
+<p><code>domain</code>:</p>
+<p>函数socket()的参数domain用于设置网络通信的域，函数socket()根据这个参数选择通信协议的族。通信协议族在文件sys/socket.h中定义。</p>
+</li>
+<li>
+<p><code>type</code>:</p>
+<p>函数socket()的参数type用于设置套接字通信的类型，主要有SOCKET_STREAM（流式套接字）、SOCK_DGRAM（数据包套接字）等。</p>
+</li>
+<li>
+<p><code>protocol</code>:</p>
+<p>函数socket()的第3个参数protocol用于制定某个协议的特定类型，即type类型中的某个类型。通常某协议中只有一种特定类型，这样protocol参数仅能设置为0；但是有些协议有多种特定的类型，就需要设置这个参数来选择特定的类型。</p>
+</li>
+</ul>
+<h4 id="2bind">2.bind</h4>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="kt">int</span> <span class="nf">bind</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">addr</span><span class="p">,</span> <span class="n">socklen_t</span> <span class="n">addrlen</span><span class="p">);</span>
+</code></pre></div><p>函数参数：</p>
+<ul>
+<li>
+<p><code>sockfd</code> 表示<code>socket</code>函数创建的通信文件描述符</p>
+</li>
+<li>
+<p><code>addrlen</code> 表示所指定的结构体变量的大小</p>
+</li>
+<li>
+<p><code>addr</code> 表示<code>struct sockaddr</code>的地址，用于设定要绑定的ip和端口</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="k">struct</span> <span class="n">sockaddr</span> <span class="p">{</span>
+<span class="ln"> 2</span>   <span class="n">sa_family_t</span> <span class="n">sa_family</span><span class="p">;</span>
+<span class="ln"> 3</span>   <span class="kt">char</span>        <span class="n">sa_data</span><span class="p">[</span><span class="mi">14</span><span class="p">];</span>
+<span class="ln"> 4</span><span class="p">}</span>
+<span class="ln"> 5</span>  
+<span class="ln"> 6</span><span class="c1">//sa_family 用于指定AF_***表示使用什么协议族的ip
+</span><span class="ln"> 7</span><span class="c1">//sa_data 存放ip和端口
+</span><span class="ln"> 8</span><span class="c1"></span>  
+<span class="ln"> 9</span><span class="c1">//这里有一个问题，直接向sa_data中写入ip和端口号有点麻烦，内核提供struct sockaddr_in结构体进行写入,通过/usr/include/linux/in.h可以看到结构体原型
+</span><span class="ln">10</span><span class="c1">//使用该结构体时需要包含&lt;netinet/in.h&gt;头文件，且sockaddr_in结构体是专门为tcp/ip协议族使用，其他协议族需要使用其对应的转换结构体,比如“域通信协议族” 使用的是sockaddr_un结构体
+</span></code></pre></div></li>
+</ul>
+<p>例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="k">struct</span> <span class="n">sockaddr_in</span> <span class="n">addr</span><span class="p">;</span>
+<span class="ln">2</span><span class="n">addr</span><span class="p">.</span><span class="n">sin_family</span> <span class="o">=</span> <span class="n">AF_INET</span><span class="p">;</span> <span class="c1">//设置tcp协议族
+</span><span class="ln">3</span><span class="c1"></span><span class="n">addr</span><span class="p">.</span><span class="n">sin_port</span> <span class="o">=</span> <span class="n">htons</span><span class="p">(</span><span class="mi">6789</span><span class="p">);</span> <span class="c1">//设置端口号
+</span><span class="ln">4</span><span class="c1"></span><span class="n">addr</span><span class="p">.</span><span class="n">sin_addr</span><span class="p">.</span><span class="n">s_addr</span> <span class="o">=</span> <span class="n">inet_addr</span><span class="p">(</span><span class="s">&#34;192.168.1.105&#34;</span><span class="p">);</span> <span class="c1">//设置ip地址
+</span><span class="ln">5</span><span class="c1"></span>
+<span class="ln">6</span><span class="n">ret</span> <span class="o">=</span> <span class="n">bind</span><span class="p">(</span><span class="n">skfd</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sockaddr</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">addr</span><span class="p">));</span>
+</code></pre></div><h4 id="3sendto">3.sendto</h4>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="n">ssize_t</span> <span class="nf">sendto</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="n">buf</span><span class="p">[.</span><span class="n">len</span><span class="p">],</span> <span class="n">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">dest_addr</span><span class="p">,</span> <span class="n">socklen_t</span> <span class="n">addrlen</span><span class="p">);</span>
+</code></pre></div><p>参数：前面三个参数分别表示：套接字描述符，指向写出缓冲区的指针和写字节数。 dest_addr：指向一个含有数据报接收者的协议地址（如IP地址和端口号）的套接字地址结构（上面所说的sockaddr_in），其大小由addrlen参数指定。</p>
+<h4 id="4recvfrom">4.recvfrom</h4>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="n">ssize_t</span> <span class="nf">recvfrom</span><span class="p">(</span><span class="kt">int</span> <span class="n">sockfd</span><span class="p">,</span> <span class="kt">void</span> <span class="n">buf</span><span class="p">[</span><span class="kr">restrict</span> <span class="p">.</span><span class="n">len</span><span class="p">],</span> <span class="n">size_t</span> <span class="n">len</span><span class="p">,</span>
+<span class="ln">2</span>                        <span class="kt">int</span> <span class="n">flags</span><span class="p">,</span>
+<span class="ln">3</span>                        <span class="k">struct</span> <span class="n">sockaddr</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="kr">restrict</span> <span class="n">src_addr</span><span class="p">,</span>
+<span class="ln">4</span>                        <span class="n">socklen_t</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="kr">restrict</span> <span class="n">addrlen</span><span class="p">);</span>
+</code></pre></div><p>参数：</p>
+<ul>
+<li><code>sockfd</code>：要接收数据的套接字文件描述符。</li>
+<li><code>buf</code>：存储数据的缓冲区。</li>
+<li><code>len</code>：缓冲区的大小。</li>
+<li><code>flags</code>：指定接收数据时的行为标志，通常设置为0。</li>
+<li><code>src_addr</code>：（可选）用于接收发送方地址信息的结构体。</li>
+<li><code>addrlen</code>：（可选）指向<code>src_addr</code>结构体的长度。</li>
+</ul>
+<p>返回值：</p>
+<p>如果成功接收到数据，返回接收到的字节数。</p>
+<p>如果发生错误，返回-1，并设置<code>errno</code>以指示错误的类型。</p>
+<p>请注意，<code>recvfrom</code>函数通常与<code>sendto</code>函数配对使用，用于在网络编程中进行双向通信。</p>
+<h3 id="netinetinh">netinet/in.h</h3>
+<h4 id="1inet_addr">1.inet_addr</h4>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="n">in_addr_t</span> <span class="nf">inet_addr</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">cp</span><span class="p">);</span>
+</code></pre></div><p>它将参数cp所指向的字符串形式的IP地址(“192.168.1.11”)转换为二进制的网络字节序的IP地址形式。</p>
+<p>该函数的缺点是：如果IP地址是255.255.255.255。那么调用inet_addr()函数后将返回-1(因为-1的补码形式是0xFFFFFFFF)。所以不建议使用inet_addr()函数，而是使用inet_aton()函数。</p>
+<h4 id="2htons">2.htons</h4>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="n">uint16_t</span> <span class="nf">htons</span><span class="p">(</span><span class="n">uint16_t</span> <span class="n">hostshort</span><span class="p">);</span>
+</code></pre></div><p>htons 是把你机器上的整数转换成“网络字节序”， 网络字节序是 big-endian，也就是整数的高位字节存放在内存的低地址处。  而我们常用的 x86 CPU (intel, AMD) 电脑是 little-endian,也就是整数的低位字节放在内存的低字节处。</p>
+<h2 id="通信规范">通信规范</h2>
+<h3 id="c语言中的rtp">C语言中的RTP</h3>
+<p>对于通信协议规范，应该使用位域来定义，且变量的类型需要更加严格。</p>
+<p>在构造数据包时，注意rtp协议中的变长部分（csrc），并且基于变长部分的大小赋值后面的负载。</p>
+<h3 id="c语言中的udp">C语言中的UDP</h3>
+<p>使用socket编程的对应参数即可，内部已经封装了UDP头。注意网络最大传输单元是1500字节，除去各种协议的头部剩下的才是负载用的空间。</p>
+<h2 id="编程技巧">编程技巧</h2>
+<ol>
+<li>
+<p>编程时可以用枚举定义统一的错误返回值，这样比较规范也容易找到错误，同时要注意分类。</p>
+</li>
+<li>
+<p>在使用位域时，可以在定义位域的上下加上编译器对齐参数，这样会使位域定义的更严密：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>//编译器参数， 保存原来的对齐方式，并设新的对齐方式设置为一个字节对齐
+<span class="ln"> 2</span>#pragma pack(push, 1)
+<span class="ln"> 3</span>   
+<span class="ln"> 4</span>struct {
+<span class="ln"> 5</span>	int a:1;
+<span class="ln"> 6</span>	int b:2;
+<span class="ln"> 7</span>	char c:1;
+<span class="ln"> 8</span>}sample;
+<span class="ln"> 9</span>   
+<span class="ln">10</span>//还原为原来的对齐方式
+<span class="ln">11</span>#pragma pack(pop)
+</code></pre></div></li>
+<li>
+<p>拷贝消息可使用memcpy，这是基于内存的拷贝，适用于任何数据类型的拷贝。速度较块。</p>
+</li>
+<li>
+<p>结构体初始化使用memset。</p>
+</li>
+<li>
+<p>想要对于一个指针操作，可以在函数内部创建另一个指针变量，使用别名的方式操作：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>char* implict_name;
+<span class="ln">2</span>implict_name=&amp;string;
+</code></pre></div></li>
+<li>
+<p>错误退出可以使用perror+exit</p>
+</li>
+</ol>
+<h2 id="程序流程图">程序流程图</h2>
+<p>发送数据：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>graph LR;
+<span class="ln"> 2</span>    start(开始) --&gt; rtp_stream[rtp流初始化（socket，地址）];
+<span class="ln"> 3</span>    start --&gt; rtp_message[rtp消息初始化（版本，ssrc）];
+<span class="ln"> 4</span>    start --&gt; read_file[打开传输文件];
+<span class="ln"> 5</span>    read_file --&gt; payload1
+<span class="ln"> 6</span>    read_file --&gt; payload2
+<span class="ln"> 7</span>    read_file --&gt; payload3[...]
+<span class="ln"> 8</span>    rtp_message &amp; payload1 &amp; payload2 &amp; payload3 --&gt; rtp_packet_create[生成rtp包]
+<span class="ln"> 9</span>    rtp_packet_create --&gt; sendto;
+<span class="ln">10</span>    rtp_stream --&gt; sendto;
+<span class="ln">11</span>    sendto[sendto函数] --&gt; rtp_send(发送消息);
+<span class="ln">12</span>    
+<span class="ln">13</span>    subgraph UDP相关
+<span class="ln">14</span>    	rtp_stream
+<span class="ln">15</span>    end
+<span class="ln">16</span>    
+<span class="ln">17</span>    subgraph rtp相关
+<span class="ln">18</span>    	rtp_message
+<span class="ln">19</span>    end
+<span class="ln">20</span>    
+<span class="ln">21</span>    subgraph 文件
+<span class="ln">22</span>    	payload1
+<span class="ln">23</span>    	payload2
+<span class="ln">24</span>    	payload3
+<span class="ln">25</span>    end
+</code></pre></div><p>接受数据过程差不多，基本上是反过来，就不写了。</p>
+<h2 id="makefile">Makefile</h2>
+<ol>
+<li>
+<p>可以在开头定义很多出现很多次的东西，如</p>
+<ul>
+<li>编译器</li>
+<li>创建静态库的工具</li>
+<li>参数</li>
+<li>库目录</li>
+<li>包含目录</li>
+<li>目标文件</li>
+<li>结果文件</li>
+</ul>
+<p>使用<code>名称 := 字符串</code>即可定义变量</p>
+</li>
+<li>
+<p>ar 命令是一个用于创建、修改和提取归档文件的工具，通常用于创建静态库（静态链接库）。这些静态库可以包含多个目标文件（.o 文件），并在链接时将这些目标文件打包成一个单一的库文件（通常以 .a 结尾）。</p>
+<ul>
+<li>参数c：创建归档文件。如果归档文件存在，则不提示。</li>
+<li>参数r：添加或替换文件到归档文件中。如果归档文件不存在，则创建一个新的归档文件。</li>
+<li>参数u：只替换比当前归档内容更新的文件</li>
+</ul>
+</li>
+<li>
+<p>Makefile函数</p>
+<ul>
+<li>wildcard可以使变量定义时，括号里的通配符仍然生效</li>
+<li>notdir：去掉路径，只保留文件名</li>
+<li>patsubst &lt;模式&gt;,&lt;替换后的模式&gt;,&lt;要替换的文本&gt;</li>
+</ul>
+</li>
+<li>
+<p>伪目标：</p>
+<p>是这样一个目标：它不代表一个真正的文件名，在执行make时可以指定这个目标来执行所在规则定义的命令，有时也可以将一个伪目标称为标签。伪目标通过PHONY来指明。PHONY定义伪目标的命令一定会被执行</p>
+<p>无论当前目录下是否存在“clean”这个文件，输入“make clean”后，命令都会被执行。</p>
+<div class="highlight"><pre class="chroma"><code class="language-makefile" data-lang="makefile"><span class="ln">1</span><span class="nf">.PHONY </span><span class="o">:</span> <span class="n">clean</span>
+<span class="ln">2</span><span class="nf">clean</span><span class="o">:</span>
+<span class="ln">3</span>	rm -rf <span class="k">$(</span>OBJS<span class="k">)</span>
+</code></pre></div></li>
+</ol></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a></li><li><a href="/posts/tech/media-coroutine-begin/">协程
+</a></li><li><a href="/posts/tech/basic-mermaid/">Mermaid
+</a></li><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-lightrtp/">Lightrtp学习
+</a></li><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a></li><li><a href="/posts/tech/media-coroutine-begin/">协程
+</a></li><li><a href="/posts/tech/basic-mermaid/">Mermaid
+</a></li><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-shell/">菜鸟教程Shell
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">30</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">8</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">6</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>
