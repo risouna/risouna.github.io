@@ -6,7 +6,16 @@
     <description>Recent content in 基础能力 on さぁ、君、取りたまえ</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
-    <lastBuildDate>Tue, 26 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据结构与算法分析: C语言描述</title>
+      <link>/posts/tech/basic-datastructure/</link>
+      <pubDate>Thu, 28 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-datastructure/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Mermaid</title>
       <link>/posts/tech/basic-mermaid/</link>
@@ -17,7 +26,7 @@
     </item>
     
     <item>
-      <title>C语言算法刷题</title>
+      <title>Leetcode C语言算法刷题</title>
       <link>/posts/tech/basic-algorithm-c/</link>
       <pubDate>Sat, 23 Nov 2024 00:00:00 +0000</pubDate>
       
