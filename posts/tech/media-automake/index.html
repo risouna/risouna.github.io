@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>automake使用 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="automake使用">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-29T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-11-29T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="6701">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="automake使用" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/media-automake/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-29T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-11-29T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="automake使用"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+
+
+
+
+<script type="text/javascript" src="/js/Valine.min.js"></script>
+<script type="text/javascript" src="/js/cave-draw.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/katex.min.css">
+<script type="text/javascript" src="/js/katex.min.js"></script>
+<script type="text/javascript" src="/js/auto-render.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" type="text/css" href="/js/font.css">
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">Automake使用</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">Automake使用
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-11-29
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>14 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一概述">一、概述</a></li>
+    <li><a href="#二安装">二、安装</a></li>
+    <li><a href="#三基本使用">三、基本使用</a>
+      <ul>
+        <li><a href="#1编写c代码文件">1.编写C代码文件</a></li>
+        <li><a href="#2执行autoscan命令生成configurescan文件">2.执行autoscan命令生成configure.scan文件</a></li>
+        <li><a href="#3修改configureac文件参数">3.修改configure.ac文件参数</a></li>
+        <li><a href="#4执行aclocal命令生成aclocalm4文件">4.执行aclocal命令生成aclocal.m4文件</a></li>
+        <li><a href="#5使用autoconf工具生成configure文件">5.使用autoconf工具生成configure文件</a></li>
+        <li><a href="#6使用autoheader生成confighin文件">6.使用autoheader生成config.h.in文件</a></li>
+        <li><a href="#7手工编辑makefileam文件">7.手工编辑Makefile.am文件</a></li>
+        <li><a href="#8使用automake命令生成makefilein文件">8.使用automake命令生成Makefile.in文件</a></li>
+        <li><a href="#9运行configure配置生成最终的makefile文件">9.运行configure配置生成最终的Makefile文件</a></li>
+        <li><a href="#10使用makefile编译运行程序">10.使用Makefile编译，运行程序</a></li>
+        <li><a href="#11make支持的其他命令">11.Make支持的其他命令</a></li>
+      </ul>
+    </li>
+    <li><a href="#四configure文件详解">四、configure文件详解</a></li>
+    <li><a href="#五多个文件生成makefile示例同级目录">五、多个文件生成Makefile示例(同级目录)</a></li>
+    <li><a href="#六makefileam格式详解">六、Makefile.am格式详解</a>
+      <ul>
+        <li><a href="#makefileam中可用的全局变量">Makefile.am中可用的全局变量</a></li>
+        <li><a href="#makefileam中可用的路径变量">Makefile.am中可用的路径变量</a></li>
+        <li><a href="#makefileam一般格式">Makefile.am一般格式</a></li>
+      </ul>
+    </li>
+    <li><a href="#七auotomake多级目录生成makefile不发布静态库">七、auotomake多级目录生成Makefile(不发布静态库)</a>
+      <ul>
+        <li><a href="#1创建待编译的源码模拟真实项目环境">1.创建待编译的源码(模拟真实项目环境)</a></li>
+        <li><a href="#2project顶层目录下的操作过程">2.project顶层目录下的操作过程</a></li>
+        <li><a href="#4print目录下创建makefileam文件">4.print目录下创建Makefile.am文件</a></li>
+        <li><a href="#5sum目录下创建makefileam文件">5.sum目录下创建Makefile.am文件</a></li>
+        <li><a href="#6编译">6.编译</a></li>
+      </ul>
+    </li>
+    <li><a href="#八auotomake多级目录生成makefile发布静态库">八、auotomake多级目录生成Makefile(发布静态库)</a>
+      <ul>
+        <li><a href="#目录结构">目录结构</a></li>
+        <li><a href="#顶层makefileam文件代码自己创建">顶层Makefile.am文件代码（自己创建）</a></li>
+        <li><a href="#usermakefileam文件代码自己创建">user/Makefile.am文件代码（自己创建）</a></li>
+        <li><a href="#keymakefileam文件代码自己创建">key/Makefile.am文件代码（自己创建）</a></li>
+        <li><a href="#ledmakefileam文件代码自己创建">led/Makefile.am文件代码（自己创建）</a></li>
+        <li><a href="#顶层目录下的configureac-文件代码">顶层目录下的configure.ac 文件代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#九auotomake多级目录生成makefile发布动态库静态库">九、auotomake多级目录生成Makefile(发布动态库+静态库)</a>
+      <ul>
+        <li><a href="#目录结构-1">目录结构</a></li>
+        <li><a href="#顶层makefileam文件代码自己创建-1">顶层Makefile.am文件代码（自己创建）</a></li>
+        <li><a href="#usermakefileam文件代码自己创建-1">user/Makefile.am文件代码（自己创建）</a></li>
+        <li><a href="#keymakefileam文件代码自己创建-1">key/Makefile.am文件代码（自己创建）</a></li>
+        <li><a href="#ledmakefileam文件代码自己创建-1">led/Makefile.am文件代码（自己创建）</a></li>
+        <li><a href="#顶层目录下的configureac-文件代码-1">顶层目录下的configure.ac 文件代码</a></li>
+      </ul>
+    </li>
+    <li><a href="#十自定义安装目录示例make-install">十、自定义安装目录示例(make install)</a></li>
+    <li><a href="#十一多级目录与函数的嵌套调用生成makefile">十一、多级目录与函数的嵌套调用生成Makefile</a>
+      <ul>
+        <li><a href="#c文件及调用关系图">C文件及调用关系图</a></li>
+        <li><a href="#automake操作">automake操作</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><p><a href="https://cloud.tencent.com/developer/article/2142074">https://cloud.tencent.com/developer/article/2142074</a></p>
+<h2 id="一概述">一、概述</h2>
+<p>利用 GNU Autoconf 及 Automake 这两套工具来协助我们自动产生 Makefile文件，并且让开发出来的软件可以像大多数源码包那样，只需&quot;./configure&quot;, &ldquo;make&rdquo;,&ldquo;make install&rdquo; 就可以把程序安装到系统中。</p>
+<p>目前automake支持三种目录层次：flat、shallow和deep：</p>
+<ol>
+<li>
+<p>flat指的是所有文件都位于同一个目录中。</p>
+<p>就是所有源文件、头文件以及其他库文件都位于当前目录中，且没有子目录。Termutils就是这一类。</p>
+</li>
+<li>
+<p>shallow指的是主要的源代码都储存在顶层目录，其他各个部分则储存在子目录中。</p>
+<p>就是主要源文件在当前目录中，而其它一些实现各部分功能的源文件位于各自不同的目录。automake本身就是这一类。</p>
+</li>
+<li>
+<p>deep指的是所有源代码都被储存在子目录中；顶层目录主要包含配置信息。</p>
+<p>就是所有源文件及自己写的头文件位于当前目录的一个子目录中，而当前目录里没有任何源文件。</p>
+</li>
+</ol>
+<h2 id="二安装">二、安装</h2>
+<h2 id="三基本使用">三、基本使用</h2>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>graph TB;
+<span class="ln"> 2</span>source[源码root];
+<span class="ln"> 3</span>configure.scan;
+<span class="ln"> 4</span>configure.in;
+<span class="ln"> 5</span>aclocal.m4;
+<span class="ln"> 6</span>configure;
+<span class="ln"> 7</span>Makefile.am;
+<span class="ln"> 8</span>Makefile.in;
+<span class="ln"> 9</span>Makefile;
+<span class="ln">10</span>start(开始)
+<span class="ln">11</span>start2(开始)
+<span class="ln">12</span>
+<span class="ln">13</span>start2 --编程--&gt;source;
+<span class="ln">14</span>source --autoscan--&gt; configure.scan;
+<span class="ln">15</span>configure.scan --手动编辑--&gt; configure.in;
+<span class="ln">16</span>configure.in --aclocal--&gt; aclocal.m4;
+<span class="ln">17</span>configure.in --autoconf--&gt; configure;
+<span class="ln">18</span>aclocal.m4 --autoconf--&gt; configure;
+<span class="ln">19</span>start --手动创建--&gt; Makefile.am
+<span class="ln">20</span>Makefile.am --automake--&gt; Makefile.in;
+<span class="ln">21</span>configure.in --&gt; Makefile.in;
+<span class="ln">22</span>Makefile.in --&gt; Makefile
+<span class="ln">23</span>configure --&gt; Makefile;
+</code></pre></div><h3 id="1编写c代码文件">1.编写C代码文件</h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>vim app.c
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span><span class="ln"> 2</span><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span><span class="ln"> 3</span><span class="cp"></span>
+<span class="ln"> 4</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">){</span>
+<span class="ln"> 5</span>	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="ln"> 6</span>	<span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">argc</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+<span class="ln"> 7</span>		<span class="n">printf</span><span class="p">(</span><span class="s">&#34;argv[%d]=%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="ln"> 8</span>	<span class="p">}</span>
+<span class="ln"> 9</span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">10</span><span class="p">}</span>
+</code></pre></div><h3 id="2执行autoscan命令生成configurescan文件">2.执行autoscan命令生成configure.scan文件</h3>
+<p>生成configure.scan文件之后，将文件修改成configure.ac文件，如果没有这个.ac文件，执行aclocal命令的时候会报错。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>autoscan
+<span class="ln">2</span>ls
+<span class="ln">3</span>mv configure.scan configure.ac
+</code></pre></div><h3 id="3修改configureac文件参数">3.修改configure.ac文件参数</h3>
+<p>初始生成的configure.ac：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>#                                               -*- Autoconf -*-
+<span class="ln"> 2</span># Process this file with autoconf to produce a configure script.
+<span class="ln"> 3</span>
+<span class="ln"> 4</span>AC_PREREQ([2.71])
+<span class="ln"> 5</span>AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
+<span class="ln"> 6</span>AC_CONFIG_SRCDIR([app.c])
+<span class="ln"> 7</span>AC_CONFIG_HEADERS([config.h])
+<span class="ln"> 8</span>
+<span class="ln"> 9</span># Checks for programs.
+<span class="ln">10</span>AC_PROG_CC
+<span class="ln">11</span>
+<span class="ln">12</span># Checks for libraries.
+<span class="ln">13</span>
+<span class="ln">14</span># Checks for header files.
+<span class="ln">15</span>
+<span class="ln">16</span># Checks for typedefs, structures, and compiler characteristics.
+<span class="ln">17</span>
+<span class="ln">18</span># Checks for library functions.
+<span class="ln">19</span>
+<span class="ln">20</span>AC_OUTPUT
+</code></pre></div><p>每个configure.ac文件都是以AC_INIT开头，以AC_OUTPUT结束。</p>
+<p>AC_PROG_RANLIB如果是多线程的程序的话要加入这句话,要不运行automake命令时会出错</p>
+<blockquote>
+<p>AC_INIT
+测试程序
+测试函数库
+测试头文件
+测试类型定义
+测试结构
+测试编译器特性
+测试库函数
+测试系统调用
+AC_OUTPUT</p>
+</blockquote>
+<p>文件解释：</p>
+<ul>
+<li>
+<p>AC_PREREQ宏声明本文件要求的autoconf版本，本例使用的版本为2.71。</p>
+</li>
+<li>
+<p>AC_INIT()中分别的是: 软件包的名字，版本，作者的联系方式(一般是Email)</p>
+<p>AC_INIT宏用来定义软件的名称和版本等信息，”FULL-PACKAGE-NAME”为软件包名称，”VERSION”为软件版本号，”BUG-REPORT-ADDRESS”为BUG报告地址（一般为软件作者邮件地址）。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AC_INIT([app], [1.1.2], [1126626497@qq.com])
+</code></pre></div></li>
+<li>
+<p>在下面再自己添加一行AM_INIT_AUTOMAKE()，里面填入: 程序名字，版本号。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AM_INIT_AUTOMAKE(app,1.1.2)
+</code></pre></div></li>
+<li>
+<p>AC_CONFIG_SRCDIR宏用来侦测所指定的源码文件是否存在，来确定源码目录的有效性。此处为当前目录下的app.c。</p>
+</li>
+<li>
+<p>AC_CONFIG_HEADER宏用于生成config.h文件，以便autoheader使用。</p>
+</li>
+<li>
+<p>AC_PROG_CC用来指定编译器，如果不指定，选用默认gcc。 比如: AC_PROG_CC(gcc)</p>
+</li>
+<li>
+<p>AC_OUTPUT用来设定 configure  所要产生的文件，如果是makefile，configure会把它检查出来的结果带入makefile.in文件产生合适的makefile。使用Automake时，还需要一些其他的参数，这些额外的宏用aclocal工具产生。（如上流程图）</p>
+<p>最后AC_OUTPUT()填写生成的文件名称。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AC_OUTPUT(Makefile)
+</code></pre></div></li>
+</ul>
+<p>修改之后的configure.ac：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>#                                               -*- Autoconf -*-
+<span class="ln"> 2</span># Process this file with autoconf to produce a configure script.
+<span class="ln"> 3</span>
+<span class="ln"> 4</span>AC_PREREQ([2.71])
+<span class="ln"> 5</span>AC_INIT([app], [1.1.2], [bnaod1@qq.com])
+<span class="ln"> 6</span>AM_INIT_AUTOMAKE(app,1.1.2)
+<span class="ln"> 7</span>AC_CONFIG_SRCDIR([app.c])
+<span class="ln"> 8</span>AC_CONFIG_HEADERS([config.h])
+<span class="ln"> 9</span>
+<span class="ln">10</span># Checks for programs.
+<span class="ln">11</span>AC_PROG_CC
+<span class="ln">12</span>
+<span class="ln">13</span># Checks for libraries.
+<span class="ln">14</span>
+<span class="ln">15</span># Checks for header files.
+<span class="ln">16</span>
+<span class="ln">17</span># Checks for typedefs, structures, and compiler characteristics.
+<span class="ln">18</span>
+<span class="ln">19</span># Checks for library functions.
+<span class="ln">20</span>
+<span class="ln">21</span>AC_OUTPUT(Makefile)
+</code></pre></div><h3 id="4执行aclocal命令生成aclocalm4文件">4.执行aclocal命令生成aclocal.m4文件</h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>aclocal
+<span class="ln">2</span>ls
+</code></pre></div><h3 id="5使用autoconf工具生成configure文件">5.使用autoconf工具生成configure文件</h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>autoconf
+<span class="ln">2</span>ls
+</code></pre></div><h3 id="6使用autoheader生成confighin文件">6.使用autoheader生成config.h.in文件</h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>autoheader
+</code></pre></div><h3 id="7手工编辑makefileam文件">7.手工编辑Makefile.am文件</h3>
+<p>Makefile.am是一种比Makefile更高层次的规则。只需指定要生成什么目标，它由什么源文件生成，要安装到什么目录等构成。</p>
+<p>Automake工具会根据config.in中的参量把Makefile.am转换成Makefile.in文件。在使用Automake之前，要先手动建立Makefile.am文件。</p>
+<p>文件创建之后，需要写三项代码：</p>
+<ul>
+<li>
+<p>第一项：软件规范，有三个候选项：foreign(国外),gnu(GNU),gnits</p>
+<p>如果使用foreign等级，它只检测必须的文件</p>
+</li>
+<li>
+<p>第二项：生成的可执行文件名</p>
+</li>
+<li>
+<p>第三项：生成可执行文件所需的原始文件，有多个文件时用空格隔开。</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>touch Makefile.am
+<span class="ln">2</span>vim Makefile.am
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-Makefile.am" data-lang="Makefile.am"><span class="ln">1</span><span class="nv">AUTOMAKE_OPTIONS</span><span class="o">=</span>foreign 
+<span class="ln">2</span><span class="nv">bin_PROGRAMS</span><span class="o">=</span>app 
+<span class="ln">3</span><span class="nv">app_SOURCES</span><span class="o">=</span>app.c
+</code></pre></div><h3 id="8使用automake命令生成makefilein文件">8.使用automake命令生成Makefile.in文件</h3>
+<p>添加选项&ndash;add-missing 可以让automake工具自动添加必要的脚本文件</p>
+<p>注意: 不能在共享目录下执行，因为共享目录下是windows文件系统(FA32/NTFS),不支持link操作。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>automake
+</code></pre></div><h3 id="9运行configure配置生成最终的makefile文件">9.运行configure配置生成最终的Makefile文件</h3>
+<p>configure脚本为了让一个程序能够在各种不同类型的机器上运行而设计的。在使用make编译源代码之前，configure会根据自己所依赖的库而在目标机器上进行匹配。</p>
+<p>约定俗成的，所有的configure脚本都把脚本文件名起为configure，一般来讲都是shell脚本，根据所在的系统环境生成makefile文件。</p>
+<p>configure脚本运行时扫描当前环境，生成一个名为config.status的子脚本。子脚本将Makefile.in文件转换为适应于当前系统环境的Makefile文件。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span>$./configure 
+<span class="ln"> 2</span>checking <span class="k">for</span> a BSD-compatible install... /usr/bin/install -c
+<span class="ln"> 3</span>checking whether build environment is sane... yes
+<span class="ln"> 4</span>checking <span class="k">for</span> a race-free mkdir -p... /usr/bin/mkdir -p
+<span class="ln"> 5</span>checking <span class="k">for</span> gawk... gawk
+<span class="ln"> 6</span>checking whether make sets <span class="k">$(</span>MAKE<span class="k">)</span>... yes
+<span class="ln"> 7</span>checking whether make supports nested variables... yes
+<span class="ln"> 8</span>checking <span class="k">for</span> gcc... gcc
+<span class="ln"> 9</span>checking whether the C compiler works... yes
+<span class="ln">10</span>checking <span class="k">for</span> C compiler default output file name... a.out
+<span class="ln">11</span>checking <span class="k">for</span> suffix of executables... 
+<span class="ln">12</span>checking whether we are cross compiling... no
+<span class="ln">13</span>checking <span class="k">for</span> suffix of object files... o
+<span class="ln">14</span>checking whether the compiler supports GNU C... yes
+<span class="ln">15</span>checking whether gcc accepts -g... yes
+<span class="ln">16</span>checking <span class="k">for</span> gcc option to <span class="nb">enable</span> C11 features... none needed
+<span class="ln">17</span>checking whether gcc understands -c and -o together... yes
+<span class="ln">18</span>checking whether make supports the include directive... yes <span class="o">(</span>GNU style<span class="o">)</span>
+<span class="ln">19</span>checking dependency style of gcc... gcc3
+<span class="ln">20</span>checking that generated files are newer than configure... <span class="k">done</span>
+<span class="ln">21</span>configure: creating ./config.status
+<span class="ln">22</span>config.status: creating Makefile
+<span class="ln">23</span>config.status: creating config.h
+<span class="ln">24</span>config.status: executing depfiles commands
+</code></pre></div><h3 id="10使用makefile编译运行程序">10.使用Makefile编译，运行程序</h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span><span class="nv">$make</span>
+<span class="ln"> 2</span>make  all-am
+<span class="ln"> 3</span>make<span class="o">[</span>1<span class="o">]</span>: 进入目录“/home/zhaoxiaoqi/code/c/test-automake”
+<span class="ln"> 4</span>gcc -DHAVE_CONFIG_H -I.     -g -O2 -MT app.o -MD -MP -MF .deps/app.Tpo -c -o app.o app.c
+<span class="ln"> 5</span>mv -f .deps/app.Tpo .deps/app.Po
+<span class="ln"> 6</span>gcc  -g -O2   -o app app.o  
+<span class="ln"> 7</span>make<span class="o">[</span>1<span class="o">]</span>: 离开目录“/home/zhaoxiaoqi/code/c/test-automake”
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>$./app <span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+<span class="ln">10</span>argv<span class="o">[</span>0<span class="o">]=</span>./app
+<span class="ln">11</span>argv<span class="o">[</span>1<span class="o">]=</span><span class="m">1</span>
+<span class="ln">12</span>argv<span class="o">[</span>2<span class="o">]=</span><span class="m">2</span>
+<span class="ln">13</span>argv<span class="o">[</span>3<span class="o">]=</span><span class="m">3</span>
+</code></pre></div><h3 id="11make支持的其他命令">11.Make支持的其他命令</h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="c1">#清除目标文件</span>
+<span class="ln">2</span>make clean 
+<span class="ln">3</span><span class="c1">#将源文件打包</span>
+<span class="ln">4</span>make dist
+<span class="ln">5</span><span class="c1">#编译源文件生成目标文件</span>
+<span class="ln">6</span>make
+<span class="ln">7</span><span class="c1">#将目标文件拷贝到指定目录下</span>
+<span class="ln">8</span>make install
+</code></pre></div><h2 id="四configure文件详解">四、configure文件详解</h2>
+<h2 id="五多个文件生成makefile示例同级目录">五、多个文件生成Makefile示例(同级目录)</h2>
+<p>现在目录下有main.c， print.c， sum.c三个c文件，config.h，sum.h两个头文件</p>
+<p>修改Makefile.am内容：</p>
+<div class="highlight"><pre class="chroma"><code class="language-Makefile.am" data-lang="Makefile.am"><span class="ln">1</span><span class="nv">AUTOMAKE_OPTIONS</span><span class="o">=</span>foreign 
+<span class="ln">2</span><span class="nv">bin_PROGRAMS</span><span class="o">=</span>app 
+<span class="ln">3</span><span class="nv">app_SOURCES</span><span class="o">=</span>main.c print.c sum.c
+</code></pre></div><h2 id="六makefileam格式详解">六、Makefile.am格式详解</h2>
+<h3 id="makefileam中可用的全局变量">Makefile.am中可用的全局变量</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">变量</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">INCLUDES</td>
+<td style="text-align:left">链接所需要的头文件</td>
+</tr>
+<tr>
+<td style="text-align:left">LDADD</td>
+<td style="text-align:left">链接所需要的库文件</td>
+</tr>
+<tr>
+<td style="text-align:left">LDFLAGS</td>
+<td style="text-align:left">链接所需要的库文件选项标志</td>
+</tr>
+<tr>
+<td style="text-align:left">EXTRA_DIST</td>
+<td style="text-align:left">配置打包时需要打包的其他文件</td>
+</tr>
+<tr>
+<td style="text-align:left">SUBDIRS</td>
+<td style="text-align:left">设置处理本目录之前需要递归处理的子目录</td>
+</tr>
+</tbody>
+</table>
+<p>例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>SUBDIRS=src/lib src/ModuleA/apple/shell src/ModuleA/apple/core 
+<span class="ln">2</span>CURRENTPATH=$(shell /bin/pwd) 
+<span class="ln">3</span>INCLUDES=-I $(CURRENTPATH)/src/include -I $(CURRENTPATH)/src/ModuleA/apple/include 
+<span class="ln">4</span>export INCLUDES
+</code></pre></div><h3 id="makefileam中可用的路径变量">Makefile.am中可用的路径变量</h3>
+<p>在Makefile.am中尽量使用相对路径，系统预定义了两个基本路径：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">路径变量</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">$(top_srcdir)</td>
+<td style="text-align:left">工程最顶层目录，用于引用源程序</td>
+</tr>
+<tr>
+<td style="text-align:left">$(top_builddir)</td>
+<td style="text-align:left">定义了生成目标文件最上层目录，用于引用.o 等一些编译出来的目标文件</td>
+</tr>
+<tr>
+<td style="text-align:left">$(prefix)</td>
+<td style="text-align:left">定义了软件的安装的路径</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>automake标准安装路径</p>
+<p>默认安装路径为：$(prefix) = /usr/local，可以通过./configure &ndash;prefix=&lt;new_path&gt;的方法来覆盖。</p>
+<p>其它的预定义目录还包括：bindir = (prefix)/bin,libdir=(prefix)/lib, datadir = (prefix)/share,sysconfdir=(prefix)/etc等等。</p>
+</li>
+<li>
+<p>定义一个新的安装路径</p>
+<p>比如test, 可定义<code>testdir = (prefix)/test</code>,然后<code>test_DATA=test1 test2</code>，则test1，test2会作为数据文件安装到(prefix)/ /test目录下。</p>
+</li>
+</ol>
+<p>例:</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln">1</span><span class="nx">devicedir</span> <span class="p">=</span> <span class="err">$</span><span class="p">{</span><span class="nx">prefix</span><span class="p">}</span><span class="o">/</span><span class="nx">dev</span> 
+<span class="ln">2</span><span class="nx">device_DATA</span> <span class="p">=</span> <span class="kn">package</span> 
+<span class="ln">3</span><span class="err">#</span><span class="nx">package文件会作为数据文件安装到dev目录之下</span><span class="err">，</span><span class="nx">这相当于定义了一种安装类型</span><span class="err">：</span><span class="nx">devicedir</span><span class="err">，</span><span class="nx">所以想怎么安装就怎么安装</span><span class="err">，</span><span class="nx">后面的XXXXXdir</span><span class="err">，</span><span class="nx">dir是固定不变的</span>
+</code></pre></div><h3 id="makefileam一般格式">Makefile.am一般格式</h3>
+<p>PROGRAMS。表示可执行文件</p>
+<p>LIBRARIES。表示静态库文件</p>
+<p>LTLIBRARIES。表示动态库文件，前面的LT表示libtool。</p>
+<p>HEADERS。头文件。</p>
+<p>SCRIPTS。脚本文件，这个可以被用于执行。如：example_SCRIPTS，如果用这样的话，需要我们自己定义安装目录下的example目录</p>
+<p>DATA。数据文件，不能执行。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">文件类型</th>
+<th style="text-align:left">书写格式</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">软件规范</td>
+<td style="text-align:left">AUTOMAKE_OPTIONS=foreign</td>
+<td style="text-align:left">有三个候选项： foreign(国外),gnu(GNU),gnits 如果使用foreign等级，它只检测必须的文</td>
+</tr>
+<tr>
+<td style="text-align:left">可执行文件</td>
+<td style="text-align:left">bin_PROGRAMS=foo <br />foo_SOURCES=xxx.c <br />foo_LDADD= <br />foo_LDFLAGS= <br />foo_DEPENDENCIES=</td>
+<td style="text-align:left">bin_PROGRAMS=foo （设置可执行文件的名称） 如果可执行文件的名称为foo,后面的代码前缀，都需要填foo</td>
+</tr>
+<tr>
+<td style="text-align:left">静态库</td>
+<td style="text-align:left">lib_LIBRARIES=libfoo.a <br />foo_a_SOURCES= <br />foo_a_LDADD= <br />foo_a_LIBADD= <br />foo_a_LDFLAGS=</td>
+<td style="text-align:left">如果程序里使用了静态库编译,需要在configure.ac文件里增加以下宏定义代码 AC_PROG_RANLIB</td>
+</tr>
+<tr>
+<td style="text-align:left">动态库</td>
+<td style="text-align:left">lib_LTLIBRARIES=libfoo.la <br />foo_la_SOURCES= <br />foo_la_LDADD= <br />foo_la_LIBADD=<br />foo_la_LDFLAGS=</td>
+<td style="text-align:left">如果程序里使用了动态库编译,需要在configure.ac文件里增加以下宏定义代码 AC_PROG_LIBTOOL 表示利用libtool 来自动生成动态库 编译共享库前,需要运行以下命令: libtoolize -f -c</td>
+</tr>
+<tr>
+<td style="text-align:left">头文件</td>
+<td style="text-align:left">include_HEADERS=xx.h xx.h xx.h</td>
+<td style="text-align:left">软件发布时需要的头文件 make install之后，会将头文件放到安装目录下的include目录里。</td>
+</tr>
+<tr>
+<td style="text-align:left">数据文件</td>
+<td style="text-align:left">data_DATA=data1 xxx2 xxx3</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<p>对于可执行文件和静态库类型，如果只想编译，不想安装到系统中，可以用noinst_PROGRAMS代替bin_PROGRAMS，noinst_LIBRARIES代替lib_LIBRARIES。</p>
+<p>如果有帮助文档，不需要编译，但是需要随着软件发布一起发布，可以按下面格式进行定义:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>EXTRA_DIST=led/led.h key/key.h
+</code></pre></div><h2 id="七auotomake多级目录生成makefile不发布静态库">七、auotomake多级目录生成Makefile(不发布静态库)</h2>
+<p>多级目录结构的软件，一般是单个程序、库文件或模块放在各自的目录中。automake要求每个目录都有自己的Makefile.am文件来编译各自目录  下的代码。在顶级的目录中，有一个Makefile.am文件，该文件通过SUBDIRS指明了这个目录下有多少个直接下级目录的代码需要编译。下级目录的Makefile.am也指明自己需要编译的下级目录。通过这样的层层递归i，从而完成多级目录结构的编译。</p>
+<h3 id="1创建待编译的源码模拟真实项目环境">1.创建待编译的源码(模拟真实项目环境)</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>$tree -C
+<span class="ln"> 2</span>.
+<span class="ln"> 3</span>├── main
+<span class="ln"> 4</span>│   └── main.c
+<span class="ln"> 5</span>├── print
+<span class="ln"> 6</span>│   ├── print.c
+<span class="ln"> 7</span>│   └── print.h
+<span class="ln"> 8</span>└── sum
+<span class="ln"> 9</span>    ├── sum.c
+<span class="ln">10</span>    └── sum.h
+</code></pre></div><p>顶层目录是project，在project目录下分别是main\print\sum目录。 main目录里的main.c是包含main函数的主程序，分别调用了sum和print目录下.c文件里的函数。</p>
+<h3 id="2project顶层目录下的操作过程">2.project顶层目录下的操作过程</h3>
+<ol>
+<li>
+<p>执行autoscan命令生成configure.scan文件</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>autoscan
+</code></pre></div></li>
+<li>
+<p>将configure.scan改名成configure.in (早期in, 现在常用.ac)</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>mv configure.scan configure.in
+</code></pre></div></li>
+<li>
+<p>修改configure.in</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>[wbyq@wbyq project]$ cat configure.in 
+<span class="ln"> 2</span># -*- Autoconf -*- 
+<span class="ln"> 3</span># Process this file with autoconf to produce a configure script.  
+<span class="ln"> 4</span>   
+<span class="ln"> 5</span>AC_PREREQ([2.63]) 
+<span class="ln"> 6</span>AC_INIT([app], [1.2.3], [112626497@qq.com]) 
+<span class="ln"> 7</span>AC_CONFIG_SRCDIR([main/main.c]) 
+<span class="ln"> 8</span>AC_CONFIG_HEADERS([config.h]) 
+<span class="ln"> 9</span>AM_INIT_AUTOMAKE(app,1.2.3) 
+<span class="ln">10</span>AC_PROG_RANLIB #使用了静态库编译,需要此宏定义 
+<span class="ln">11</span>   
+<span class="ln">12</span># Checks for programs. AC_PROG_CC  
+<span class="ln">13</span>   
+<span class="ln">14</span># Checks for libraries.  
+<span class="ln">15</span>   
+<span class="ln">16</span># Checks for header files.  
+<span class="ln">17</span>   
+<span class="ln">18</span># Checks for typedefs, structures, and compiler characteristics.  
+<span class="ln">19</span>   
+<span class="ln">20</span># Checks for library functions.  
+<span class="ln">21</span>   
+<span class="ln">22</span>   
+<span class="ln">23</span>AC_OUTPUT(Makefile 
+<span class="ln">24</span>       main/Makefile 
+<span class="ln">25</span>       sum/Makefile 
+<span class="ln">26</span>       print/Makefile)
+</code></pre></div></li>
+<li>
+<p>分别执行aclocal、autoconf、autoheader命令</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>ls
+<span class="ln">2</span>aclocal
+<span class="ln">3</span>ls
+<span class="ln">4</span>autoconf
+<span class="ln">5</span>ls
+</code></pre></div></li>
+<li>
+<p>创建Makefile.am文件</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>touch Makefile.am
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign 
+<span class="ln">2</span>SUBDIRS= print sum main #表示本目录的直接下级目录需要编译 #注意：顺序不能反，按照调用顺序来写。
+</code></pre></div><p>如果有帮助文档，不需要编译，但是需要随着软件发布一起发布，可以按下面格式进行定义:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>EXTRA_DIST=doc/help.txt
+</code></pre></div><p>doc/help.txt不需要编译，但要发布该文件。如果有多个文件，则用空格分开。</p>
+</li>
+</ol>
+<h4 id="3main目录下创建makefileam文件">3.main目录下创建Makefile.am文件</h4>
+<p>在main目录下建立Makefile.am文件。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign 
+<span class="ln">2</span>bin_PROGRAMS=app #本目录的文件编译成可执行文件app 
+<span class="ln">3</span>app_SOURCES=main.c 
+<span class="ln">4</span>app_LDADD=$(top_srcdir)/sum/libsum.a $(top_srcdir)/print/libprint.a 
+<span class="ln">5</span>INCLUDES=-I$(top_srcdir)/print/ -I$(top_srcdir)/sum
+</code></pre></div><p>app_LDADD 指定需要的库文件</p>
+<p>INCLUDES 指定需要的头文件</p>
+<h3 id="4print目录下创建makefileam文件">4.print目录下创建Makefile.am文件</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[wbyq@wbyq project]$ cat print/Makefile.am 
+<span class="ln">2</span>AUTOMAKE_OPTIONS=foreign 
+<span class="ln">3</span>noinst_LIBRARIES=libprint.a 
+<span class="ln">4</span>libprint_a_SOURCES=print.h print.c 
+<span class="ln">5</span>INCLUDES=-I$(top_srcdir)/sum
+</code></pre></div><h3 id="5sum目录下创建makefileam文件">5.sum目录下创建Makefile.am文件</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[wbyq@wbyq project]$ cat sum/Makefile.am 
+<span class="ln">2</span>AUTOMAKE_OPTIONS=foreign 
+<span class="ln">3</span>noinst_LIBRARIES=libsum.a 
+<span class="ln">4</span>libsum_a_SOURCES=sum.h sum.c
+</code></pre></div><h3 id="6编译">6.编译</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>[wbyq@wbyq project]$ automake --add-missing 
+<span class="ln">2</span>[wbyq@wbyq project]$./configure --prefix=$PWD/_install 
+<span class="ln">3</span>[wbyq@wbyq project]$ make 
+<span class="ln">4</span>[wbyq@wbyq project]$ make install
+</code></pre></div><h2 id="八auotomake多级目录生成makefile发布静态库">八、auotomake多级目录生成Makefile(发布静态库)</h2>
+<h3 id="目录结构">目录结构</h3>
+<p>在main.里调用了led.c和key.c里的函数。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>$tree -C
+<span class="ln"> 2</span>.
+<span class="ln"> 3</span>├── key
+<span class="ln"> 4</span>│   ├── key.c
+<span class="ln"> 5</span>│   ├── key.h
+<span class="ln"> 6</span>│   └── Makefile.am
+<span class="ln"> 7</span>├── led
+<span class="ln"> 8</span>│   ├── led.c
+<span class="ln"> 9</span>│   ├── led.h
+<span class="ln">10</span>│   └── Makefile.am
+<span class="ln">11</span>├── Makefile.am
+<span class="ln">12</span>└── user
+<span class="ln">13</span>    ├── main.c
+<span class="ln">14</span>    └── Makefile.am
+</code></pre></div><p>main.c：</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt; </span><span class="cp">
+</span><span class="ln">2</span><span class="cp">#include</span> <span class="cpf">&#34;key.h&#34; </span><span class="cp">
+</span><span class="ln">3</span><span class="cp">#include</span> <span class="cpf">&#34;led.h&#34; </span><span class="cp">
+</span><span class="ln">4</span><span class="cp"></span>
+<span class="ln">5</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">char</span> <span class="n">argc</span><span class="p">,</span><span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span> 
+<span class="ln">6</span>	<span class="n">led_init</span><span class="p">();</span> <span class="n">key_init</span><span class="p">();</span> 
+<span class="ln">7</span>	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
+<span class="ln">8</span><span class="p">}</span>
+</code></pre></div><p>led.c:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span> <span class="cp">#include</span> <span class="cpf">&#34;led.h&#34; </span><span class="cp">
+</span><span class="ln">2</span><span class="cp"></span> 
+<span class="ln">3</span> <span class="kt">void</span> <span class="nf">led_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> 
+<span class="ln">4</span> 	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;led_init</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> 
+<span class="ln">5</span> <span class="p">}</span>
+</code></pre></div><p>led.h:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="cp">#ifndef LED_H 
+</span><span class="ln">2</span><span class="cp">#define LED_H 
+</span><span class="ln">3</span><span class="cp"></span>
+<span class="ln">4</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt; </span><span class="cp">
+</span><span class="ln">5</span><span class="cp"></span><span class="kt">void</span> <span class="nf">led_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span> 
+<span class="ln">6</span>
+<span class="ln">7</span><span class="cp">#endif  
+</span></code></pre></div><p>key.c:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="cp">#include</span> <span class="cpf">&#34;key.h&#34; </span><span class="cp">
+</span><span class="ln">2</span><span class="cp">#include</span> <span class="cpf">&#34;led.h&#34; </span><span class="cp">
+</span><span class="ln">3</span><span class="cp"></span>
+<span class="ln">4</span><span class="kt">void</span> <span class="nf">key_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span> 
+<span class="ln">5</span>	<span class="n">led_init</span><span class="p">();</span> 
+<span class="ln">6</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;key_init</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span> 
+<span class="ln">7</span><span class="p">}</span>
+</code></pre></div><p>key.h:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="cp">#ifndef KEY_H 
+</span><span class="ln">2</span><span class="cp">#define KEY_H 
+</span><span class="ln">3</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt; </span><span class="cp">
+</span><span class="ln">4</span><span class="cp"></span><span class="kt">void</span> <span class="nf">key_init</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span> 
+<span class="ln">5</span><span class="cp">#endif 
+</span></code></pre></div><p>调用关系图：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>graph LR;
+<span class="ln">2</span>main.c --&gt; led.c &amp; key.c;
+<span class="ln">3</span>key.c --&gt; led.c;
+<span class="ln">4</span>
+</code></pre></div><h3 id="顶层makefileam文件代码自己创建">顶层Makefile.am文件代码（自己创建）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign #软件规范 
+<span class="ln">2</span>SUBDIRS=led key user #执行本目录前，需要递归执行make的目录
+</code></pre></div><h3 id="usermakefileam文件代码自己创建">user/Makefile.am文件代码（自己创建）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign #软件规范 
+<span class="ln">2</span>bin_PROGRAMS=app #可执行文件名称 
+<span class="ln">3</span>app_SOURCES=main.c #可执行需要的源文件 
+<span class="ln">4</span>app_LDADD=$(top_srcdir)/led/libled.a $(top_srcdir)/key/libkey.a #可执行文件需要的库文件 
+<span class="ln">5</span>INCLUDES=-I$(top_srcdir)/led -I$(top_srcdir)/key #编译需要的头文件 EXTRA_DIST=$(top_srcdir)/led/led.h $(top_srcdir)/key/key.h #打包时需要额外添加的文件 
+<span class="ln">6</span>#make dist打包命令
+</code></pre></div><h3 id="keymakefileam文件代码自己创建">key/Makefile.am文件代码（自己创建）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign #软件规范 
+<span class="ln">2</span>lib_LIBRARIES=libkey.a #生成的静态库文件 
+<span class="ln">3</span>libkey_a_SOURCES=key.c key.h #生成静态库需要的源文件。 格式：libkey_a_SOURCES --将原来的.换成_
+<span class="ln">4</span>key_a_LDADD=$(top_srcdir)/led/libled.a
+<span class="ln">5</span>INCLUDES=-I$(top_srcdir)/led
+</code></pre></div><h3 id="ledmakefileam文件代码自己创建">led/Makefile.am文件代码（自己创建）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign #软件规范 
+<span class="ln">2</span>lib_LIBRARIES=libled.a #生成的静态库文件(lib开头表示执行make installs时会一起发布，加noinst就不会一起发布) 
+<span class="ln">3</span>libled_a_SOURCES=led.c led.h #生成静态库需要的源文件。 格式：libkey_a_SOURCES --将原来的.换成_
+</code></pre></div><h3 id="顶层目录下的configureac-文件代码">顶层目录下的configure.ac 文件代码</h3>
+<ol>
+<li>
+<p>执行autoscan 命令生成configure.scan 文件</p>
+</li>
+<li>
+<p>修改configure.scan 文件后缀为.ac或者.in</p>
+</li>
+<li>
+<p>修改configure.ac 文件参数</p>
+</li>
+<li>
+<p>configure.ac文件代码如下:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span># -*- Autoconf -*- 
+<span class="ln"> 2</span># Process this file with autoconf to  produce a configure script.  
+<span class="ln"> 3</span>   
+<span class="ln"> 4</span>AC_PREREQ([2.63]) 
+<span class="ln"> 5</span>AC_INIT([app], [1.2.3],  [112662497@qq.com]) 
+<span class="ln"> 6</span>AC_CONFIG_SRCDIR([user/main.c])  
+<span class="ln"> 7</span>AC_CONFIG_HEADERS([config.h]) 
+<span class="ln"> 8</span>AM_INIT_AUTOMAKE(app,1.2.3) 
+<span class="ln"> 9</span>AC_PROG_RANLIB #表示使用静态库 
+<span class="ln">10</span># Checks for programs. 
+<span class="ln">11</span>AC_PROG_CC 
+<span class="ln">12</span># Checks for library  functions.  
+<span class="ln">13</span>AC_OUTPUT(Makefile user/Makefile led/Makefile key/Makefile)
+</code></pre></div></li>
+<li>
+<p>aclocal</p>
+</li>
+<li>
+<p>autoconf</p>
+</li>
+<li>
+<p>autoheader</p>
+</li>
+<li>
+<p>automake &ndash;add-missing</p>
+</li>
+<li>
+<p>./configure &ndash;prefix=$PWD/_install</p>
+</li>
+<li>
+<p>make &amp;&amp; make install</p>
+</li>
+<li>
+<p>tree _install/ -C</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>_install/
+<span class="ln">2</span>├── bin
+<span class="ln">3</span>│   └── app
+<span class="ln">4</span>└── lib
+<span class="ln">5</span>    ├── libkey.a
+<span class="ln">6</span>    └── libled.a
+<span class="ln">7</span>    
+<span class="ln">8</span>3 directories, 3 files
+</code></pre></div></li>
+</ol>
+<h2 id="九auotomake多级目录生成makefile发布动态库静态库">九、auotomake多级目录生成Makefile(发布动态库+静态库)</h2>
+<h3 id="目录结构-1">目录结构</h3>
+<p>与八的一模一样。</p>
+<h3 id="顶层makefileam文件代码自己创建-1">顶层Makefile.am文件代码（自己创建）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign #软件规范 
+<span class="ln">2</span>SUBDIRS=led key user #执行本目录前，需要递归执行make的目录
+</code></pre></div><h3 id="usermakefileam文件代码自己创建-1">user/Makefile.am文件代码（自己创建）</h3>
+<p>和八对比文件名有所变化。从.a变成了.la。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign #软件规范 
+<span class="ln">2</span>bin_PROGRAMS=app #可执行文件名称 
+<span class="ln">3</span>app_SOURCES=main.c #可执行需要的源文件 
+<span class="ln">4</span>app_LDADD=$(top_srcdir)/led/libled.la $(top_srcdir)/key/libkey.la #可执行文件需要的动态库文件 INCLUDES=-I$(top_srcdir)/led -I$(top_srcdir)/key #编译需要的头文件 EXTRA_DIST=$(top_srcdir)/led/led.h $(top_srcdir)/key/key.h #打包时需要额外添加的文件 make dist打包命令
+</code></pre></div><h3 id="keymakefileam文件代码自己创建-1">key/Makefile.am文件代码（自己创建）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign #软件规范 
+<span class="ln">2</span>lib_LTLIBRARIES=libkey.la #生成的动态库文件 
+<span class="ln">3</span>libkey_la_SOURCES =key.c key.h #生成静态库需要的源文件。 格式：libkey_la_SOURCES --将原来的.换成_
+<span class="ln">4</span>key_a_LDADD=$(top_srcdir)/led/libled.la
+<span class="ln">5</span>INCLUDES=-I$(top_srcdir)/led
+</code></pre></div><h3 id="ledmakefileam文件代码自己创建-1">led/Makefile.am文件代码（自己创建）</h3>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign #软件规范 
+<span class="ln">2</span>lib_ LTLIBRARIES =libled.la #生成的动态库文件(lib开头表示执行make installs时会一起发布，加noinst就不会一起发布) 
+<span class="ln">3</span>libled_la_SOURCES=led.c led.h #生成静态库需要的源文件。 格式：libkey_la_SOURCES --将原来的.换成_
+</code></pre></div><h3 id="顶层目录下的configureac-文件代码-1">顶层目录下的configure.ac 文件代码</h3>
+<ul>
+<li>
+<p>autoscan</p>
+</li>
+<li>
+<p>mv configure.scan configure.ac</p>
+</li>
+<li>
+<p>vim configure.ac</p>
+<p>八使用的是AC_PROG_RANLIB #表示使用静态库</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span># -*- Autoconf -*- 
+<span class="ln"> 2</span># Process this file with autoconf to produce a configure script.  
+<span class="ln"> 3</span>AC_PREREQ([2.63]) 
+<span class="ln"> 4</span>AC_INIT([app], [1.2.3], [112662497@qq.com]) 
+<span class="ln"> 5</span>AC_CONFIG_SRCDIR([user/main.c]) 
+<span class="ln"> 6</span>AC_CONFIG_HEADERS([config.h]) 
+<span class="ln"> 7</span>AM_INIT_AUTOMAKE(app,1.2.3) 
+<span class="ln"> 8</span>AC_PROG_LIBTOOL#使用动态库 
+<span class="ln"> 9</span>  
+<span class="ln">10</span># Checks for programs. 
+<span class="ln">11</span>AC_PROG_CC 
+<span class="ln">12</span># Checks for library functions.  
+<span class="ln">13</span>AC_OUTPUT(Makefile user/Makefile led/Makefile key/Makefile)
+</code></pre></div></li>
+<li>
+<p>aclocal\autoconf\autoheader</p>
+</li>
+<li>
+<p>libtoolize -f -c #共享库必须要执行</p>
+</li>
+<li>
+<p>automake &ndash;add-missing</p>
+</li>
+<li>
+<p>./configure &ndash;prefix=$PWD/_install</p>
+</li>
+<li>
+<p>make &amp;&amp; make install</p>
+</li>
+<li>
+<p>tree -C</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>  
+</code></pre></div></li>
+</ul>
+<h2 id="十自定义安装目录示例make-install">十、自定义安装目录示例(make install)</h2>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>wbyqdir=$(prefix)/wbyq_666 
+<span class="ln">2</span>wbyq_DATA=$(top_srcdir)/666.c $(top_srcdir)/888.c
+</code></pre></div><p>wbyq：表示是新的路径类型。</p>
+<p>wbyq_666：表示在安装路径下创建的目录名称。</p>
+<p>666.c、888.c ：是执行make install 拷贝到wbyq_666目录下的文件。</p>
+<h2 id="十一多级目录与函数的嵌套调用生成makefile">十一、多级目录与函数的嵌套调用生成Makefile</h2>
+<h3 id="c文件及调用关系图">C文件及调用关系图</h3>
+<p>main/main.c:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt; </span><span class="cp">
+</span><span class="ln">2</span><span class="cp">#include</span> <span class="cpf">&#34;print.h&#34; </span><span class="cp">
+</span><span class="ln">3</span><span class="cp"></span>
+<span class="ln">4</span><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span> 
+<span class="ln">5</span>	<span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="mi">123</span><span class="p">;</span> 
+<span class="ln">6</span>	<span class="kt">int</span> <span class="n">b</span><span class="o">=</span><span class="mi">456</span><span class="p">;</span> 
+<span class="ln">7</span>	<span class="n">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> 
+<span class="ln">8</span><span class="p">}</span> 
+</code></pre></div><p>sum/sum.h:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="cp">#ifndef _SUM_H 
+</span><span class="ln">2</span><span class="cp">#define _SUM_H 
+</span><span class="ln">3</span><span class="cp"></span><span class="kt">int</span> <span class="nf">sum</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">);</span> 
+<span class="ln">4</span><span class="cp">#endif
+</span></code></pre></div><p>sum/sum.c:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="cp">#include</span> <span class="cpf">&#34;sum.h&#34; </span><span class="cp">
+</span><span class="ln">2</span><span class="cp"></span>
+<span class="ln">3</span><span class="kt">int</span> <span class="nf">sum</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> 
+<span class="ln">4</span>	<span class="kt">int</span> <span class="n">c</span><span class="p">;</span> 
+<span class="ln">5</span>	<span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+<span class="ln">6</span>	<span class="k">return</span> <span class="n">c</span><span class="p">;</span> 
+<span class="ln">7</span><span class="p">}</span> 
+</code></pre></div><p>print/print.h:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="cp">#ifndef _PRINT_H 
+</span><span class="ln">2</span><span class="cp">#define _PRINT_H 
+</span><span class="ln">3</span><span class="cp">#include</span> <span class="cpf">&#34;sum.h&#34; </span><span class="cp">
+</span><span class="ln">4</span><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt; </span><span class="cp">
+</span><span class="ln">5</span><span class="cp"></span><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="p">);</span> 
+<span class="ln">6</span><span class="cp">#endif 
+</span></code></pre></div><p>print/print.c:</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span><span class="cp">#include</span> <span class="cpf">&#34;print.h&#34; </span><span class="cp">
+</span><span class="ln">2</span><span class="cp"></span>
+<span class="ln">3</span><span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span> 
+<span class="ln">4</span>	<span class="kt">int</span> <span class="n">c</span><span class="p">;</span> 
+<span class="ln">5</span>	<span class="n">c</span><span class="o">=</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">);</span> 
+<span class="ln">6</span>	<span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">c</span><span class="p">);</span> 
+<span class="ln">7</span><span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>graph LR;
+<span class="ln">2</span>	main.c --&gt; print.c;
+<span class="ln">3</span>	print.c --&gt; sum.c;
+</code></pre></div><h3 id="automake操作">automake操作</h3>
+<ol>
+<li>
+<p>autoscan</p>
+</li>
+<li>
+<p>mv configure.scan configure.ac</p>
+</li>
+<li>
+<p>vim configure.ac</p>
+</li>
+<li>
+<p>cat configure.ac</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>AC_PREREQ([2.63]) 
+<span class="ln"> 2</span>AC_INIT([app], [1.2.3], [112662497@qq.com]) 
+<span class="ln"> 3</span>AC_CONFIG_SRCDIR([main/main.c]) 
+<span class="ln"> 4</span>AC_CONFIG_HEADERS([config.h]) 
+<span class="ln"> 5</span>AM_INIT_AUTOMAKE(app,1.2.3) 
+<span class="ln"> 6</span>AC_PROG_RANLIB #使用了静态库编译,需要此宏定义 
+<span class="ln"> 7</span>AC_PROG_CC AC_OUTPUT(Makefile 
+<span class="ln"> 8</span>                  main/Makefile 
+<span class="ln"> 9</span>                  print/Makefile 
+<span class="ln">10</span>                  sum/Makefile) 
+</code></pre></div></li>
+<li>
+<p>aclocal</p>
+</li>
+<li>
+<p>autoconf</p>
+</li>
+<li>
+<p>autoheader</p>
+</li>
+<li>
+<p>vim Makefile.am</p>
+</li>
+<li>
+<p>cat Makefile.am</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign 
+<span class="ln">2</span>SUBDIRS= sum print main  #顺序
+</code></pre></div></li>
+<li>
+<p>vim main/Makefile.am</p>
+</li>
+<li>
+<p>cat main/Makefile.am</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign 
+<span class="ln">2</span>bin_PROGRAMS=app 
+<span class="ln">3</span>app_SOURCES=main.c 
+<span class="ln">4</span>app_LDADD=$(top_srcdir)/print/libprint.a $(top_srcdir)/sum/libsum.a #顺序很重要 
+<span class="ln">5</span>INCLUDES=-I$(top_srcdir)/print/ -I$(top_srcdir)/sum/
+</code></pre></div></li>
+<li>
+<p>vim sum/Makefile.am</p>
+</li>
+<li>
+<p>cat sum/Makefile.am</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign 
+<span class="ln">2</span>lib_LIBRARIES=libsum.a 
+<span class="ln">3</span>libsum_a_SOURCES=sum.h sum.c
+</code></pre></div></li>
+<li>
+<p>vim print/Makefile.am</p>
+</li>
+<li>
+<p>cat print/Makefile.am</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>AUTOMAKE_OPTIONS=foreign 
+<span class="ln">2</span>noinst_LIBRARIES=libprint.a 
+<span class="ln">3</span>libprint_a_SOURCES=print.h print.c 
+<span class="ln">4</span>#重要
+<span class="ln">5</span>print_a_LDADD=$(top_srcdir)/sum/libsum.a 
+<span class="ln">6</span>INCLUDES=-I$(top_srcdir)/sum
+</code></pre></div></li>
+<li>
+<p>automake &ndash;add-misiing</p>
+</li>
+<li>
+<p>./configure &ndash;prefix=$PWD/_install</p>
+</li>
+<li>
+<p>make &amp;&amp; make install</p>
+</li>
+<li>
+<p>tree _install</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>├── bin │   
+<span class="ln">2</span>        └── app 
+<span class="ln">3</span>└── lib 
+<span class="ln">4</span>	├── libprint.a 
+<span class="ln">5</span>	└── libsum.a
+</code></pre></div></li>
+</ol></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/basic-datastructure/">数据结构与算法分析: C语言描述
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/basic-datastructure/">数据结构与算法分析: C语言描述
+</a></li><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a></li><li><a href="/posts/tech/media-lightrtp/">Lightrtp学习
+</a></li><li><a href="/posts/tech/media-coroutine-begin/">协程
+</a></li><li><a href="/posts/tech/basic-mermaid/">Mermaid
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-automake/">Automake使用
+</a></li><li><a href="/posts/tech/basic-datastructure/">数据结构与算法分析: C语言描述
+</a></li><li><a href="/posts/tech/media-lightrtp/">Lightrtp学习
+</a></li><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a></li><li><a href="/posts/tech/media-coroutine-begin/">协程
+</a></li><li><a href="/posts/tech/basic-mermaid/">Mermaid
+</a></li><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">Leetcode C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux教程
+</a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
+</a></li><li><a href="/posts/tech/media-abnf/">ABNF
+</a></li><li><a href="/posts/other/prospect/">未来知识技能展望
+</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">32</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">7</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">7</span>
+        </a><a href="/series/%E9%95%BF%E6%9C%9F%E9%A1%B9%E7%9B%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="长期项目">
+          长期项目 <span class="badge rounded-pill">4</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>
