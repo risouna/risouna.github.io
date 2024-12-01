@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="数据结构与算法分析: C语言描述">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-28T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-11-28T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1762">
+<meta itemprop="wordCount" content="2226">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="数据结构与算法分析: C语言描述" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -160,7 +160,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-11-28
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>4 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>5 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy">#基础能力</a><a href="/series/%E9%95%BF%E6%9C%9F%E9%A1%B9%E7%9B%AE/" class="post-taxonomy">#长期项目</a></div>
 
@@ -454,11 +454,11 @@
 <h4 id="17">1.7</h4>
 <h4 id="18">1.8</h4>
 <blockquote>
-<p>$2^100(mod 5)$是多少.</p>
+<p>$2^(100)(mod 5)$是多少.</p>
 </blockquote>
 <p>2%5=2; 4%5=4; 8%5=3; 16%5=1; 32%5=2; 64%5=4; 128%5=3; &hellip;</p>
 <p>余数结果只与个位数有关, 而2的次方的个位数是有规律的: 2, 4, 8, 6, 2, 4, 8, 6&hellip;.</p>
-<p>所以$2^100(mod 5) = 6$</p>
+<p>所以$2^(100)(mod 5) = 6$</p>
 <h4 id="19">1.9</h4>
 <p>数学题罢了, 不写.</p>
 <h4 id="110">1.10</h4>
@@ -477,6 +477,77 @@
 <li>T1 * T2 = O(f * g)</li>
 <li>T是k次多项式, 则T(N) = theta(N^k)</li>
 <li>(logN)^k=O(N)</li>
+</ul>
+<p>另外关于最大子序列的问题, 后面这两个算法是非常精彩的.</p>
+<p>算法1: 分治, 从局部最优得到全局优, 而且局部优的情况是简单的.</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="k">static</span> <span class="kt">int</span> <span class="nf">MaxSubSum</span><span class="p">(</span> <span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">Left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">Right</span><span class="p">)</span>  
+<span class="ln"> 2</span>	<span class="p">{</span>  
+<span class="ln"> 3</span>	    <span class="kt">int</span> <span class="n">MaxLeftSum</span><span class="p">,</span><span class="n">MaxRightSum</span><span class="p">;</span>  
+<span class="ln"> 4</span>	    <span class="kt">int</span> <span class="n">MaxLeftBorderSum</span><span class="p">,</span><span class="n">MaxRightBorderSum</span><span class="p">;</span>  
+<span class="ln"> 5</span>	    <span class="kt">int</span> <span class="n">LeftBorderSum</span><span class="p">,</span><span class="n">RightBorderSum</span><span class="p">;</span>  
+<span class="ln"> 6</span>	    <span class="kt">int</span> <span class="n">Center</span><span class="p">,</span><span class="n">i</span><span class="p">;</span>  
+<span class="ln"> 7</span>	      
+<span class="ln"> 8</span>	    <span class="k">if</span><span class="p">(</span><span class="n">Left</span> <span class="o">==</span> <span class="n">Right</span><span class="p">)</span>  
+<span class="ln"> 9</span>	    <span class="p">{</span>  
+<span class="ln">10</span>	        <span class="k">if</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">Left</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>  
+<span class="ln">11</span>	            <span class="k">return</span> <span class="n">A</span><span class="p">[</span><span class="n">Left</span><span class="p">];</span>  
+<span class="ln">12</span>	        <span class="k">else</span>  
+<span class="ln">13</span>	            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>  
+<span class="ln">14</span>	    <span class="p">}</span>  
+<span class="ln">15</span>	      
+<span class="ln">16</span>	    <span class="n">Center</span> <span class="o">=</span> <span class="p">(</span><span class="n">Left</span> <span class="o">+</span> <span class="n">Right</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>  
+<span class="ln">17</span>	    <span class="n">MaxLeftSum</span> <span class="o">=</span> <span class="n">MaxSubSum</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">Left</span><span class="p">,</span><span class="n">Center</span><span class="p">);</span>  
+<span class="ln">18</span>	    <span class="n">MaxRightSum</span> <span class="o">=</span> <span class="n">MaxSubSum</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">Center</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">Right</span><span class="p">);</span>  
+<span class="ln">19</span>	      
+<span class="ln">20</span>	    <span class="n">MaxLeftBorderSum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
+<span class="ln">21</span>	    <span class="n">LeftBorderSum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
+<span class="ln">22</span>	    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">Center</span><span class="p">;</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="n">Left</span><span class="p">;</span><span class="n">i</span><span class="o">--</span><span class="p">)</span>  
+<span class="ln">23</span>	    <span class="p">{</span>  
+<span class="ln">24</span>	        <span class="n">LeftBorderSum</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>  
+<span class="ln">25</span>	        <span class="k">if</span><span class="p">(</span><span class="n">LeftBorderSum</span> <span class="o">&gt;</span> <span class="n">MaxLeftBorderSum</span><span class="p">)</span>  
+<span class="ln">26</span>	            <span class="n">MaxLeftBorderSum</span> <span class="o">=</span> <span class="n">LeftBorderSum</span><span class="p">;</span>  
+<span class="ln">27</span>	    <span class="p">}</span>  
+<span class="ln">28</span>	      
+<span class="ln">29</span>	    <span class="n">MaxRightBorderSum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
+<span class="ln">30</span>	    <span class="n">RightBorderSum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
+<span class="ln">31</span>	    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">Center</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">Right</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>  
+<span class="ln">32</span>	    <span class="p">{</span>  
+<span class="ln">33</span>	        <span class="n">RightBorderSum</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>  
+<span class="ln">34</span>	        <span class="k">if</span><span class="p">(</span><span class="n">RightBorderSum</span> <span class="o">&gt;</span> <span class="n">MaxRightBorderSum</span><span class="p">)</span>  
+<span class="ln">35</span>	            <span class="n">MaxRightBorderSum</span> <span class="o">=</span> <span class="n">RightBorderSum</span><span class="p">;</span>  
+<span class="ln">36</span>	    <span class="p">}</span>     
+<span class="ln">37</span>	      
+<span class="ln">38</span>	    <span class="k">return</span> <span class="n">Max</span><span class="p">(</span><span class="n">MaxLeftSum</span><span class="p">,</span><span class="n">MaxRightSum</span><span class="p">,</span><span class="n">MaxLeftBorderSum</span> <span class="o">+</span> <span class="n">MaxRightBorderSum</span><span class="p">);</span>  
+<span class="ln">39</span>	<span class="p">}</span> 
+</code></pre></div><p>算法分析: T(N) = 2*T(N/2) + O(N), 将T(N/2)继续减小可以得到最终结果T(N) = NlogN. 可以通过假设$N=2^k$简化推理.</p>
+<p>算法2: 神奇的算法(这个算法真的是人想出来的?)</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="kt">int</span> <span class="nf">MaxSubSequence</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">N</span><span class="p">)</span>  
+<span class="ln"> 2</span>	<span class="p">{</span>  
+<span class="ln"> 3</span>	    <span class="kt">int</span> <span class="n">ThisSum</span><span class="p">,</span><span class="n">MaxSum</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>  
+<span class="ln"> 4</span>	    
+<span class="ln"> 5</span>	    <span class="n">ThisSum</span> <span class="o">=</span> <span class="n">MaxSum</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span>  
+<span class="ln"> 6</span>	    <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>  
+<span class="ln"> 7</span>	    <span class="p">{</span>  
+<span class="ln"> 8</span>	        <span class="n">ThisSum</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>  
+<span class="ln"> 9</span>	          
+<span class="ln">10</span>	        <span class="k">if</span><span class="p">(</span><span class="n">ThisSum</span> <span class="o">&gt;</span> <span class="n">MaxSum</span><span class="p">)</span>  
+<span class="ln">11</span>	            <span class="n">MaxSum</span> <span class="o">=</span> <span class="n">ThisSum</span><span class="p">;</span>  
+<span class="ln">12</span>	        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">ThisSum</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>  
+<span class="ln">13</span>	            <span class="n">ThisSum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>   
+<span class="ln">14</span>	    <span class="p">}</span>  
+<span class="ln">15</span>	    <span class="k">return</span> <span class="n">MaxSum</span><span class="p">;</span>   
+<span class="ln">16</span>	<span class="p">}</span>
+</code></pre></div><p>要点:</p>
+<ul>
+<li>
+<p><code>else if(ThisSum &lt; 0) </code>.当ThisSum没有了增速的同时小于0了(这个子序列对最大序列的贡献为负), ThisSum立刻置为0, 开始重新寻找下一个子序列.</p>
+</li>
+<li>
+<p>当然由于初始化和重新赋值都为0, 算法自动排除掉开头为负数的存在</p>
+</li>
+<li>
+<p>由于上面两点的存在, 保证了下一个可能的最大子序列一定不在前一个最大子序列中间开始.</p>
+</li>
 </ul></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/media-lightrtp/">Lightrtp学习
@@ -540,7 +611,8 @@
   </div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/tech/media-automake/">Automake使用
+  <ul><li><a href="/posts/other/everyweek-english/">每周一篇经济学人
+</a></li><li><a href="/posts/tech/media-automake/">Automake使用
 </a></li><li><a href="/posts/tech/basic-datastructure/">数据结构与算法分析: C语言描述
 </a></li><li><a href="/posts/tech/media-lightrtp/">Lightrtp学习
 </a></li><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
@@ -552,7 +624,6 @@
 </a></li><li><a href="/posts/tech/media-sdp/">RDF-4566 SDP协议阅读
 </a></li><li><a href="/posts/tech/media-abnf/">ABNF
 </a></li><li><a href="/posts/other/prospect/">未来知识技能展望
-</a></li><li><a href="/posts/tech/basic-compilersprinciples/">编译原理
 </a></li></ul>
 </section><section class="taxonomy-categories row surface">
       <h4>
@@ -563,7 +634,7 @@
         </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
           二次元 <span class="badge rounded-pill">24</span>
         </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
-          普通类 <span class="badge rounded-pill">7</span>
+          普通类 <span class="badge rounded-pill">8</span>
         </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
           文字类 <span class="badge rounded-pill">6</span>
         </a></div>
@@ -582,9 +653,11 @@
         </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
           基础能力 <span class="badge rounded-pill">7</span>
         </a><a href="/series/%E9%95%BF%E6%9C%9F%E9%A1%B9%E7%9B%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="长期项目">
-          长期项目 <span class="badge rounded-pill">4</span>
+          长期项目 <span class="badge rounded-pill">5</span>
         </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
           Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/english/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="English">
+          English <span class="badge rounded-pill">1</span>
         </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
           Js <span class="badge rounded-pill">1</span>
         </a></div>
