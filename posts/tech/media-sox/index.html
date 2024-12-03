@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sox基本使用 - さぁ、君、取りたまえ</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Sox基本使用">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-12-03T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-12-03T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3647">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="Sox基本使用" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/media-sox/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-12-03T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-12-03T00:00:00&#43;00:00" /><meta property="og:site_name" content="さぁ、君、取りたまえ" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sox基本使用"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+
+
+
+
+<script type="text/javascript" src="/js/Valine.min.js"></script>
+<script type="text/javascript" src="/js/cave-draw.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/katex.min.css">
+<script type="text/javascript" src="/js/katex.min.js"></script>
+<script type="text/javascript" src="/js/auto-render.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" type="text/css" href="/js/font.css">
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      ティアなのです！
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">Sox基本使用</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">Sox基本使用
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-12-03
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>8 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#查看音频信息">查看音频信息</a></li>
+    <li><a href="#功能">功能</a>
+      <ul>
+        <li><a href="#格式转化">格式转化</a></li>
+        <li><a href="#音频效果">音频效果</a></li>
+      </ul>
+    </li>
+    <li><a href="#问题处理">问题处理</a></li>
+    <li><a href="#场景">场景</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="安装">安装</h2>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>sudo apt-get install sox 
+</code></pre></div><h2 id="查看音频信息">查看音频信息</h2>
+<p>1.通过play查看音频格式：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>play music.mp3
+</code></pre></div><p>出错play FAIL formats: no handler for file extension `mp3&rsquo;的解决：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>sudo apt-get install libsox-fmt-mp3 
+</code></pre></div><p>效果：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>$play music.mp3 
+<span class="ln"> 2</span>play WARN alsa: can&#39;t encode 0-bit Unknown or not applicable
+<span class="ln"> 3</span>
+<span class="ln"> 4</span>music.mp3:
+<span class="ln"> 5</span>
+<span class="ln"> 6</span> File Size: 8.02M     Bit Rate: 195k
+<span class="ln"> 7</span>  Encoding: MPEG audio    
+<span class="ln"> 8</span>  Channels: 2 @ 16-bit   Track: 1
+<span class="ln"> 9</span>Samplerate: 48000Hz      Album: ノアール
+<span class="ln">10</span>Replaygain: off         Artist: 傘村トータ/小春六花
+<span class="ln">11</span>  Duration: 00:05:28.20  Title: ノアール
+<span class="ln">12</span>
+<span class="ln">13</span>In:2.91% 00:00:09.56 [00:05:18.64] Out:459k  [  -===|===-  ]        Clip:0 
+</code></pre></div><p>2.使用<code>soxi</code>或者<code>sox --i</code>：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>$soxi music.mp3 
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>Input File     : &#39;music.mp3&#39;
+<span class="ln"> 4</span>Channels       : 2
+<span class="ln"> 5</span>Sample Rate    : 48000
+<span class="ln"> 6</span>Precision      : 16-bit
+<span class="ln"> 7</span>Duration       : 00:05:28.20 = 15753600 samples ~ 24615 CDDA sectors
+<span class="ln"> 8</span>File Size      : 8.02M
+<span class="ln"> 9</span>Bit Rate       : 195k
+<span class="ln">10</span>Sample Encoding: MPEG audio (layer I, II or III)
+<span class="ln">11</span>Comments       : 
+<span class="ln">12</span>Title=ノアール
+<span class="ln">13</span>Artist=傘村トータ/小春六花
+<span class="ln">14</span>Album=ノアール
+<span class="ln">15</span>Tracknumber=1
+<span class="ln">16</span>Discnumber=01
+</code></pre></div><h2 id="功能">功能</h2>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>sox [global-options]
+<span class="ln">2</span>[format-options] infile1
+<span class="ln">3</span>[[format-options] infile2] ...
+<span class="ln">4</span>[format-options] outfile
+<span class="ln">5</span>[effect [effect-options]] ...
+</code></pre></div><h3 id="格式转化">格式转化</h3>
+<h4 id="基础知识">基础知识</h4>
+<p>对于音频数据格式的描述，主要通过以下 4 种属性：</p>
+<ul>
+<li>采样率（sample rate）：指声音由模拟信号转换成数字信号的过程中，每秒从<strong>连续信号</strong>中提取的用于组成<strong>离散信号</strong>的样本个数。
+音频CD所用的采样率为 44100 Hz，数字音频磁带和许多计算机系统使用 48000 Hz，专业级音频系统通常使用 96000 Hz。</li>
+<li>采样大小（sample size 或 Precision）：音频采样时用于存储每个样本的数据位数（bits）。如今 16 bit 的采样大小已被广泛使用，24 bit 主要用于专业音频领域。</li>
+<li>编码格式（data encoding）：即每个音频样本的表示（即“编码”）方式。常用的编码类型包括 floating-point、μ-law、ADPCM、singed-integer PCM、MP3 和 FLAC 等。</li>
+<li>通道（channel）：即文件中包含的音频通道的数量。其中单声道（<strong>mono</strong>）和双声道（<strong>stereo</strong>）是最常见的两种，“环绕声”音频（<strong>Surround sound</strong>）通常包含六个或更多声道。</li>
+</ul>
+<p>此外，音频文件还使用<strong>比特率</strong>（Bit Rate）表示一个单位时间内编码音频信号占用的存储空间大小， 它的数值一般取决于所有的上述四个参数。
+MP3 编码的立体声音乐通常具有 128-196kbps 的比特率， FLAC 编码的立体声音乐通常具有 550-760kbps 的比特率。</p>
+<p>SoX 可以处理 <strong>self-describing</strong> 和 <strong>raw</strong> 格式的音频文件。
+<strong>self-describing</strong> 格式（如 WAV、FLAC、MP3）的文件包含一个用于描述信号和编码属性的<strong>文件头</strong>，而 <strong>raw</strong> 或 <strong>headless</strong> 格式的音频则不包含这些信息。</p>
+<p>所以当 <strong>raw</strong> 格式的音频作为输入文件时，需要在 sox 命令的格式选项里指定其信号和编码属性。</p>
+<p>常用的音频格式选项：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b, &ndash;bits <em>BITS</em></td>
+<td>每个编码样本占用的数据位数</td>
+</tr>
+<tr>
+<td>-c, &ndash;channels <em>CHANNELS</em></td>
+<td>音频文件包含的通道数</td>
+</tr>
+<tr>
+<td>-e, &ndash;encoding <em>ENCODING</em></td>
+<td>音频文件的编码类型</td>
+</tr>
+<tr>
+<td>-r, &ndash;rate <em>RATE</em></td>
+<td>音频文件的采样率</td>
+</tr>
+<tr>
+<td>-t, &ndash;type <em>FILE-TYPE</em></td>
+<td>音频文件的文件类型</td>
+</tr>
+</tbody>
+</table>
+<p>上述选项适用于输入或输出文件，主要用于说明 <strong>raw</strong>（或 <strong>headless</strong>）文件作为输入时的格式信息，或格式转换时指定输出文件的具体参数。</p>
+<p><strong>需要注意的是，-e参数指定的是紧跟在后面那个文件的编码，如果想要输出指定格式，就需要在input之后加上-e参数。</strong></p>
+<h4 id="命令">命令</h4>
+<ul>
+<li>
+<p><code>soxi</code>或<code>sox --i</code>：命令可以通过分析音频文件的文件头，获取其元数据（如<strong>通道数</strong>、<strong>采样率</strong>、<strong>编码</strong>等）。soxi 命令跟上某个特定的选项可以只获取该选项对应的信息</p>
+</li>
+<li>
+<p><code>sox &lt;inputfile&gt; -n stat</code>：获取某音频文件的统计信息。</p>
+</li>
+<li>
+<p><code>sox existing-file.wav −d</code>或<code>play existing-file.wav</code>：播放音频</p>
+</li>
+<li>
+<p><code>sox −d new-file.wav</code>或<code>rec new-file.wav</code>：录制</p>
+</li>
+<li>
+<p><code>play foo.wav trim 10.0 5.0</code>或<code>play foo.wav trim 10.0 =15.0</code>：播放 <code>foo.wav</code> 文件中 10-15s 之间的音频片段</p>
+</li>
+<li>
+<p><code>sox Faded.wav Faded.mp3</code>：将 <code>Faded.wav</code> 文件的格式由 wav 转为 mp3</p>
+</li>
+<li>
+<p><code>sox −r 48k −e float −b 32 −c 2 input.raw output.wav</code>：将某个特定的 <strong>raw</strong> 格式的音频文件转换为 <strong>wav</strong> 格式</p>
+<p>-e参数在这种场景下指的是raw文件的，编码</p>
+</li>
+<li>
+<p><code>sox Faded.wav Faded.raw</code>：将音频文件 <code>Faded.wav</code> 转为 <strong>raw</strong> 格式</p>
+</li>
+<li>
+<p><code>play -r 44800 -b 16 -e signed-integer -c 2 Faded.raw</code>：播放 <strong>raw</strong> 格式的音频文件</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>play -r 48k -e signed-integer -b 16 -c 2 music.raw  #这么播放mp3没问题
+<span class="ln">2</span>play -r 48k -e unsigned-integer -b 16 -c 2 music.raw #换一种编码耳朵炸了
+</code></pre></div></li>
+<li>
+<p><code>sox Faded.wav -c 1 Faded-mono.wav</code>：将 <code>Faded.wav</code> 文件转换成单声（<code>-c 1</code>）后输出</p>
+</li>
+</ul>
+<h3 id="音频效果">音频效果</h3>
+<p>SoX 工具可以在音频处理的过程中，对输入的音频数据应用众多的<strong>效果</strong>。</p>
+<p><code>sox --help-effect all</code>：查看所有效果的帮助信息</p>
+<h4 id="1更改声道数">1.更改声道数</h4>
+<ul>
+<li>
+<p><code>sox foo.wav foostereo.wav channels 2</code>或<code>sox foo.wav -c 2 foostereo.wav</code>：将单声道音频转换成双声道</p>
+<p>上述命令并没有创建一个“真实”的双声道音频，而是将单声道音频复制成完全一致的两个声道再合并到输出文件中。</p>
+</li>
+<li>
+<p><code>sox -M left.wav right.wav stereo.wav</code>：通过 sox 命令的 <code>-M</code> 选项将左右两个声道的单声道音频合并成一个双声道文件</p>
+</li>
+<li>
+<p><code>sox original.wav mono.wav channels 1</code>或<code>sox original.wav -c 1 mono.wav</code>：通过对双声道文件中两个声道的均一化处理，将其输出为单声道音频</p>
+</li>
+<li>
+<p><code>sox stereo.wav left.wav remix 1</code>：<strong>提取</strong>双声道音频文件中单个声道的数据并作为单声道音频输出（提取左声道音频）</p>
+</li>
+<li>
+<p><code>sox stereo.wav left.wav remix 2</code>：<strong>提取</strong>双声道音频文件中单个声道的数据并作为单声道音频输出（提取右声道音频）</p>
+</li>
+<li>
+<p><code>sox stereo.wav mono.wav remix 1,2</code>或<code>sox stereo.wav mono.wav remix 1-2</code>：<strong>融合</strong>双声道文件中两个声道的音频数据并作为单声道音频输出</p>
+</li>
+<li>
+<p><code>sox -M stereo1.wav stereo2.wav output.wav remix 1,3 2,4</code>：使用 <code>-M</code> 选项将两个双声道音频合并，再通过 <code>remix</code> 将合并得到的四个声道两两融合，生成一个只包含两个声道的输出文件。</p>
+</li>
+</ul>
+<h4 id="2改变音量">2.改变音量</h4>
+<ul>
+<li>
+<p><code>sox -v 0.5 foo.wav bar.wav</code>：<code>-v</code> 选项可以用来（成倍地）改变音量的大小， 将 <code>foo.wav</code> 音频放大 0.5 倍音量后输出至 <code>bar.wav</code> 文件</p>
+</li>
+<li>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>$ sox foo.wav -n stat -v 2&gt; vc
+<span class="ln">2</span>$ sox -v `cat vc` foo.wav foo-maxed.wav
+</code></pre></div><p>以 <code>sox foo.wav -n stat -v</code> 命令返回的数字作为放大倍数，将最大化 <code>foo.wav</code> 的音量而不至于出现<strong>削波</strong></p>
+</li>
+<li>
+<p><code>sox --norm=-1 &lt;inputfile&gt; &lt;outputfile&gt;</code>：选项 <code>--norm</code> 用来<strong>归一化</strong>音频响度。为了最大化音频的声音强度，可以在处理输入音频时将该选项设置为 -1</p>
+</li>
+</ul>
+<h4 id="3提取文件的某个部分">3.提取文件的某个部分</h4>
+<ul>
+<li>
+<p><code>sox Input.wav Half1.wav trim 0 30:00</code>：截取输入文件中前 30 分钟的音频</p>
+</li>
+<li>
+<p><code>sox Input.wav Half2.wav trim 30:00 30:00</code>：截取输入文件中从第 30 分钟开始到第 60 分钟的音频</p>
+<p><code>trim</code> 接收两个参数，一个作为裁剪片段的起始位置，另一个作为该片段持续的时间。
+可以使用<code>整数+s</code>格式的参数以样本个数作为计量单位，也可以直接使用 <code>((hh:)mm:)ss(.fs)</code> 形式的时间参数。当参数为纯整数时，单位为秒。</p>
+</li>
+</ul>
+<h4 id="4拼接文件">4.拼接文件</h4>
+<p><code>sox Half1.wav Half2.wav Full.wav</code>：将 <code>Half1.wav</code> 和 <code>Half2.wav</code> 合并至 <code>Full.wav</code> 文件。</p>
+<p>注意合并前的音频文件需保持一致的类型和采样率等</p>
+<h4 id="5合成音频">5.合成音频</h4>
+<p><code>sox -n sine.wav synth 1.0 sine 1000.0</code>：合成频率为 1000 Hz 长度为 1 秒的正弦波，保存至 <code>sine.wav</code> 文件中。</p>
+<p><code>synth</code> 支持合成的声音类型包括 <strong>sine</strong>、<strong>square</strong>、<strong>triangle</strong>、<strong>sawtooth</strong>、<strong>trapetz (trapezoidal)</strong>、<strong>exp (exponential)</strong>、<strong>whitenoise</strong>、<strong>pinknoise</strong> 和 <strong>brownnoise</strong>。</p>
+<h4 id="6静音效果">6.静音效果</h4>
+<p>创建静音状态的音频片段，使用 <code>-n</code> 选项表示没有输入，通过 <code>trim</code> 效果指定需要静音的片段。</p>
+<p><code>sox -n -r 48000 silence.wav trim 0.0 0.250</code>：在 <code>slience.wav</code> 文件中创建一段长度为 250ms 采样率为 48000Hz 的静音片段。</p>
+<h4 id="7混合音频">7.混合音频</h4>
+<ul>
+<li><code>sox -m sine100.wav sine250.wav sine100-250.wav</code>：将 <code>sine100.wav</code> 和 <code>sine250.wav</code> 两个音频文件融合以后作为 <code>sine100-250.wav</code> 文件的音频数据。</li>
+<li><code>sox -m -v0.5 music.mp3 -v2 speech.wav presentation.wav</code>：将背景音乐（<code>music.mp3</code>）音量降低一半后与放大 2 倍音量的人声数据（<code>speech.wav</code>）融合。</li>
+<li><code> play -m -v0.5 music.mp3 -v2 speech.wav</code>：如果不确定融合效果，可以先通过 <code>play</code> 命令使用相同的参数对结果进行“预览”</li>
+</ul>
+<p>与前面的 <code>-M</code> 选项不同，<code>-m</code> 选项倾向于对<strong>声道数据</strong>的混合，即两个单声道文件通过 <code>-m</code> 混合以后输出仍是单声道数据。输出文件中的单个声道包含了输入的两个声道的特征。</p>
+<p>而 <code>-M</code> 选项更倾向于对音频文件的合并，默认不对声道数据进行混合。所以两个单声道文件通过 <code>-M</code> 合并以后默认输出双声道音频。输出文件中的两个声道<strong>分别对应</strong>于输入的两个声道（数据没有混合）。除非通过 <code>-c</code> 选项手动指定输出文件的声道数量。</p>
+<h4 id="8改变播放速度">8.改变播放速度</h4>
+<ul>
+<li>
+<p><code>play Faded.wav stretch 0.5</code>：以 2x 倍速播放 <code>Faded.wav</code> 文件，<code>stretch</code>同时不会导致音高的变化。</p>
+</li>
+<li>
+<p><code>play Faded.wav speed 2</code>：通过 <code>speed</code> 效果调节播放速度（相应地音高也会发生变化）</p>
+<p>这样就可以创建网络上的鬼畜音效了。</p>
+</li>
+<li>
+<p><code>play Faded.wav pitch 200</code>：使用 <code>pitch</code> 效果调节音频片段的音高，以<a href="https://zh.wikipedia.org/wiki/%e9%9f%b3%e5%88%86" target="_blank">音分</a>
+（cents）为单位。将 <code>Faded.wav</code> 文件中的音频提高 200 音分，即提高 2 个半音的音程（每一个半音的音程等于 100 音分）。</p>
+</li>
+</ul>
+<h2 id="问题处理">问题处理</h2>
+<p>sox使用时经常不支持一些格式，需要另外下载安装：</p>
+<ol>
+<li>
+<p>play FAIL formats: no handler for file extension `mp3'</p>
+<p>解决： sudo apt-get install libsox-fmt-mp3</p>
+</li>
+<li>
+<p>armnb,armwb不支持</p>
+<p>解决：https://blog.csdn.net/weixin_39573512/article/details/111802538</p>
+</li>
+</ol>
+<h2 id="场景">场景</h2>
+<p>要求可以处理裸文件，带头的文件，wav(pcm,pcma,pcmu),vox, amrnb, amrwb互转。</p>
+<p>文件信息：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>$soxi music.mp3 
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>Input File     : &#39;music.mp3&#39;
+<span class="ln"> 4</span>Channels       : 2
+<span class="ln"> 5</span>Sample Rate    : 48000
+<span class="ln"> 6</span>Precision      : 16-bit
+<span class="ln"> 7</span>Duration       : 00:05:28.20 = 15753600 samples ~ 24615 CDDA sectors
+<span class="ln"> 8</span>File Size      : 8.02M
+<span class="ln"> 9</span>Bit Rate       : 195k
+<span class="ln">10</span>Sample Encoding: MPEG audio (layer I, II or III)
+<span class="ln">11</span>Comments       : 
+<span class="ln">12</span>Title=ノアール
+<span class="ln">13</span>Artist=傘村トータ/小春六花
+<span class="ln">14</span>Album=ノアール
+<span class="ln">15</span>Tracknumber=1
+<span class="ln">16</span>Discnumber=01
+</code></pre></div><ol>
+<li>转PCM：</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>sox music.mp3 pcm.wav
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>$soxi pcm.wav 
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>Input File     : &#39;pcm.wav&#39;
+<span class="ln"> 6</span>Channels       : 2
+<span class="ln"> 7</span>Sample Rate    : 48000
+<span class="ln"> 8</span>Precision      : 16-bit
+<span class="ln"> 9</span>Duration       : 00:05:28.18 = 15752448 samples ~ 24613.2 CDDA sectors
+<span class="ln">10</span>File Size      : 63.0M
+<span class="ln">11</span>Bit Rate       : 1.54M
+<span class="ln">12</span>Sample Encoding: 16-bit Signed Integer PCM
+</code></pre></div><ol start="2">
+<li>转PCMU：</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>$sox music.mp3 -e mu-law mulaw.wav
+<span class="ln"> 2</span>sox WARN dither: dither clipped 5 samples; decrease volume?
+<span class="ln"> 3</span>
+<span class="ln"> 4</span>$soxi mulaw.wav 
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>Input File     : &#39;mulaw.wav&#39;
+<span class="ln"> 7</span>Channels       : 2
+<span class="ln"> 8</span>Sample Rate    : 48000
+<span class="ln"> 9</span>Precision      : 14-bit
+<span class="ln">10</span>Duration       : 00:05:28.18 = 15752448 samples ~ 24613.2 CDDA sectors
+<span class="ln">11</span>File Size      : 31.5M
+<span class="ln">12</span>Bit Rate       : 768k
+<span class="ln">13</span>Sample Encoding: 8-bit u-law
+</code></pre></div><ol start="3">
+<li>转PCMA：</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>$sox music.mp3 -e a-law alaw.wav
+<span class="ln"> 2</span>sox WARN dither: dither clipped 4 samples; decrease volume?
+<span class="ln"> 3</span>
+<span class="ln"> 4</span>$soxi alaw.wav 
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>Input File     : &#39;alaw.wav&#39;
+<span class="ln"> 7</span>Channels       : 2
+<span class="ln"> 8</span>Sample Rate    : 48000
+<span class="ln"> 9</span>Precision      : 13-bit
+<span class="ln">10</span>Duration       : 00:05:28.18 = 15752448 samples ~ 24613.2 CDDA sectors
+<span class="ln">11</span>File Size      : 31.5M
+<span class="ln">12</span>Bit Rate       : 768k
+<span class="ln">13</span>Sample Encoding: 8-bit A-law
+<span class="ln">14</span>
+</code></pre></div><ol start="4">
+<li>
+<p>转vox</p>
+<p>vox应该是规范的问题，采样率只能8k最大，声道数只能是1，且指定不了采样大小。</p>
+</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>$sox music.mp3 -r 8k -c 1 vox.vox
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>$play vox.vox 
+<span class="ln"> 4</span>play WARN alsa: can&#39;t encode 0-bit Unknown or not applicable
+<span class="ln"> 5</span>play WARN raw: `vox.vox&#39;: sample rate not specified; trying 8kHz
+<span class="ln"> 6</span>
+<span class="ln"> 7</span>vox.vox:
+<span class="ln"> 8</span>
+<span class="ln"> 9</span> File Size: 1.31M     Bit Rate: 32.0k
+<span class="ln">10</span>  Encoding: OKI ADPCM     
+<span class="ln">11</span>  Channels: 1 @ 12-bit   
+<span class="ln">12</span>Samplerate: 8000Hz       
+<span class="ln">13</span>Replaygain: off         
+<span class="ln">14</span>  Duration: 00:05:28.18  
+<span class="ln">15</span>
+<span class="ln">16</span>In:4.99% 00:00:16.38 [00:05:11.79] Out:131k  [   -==|==-   ]        Clip:0    
+<span class="ln">17</span>Aborted.
+</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/other/human-mind-weekness/">人思维的一个弱点
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/media-pcmu/">Pcmu编码
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/media-pcmu/">Pcmu编码
+</a></li><li><a href="/posts/tech/media-automake/">Automake使用
+</a></li><li><a href="/posts/tech/basic-datastructure/">数据结构与算法分析: C语言描述
+</a></li><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a></li><li><a href="/posts/tech/media-lightrtp/">Lightrtp学习
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">语言的边界即是世界的边界.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-pcmu/">Pcmu编码
+</a></li><li><a href="/posts/tech/media-sox/">Sox基本使用
+</a></li><li><a href="/posts/other/human-mind-weekness/">人思维的一个弱点
+</a></li><li><a href="/posts/other/everyweek-english/">每周一篇经济学人
+</a></li><li><a href="/posts/tech/media-automake/">Automake使用
+</a></li><li><a href="/posts/tech/basic-datastructure/">数据结构与算法分析: C语言描述
+</a></li><li><a href="/posts/tech/media-lightrtp/">Lightrtp学习
+</a></li><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a></li><li><a href="/posts/tech/media-coroutine-begin/">协程
+</a></li><li><a href="/posts/tech/basic-mermaid/">Mermaid
+</a></li><li><a href="/posts/tech/media-sdptoc/">SDP协议解析C结构体
+</a></li><li><a href="/posts/tech/basic-algorithm-c/">Leetcode C语言算法刷题
+</a></li><li><a href="/posts/tech/basic-niaoge-linux/">鸟哥Linux私房菜基础篇
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">34</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">9</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">11</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">7</span>
+        </a><a href="/series/%E9%95%BF%E6%9C%9F%E9%A1%B9%E7%9B%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="长期项目">
+          长期项目 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
+          Cpp <span class="badge rounded-pill">1</span>
+        </a><a href="/series/english/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="English">
+          English <span class="badge rounded-pill">1</span>
+        </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
+          Js <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>
