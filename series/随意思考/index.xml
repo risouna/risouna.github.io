@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>随意思考 on さぁ、君、取りたまえ</title>
+    <link>/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/</link>
+    <description>Recent content in 随意思考 on さぁ、君、取りたまえ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
+    <lastBuildDate>Mon, 02 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>人类思维的一个弱点</title>
+      <link>/posts/other/human-mind-weekness/</link>
+      <pubDate>Mon, 02 Dec 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/other/human-mind-weekness/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

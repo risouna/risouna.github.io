@@ -98,6 +98,9 @@
     <loc>/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/</loc>
     <lastmod>2024-12-02T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/</loc>
+    <lastmod>2024-12-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/series/english/</loc>
     <lastmod>2024-12-01T00:00:00+00:00</lastmod>
   </url><url>
@@ -110,10 +113,10 @@
     <loc>/posts/tech/media-automake/</loc>
     <lastmod>2024-11-29T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/</loc>
+    <loc>/posts/tech/basic-datastructure/</loc>
     <lastmod>2024-11-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/tech/basic-datastructure/</loc>
+    <loc>/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/</loc>
     <lastmod>2024-11-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/tech/media-lightrtp/</loc>
