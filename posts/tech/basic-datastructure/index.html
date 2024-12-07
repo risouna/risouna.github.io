@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="《数据结构与算法分析: C语言描述》">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-28T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-11-28T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="2524">
+<meta itemprop="wordCount" content="3255">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="《数据结构与算法分析: C语言描述》" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -160,7 +160,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-11-28
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>6 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>7 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy">#基础能力</a><a href="/series/%E9%95%BF%E6%9C%9F%E9%A1%B9%E7%9B%AE/" class="post-taxonomy">#长期项目</a></div>
 
@@ -611,9 +611,115 @@
 <p>考虑这样的序列：</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>-2, 2 ,3, 6, 8, 9
 <span class="ln">2</span>-2, -3, 6, 0, 3, 21, -1
-</code></pre></div><p>这道题就不是那么简单了。</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln">1</span>
-</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+<span class="ln">3</span>0,0,0,0,0,1
+</code></pre></div><p>这道题就不是那么简单了。当然暴力遍历我也会。</p>
+<p>我觉得应该存两个值，一个是最大正值，还有一个是最大负值（它有可能成为最大正值）。当然遇到0了就重新找下一个序列。最后比较返回即可。还有一种特殊情况：全0.</p>
+<p>测试了一下，基本是没问题的，也就不深究了。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="c1">//
+</span><span class="ln"> 2</span><span class="c1">// Created by bnaod1 on 2024/12/7.
+</span><span class="ln"> 3</span><span class="c1">//
+</span><span class="ln"> 4</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;stdio.h&#34;</span><span class="cp">
+</span><span class="ln"> 5</span><span class="cp"></span>
+<span class="ln"> 6</span><span class="kt">int</span> <span class="nf">MaxProdSubSequence</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">N</span><span class="p">);</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+<span class="ln">10</span><span class="c1">//    const int A[] = {-2, 2 ,3, 6, 8, 9};
+</span><span class="ln">11</span><span class="c1">//    const int A[] = {-2, -3, 6, 0, 3, 21, -1};
+</span><span class="ln">12</span><span class="c1"></span>    <span class="k">const</span> <span class="kt">int</span> <span class="n">A</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
+<span class="ln">13</span>    <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">MaxProdSubSequence</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+<span class="ln">14</span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span><span class="n">result</span><span class="p">);</span>
+<span class="ln">15</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">16</span><span class="p">}</span>
+<span class="ln">17</span>
+<span class="ln">18</span>
+<span class="ln">19</span><span class="kt">int</span> <span class="nf">MaxProdSubSequence</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span> <span class="n">A</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">N</span><span class="p">)</span>
+<span class="ln">20</span><span class="p">{</span>
+<span class="ln">21</span>    <span class="kt">int</span> <span class="n">ThisProd</span><span class="p">,</span><span class="n">MaxProd</span><span class="p">,</span><span class="n">psbMaxProd</span><span class="p">,</span><span class="n">zeroflag</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+<span class="ln">22</span>
+<span class="ln">23</span>    <span class="n">ThisProd</span> <span class="o">=</span> <span class="n">psbMaxProd</span> <span class="o">=</span> <span class="n">MaxProd</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">24</span>    <span class="n">zeroflag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">25</span>    <span class="k">for</span> <span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+<span class="ln">26</span>    <span class="p">{</span>
+<span class="ln">27</span>        <span class="k">if</span> <span class="p">(</span><span class="n">zeroflag</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+<span class="ln">28</span>            <span class="n">zeroflag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">29</span>        <span class="p">}</span>
+<span class="ln">30</span>
+<span class="ln">31</span>        <span class="n">ThisProd</span> <span class="o">*=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+<span class="ln">32</span>        <span class="n">psbMaxProd</span> <span class="o">*=</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+<span class="ln">33</span>
+<span class="ln">34</span>        <span class="c1">//ThisProd只存放当下最大的
+</span><span class="ln">35</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">ThisProd</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="ln">36</span>            <span class="n">ThisProd</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">37</span>            <span class="c1">//psbMaxProd是从头到尾一直乘的，有可能很小，但是再遇到负数即可超越
+</span><span class="ln">38</span><span class="c1"></span>        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">psbMaxProd</span> <span class="o">&gt;</span> <span class="n">ThisProd</span><span class="p">)</span>
+<span class="ln">39</span>            <span class="n">ThisProd</span> <span class="o">=</span> <span class="n">psbMaxProd</span><span class="p">;</span>
+<span class="ln">40</span>        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">ThisProd</span> <span class="o">&gt;</span> <span class="n">MaxProd</span><span class="p">)</span>
+<span class="ln">41</span>            <span class="n">MaxProd</span> <span class="o">=</span> <span class="n">ThisProd</span><span class="p">;</span>
+<span class="ln">42</span>            <span class="c1">//遇到0，表示前面这段子序列该结束了
+</span><span class="ln">43</span><span class="c1"></span>        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">ThisProd</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="ln">44</span>            <span class="n">ThisProd</span> <span class="o">=</span> <span class="n">psbMaxProd</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">45</span>    <span class="p">}</span>
+<span class="ln">46</span>
+<span class="ln">47</span>    <span class="c1">//全0
+</span><span class="ln">48</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">zeroflag</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="ln">49</span>        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">50</span>    <span class="k">else</span>
+<span class="ln">51</span>        <span class="k">return</span> <span class="n">MaxProd</span><span class="p">;</span>
+<span class="ln">52</span><span class="p">}</span>
+</code></pre></div><h4 id="216">2.16</h4>
+<blockquote>
+<p>不用递归，写出快速求幂的程序</p>
+</blockquote>
+<p>可以参考递归的写法，我们就正向写即可。</p>
+<p>对于求解目标$X^N$，实际上是$X^N = X^{[N/2]} * X^{[N/2]} * X^{N % 2}$。正向求解最麻烦的是何时多乘个X，可以先计算出乘X的时机。我想二进制也可以做到。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="c1">//
+</span><span class="ln"> 2</span><span class="c1">// Created by bnaod1 on 2024/12/7.
+</span><span class="ln"> 3</span><span class="c1">//
+</span><span class="ln"> 4</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;stdio.h&#34;</span><span class="cp">
+</span><span class="ln"> 5</span><span class="cp">#include</span> <span class="cpf">&#34;stdlib.h&#34;</span><span class="cp">
+</span><span class="ln"> 6</span><span class="cp">#include</span> <span class="cpf">&#34;stdbool.h&#34;</span><span class="cp">
+</span><span class="ln"> 7</span><span class="cp"></span>
+<span class="ln"> 8</span><span class="kt">long</span> <span class="kt">int</span> <span class="nf">Pow</span><span class="p">(</span><span class="kt">long</span> <span class="kt">int</span> <span class="n">X</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">N</span><span class="p">);</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+<span class="ln">11</span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="n">Pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">));</span>
+<span class="ln">12</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">13</span><span class="p">}</span>
+<span class="ln">14</span>
+<span class="ln">15</span><span class="kt">long</span> <span class="kt">int</span> <span class="nf">Pow</span><span class="p">(</span><span class="kt">long</span> <span class="kt">int</span> <span class="n">X</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">N</span><span class="p">){</span>
+<span class="ln">16</span>    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">17</span>    <span class="kt">long</span> <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">X</span><span class="p">;</span>
+<span class="ln">18</span>    <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">prodX</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="ln">19</span>    <span class="n">prodX</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span> <span class="mi">32</span><span class="p">);</span>
+<span class="ln">20</span>
+<span class="ln">21</span>    <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">){</span>
+<span class="ln">22</span>        <span class="k">if</span> <span class="p">(</span><span class="n">N</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<span class="ln">23</span>            <span class="k">break</span><span class="p">;</span>
+<span class="ln">24</span>        <span class="o">*</span><span class="p">(</span><span class="n">prodX</span><span class="o">+</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="n">N</span> <span class="o">-</span> <span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span>
+<span class="ln">25</span>        <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+<span class="ln">26</span>        <span class="n">N</span> <span class="o">=</span> <span class="n">N</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+<span class="ln">27</span>    <span class="p">}</span>
+<span class="ln">28</span>
+<span class="ln">29</span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">--</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">30</span>        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">*</span> <span class="n">result</span><span class="p">;</span>
+<span class="ln">31</span>        <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">prodX</span><span class="o">+</span><span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<span class="ln">32</span>            <span class="n">result</span> <span class="o">*=</span> <span class="n">X</span><span class="p">;</span>
+<span class="ln">33</span>    <span class="p">}</span>
+<span class="ln">34</span>
+<span class="ln">35</span>
+<span class="ln">36</span>    <span class="n">free</span><span class="p">(</span><span class="n">prodX</span><span class="p">);</span>
+<span class="ln">37</span>
+<span class="ln">38</span>    <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="ln">39</span><span class="p">}</span>
+<span class="ln">40</span>
+<span class="ln">41</span>
+</code></pre></div><h4 id="217">2.17</h4>
+<blockquote>
+<p>给出用于快速取幂运算中的乘法次数的精确计算。（提示可以考虑N的二进制表示）</p>
+</blockquote>
+<p>其实N的二进制如果是1，那么就要多一次乘法，当然需要排除掉最后一个1.N的求二进制过程与我们快速求幂的过程一一对应，这也是我上一个题的写法。</p>
+<p>为了练习二进制相关运算，我还是写一下。</p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/media-lightrtp/">lightrtp学习
 </a>
@@ -695,11 +801,11 @@
         <a href="/categories">分类</a>
       </h4>
       <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
-          计算机 <span class="badge rounded-pill">35</span>
+          计算机 <span class="badge rounded-pill">36</span>
         </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
           二次元 <span class="badge rounded-pill">24</span>
         </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
-          普通类 <span class="badge rounded-pill">9</span>
+          普通类 <span class="badge rounded-pill">8</span>
         </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
           文字类 <span class="badge rounded-pill">6</span>
         </a></div>
@@ -710,7 +816,7 @@
       <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
           动漫歌曲 <span class="badge rounded-pill">21</span>
         </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
-          媒体开发 <span class="badge rounded-pill">12</span>
+          媒体开发 <span class="badge rounded-pill">13</span>
         </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
           Java <span class="badge rounded-pill">10</span>
         </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
