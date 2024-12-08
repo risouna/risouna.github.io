@@ -25,6 +25,29 @@
                 href="/categories/"
                 />
   </url><url>
+    <loc>/series/</loc>
+    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn（old2）"
+                href="/zh-cnold2/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn（old）"
+                href="/zh-cnold/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="/zh-tw/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="/series/"
+                />
+  </url><url>
     <loc>/posts/physics/</loc>
     <lastmod>2024-12-07T00:00:00+00:00</lastmod>
   </url><url>
@@ -54,34 +77,14 @@
     <loc>/posts/</loc>
     <lastmod>2024-12-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/physics/note-rule/</loc>
+    <loc>/posts/physics/physics-computer/</loc>
     <lastmod>2024-12-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/%E7%89%A9%E7%90%86%E5%AD%A6/</loc>
     <lastmod>2024-12-07T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/series/</loc>
-    <lastmod>2024-12-05T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn（old2）"
-                href="/zh-cnold2/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn（old）"
-                href="/zh-cnold/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="/zh-tw/series/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="/series/"
-                />
+    <loc>/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/</loc>
+    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/tech/media-ffmpeg/</loc>
     <lastmod>2024-12-05T00:00:00+00:00</lastmod>
@@ -108,9 +111,6 @@
     <lastmod>2024-12-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/</loc>
-    <lastmod>2024-12-02T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/</loc>
     <lastmod>2024-12-02T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/series/english/</loc>

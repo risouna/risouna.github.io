@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="lightrtp学习">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-27T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-11-27T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3450">
+<meta itemprop="wordCount" content="3454">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="lightrtp学习" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -57,6 +57,7 @@
 <script type="text/javascript" src="/js/auto-render.min.js"></script>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" type="text/css" href="/js/font.css">
+
 </head><body><header><nav class="navbar navbar-expand-xl fixed-top">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -457,30 +458,33 @@
 <h2 id="程序流程图">程序流程图</h2>
 <p>发送数据：</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>graph LR;
-<span class="ln"> 2</span>    start(开始) --&gt; rtp_stream[rtp流初始化（socket，地址）];
-<span class="ln"> 3</span>    start --&gt; rtp_message[rtp消息初始化（版本，ssrc）];
+<span class="ln"> 2</span>    start(开始) --&gt; rtp_stream[rtp流初始化-socket,地址];
+<span class="ln"> 3</span>    start --&gt; rtp_message[rtp消息初始化-版本,ssrc];
 <span class="ln"> 4</span>    start --&gt; read_file[打开传输文件];
 <span class="ln"> 5</span>    read_file --&gt; payload1
 <span class="ln"> 6</span>    read_file --&gt; payload2
 <span class="ln"> 7</span>    read_file --&gt; payload3[...]
-<span class="ln"> 8</span>    rtp_message &amp; payload1 &amp; payload2 &amp; payload3 --&gt; rtp_packet_create[生成rtp包]
-<span class="ln"> 9</span>    rtp_packet_create --&gt; sendto;
-<span class="ln">10</span>    rtp_stream --&gt; sendto;
-<span class="ln">11</span>    sendto[sendto函数] --&gt; rtp_send(发送消息);
-<span class="ln">12</span>    
-<span class="ln">13</span>    subgraph UDP相关
-<span class="ln">14</span>    	rtp_stream
-<span class="ln">15</span>    end
-<span class="ln">16</span>    
-<span class="ln">17</span>    subgraph rtp相关
-<span class="ln">18</span>    	rtp_message
-<span class="ln">19</span>    end
-<span class="ln">20</span>    
-<span class="ln">21</span>    subgraph 文件
-<span class="ln">22</span>    	payload1
-<span class="ln">23</span>    	payload2
-<span class="ln">24</span>    	payload3
-<span class="ln">25</span>    end
+<span class="ln"> 8</span>    rtp_message --&gt; rtp_packet_create[生成rtp包]
+<span class="ln"> 9</span>    payload1 --&gt; rtp_packet_create
+<span class="ln">10</span>    payload2 --&gt; rtp_packet_create
+<span class="ln">11</span>    payload3 --&gt; rtp_packet_create
+<span class="ln">12</span>    rtp_packet_create --&gt; sendto;
+<span class="ln">13</span>    rtp_stream --&gt; sendto;
+<span class="ln">14</span>    sendto[sendto函数] --&gt; rtp_send(发送消息);
+<span class="ln">15</span>    
+<span class="ln">16</span>    subgraph UDP相关
+<span class="ln">17</span>    	rtp_stream
+<span class="ln">18</span>    end
+<span class="ln">19</span>    
+<span class="ln">20</span>    subgraph rtp相关
+<span class="ln">21</span>    	rtp_message
+<span class="ln">22</span>    end
+<span class="ln">23</span>    
+<span class="ln">24</span>    subgraph 文件
+<span class="ln">25</span>    	payload1
+<span class="ln">26</span>    	payload2
+<span class="ln">27</span>    	payload3
+<span class="ln">28</span>    end
 </code></pre></div><p>接受数据过程差不多，基本上是反过来，就不写了。</p>
 <h2 id="makefile">Makefile</h2>
 <ol>
@@ -584,7 +588,7 @@
   </div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/physics/note-rule/">浅谈计算机和物理学在学习中的区别
+  <ul><li><a href="/posts/physics/physics-computer/">浅谈计算机和物理学在学习中的区别
 </a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
 </a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
 </a></li><li><a href="/posts/tech/media-sox/">Sox基本使用
@@ -629,14 +633,14 @@
           基础能力 <span class="badge rounded-pill">7</span>
         </a><a href="/series/%E9%95%BF%E6%9C%9F%E9%A1%B9%E7%9B%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="长期项目">
           长期项目 <span class="badge rounded-pill">5</span>
+        </a><a href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="随意思考">
+          随意思考 <span class="badge rounded-pill">2</span>
         </a><a href="/series/cpp/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Cpp">
           Cpp <span class="badge rounded-pill">1</span>
         </a><a href="/series/english/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="English">
           English <span class="badge rounded-pill">1</span>
         </a><a href="/series/js/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Js">
           Js <span class="badge rounded-pill">1</span>
-        </a><a href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="随意思考">
-          随意思考 <span class="badge rounded-pill">1</span>
         </a></div>
     </section></div>
 </aside>
