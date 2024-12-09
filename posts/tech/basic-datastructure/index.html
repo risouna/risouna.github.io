@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="《数据结构与算法分析: C语言描述》">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-28T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-11-28T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3270">
+<meta itemprop="wordCount" content="3593">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="《数据结构与算法分析: C语言描述》" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -161,7 +161,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2024-11-28
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>7 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>8 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy">#基础能力</a><a href="/series/%E9%95%BF%E6%9C%9F%E9%A1%B9%E7%9B%AE/" class="post-taxonomy">#长期项目</a></div>
 
@@ -191,6 +191,7 @@
         <li><a href="#练习-1">练习</a></li>
       </ul>
     </li>
+    <li><a href="#第3章-表栈和队列">第3章 表、栈和队列</a></li>
   </ul>
 </nav>
   </div>
@@ -719,8 +720,42 @@
 <blockquote>
 <p>给出用于快速取幂运算中的乘法次数的精确计算。（提示可以考虑N的二进制表示）</p>
 </blockquote>
-<p>其实N的二进制如果是1，那么就要多一次乘法；如果是0，乘法只有一次。当然需要排除掉最后一个1。N的求二进制过程与我们快速求幂的过程一一对应，这也是我上一个题的写法。</p>
-<p>为了练习二进制位运算相关运算，我还是写一下。</p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+<p>其实N的二进制如果是1，那么就要多一次乘法；如果是0，乘法只有一次。当然需要排除掉最后一个1（最高位的1）。N的求二进制过程与我们快速求幂的过程一一对应，这也是我上一个题的写法。</p>
+<p>举例来说，16的二进制为10000，则需要4次乘法（0000）；31的二进制为11111，则需要8次乘法（1111）；32的二进制为100000，则需要5次乘法（00000）。所以只需要取除最高位的二进制位即可。怎么取呢？首先将N与1进行位与运算，这样高位全被置为0，低位是什么就是什么，然后右移；一直重复直到N==0，这样我们有可能是多算了一个1。</p>
+<p>为了练习二进制位运算相关运算，我还是写一下。</p>
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="c1">//
+</span><span class="ln"> 2</span><span class="c1">// Created by bnaod1 on 2024/12/9.
+</span><span class="ln"> 3</span><span class="c1">//
+</span><span class="ln"> 4</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&#34;stdio.h&#34;</span><span class="cp">
+</span><span class="ln"> 5</span><span class="cp"></span><span class="kt">int</span> <span class="nf">prod_count</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">N</span><span class="p">);</span>
+<span class="ln"> 6</span>
+<span class="ln"> 7</span><span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+<span class="ln"> 8</span>    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="n">prod_count</span><span class="p">(</span><span class="mi">31</span><span class="p">));</span>
+<span class="ln"> 9</span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">10</span><span class="p">}</span>
+<span class="ln">11</span>
+<span class="ln">12</span><span class="kt">int</span> <span class="nf">prod_count</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">N</span><span class="p">){</span>
+<span class="ln">13</span>    <span class="kt">int</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="ln">14</span>    <span class="k">while</span> <span class="p">(</span><span class="n">N</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+<span class="ln">15</span>        <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">sign</span> <span class="o">=</span> <span class="n">N</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">16</span>
+<span class="ln">17</span>        <span class="k">if</span> <span class="p">(</span><span class="n">sign</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<span class="ln">18</span>            <span class="n">res</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="ln">19</span>        <span class="k">else</span>
+<span class="ln">20</span>            <span class="n">res</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">21</span>
+<span class="ln">22</span>        <span class="n">N</span> <span class="o">=</span> <span class="n">N</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+<span class="ln">23</span>    <span class="p">}</span>
+<span class="ln">24</span>
+<span class="ln">25</span>    <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+<span class="ln">26</span><span class="p">}</span>
+<span class="ln">27</span>
+</code></pre></div><h4 id="219">2.19</h4>
+<p>a.当数组中只剩一个元素或者是空数组</p>
+<p>b.N是奇数的话，将最后一个和前一个，最后一个和第一个比较</p>
+<p>c.循环</p>
+<p>d.</p>
+<h2 id="第3章-表栈和队列">第3章 表、栈和队列</h2></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/media-lightrtp/">lightrtp学习
 </a>
