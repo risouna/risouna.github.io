@@ -6,7 +6,16 @@
     <description>Recent content on さぁ、君、取りたまえ</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
-    <lastBuildDate>Sat, 07 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>《深入理解计算机系统》</title>
+      <link>/posts/tech/basic-computer-systems/</link>
+      <pubDate>Mon, 09 Dec 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-computer-systems/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>浅谈计算机和物理学在学习中的区别</title>
       <link>/posts/physics/physics-computer/</link>

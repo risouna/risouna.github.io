@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/categories/</loc>
-    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
+    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn（old2）"
@@ -26,7 +26,7 @@
                 />
   </url><url>
     <loc>/series/</loc>
-    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
+    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn（old2）"
@@ -48,11 +48,14 @@
                 href="/series/"
                 />
   </url><url>
-    <loc>/posts/physics/</loc>
-    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
+    <loc>/posts/tech/</loc>
+    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/tech/basic-computer-systems/</loc>
+    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/</loc>
-    <lastmod>2024-12-07T00:00:00+00:00</lastmod>
+    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-tw"
@@ -74,7 +77,19 @@
                 href="/"
                 />
   </url><url>
+    <loc>/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/</loc>
+    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/posts/</loc>
+    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
+    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/series/%E9%95%BF%E6%9C%9F%E9%A1%B9%E7%9B%AE/</loc>
+    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/physics/</loc>
     <lastmod>2024-12-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/physics/physics-computer/</loc>
@@ -89,13 +104,7 @@
     <loc>/posts/tech/media-ffmpeg/</loc>
     <lastmod>2024-12-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/tech/</loc>
-    <lastmod>2024-12-05T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2024-12-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
     <lastmod>2024-12-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/tech/media-pcmu/</loc>
@@ -119,16 +128,10 @@
     <loc>/posts/other/everyweek-english/</loc>
     <lastmod>2024-12-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/series/%E9%95%BF%E6%9C%9F%E9%A1%B9%E7%9B%AE/</loc>
-    <lastmod>2024-12-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/posts/tech/media-automake/</loc>
     <lastmod>2024-11-29T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/tech/basic-datastructure/</loc>
-    <lastmod>2024-11-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/</loc>
     <lastmod>2024-11-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/tech/media-lightrtp/</loc>

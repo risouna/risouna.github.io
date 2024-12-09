@@ -6,7 +6,16 @@
     <description>Recent content in 计算机 on さぁ、君、取りたまえ</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
-    <lastBuildDate>Thu, 05 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>《深入理解计算机系统》</title>
+      <link>/posts/tech/basic-computer-systems/</link>
+      <pubDate>Mon, 09 Dec 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-computer-systems/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>FFmpeg学习</title>
       <link>/posts/tech/media-ffmpeg/</link>
