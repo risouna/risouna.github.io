@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="《数据结构与算法分析: C语言描述》">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-28T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-11-28T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3593">
+<meta itemprop="wordCount" content="3898">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="《数据结构与算法分析: C语言描述》" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -191,7 +191,11 @@
         <li><a href="#练习-1">练习</a></li>
       </ul>
     </li>
-    <li><a href="#第3章-表栈和队列">第3章 表、栈和队列</a></li>
+    <li><a href="#第3章-表栈和队列">第3章 表、栈和队列</a>
+      <ul>
+        <li><a href="#书本内容-2">书本内容</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
@@ -755,7 +759,25 @@
 <p>b.N是奇数的话，将最后一个和前一个，最后一个和第一个比较</p>
 <p>c.循环</p>
 <p>d.</p>
-<h2 id="第3章-表栈和队列">第3章 表、栈和队列</h2></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+<h2 id="第3章-表栈和队列">第3章 表、栈和队列</h2>
+<h3 id="书本内容-2">书本内容</h3>
+<ol>
+<li>
+<p>ADT：抽象数据类型是一些操作的集合。</p>
+</li>
+<li>
+<p>表ADT，数组实现，链表实现。这个是入门的东西，很经典，但知识量不大。</p>
+</li>
+<li>
+<p>多项式ADT。和超大数+×有点类似。</p>
+</li>
+<li>
+<p>基数排序。基数排序是由桶排序演化来的。</p>
+<p>桶排序：N个整数，范围1到M；那么就准备M个桶，有个整数来了就将第N个桶增1；最后顺序输出桶的序号。复杂度$O(M+N)$。</p>
+<p>如果10个数，范围是0~1000之内；那么我们选择10个桶（装位数），并进行3趟最低位优先的桶排序就可以排完了。前面各趟排序保证了几个数进入一个桶时，它们是顺序的。</p>
+<p>基数排序就是多趟桶排序。桶的个数为数的位数表示个数，趟数为位数。时间复杂度$O(P(N+B))$，P是趟数，N是元素个数，B是桶数。</p>
+</li>
+</ol></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/media-lightrtp/">lightrtp学习
 </a>
@@ -819,7 +841,7 @@
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
   <ul><li><a href="/posts/tech/basic-computer-systems/">《深入理解计算机系统》
-</a></li><li><a href="/posts/physics/physics-computer/">浅谈计算机和物理学在学习中的区别
+</a></li><li><a href="/posts/physics/physics-computer/">CS和物理在学习中的感悟
 </a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
 </a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
 </a></li><li><a href="/posts/tech/media-sox/">Sox基本使用
