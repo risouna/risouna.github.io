@@ -152,7 +152,7 @@
     </item>
     
     <item>
-      <title>未来计算机技能栈展望</title>
+      <title>计算机技能展望</title>
       <link>/posts/tech/prospect/</link>
       <pubDate>Fri, 15 Nov 2024 00:00:00 +0000</pubDate>
       
@@ -198,10 +198,10 @@
     
     <item>
       <title>C&#43;&#43;基础查漏补缺</title>
-      <link>/posts/tech/cpp-1-basic/</link>
+      <link>/posts/tech/basic-cpp/</link>
       <pubDate>Mon, 28 Oct 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/cpp-1-basic/</guid>
+      <guid>/posts/tech/basic-cpp/</guid>
       <description></description>
     </item>
     
