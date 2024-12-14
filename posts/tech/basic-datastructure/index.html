@@ -679,7 +679,7 @@
 <p>不用递归，写出快速求幂的程序</p>
 </blockquote>
 <p>可以参考递归的写法，我们就正向写即可。</p>
-<p>对于求解目标$X^N$，实际上是$X^N = X^{[N/2]} * X^{[N/2]} * X^{N % 2}$。正向求解最麻烦的是何时多乘个X，可以先计算出乘X的时机。我想二进制也可以做到。</p>
+<p>对于求解目标$X^N$，实际上是$X^N = X^{N/2} * X^{N/2} * X^{N % 2}$。正向求解最麻烦的是何时多乘个X，可以先计算出乘X的时机。我想二进制也可以做到。</p>
 <div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="ln"> 1</span><span class="c1">//
 </span><span class="ln"> 2</span><span class="c1">// Created by bnaod1 on 2024/12/7.
 </span><span class="ln"> 3</span><span class="c1">//
