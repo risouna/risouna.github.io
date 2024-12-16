@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on 理想奈的博客</title>
+    <link>/series/linux/</link>
+    <description>Recent content in Linux on 理想奈的博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
+    <lastBuildDate>Sat, 23 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>《鸟哥Linux私房菜基础篇》</title>
+      <link>/posts/tech/basic-niaoge-linux/</link>
+      <pubDate>Sat, 23 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-niaoge-linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>菜鸟教程Shell</title>
+      <link>/posts/tech/media-misc-shell/</link>
+      <pubDate>Thu, 14 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-misc-shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>菜鸟教程Linux教程</title>
+      <link>/posts/tech/basic-runnoob-linux/</link>
+      <pubDate>Mon, 11 Nov 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/basic-runnoob-linux/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
