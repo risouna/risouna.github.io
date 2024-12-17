@@ -18,10 +18,10 @@
     
     <item>
       <title>《数据结构与算法分析: C语言描述》</title>
-      <link>/posts/tech/basic-datastructure/</link>
+      <link>/posts/tech/code-datastructure/</link>
       <pubDate>Thu, 28 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-datastructure/</guid>
+      <guid>/posts/tech/code-datastructure/</guid>
       <description></description>
     </item>
     
@@ -36,19 +36,19 @@
     
     <item>
       <title>Leetcode C语言算法刷题</title>
-      <link>/posts/tech/basic-algorithm-c/</link>
+      <link>/posts/tech/code-algorithm-c/</link>
       <pubDate>Sat, 23 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-algorithm-c/</guid>
+      <guid>/posts/tech/code-algorithm-c/</guid>
       <description></description>
     </item>
     
     <item>
       <title>《鸟哥Linux私房菜基础篇》</title>
-      <link>/posts/tech/basic-niaoge-linux/</link>
+      <link>/posts/tech/linux-niaoge-linux/</link>
       <pubDate>Sat, 23 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-niaoge-linux/</guid>
+      <guid>/posts/tech/linux-niaoge-linux/</guid>
       <description></description>
     </item>
     
@@ -72,19 +72,19 @@
     
     <item>
       <title>菜鸟教程Linux教程</title>
-      <link>/posts/tech/basic-runnoob-linux/</link>
+      <link>/posts/tech/linux-runnoob-linux/</link>
       <pubDate>Mon, 11 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-runnoob-linux/</guid>
+      <guid>/posts/tech/linux-runnoob-linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>C&#43;&#43;基础查漏补缺</title>
-      <link>/posts/tech/basic-cpp/</link>
+      <link>/posts/tech/code-cpp/</link>
       <pubDate>Mon, 28 Oct 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-cpp/</guid>
+      <guid>/posts/tech/code-cpp/</guid>
       <description></description>
     </item>
     

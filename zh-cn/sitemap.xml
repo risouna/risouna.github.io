@@ -128,7 +128,7 @@
     <loc>/posts/tech/media-automake/</loc>
     <lastmod>2024-11-29T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/tech/basic-datastructure/</loc>
+    <loc>/posts/tech/code-datastructure/</loc>
     <lastmod>2024-11-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/series/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</loc>
@@ -149,13 +149,13 @@
     <loc>/posts/tech/media-sdptoc/</loc>
     <lastmod>2024-11-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/tech/basic-algorithm-c/</loc>
+    <loc>/posts/tech/code-algorithm-c/</loc>
     <lastmod>2024-11-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/series/linux/</loc>
     <lastmod>2024-11-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/tech/basic-niaoge-linux/</loc>
+    <loc>/posts/tech/linux-niaoge-linux/</loc>
     <lastmod>2024-11-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/tech/media-sdp/</loc>
@@ -173,7 +173,7 @@
     <loc>/posts/other/note-rule/</loc>
     <lastmod>2024-11-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/tech/media-misc-shell/</loc>
+    <loc>/posts/tech/linux-misc-shell/</loc>
     <lastmod>2024-11-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/tech/media-misc-rst/</loc>
@@ -182,10 +182,10 @@
     <loc>/posts/tech/basic-git/</loc>
     <lastmod>2024-11-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/tech/basic-runnoob-linux/</loc>
+    <loc>/posts/tech/linux-runnoob-linux/</loc>
     <lastmod>2024-11-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/tech/basic-cpp/</loc>
+    <loc>/posts/tech/code-cpp/</loc>
     <lastmod>2024-10-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/series/java/</loc>
@@ -326,12 +326,6 @@
     <loc>/posts/literature/british-history-1/</loc>
     <lastmod>2022-04-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/tweet/</loc>
-    <lastmod>2022-02-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tweet/essay2/</loc>
-    <lastmod>2022-02-17T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/posts/anime/connect/</loc>
     <lastmod>2022-02-11T00:00:00+00:00</lastmod>
   </url><url>
@@ -376,9 +370,6 @@
   </url><url>
     <loc>/posts/other/probability-theory/</loc>
     <lastmod>2021-05-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tweet/essay/</loc>
-    <lastmod>2021-05-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/other/ads/</loc>
     <lastmod>2021-05-02T00:00:00+00:00</lastmod>

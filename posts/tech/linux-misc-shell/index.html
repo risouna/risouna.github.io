@@ -1,0 +1,1205 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>菜鸟教程Shell - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="菜鸟教程Shell">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-11-14T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-11-14T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="6420">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="菜鸟教程Shell" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/linux-misc-shell/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-11-14T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-11-14T00:00:00&#43;00:00" /><meta property="og:site_name" content="理想奈的博客" />
+
+<meta property="og:see_also" content="/posts/tech/linux-niaoge-linux/" /><meta property="og:see_also" content="/posts/tech/linux-runnoob-linux/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="菜鸟教程Shell"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+
+
+
+
+<script type="text/javascript" src="/js/Valine.min.js"></script>
+<script type="text/javascript" src="/js/cave-draw.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/katex.min.css">
+<script type="text/javascript" src="/js/katex.min.js"></script>
+<script type="text/javascript" src="/js/auto-render.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" type="text/css" href="/js/font.css">
+
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      
+      さぁ、君、取りたまえ
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">菜鸟教程Shell</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">菜鸟教程Shell
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-11-14
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>13 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a><a href="/series/linux/" class="post-taxonomy">#Linux</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#运行shell脚本的方法">运行shell脚本的方法</a></li>
+    <li><a href="#变量">变量</a>
+      <ul>
+        <li><a href="#定义变量">定义变量</a></li>
+        <li><a href="#使用变量">使用变量</a></li>
+        <li><a href="#只读变量">只读变量</a></li>
+        <li><a href="#删除变量">删除变量</a></li>
+        <li><a href="#变量类型">变量类型</a></li>
+        <li><a href="#字符串">字符串</a></li>
+        <li><a href="#数组">数组</a></li>
+        <li><a href="#注释">注释</a></li>
+      </ul>
+    </li>
+    <li><a href="#传递参数">传递参数</a></li>
+    <li><a href="#数组-1">数组</a>
+      <ul>
+        <li><a href="#关联数组">关联数组</a></li>
+        <li><a href="#获取数组所有元素">获取数组所有元素</a></li>
+        <li><a href="#获取数组的长度-1">获取数组的长度</a></li>
+        <li><a href="#tips">Tips</a></li>
+      </ul>
+    </li>
+    <li><a href="#运算符">运算符</a>
+      <ul>
+        <li><a href="#算术运算符">算术运算符</a></li>
+        <li><a href="#关系运算符">关系运算符</a></li>
+        <li><a href="#布尔运算符">布尔运算符</a></li>
+        <li><a href="#逻辑运算符">逻辑运算符</a></li>
+        <li><a href="#字符串运算符">字符串运算符</a></li>
+        <li><a href="#文件测试运算符">文件测试运算符</a></li>
+        <li><a href="#自增和自减操作符">自增和自减操作符</a></li>
+      </ul>
+    </li>
+    <li><a href="#echo命令">echo命令</a></li>
+    <li><a href="#停止">停止</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="运行shell脚本的方法">运行shell脚本的方法</h2>
+<p>1.作为可执行程序</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>chmod +x ./test.sh  #使脚本具有执行权限
+<span class="ln">2</span>./test.sh  #执行脚本
+</code></pre></div><p>2.作为解释器参数</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>/bin/sh test.sh
+<span class="ln">2</span>/bin/php test.php
+</code></pre></div><h2 id="变量">变量</h2>
+<h3 id="定义变量">定义变量</h3>
+<p>变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。同时，变量名的命名须遵循如下规则：</p>
+<ul>
+<li>只包含字母、数字和下划线：** 变量名可以包含字母（大小写敏感）、数字和下划线 _，不能包含其他特殊字符。</li>
+<li>不能以数字开头： 变量名不能以数字开头，但可以包含数字。</li>
+<li>避免使用 Shell 关键字： 不要使用Shell的关键字（例如 if、then、else、fi、for、while 等）作为变量名，以免引起混淆。</li>
+<li>使用大写字母表示常量：习惯上，常量的变量名通常使用大写字母，例如 PI=3.14。</li>
+<li>避免使用特殊符号：  尽量避免在变量名中使用特殊符号，因为它们可能与 Shell 的语法产生冲突。</li>
+<li>避免使用空格： 变量名中不应该包含空格，因为空格通常用于分隔命令和参数。</li>
+</ul>
+<p>有效的 Shell 变量名示例如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>RUNOOB=&#34;www.runoob.com&#34;
+<span class="ln">2</span>LD_LIBRARY_PATH=&#34;/bin/&#34;
+<span class="ln">3</span>_var=&#34;123&#34;
+<span class="ln">4</span>var2=&#34;abc&#34;
+</code></pre></div><p>除了显式地直接赋值，还可以用语句给变量赋值，如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>for file in `ls /etc`
+<span class="ln">2</span> 或
+<span class="ln">3</span>for file in $(ls /etc)
+</code></pre></div><p>以上语句将 /etc 下目录的文件名循环出来。</p>
+<h3 id="使用变量">使用变量</h3>
+<p>使用一个定义过的变量，只要在变量名前面加美元符号即可，如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>your_name=&#34;qinjx&#34;
+<span class="ln">2</span> echo $your_name
+<span class="ln">3</span> echo ${your_name}
+</code></pre></div><p>变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>for skill in Ada Coffe Action Java; do
+<span class="ln">2</span>    echo &#34;I am good at ${skill}Script&#34;
+<span class="ln">3</span>done
+</code></pre></div><p>如果不给skill变量加花括号，写成echo &ldquo;I am good at $skillScript&rdquo;，解释器就会把$skillScript当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。</p>
+<p>推荐给所有变量加上花括号，这是个好的编程习惯。</p>
+<h3 id="只读变量">只读变量</h3>
+<p>使用 readonly 命令可以将变量定义为只读变量，只读变量的值不能被改变。</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span><span class="cp">#!/bin/bash
+</span><span class="ln">2</span><span class="cp"></span>
+<span class="ln">3</span><span class="nv">myUrl</span><span class="o">=</span><span class="s2">&#34;https://www.google.com&#34;</span>
+<span class="ln">4</span><span class="nb">readonly</span> myUrl
+<span class="ln">5</span><span class="nv">myUrl</span><span class="o">=</span><span class="s2">&#34;https://www.runoob.com&#34;</span>
+<span class="ln">6</span>
+<span class="ln">7</span><span class="c1">#/bin/sh: NAME: This variable is read only.</span>
+</code></pre></div><h3 id="删除变量">删除变量</h3>
+<p>使用 unset 命令可以删除变量。语法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>unset variable_name
+</code></pre></div><p>变量被删除后不能再次使用。unset 命令不能删除只读变量。</p>
+<h3 id="变量类型">变量类型</h3>
+<ul>
+<li>
+<p>字符串变量： 使用单引号 ' 或双引号 &quot; 来定义字符串</p>
+</li>
+<li>
+<p>整数变量： 可以使用 <strong>declare</strong> 或 <strong>typeset</strong> 命令来声明整数变量。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>declare -i my_integer=42
+</code></pre></div><p>这样的声明告诉 Shell 将 my_integer 视为整数，如果尝试将非整数值赋给它，Shell会尝试将其转换为整数。</p>
+</li>
+<li>
+<p>数组变量：</p>
+</li>
+<li>
+<p>Shell 也支持数组，允许你在一个变量中存储多个值。数组可以是整数索引数组或关联数组</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="c1">#整数索引数组</span>
+<span class="ln">2</span><span class="nv">my_array</span><span class="o">=(</span><span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> 5<span class="o">)</span>
+<span class="ln">3</span>
+<span class="ln">4</span><span class="c1">#关联数组</span>
+<span class="ln">5</span><span class="nb">declare</span> -A associative_array
+<span class="ln">6</span>associative_array<span class="o">[</span><span class="s2">&#34;name&#34;</span><span class="o">]=</span><span class="s2">&#34;John&#34;</span>
+<span class="ln">7</span>associative_array<span class="o">[</span><span class="s2">&#34;age&#34;</span><span class="o">]=</span><span class="m">30</span>
+</code></pre></div><ul>
+<li>
+<p>环境变量：这些是由操作系统或用户设置的特殊变量，用于配置 Shell 的行为和影响其执行环境。例如，PATH 变量包含了操作系统搜索可执行文件的路径</p>
+</li>
+<li>
+<p>特殊变量：有一些特殊变量在 Shell 中具有特殊含义，例如 $0 表示脚本的名称，$1, $2, 等表示脚本的参数。</p>
+<p>$#表示传递给脚本的参数数量，$? 表示上一个命令的退出状态等。</p>
+</li>
+</ul>
+<h3 id="字符串">字符串</h3>
+<p>字符串可以用单引号，也可以用双引号，也可以不用引号。</p>
+<p>1.单引号字符串的限制：</p>
+<ul>
+<li>单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的；</li>
+<li>单引号字符串中不能出现单独一个的单引号（对单引号使用转义符后也不行），但可成对出现，作为字符串拼接使用。</li>
+</ul>
+<p>2.双引号的优点：</p>
+<ul>
+<li>双引号里可以有变量</li>
+<li>双引号里可以出现转义字符</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="nv">your_name</span><span class="o">=</span><span class="s2">&#34;runoob&#34;</span>
+<span class="ln">2</span><span class="nv">str</span><span class="o">=</span><span class="s2">&#34;Hello, I know you are \&#34;</span><span class="nv">$your_name</span><span class="s2">\&#34;! \n&#34;</span>
+<span class="ln">3</span><span class="nb">echo</span> -e <span class="nv">$str</span>
+</code></pre></div><p>3.字符串拼接：</p>
+<ul>
+<li>可以使用双引号或者单引号包裹变量</li>
+<li>单引号中包裹变量只能使用单引号</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span><span class="nv">your_name</span><span class="o">=</span><span class="s2">&#34;runoob&#34;</span>
+<span class="ln"> 2</span><span class="c1"># 使用双引号拼接</span>
+<span class="ln"> 3</span><span class="nv">greeting</span><span class="o">=</span><span class="s2">&#34;hello, &#34;</span><span class="nv">$your_name</span><span class="s2">&#34; !&#34;</span>
+<span class="ln"> 4</span><span class="nv">greeting_1</span><span class="o">=</span><span class="s2">&#34;hello, </span><span class="si">${</span><span class="nv">your_name</span><span class="si">}</span><span class="s2"> !&#34;</span>
+<span class="ln"> 5</span><span class="nb">echo</span> <span class="nv">$greeting</span>  <span class="nv">$greeting_1</span>
+<span class="ln"> 6</span><span class="c1">#hello, runoob ! hello, runoob !</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="c1"># 使用单引号拼接</span>
+<span class="ln"> 9</span><span class="nv">greeting_2</span><span class="o">=</span><span class="s1">&#39;hello, &#39;</span><span class="nv">$your_name</span><span class="s1">&#39; !&#39;</span>
+<span class="ln">10</span><span class="nv">greeting_3</span><span class="o">=</span><span class="s1">&#39;hello, ${your_name} !&#39;</span>
+<span class="ln">11</span><span class="nb">echo</span> <span class="nv">$greeting_2</span>  <span class="nv">$greeting_3</span>
+<span class="ln">12</span><span class="c1">#hello, runoob ! hello, ${your_name} !</span>
+</code></pre></div><p>4.获取字符串长度</p>
+<p><code>${#string}</code></p>
+<p>变量为字符串时，${#string} 等价于 ${#string[0]}:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>string=&#34;abcd&#34;
+<span class="ln">2</span>echo ${#string}   # 输出 4
+<span class="ln">3</span>
+<span class="ln">4</span>string=&#34;abcd&#34;
+<span class="ln">5</span>echo ${#string[0]}   # 输出 4
+</code></pre></div><p>5.提取子字符串</p>
+<p><code>${string:开始下标：总共截取长度}</code></p>
+<p>从字符串第 2 个字符开始截取 4 个字符：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>string=&#34;runoob is a great site&#34;
+<span class="ln">2</span>echo ${string:1:4} # 输出 unoo
+</code></pre></div><p>应用shell特殊符号截取：</p>
+<p>假设有变量 var=http://www.aaa.com/123.htm</p>
+<ol>
+<li># 号截取，删除左边字符，保留右边字符。</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>echo ${var#*//}
+</code></pre></div><p>其中 var 是变量名，# 号是运算符，*// 表示从左边开始删除第一个 // 号及左边的所有字符</p>
+<p>即删除 http://</p>
+<p>结果是 ：www.aaa.com/123.htm</p>
+<ol start="2">
+<li>## 号截取，删除左边字符，保留右边字符。</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>echo ${var##*/}
+</code></pre></div><p>##*/ 表示从左边开始删除最后（最右边）一个 / 号及左边的所有字符</p>
+<p>即删除 <a href="http://www.aaa.com/">http://www.aaa.com/</a></p>
+<p>结果是 123.htm</p>
+<ol start="3">
+<li>%号截取，删除右边字符，保留左边字符</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>echo ${var%/*}
+</code></pre></div><p>%/* 表示从右边开始，删除第一个 / 号及右边的字符</p>
+<p>结果是：http://www.aaa.com</p>
+<ol start="4">
+<li>%% 号截取，删除右边字符，保留左边字符</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>echo ${var%%/*}
+</code></pre></div><p>%%/* 表示从右边开始，删除最后（最左边）一个 / 号及右边的字符</p>
+<p>结果是：http:</p>
+<ol start="5">
+<li>从左边第几个字符开始，及字符的个数</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>echo ${var:0:5}
+</code></pre></div><p>其中的 0 表示左边第一个字符开始，5 表示字符的总个数。</p>
+<p>结果是：http:</p>
+<ol start="6">
+<li>从左边第几个字符开始，一直到结束。</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>echo ${var:7}
+</code></pre></div><p>其中的 7 表示左边第8个字符开始，一直到结束。</p>
+<p>结果是 ：www.aaa.com/123.htm</p>
+<ol start="7">
+<li>从右边第几个字符开始，及字符的个数</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>echo ${var:0-7:3}
+</code></pre></div><p>其中的 0-7 表示右边算起第七个字符开始，3 表示字符的个数。</p>
+<p>结果是：123</p>
+<ol start="8">
+<li>从右边第几个字符开始，一直到结束。</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>echo ${var:0-7}
+</code></pre></div><p>表示从右边第七个字符开始，一直到结束。</p>
+<p>结果是：123.htm</p>
+<p>注：（左边的第一个字符是用 0 表示，右边的第一个字符用 0-1 表示）</p>
+<p>#、## 表示从左边开始删除。一个 # 表示从左边删除到第一个指定的字符；两个 # 表示从左边删除到最后一个指定的字符。</p>
+<p>%、%% 表示从右边开始删除。一个 % 表示从右边删除到第一个指定的字符；两个 % 表示从左边删除到最后一个指定的字符。</p>
+<p>删除包括了指定的字符本身。</p>
+<p>6.查找子字符串</p>
+<p><code>expr index &quot;$string&quot; 子串</code></p>
+<p>查找字符 <strong>i</strong> 或 <strong>o</strong> 的位置(哪个字母先出现就计算哪个)：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>string=&#34;runoob is a great site&#34;
+<span class="ln">2</span>echo `expr index &#34;$string&#34; io`  # 输出 4
+</code></pre></div><p>用反引号括起来， 不然echo直接打印后面的字符。</p>
+<h3 id="数组">数组</h3>
+<p>bash支持一维数组（不支持多维数组），并且没有限定数组的大小。类似于 C 语言，数组元素的下标由 0 开始编号。获取数组中的元素要利用下标，下标可以是整数或算术表达式，其值应大于或等于 0。</p>
+<h4 id="定义数组">定义数组</h4>
+<p><code>数组名=(值1 值2 ... 值n)</code></p>
+<p>定义示例：</p>
+<p>可以不使用连续的下标，而且下标的范围没有限制。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>array_name=(value0 value1 value2 value3)
+<span class="ln"> 2</span>
+<span class="ln"> 3</span>array_name=(
+<span class="ln"> 4</span>value0
+<span class="ln"> 5</span>value1
+<span class="ln"> 6</span>value2
+<span class="ln"> 7</span>value3
+<span class="ln"> 8</span>)
+<span class="ln"> 9</span>
+<span class="ln">10</span>array_name[0]=value0
+<span class="ln">11</span>array_name[1]=value1
+<span class="ln">12</span>array_name[n]=valuen
+</code></pre></div><h4 id="读取数组">读取数组</h4>
+<p><code>${数组名[下标]}</code></p>
+<p>使用 @ 符号可以获取数组中的所有元素</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>valuen=${array_name[n]}
+<span class="ln">2</span>
+<span class="ln">3</span>echo ${array_name[@]}
+</code></pre></div><h4 id="获取数组的长度">获取数组的长度</h4>
+<p>和字符串一样</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span># 取得数组元素的个数
+<span class="ln">2</span>length=${#array_name[@]}
+<span class="ln">3</span># 或者
+<span class="ln">4</span>length=${#array_name[*]}
+<span class="ln">5</span>
+<span class="ln">6</span># 取得数组单个元素的长度
+<span class="ln">7</span>length=${#array_name[n]}
+</code></pre></div><h3 id="注释">注释</h3>
+<h4 id="单行注释">单行注释</h4>
+<p>以 # 开头的行就是注释，会被解释器忽略。通过每一行加一个 <strong>#</strong> 号设置多行注释</p>
+<p>如果在开发过程中，遇到大段的代码需要临时注释起来，过一会儿又取消注释，怎么办呢？</p>
+<p>每一行加个#符号太费力了，可以把这一段要注释的代码用一对花括号括起来，定义成一个函数，没有地方调用这个函数，这块代码就不会执行，达到了和注释一样的效果。</p>
+<h4 id="多行注释">多行注释</h4>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>#语法
+<span class="ln"> 2</span>:&lt;&lt;EOF
+<span class="ln"> 3</span>注释内容...
+<span class="ln"> 4</span>注释内容...
+<span class="ln"> 5</span>注释内容...
+<span class="ln"> 6</span>EOF
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>#示例
+<span class="ln"> 9</span>: &lt;&lt;&#39;COMMENT&#39;
+<span class="ln">10</span>这是注释的部分。
+<span class="ln">11</span>可以有多行内容。
+<span class="ln">12</span>COMMENT
+<span class="ln">13</span>
+<span class="ln">14</span>:&lt;&lt;&#39;
+<span class="ln">15</span>注释内容...
+<span class="ln">16</span>注释内容...
+<span class="ln">17</span>注释内容...
+<span class="ln">18</span>&#39;
+<span class="ln">19</span>
+<span class="ln">20</span>:&lt;&lt;!
+<span class="ln">21</span>注释内容...
+<span class="ln">22</span>注释内容...
+<span class="ln">23</span>注释内容...
+<span class="ln">24</span>!
+</code></pre></div><p>或者使用：号</p>
+<p><code>: + 空格 + 单引号</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>: &#39;
+<span class="ln">2</span>这是注释的部分。
+<span class="ln">3</span>可以有多行内容。
+<span class="ln">4</span>&#39;
+</code></pre></div><h2 id="传递参数">传递参数</h2>
+<p>我们可以在执行 Shell 脚本时，向脚本传递参数，脚本内获取参数的格式为 $n，<strong>n</strong> 代表一个数字，<strong>1</strong> 为执行脚本的第一个参数，<strong>2</strong> 为执行脚本的第二个参数。</p>
+<p>例如可以使用 $1、$2 等来引用传递给脚本的参数，其中 $1 表示第一个参数，$2 表示第二个参数，依此类推。</p>
+<p>例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span><span class="c1"># author:菜鸟教程</span>
+<span class="ln"> 3</span><span class="c1"># url:www.runoob.com</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="nb">echo</span> <span class="s2">&#34;Shell 传递参数实例！&#34;</span><span class="p">;</span>
+<span class="ln"> 6</span><span class="nb">echo</span> <span class="s2">&#34;执行的文件名：</span><span class="nv">$0</span><span class="s2">&#34;</span><span class="p">;</span>
+<span class="ln"> 7</span><span class="nb">echo</span> <span class="s2">&#34;第一个参数为：</span><span class="nv">$1</span><span class="s2">&#34;</span><span class="p">;</span>
+<span class="ln"> 8</span><span class="nb">echo</span> <span class="s2">&#34;第二个参数为：</span><span class="nv">$2</span><span class="s2">&#34;</span><span class="p">;</span>
+<span class="ln"> 9</span><span class="nb">echo</span> <span class="s2">&#34;第三个参数为：</span><span class="nv">$3</span><span class="s2">&#34;</span><span class="p">;</span>
+<span class="ln">10</span>
+<span class="ln">11</span>
+<span class="ln">12</span>---------------
+<span class="ln">13</span>
+<span class="ln">14</span>
+<span class="ln">15</span>$ chmod +x test.sh 
+<span class="ln">16</span>$ ./test.sh <span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+<span class="ln">17</span>Shell 传递参数实例！
+<span class="ln">18</span>执行的文件名：./test.sh
+<span class="ln">19</span>第一个参数为：1
+<span class="ln">20</span>第二个参数为：2
+<span class="ln">21</span>第三个参数为：3
+</code></pre></div><p>特殊字符：</p>
+<table>
+<thead>
+<tr>
+<th>参数处理</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$#</td>
+<td>传递到脚本的参数个数</td>
+</tr>
+<tr>
+<td>$*</td>
+<td>以一个单字符串显示所有向脚本传递的参数。  如&quot;$*&ldquo;用「&quot;」括起来的情况、以&rdquo;$1 $2 … $n&quot;的形式输出所有参数。</td>
+</tr>
+<tr>
+<td>$$</td>
+<td>脚本运行的当前进程ID号</td>
+</tr>
+<tr>
+<td>$!</td>
+<td>后台运行的最后一个进程的ID号</td>
+</tr>
+<tr>
+<td>$@</td>
+<td>与$*相同，但是使用时加引号，并在引号中返回每个参数。  如&quot;$@&ldquo;用「&quot;」括起来的情况、以&rdquo;$1&quot; &ldquo;$2&rdquo; … &ldquo;$n&rdquo; 的形式输出所有参数。</td>
+</tr>
+<tr>
+<td>$-</td>
+<td>显示Shell使用的当前选项，与<a href="https://www.runoob.com/linux/linux-comm-set.html" target="_blank">set命令</a>
+功能相同。</td>
+</tr>
+<tr>
+<td>$?</td>
+<td>显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误。</td>
+</tr>
+</tbody>
+</table>
+<p>例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span><span class="c1"># author:菜鸟教程</span>
+<span class="ln"> 3</span><span class="c1"># url:www.runoob.com</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="nb">echo</span> <span class="s2">&#34;Shell 传递参数实例！&#34;</span><span class="p">;</span>
+<span class="ln"> 6</span><span class="nb">echo</span> <span class="s2">&#34;第一个参数为：</span><span class="nv">$1</span><span class="s2">&#34;</span><span class="p">;</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="nb">echo</span> <span class="s2">&#34;参数个数为：</span><span class="nv">$#</span><span class="s2">&#34;</span><span class="p">;</span>
+<span class="ln"> 9</span><span class="nb">echo</span> <span class="s2">&#34;传递的参数作为一个字符串显示：</span><span class="nv">$*</span><span class="s2">&#34;</span><span class="p">;</span>
+<span class="ln">10</span>
+<span class="ln">11</span>
+<span class="ln">12</span>---------------
+<span class="ln">13</span>
+<span class="ln">14</span>$ chmod +x test.sh 
+<span class="ln">15</span>$ ./test.sh <span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+<span class="ln">16</span>Shell 传递参数实例！
+<span class="ln">17</span>第一个参数为：1
+<span class="ln">18</span>参数个数为：3
+<span class="ln">19</span>传递的参数作为一个字符串显示：1 <span class="m">2</span> <span class="m">3</span>
+<span class="ln">20</span>
+</code></pre></div><p>$* 与 $@ 区别：</p>
+<ul>
+<li>相同点：都是引用所有参数。</li>
+<li>不同点：只有在双引号中体现出来。假设在脚本运行时写了三个参数 1、2、3，则 &quot; * &quot; 等价于 &ldquo;1 2 3&rdquo;（传递了一个参数），而 &ldquo;@&rdquo; 等价于 &ldquo;1&rdquo; &ldquo;2&rdquo; &ldquo;3&rdquo;（传递了三个参数）。</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span><span class="c1"># author:菜鸟教程</span>
+<span class="ln"> 3</span><span class="c1"># url:www.runoob.com</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="nb">echo</span> <span class="s2">&#34;-- \$* 演示 ---&#34;</span>
+<span class="ln"> 6</span><span class="k">for</span> i in <span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>
+<span class="ln"> 7</span>    <span class="nb">echo</span> <span class="nv">$i</span>
+<span class="ln"> 8</span><span class="k">done</span>
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="nb">echo</span> <span class="s2">&#34;-- \$@ 演示 ---&#34;</span>
+<span class="ln">11</span><span class="k">for</span> i in <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span><span class="p">;</span> <span class="k">do</span>
+<span class="ln">12</span>    <span class="nb">echo</span> <span class="nv">$i</span>
+<span class="ln">13</span><span class="k">done</span>
+<span class="ln">14</span>
+<span class="ln">15</span>
+<span class="ln">16</span>---------------
+<span class="ln">17</span>
+<span class="ln">18</span>$ chmod +x test.sh 
+<span class="ln">19</span>$ ./test.sh <span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+<span class="ln">20</span>-- <span class="nv">$*</span> 演示 ---
+<span class="ln">21</span><span class="m">1</span> <span class="m">2</span> <span class="m">3</span>
+<span class="ln">22</span>-- <span class="nv">$@</span> 演示 ---
+<span class="ln">23</span><span class="m">1</span>
+<span class="ln">24</span><span class="m">2</span>
+<span class="ln">25</span><span class="m">3</span>
+</code></pre></div><h2 id="数组-1">数组</h2>
+<p>基础在上面</p>
+<h3 id="关联数组">关联数组</h3>
+<p>定义：<code>declare -A array_name</code></p>
+<p>其实也就是java中的字典。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>declare -A site=([&#34;google&#34;]=&#34;www.google.com&#34; [&#34;runoob&#34;]=&#34;www.runoob.com&#34; [&#34;taobao&#34;]=&#34;www.taobao.com&#34;)
+<span class="ln">2</span>
+<span class="ln">3</span>#先声明一个关联数组，然后再设置键和值
+<span class="ln">4</span>declare -A site
+<span class="ln">5</span>site[&#34;google&#34;]=&#34;www.google.com&#34;
+<span class="ln">6</span>site[&#34;runoob&#34;]=&#34;www.runoob.com&#34;
+<span class="ln">7</span>site[&#34;taobao&#34;]=&#34;www.taobao.com&#34;
+</code></pre></div><p>访问：<code>array_name[&quot;index&quot;]</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>declare -A site
+<span class="ln">2</span>site[&#34;google&#34;]=&#34;www.google.com&#34;
+<span class="ln">3</span>site[&#34;runoob&#34;]=&#34;www.runoob.com&#34;
+<span class="ln">4</span>site[&#34;taobao&#34;]=&#34;www.taobao.com&#34;
+<span class="ln">5</span>
+<span class="ln">6</span>echo ${site[&#34;runoob&#34;]}
+</code></pre></div><h3 id="获取数组所有元素">获取数组所有元素</h3>
+<p>使用 @ 或 * 可以获取数组中的所有元素</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span><span class="c1"># author:菜鸟教程</span>
+<span class="ln"> 3</span><span class="c1"># url:www.runoob.com</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>my_array<span class="o">[</span>0<span class="o">]=</span>A
+<span class="ln"> 6</span>my_array<span class="o">[</span>1<span class="o">]=</span>B
+<span class="ln"> 7</span>my_array<span class="o">[</span>2<span class="o">]=</span>C
+<span class="ln"> 8</span>my_array<span class="o">[</span>3<span class="o">]=</span>D
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="nb">echo</span> <span class="s2">&#34;数组的元素为: </span><span class="si">${</span><span class="nv">my_array</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&#34;</span>
+<span class="ln">11</span><span class="nb">echo</span> <span class="s2">&#34;数组的元素为: </span><span class="si">${</span><span class="nv">my_array</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span>
+<span class="ln">12</span>
+<span class="ln">13</span>-------------
+<span class="ln">14</span>
+<span class="ln">15</span>$ chmod +x test.sh 
+<span class="ln">16</span>$ ./test.sh
+<span class="ln">17</span>数组的元素为: A B C D
+<span class="ln">18</span>数组的元素为: A B C D
+<span class="ln">19</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>declare -A site
+<span class="ln"> 2</span>site[&#34;google&#34;]=&#34;www.google.com&#34;
+<span class="ln"> 3</span>site[&#34;runoob&#34;]=&#34;www.runoob.com&#34;
+<span class="ln"> 4</span>site[&#34;taobao&#34;]=&#34;www.taobao.com&#34;
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>echo &#34;数组的元素为: ${site[*]}&#34;
+<span class="ln"> 7</span>echo &#34;数组的元素为: ${site[@]}&#34;
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>---------------
+<span class="ln">10</span>
+<span class="ln">11</span>$ chmod +x test.sh 
+<span class="ln">12</span>$ ./test.sh
+<span class="ln">13</span>数组的元素为: www.google.com www.runoob.com www.taobao.com
+<span class="ln">14</span>数组的元素为: www.google.com www.runoob.com www.taobao.com
+</code></pre></div><p>在数组前加一个感叹号 ! 可以获取数组的所有键</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>declare -A site
+<span class="ln"> 2</span>site[&#34;google&#34;]=&#34;www.google.com&#34;
+<span class="ln"> 3</span>site[&#34;runoob&#34;]=&#34;www.runoob.com&#34;
+<span class="ln"> 4</span>site[&#34;taobao&#34;]=&#34;www.taobao.com&#34;
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>echo &#34;数组的键为: ${!site[*]}&#34;
+<span class="ln"> 7</span>echo &#34;数组的键为: ${!site[@]}&#34;
+<span class="ln"> 8</span>
+<span class="ln"> 9</span>-------------
+<span class="ln">10</span>
+<span class="ln">11</span>数组的键为: google runoob taobao
+<span class="ln">12</span>数组的键为: google runoob taobao
+</code></pre></div><h3 id="获取数组的长度-1">获取数组的长度</h3>
+<p>获取数组长度的方法与获取字符串长度的方法相同</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span><span class="c1"># author:菜鸟教程</span>
+<span class="ln"> 3</span><span class="c1"># url:www.runoob.com</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>my_array<span class="o">[</span>0<span class="o">]=</span>A
+<span class="ln"> 6</span>my_array<span class="o">[</span>1<span class="o">]=</span>B
+<span class="ln"> 7</span>my_array<span class="o">[</span>2<span class="o">]=</span>C
+<span class="ln"> 8</span>my_array<span class="o">[</span>3<span class="o">]=</span>D
+<span class="ln"> 9</span>
+<span class="ln">10</span><span class="nb">echo</span> <span class="s2">&#34;数组元素个数为: </span><span class="si">${#</span><span class="nv">my_array</span><span class="p">[*]</span><span class="si">}</span><span class="s2">&#34;</span>
+<span class="ln">11</span><span class="nb">echo</span> <span class="s2">&#34;数组元素个数为: </span><span class="si">${#</span><span class="nv">my_array</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&#34;</span>
+</code></pre></div><h3 id="tips">Tips</h3>
+<p>数组的值也可以写入变量。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>A=1
+<span class="ln">2</span>my_array=($A B C D)
+<span class="ln">3</span>echo &#34;第一个元素为: ${my_array[0]}&#34;
+<span class="ln">4</span>echo &#34;第二个元素为: ${my_array[1]}&#34;
+<span class="ln">5</span>echo &#34;第三个元素为: ${my_array[2]}&#34;
+<span class="ln">6</span>echo &#34;第四个元素为: ${my_array[3]}&#34;
+</code></pre></div><p>根据数组元素索引获取该数组元素值时，数组下标可为变量。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>arr=(a b c d)
+<span class="ln">2</span>i=2
+<span class="ln">3</span>echo ${arr[i]}
+</code></pre></div><h2 id="运算符">运算符</h2>
+<p>原生bash不支持简单的数学运算，但是可以通过其他命令来实现，例如 awk 和 expr，expr 最常用。</p>
+<p>expr 是一款表达式计算工具，使用它能完成表达式的求值操作。</p>
+<ul>
+<li>表达式和运算符之间要有空格，例如 2+2 是不对的，必须写成 2 + 2，这与我们熟悉的大多数编程语言不一样。</li>
+<li>完整的表达式要被 <code> </code> 包含，注意这个字符不是常用的单引号，在 Esc 键下边。</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln">1</span><span class="cp">#!/bin/bash
+</span><span class="ln">2</span><span class="cp"></span>
+<span class="ln">3</span><span class="nv">val</span><span class="o">=</span><span class="sb">`</span>expr <span class="m">2</span> + 2<span class="sb">`</span>
+<span class="ln">4</span><span class="nb">echo</span> <span class="s2">&#34;两数之和为 : </span><span class="nv">$val</span><span class="s2">&#34;</span>
+</code></pre></div><h3 id="算术运算符">算术运算符</h3>
+<p>表列出了常用的算术运算符，假定变量 a 为 10，变量 b 为 20：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:center">加法</td>
+<td style="text-align:center"><code>expr $a + $b</code> 结果为 30。</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">减法</td>
+<td style="text-align:center"><code>expr $a - $b</code> 结果为 -10。</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">乘法</td>
+<td style="text-align:center"><code>expr $a \* $b</code> 结果为  200。</td>
+</tr>
+<tr>
+<td style="text-align:center">/</td>
+<td style="text-align:center">除法</td>
+<td style="text-align:center"><code>expr $b / $a</code> 结果为 2。</td>
+</tr>
+<tr>
+<td style="text-align:center">%</td>
+<td style="text-align:center">取余</td>
+<td style="text-align:center"><code>expr $b % $a</code> 结果为 0。</td>
+</tr>
+<tr>
+<td style="text-align:center">=</td>
+<td style="text-align:center">赋值</td>
+<td style="text-align:center">a=$b 把变量 b 的值赋给 a。</td>
+</tr>
+<tr>
+<td style="text-align:center">==</td>
+<td style="text-align:center">相等。用于比较两个数字，相同则返回 true。</td>
+<td style="text-align:center">[ $a == $b ] 返回 false。</td>
+</tr>
+<tr>
+<td style="text-align:center">!=</td>
+<td style="text-align:center">不相等。用于比较两个数字，不相同则返回 true。</td>
+<td style="text-align:center">[ $a != $b ] 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<p>条件表达式要放在方括号之间，并且要有空格，例如: <strong>[$a==$b]</strong> 是错误的，必须写成 <strong>[ $a == $b ]</strong>。</p>
+<h3 id="关系运算符">关系运算符</h3>
+<p>假定变量 a 为 10，变量 b 为 20：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-eq</td>
+<td>检测两个数是否相等，相等返回 true。</td>
+<td>[ $a -eq $b ] 返回 false。</td>
+</tr>
+<tr>
+<td>-ne</td>
+<td>测两个数是否不相等，不相等返回 true。</td>
+<td>[ $a -ne $b ] 返回 true。</td>
+</tr>
+<tr>
+<td>-gt</td>
+<td>检测左边的数是否大于右边的，如果是，则返回 true。</td>
+<td>[ $a -gt $b ] 返回 false。</td>
+</tr>
+<tr>
+<td>-lt</td>
+<td>检测左边的数是否小于右边的，如果是，则返回 true。</td>
+<td>[ $a -lt $b ] 返回 true。</td>
+</tr>
+<tr>
+<td>-ge</td>
+<td>检测左边的数是否大于等于右边的，如果是，则返回 true。</td>
+<td>[ $a -ge $b ] 返回 false。</td>
+</tr>
+<tr>
+<td>-le</td>
+<td>检测左边的数是否小于等于右边的，如果是，则返回 true。</td>
+<td>[ $a -le $b ] 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="布尔运算符">布尔运算符</h3>
+<p>假定变量 a 为 10，变量 b 为 20：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>!</td>
+<td>非运算，表达式为 true 则返回 false，否则返回 true。</td>
+<td>[ ! false ] 返回 true。</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>或运算，有一个表达式为 true 则返回 true。</td>
+<td>[ $a -lt 20 -o $b -gt 100 ] 返回 true。</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>与运算，两个表达式都为 true 才返回 true。</td>
+<td>[ $a -lt 20 -a $b -gt 100 ] 返回 false。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="逻辑运算符">逻辑运算符</h3>
+<p>假定变量 a 为 10，变量 b 为 20:</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;&amp;</td>
+<td>逻辑的 AND</td>
+<td>[[ $a -lt 100 &amp;&amp; $b -gt 100 ]] 返回 false</td>
+</tr>
+<tr>
+<td>||</td>
+<td>逻辑的 OR</td>
+<td>[[ $a -lt 100 || $b -gt 100 ]] 返回 true</td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符串运算符">字符串运算符</h3>
+<p>假定变量 a 为 &ldquo;abc&rdquo;，变量 b 为 &ldquo;efg&rdquo;：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>检测两个字符串是否相等，相等返回 true。</td>
+<td>[ $a = $b ] 返回 false。</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>检测两个字符串是否不相等，不相等返回 true。</td>
+<td>[ $a != $b ] 返回 true。</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>检测字符串长度是否为0，为0返回 true。</td>
+<td>[ -z $a ] 返回 false。</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>检测字符串长度是否不为 0，不为 0 返回 true。</td>
+<td>[ -n &ldquo;$a&rdquo; ] 返回 true。</td>
+</tr>
+<tr>
+<td>$</td>
+<td>检测字符串是否不为空，不为空返回 true。</td>
+<td>[ $a ] 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="文件测试运算符">文件测试运算符</h3>
+<p>文件测试运算符用于检测 Unix 文件的各种属性。</p>
+<p>属性检测描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b file</td>
+<td>检测文件是否是块设备文件，如果是，则返回 true。</td>
+<td>[ -b $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-c file</td>
+<td>检测文件是否是字符设备文件，如果是，则返回 true。</td>
+<td>[ -c $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-d file</td>
+<td>检测文件是否是目录，如果是，则返回 true。</td>
+<td>[ -d $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-f file</td>
+<td>检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。</td>
+<td>[ -f $file ] 返回 true。</td>
+</tr>
+<tr>
+<td>-g file</td>
+<td>检测文件是否设置了 SGID 位，如果是，则返回 true。</td>
+<td>[ -g $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-k file</td>
+<td>检测文件是否设置了粘着位(Sticky Bit)，如果是，则返回 true。</td>
+<td>[ -k $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-p file</td>
+<td>检测文件是否是有名管道，如果是，则返回 true。</td>
+<td>[ -p $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-u file</td>
+<td>检测文件是否设置了 SUID 位，如果是，则返回 true。</td>
+<td>[ -u $file ] 返回 false。</td>
+</tr>
+<tr>
+<td>-r file</td>
+<td>检测文件是否可读，如果是，则返回 true。</td>
+<td>[ -r $file ] 返回 true。</td>
+</tr>
+<tr>
+<td>-w file</td>
+<td>检测文件是否可写，如果是，则返回 true。</td>
+<td>[ -w $file ] 返回 true。</td>
+</tr>
+<tr>
+<td>-x file</td>
+<td>检测文件是否可执行，如果是，则返回 true。</td>
+<td>[ -x $file ] 返回 true。</td>
+</tr>
+<tr>
+<td>-s file</td>
+<td>检测文件是否为空（文件大小是否大于0），不为空返回 true。</td>
+<td>[ -s $file ] 返回 true。</td>
+</tr>
+<tr>
+<td>-e file</td>
+<td>检测文件（包括目录）是否存在，如果是，则返回 true。</td>
+<td>[ -e $file ] 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<p>其他检查符：</p>
+<ul>
+<li><strong>-S</strong>: 判断某文件是否 socket。</li>
+<li><strong>-L</strong>: 检测文件是否存在并且是一个符号链接。</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span><span class="c1"># author:菜鸟教程</span>
+<span class="ln"> 3</span><span class="c1"># url:www.runoob.com</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="nv">file</span><span class="o">=</span><span class="s2">&#34;/var/www/runoob/test.sh&#34;</span>
+<span class="ln"> 6</span><span class="k">if</span> <span class="o">[</span> -r <span class="nv">$file</span> <span class="o">]</span>
+<span class="ln"> 7</span><span class="k">then</span>
+<span class="ln"> 8</span>   <span class="nb">echo</span> <span class="s2">&#34;文件可读&#34;</span>
+<span class="ln"> 9</span><span class="k">else</span>
+<span class="ln">10</span>   <span class="nb">echo</span> <span class="s2">&#34;文件不可读&#34;</span>
+<span class="ln">11</span><span class="k">fi</span>
+<span class="ln">12</span><span class="k">if</span> <span class="o">[</span> -w <span class="nv">$file</span> <span class="o">]</span>
+<span class="ln">13</span><span class="k">then</span>
+<span class="ln">14</span>   <span class="nb">echo</span> <span class="s2">&#34;文件可写&#34;</span>
+<span class="ln">15</span><span class="k">else</span>
+<span class="ln">16</span>   <span class="nb">echo</span> <span class="s2">&#34;文件不可写&#34;</span>
+<span class="ln">17</span><span class="k">fi</span>
+<span class="ln">18</span><span class="k">if</span> <span class="o">[</span> -x <span class="nv">$file</span> <span class="o">]</span>
+<span class="ln">19</span><span class="k">then</span>
+<span class="ln">20</span>   <span class="nb">echo</span> <span class="s2">&#34;文件可执行&#34;</span>
+<span class="ln">21</span><span class="k">else</span>
+<span class="ln">22</span>   <span class="nb">echo</span> <span class="s2">&#34;文件不可执行&#34;</span>
+<span class="ln">23</span><span class="k">fi</span>
+<span class="ln">24</span><span class="k">if</span> <span class="o">[</span> -f <span class="nv">$file</span> <span class="o">]</span>
+<span class="ln">25</span><span class="k">then</span>
+<span class="ln">26</span>   <span class="nb">echo</span> <span class="s2">&#34;文件为普通文件&#34;</span>
+<span class="ln">27</span><span class="k">else</span>
+<span class="ln">28</span>   <span class="nb">echo</span> <span class="s2">&#34;文件为特殊文件&#34;</span>
+<span class="ln">29</span><span class="k">fi</span>
+<span class="ln">30</span><span class="k">if</span> <span class="o">[</span> -d <span class="nv">$file</span> <span class="o">]</span>
+<span class="ln">31</span><span class="k">then</span>
+<span class="ln">32</span>   <span class="nb">echo</span> <span class="s2">&#34;文件是个目录&#34;</span>
+<span class="ln">33</span><span class="k">else</span>
+<span class="ln">34</span>   <span class="nb">echo</span> <span class="s2">&#34;文件不是个目录&#34;</span>
+<span class="ln">35</span><span class="k">fi</span>
+<span class="ln">36</span><span class="k">if</span> <span class="o">[</span> -s <span class="nv">$file</span> <span class="o">]</span>
+<span class="ln">37</span><span class="k">then</span>
+<span class="ln">38</span>   <span class="nb">echo</span> <span class="s2">&#34;文件不为空&#34;</span>
+<span class="ln">39</span><span class="k">else</span>
+<span class="ln">40</span>   <span class="nb">echo</span> <span class="s2">&#34;文件为空&#34;</span>
+<span class="ln">41</span><span class="k">fi</span>
+<span class="ln">42</span><span class="k">if</span> <span class="o">[</span> -e <span class="nv">$file</span> <span class="o">]</span>
+<span class="ln">43</span><span class="k">then</span>
+<span class="ln">44</span>   <span class="nb">echo</span> <span class="s2">&#34;文件存在&#34;</span>
+<span class="ln">45</span><span class="k">else</span>
+<span class="ln">46</span>   <span class="nb">echo</span> <span class="s2">&#34;文件不存在&#34;</span>
+<span class="ln">47</span><span class="k">fi</span>
+</code></pre></div><h3 id="自增和自减操作符">自增和自减操作符</h3>
+<p>尽管 Shell 本身没有像 C、C++ 或 Java 那样的 ++ 和 &ndash; 操作符，但可以通过其他方式实现相同的功能。以下是一些常见的方法：</p>
+<h4 id="let命令">let命令</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span>
+<span class="ln"> 3</span><span class="c1"># 初始化变量</span>
+<span class="ln"> 4</span><span class="nv">num</span><span class="o">=</span><span class="m">5</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="c1"># 自增</span>
+<span class="ln"> 7</span><span class="nb">let</span> num++
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="c1"># 自减</span>
+<span class="ln">10</span><span class="nb">let</span> num--
+<span class="ln">11</span>
+<span class="ln">12</span><span class="nb">echo</span> <span class="nv">$num</span>
+</code></pre></div><h4 id="heading">$(())</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span>
+<span class="ln"> 3</span><span class="c1"># 初始化变量</span>
+<span class="ln"> 4</span><span class="nv">num</span><span class="o">=</span><span class="m">5</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="c1"># 自增</span>
+<span class="ln"> 7</span><span class="nv">num</span><span class="o">=</span><span class="k">$((</span>num <span class="o">+</span> <span class="m">1</span><span class="k">))</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="c1"># 自减</span>
+<span class="ln">10</span><span class="nv">num</span><span class="o">=</span><span class="k">$((</span>num <span class="o">-</span> <span class="m">1</span><span class="k">))</span>
+<span class="ln">11</span>
+<span class="ln">12</span><span class="nb">echo</span> <span class="nv">$num</span>
+</code></pre></div><h4 id="expr">expr</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span>
+<span class="ln"> 3</span><span class="c1"># 初始化变量</span>
+<span class="ln"> 4</span><span class="nv">num</span><span class="o">=</span><span class="m">5</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="c1"># 自增</span>
+<span class="ln"> 7</span><span class="nv">num</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$num</span> + 1<span class="k">)</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="c1"># 自减</span>
+<span class="ln">10</span><span class="nv">num</span><span class="o">=</span><span class="k">$(</span>expr <span class="nv">$num</span> - 1<span class="k">)</span>
+<span class="ln">11</span>
+<span class="ln">12</span><span class="nb">echo</span> <span class="nv">$num</span>
+</code></pre></div><h4 id="heading-1">(())</h4>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="ln"> 1</span><span class="cp">#!/bin/bash
+</span><span class="ln"> 2</span><span class="cp"></span>
+<span class="ln"> 3</span><span class="c1"># 初始化变量</span>
+<span class="ln"> 4</span><span class="nv">num</span><span class="o">=</span><span class="m">5</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="c1"># 自增</span>
+<span class="ln"> 7</span><span class="o">((</span>num++<span class="o">))</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="c1"># 自减</span>
+<span class="ln">10</span><span class="o">((</span>num--<span class="o">))</span>
+<span class="ln">11</span>
+<span class="ln">12</span><span class="nb">echo</span> <span class="nv">$num</span>
+</code></pre></div><h2 id="echo命令">echo命令</h2>
+<h2 id="停止">停止</h2>
+<p>自己只需要过一过就行， 忘记了自己去查， 故不再更新。</p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/media-misc-rst/">rst语法
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/other/note-rule/">笔记规范
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/other/note-rule/">笔记规范
+</a></li><li><a href="/posts/tech/media-misc-rst/">rst语法
+</a></li><li><a href="/posts/tech/basic-git/">git&amp;gitlab
+</a></li><li><a href="/posts/tech/linux-runnoob-linux/">菜鸟教程Linux教程
+</a></li><li><a href="/posts/tech/code-cpp/">C&#43;&#43;基础查漏补缺
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">保持好奇，敢想敢做，唯物辨证，知行合一。</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/basic-computer-systems/">《深入理解计算机系统》
+</a></li><li><a href="/posts/physics/physics-computer/">计算机和物理的一点感悟
+</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
+</a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
+</a></li><li><a href="/posts/tech/media-sox/">Sox基本使用
+</a></li><li><a href="/posts/other/human-mind-weekness/">人类思维的一个弱点
+</a></li><li><a href="/posts/other/everyweek-english/">每周一篇经济学人
+</a></li><li><a href="/posts/tech/media-automake/">automake使用
+</a></li><li><a href="/posts/tech/code-datastructure/">《数据结构与算法分析: C语言描述》
+</a></li><li><a href="/posts/tech/media-lightrtp/">lightrtp学习
+</a></li><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a></li><li><a href="/posts/tech/media-coroutine-begin/">协程
+</a></li><li><a href="/posts/tech/basic-mermaid/">Mermaid
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">36</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">8</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a><a href="/categories/%E7%89%A9%E7%90%86%E5%AD%A6/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="物理学">
+          物理学 <span class="badge rounded-pill">1</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">13</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E5%9F%BA%E7%A1%80%E8%83%BD%E5%8A%9B/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="基础能力">
+          基础能力 <span class="badge rounded-pill">9</span>
+        </a><a href="/series/%E9%95%BF%E6%9C%9F%E9%A1%B9%E7%9B%AE/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="长期项目">
+          长期项目 <span class="badge rounded-pill">6</span>
+        </a><a href="/series/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Linux">
+          Linux <span class="badge rounded-pill">3</span>
+        </a><a href="/series/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="编程语言">
+          编程语言 <span class="badge rounded-pill">3</span>
+        </a><a href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="随意思考">
+          随意思考 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

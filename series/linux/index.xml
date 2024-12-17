@@ -9,28 +9,28 @@
     <lastBuildDate>Sat, 23 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="/series/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>《鸟哥Linux私房菜基础篇》</title>
-      <link>/posts/tech/basic-niaoge-linux/</link>
+      <link>/posts/tech/linux-niaoge-linux/</link>
       <pubDate>Sat, 23 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-niaoge-linux/</guid>
+      <guid>/posts/tech/linux-niaoge-linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>菜鸟教程Shell</title>
-      <link>/posts/tech/media-misc-shell/</link>
+      <link>/posts/tech/linux-misc-shell/</link>
       <pubDate>Thu, 14 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/media-misc-shell/</guid>
+      <guid>/posts/tech/linux-misc-shell/</guid>
       <description></description>
     </item>
     
     <item>
       <title>菜鸟教程Linux教程</title>
-      <link>/posts/tech/basic-runnoob-linux/</link>
+      <link>/posts/tech/linux-runnoob-linux/</link>
       <pubDate>Mon, 11 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-runnoob-linux/</guid>
+      <guid>/posts/tech/linux-runnoob-linux/</guid>
       <description></description>
     </item>
     
