@@ -251,7 +251,39 @@
     <loc>/posts/anime/kimigahikarini/</loc>
     <lastmod>2023-02-19T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn（old2）"
+                href="/zh-cnold2/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn（old）"
+                href="/zh-cnold/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="/zh-tw/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="/tags/"
+                />
+  </url><url>
+    <loc>/bin/</loc>
+    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/posts/anime/white-album/</loc>
+    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/%E7%99%BD%E8%89%B2%E7%9B%B8%E7%B0%BF2/</loc>
+    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/bin/white-album-gal/</loc>
     <lastmod>2023-02-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/anime/sweet-heart-cherry/</loc>
@@ -274,9 +306,6 @@
   </url><url>
     <loc>/posts/anime/kizuato/</loc>
     <lastmod>2022-12-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/bin/</loc>
-    <lastmod>2022-11-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/bin/subarashikihibi-1/</loc>
     <lastmod>2022-11-13T00:00:00+00:00</lastmod>
@@ -326,6 +355,12 @@
     <loc>/posts/literature/british-history-1/</loc>
     <lastmod>2022-04-20T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/tweet/</loc>
+    <lastmod>2022-02-17T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tweet/essay2/</loc>
+    <lastmod>2022-02-17T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/posts/anime/connect/</loc>
     <lastmod>2022-02-11T00:00:00+00:00</lastmod>
   </url><url>
@@ -371,6 +406,9 @@
     <loc>/posts/other/probability-theory/</loc>
     <lastmod>2021-05-25T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>/tweet/essay/</loc>
+    <lastmod>2021-05-04T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>/posts/other/ads/</loc>
     <lastmod>2021-05-02T00:00:00+00:00</lastmod>
   </url><url>
@@ -379,30 +417,6 @@
   </url><url>
     <loc>/posts/other/first-post/</loc>
     <lastmod>2021-05-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn（old2）"
-                href="/zh-cnold2/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn（old）"
-                href="/zh-cnold/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="/zh-tw/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="/tags/"
-                />
-  </url><url>
-    <loc>/tweet/</loc>
   </url><url>
     <loc>/archives/</loc>
   </url><url>
