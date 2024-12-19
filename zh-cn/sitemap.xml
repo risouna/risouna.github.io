@@ -402,6 +402,8 @@
                 href="/tags/"
                 />
   </url><url>
+    <loc>/tweet/</loc>
+  </url><url>
     <loc>/archives/</loc>
   </url><url>
     <loc>/search/</loc>

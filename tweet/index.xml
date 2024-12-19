@@ -5,25 +5,6 @@
     <link>/tweet/</link>
     <description>Recent content in Tweet on 理想奈的博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
-    <lastBuildDate>Thu, 17 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tweet/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>随记合集2022.3-</title>
-      <link>/tweet/essay2/</link>
-      <pubDate>Thu, 17 Feb 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/tweet/essay2/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>随记合集2021.5-2022.1</title>
-      <link>/tweet/essay/</link>
-      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tweet/essay/</guid>
-      <description>&lt;p&gt;随记合集&lt;/p&gt;</description>
-    </item>
-    
+    <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright><atom:link href="/tweet/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
