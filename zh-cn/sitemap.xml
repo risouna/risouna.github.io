@@ -251,36 +251,10 @@
     <loc>/posts/anime/kimigahikarini/</loc>
     <lastmod>2023-02-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/</loc>
-    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn（old2）"
-                href="/zh-cnold2/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn（old）"
-                href="/zh-cnold/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="/zh-tw/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="/tags/"
-                />
-  </url><url>
     <loc>/bin/</loc>
     <lastmod>2023-02-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/anime/white-album/</loc>
-    <lastmod>2023-02-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/%E7%99%BD%E8%89%B2%E7%9B%B8%E7%B0%BF2/</loc>
     <lastmod>2023-02-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/bin/white-album-gal/</loc>
@@ -417,6 +391,28 @@
   </url><url>
     <loc>/posts/other/first-post/</loc>
     <lastmod>2021-05-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn（old2）"
+                href="/zh-cnold2/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn（old）"
+                href="/zh-cnold/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="/zh-tw/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="/tags/"
+                />
   </url><url>
     <loc>/archives/</loc>
   </url><url>
