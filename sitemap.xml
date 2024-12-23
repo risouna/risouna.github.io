@@ -2,14 +2,14 @@
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <sitemap>
-    <loc>/zh-cn/sitemap.xml</loc>
-    
-      <lastmod>2024-12-09T00:00:00+00:00</lastmod>
+    <loc>/zh-cn%EF%BC%88old2%EF%BC%89/sitemap.xml</loc>
     
   </sitemap>
   
   <sitemap>
-    <loc>/zh-cn%EF%BC%88old2%EF%BC%89/sitemap.xml</loc>
+    <loc>/zh-cn/sitemap.xml</loc>
+    
+      <lastmod>2024-12-23T00:00:00+00:00</lastmod>
     
   </sitemap>
   

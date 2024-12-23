@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/categories/</loc>
-    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
+    <lastmod>2024-12-23T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn（old2）"
@@ -24,6 +24,41 @@
                 hreflang="zh-cn"
                 href="/categories/"
                 />
+  </url><url>
+    <loc>/posts/economy/</loc>
+    <lastmod>2024-12-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2024-12-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/</loc>
+    <lastmod>2024-12-23T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="/zh-tw/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn（old2）"
+                href="/zh-cnold2/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn（old）"
+                href="/zh-cnold/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="/"
+                />
+  </url><url>
+    <loc>/categories/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/</loc>
+    <lastmod>2024-12-23T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/economy/beginner/</loc>
+    <lastmod>2024-12-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/series/</loc>
     <lastmod>2024-12-09T00:00:00+00:00</lastmod>
@@ -56,32 +91,6 @@
   </url><url>
     <loc>/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2024-12-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/</loc>
-    <lastmod>2024-12-09T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="/zh-tw/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn（old2）"
-                href="/zh-cnold2/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn（old）"
-                href="/zh-cnold/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="/"
-                />
   </url><url>
     <loc>/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/</loc>
     <lastmod>2024-12-09T00:00:00+00:00</lastmod>
@@ -398,8 +407,6 @@
                 hreflang="zh-cn"
                 href="/tags/"
                 />
-  </url><url>
-    <loc>/posts/economy/</loc>
   </url><url>
     <loc>/archives/</loc>
   </url><url>
