@@ -9,11 +9,11 @@
     <lastBuildDate>Mon, 09 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>《深入理解计算机系统》</title>
-      <link>/posts/tech/basic-computer-systems/</link>
+      <link>/posts/tech/media-computer-systems/</link>
       <pubDate>Mon, 09 Dec 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-computer-systems/</guid>
-      <description></description>
+      <guid>/posts/tech/media-computer-systems/</guid>
+      <description>&lt;p&gt;搁置&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -54,11 +54,11 @@
     
     <item>
       <title>《数据结构与算法分析: C语言描述》</title>
-      <link>/posts/tech/code-datastructure/</link>
+      <link>/posts/tech/media-datastructure/</link>
       <pubDate>Thu, 28 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/code-datastructure/</guid>
-      <description></description>
+      <guid>/posts/tech/media-datastructure/</guid>
+      <description>&lt;p&gt;搁置&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -90,10 +90,10 @@
     
     <item>
       <title>Mermaid</title>
-      <link>/posts/tech/basic-mermaid/</link>
+      <link>/posts/tech/media-mermaid/</link>
       <pubDate>Tue, 26 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-mermaid/</guid>
+      <guid>/posts/tech/media-mermaid/</guid>
       <description></description>
     </item>
     
@@ -108,11 +108,11 @@
     
     <item>
       <title>Leetcode C语言算法刷题</title>
-      <link>/posts/tech/code-algorithm-c/</link>
+      <link>/posts/tech/media-algorithm-c/</link>
       <pubDate>Sat, 23 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/code-algorithm-c/</guid>
-      <description></description>
+      <guid>/posts/tech/media-algorithm-c/</guid>
+      <description>&lt;p&gt;搁置&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -144,10 +144,10 @@
     
     <item>
       <title>《编译原理》</title>
-      <link>/posts/tech/basic-compilersprinciples/</link>
+      <link>/posts/tech/media-compilersprinciples/</link>
       <pubDate>Fri, 15 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-compilersprinciples/</guid>
+      <guid>/posts/tech/media-compilersprinciples/</guid>
       <description></description>
     </item>
     
@@ -180,10 +180,10 @@
     
     <item>
       <title>git&amp;gitlab</title>
-      <link>/posts/tech/basic-git/</link>
+      <link>/posts/tech/media-git/</link>
       <pubDate>Tue, 12 Nov 2024 00:00:00 +0000</pubDate>
       
-      <guid>/posts/tech/basic-git/</guid>
+      <guid>/posts/tech/media-git/</guid>
       <description></description>
     </item>
     

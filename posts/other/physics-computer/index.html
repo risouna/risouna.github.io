@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>计算机和物理的一点感悟 - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="计算机和物理的一点感悟">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-12-07T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2024-12-07T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="830">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="计算机和物理的一点感悟" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/other/physics-computer/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-12-07T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2024-12-07T00:00:00&#43;00:00" /><meta property="og:site_name" content="理想奈的博客" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="计算机和物理的一点感悟"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+
+
+
+
+<script type="text/javascript" src="/js/Valine.min.js"></script>
+<script type="text/javascript" src="/js/cave-draw.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/katex.min.css">
+<script type="text/javascript" src="/js/katex.min.js"></script>
+<script type="text/javascript" src="/js/auto-render.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" type="text/css" href="/js/font.css">
+
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      
+      さぁ、君、取りたまえ
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/other/">Other</a></li><li class="breadcrumb-item active">计算机和物理的一点感悟</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    
+  </div>
+</div>
+<h1 class="post-title my-3">计算机和物理的一点感悟
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2024-12-07
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>2 分钟阅读
+  </span>
+<a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy">#普通类</a><a href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/" class="post-taxonomy">#随意思考</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="post-content mb-3" ><p>计算机的学习，大部分时间学习的是人造的规则，其他部分则是工程师思维，即便是编程的灵魂算法，其目的也是工程化的，计算机就是由人类创造，为人类服务的学科；既然是为人类服务的事物，核心当然就是人，即一切不利于人便利的东西都是错误的（虽然计算机设计的初衷是为了突破人脑与意识）。</p>
+<p>计算机是人脑的延展，可以做到人不能做到的数量级和速度，问题只要能建模编程，在算力允许的情况下一切皆可解决，如果再优化一下，那就更猛了（所以说算法这类东西不会过时，它既可以优化，又可以对建模进行编码）。这一点来说是非常棒的，它确确实实是一个非常棒的工具，工具就取决于我们要拿它来做什么。如果遇到了人类的极限，就去用计算机来解决吧！</p>
+<p>目前我对计算机的兴趣有（主要是算法和编程语言），但也很脆弱，经常是稍微搞久一点就失去耐心了，不过最近被工作鞭挞得渐渐适应计算机学习了。</p>
+<p>物理学的学习，表层是大千宇宙，核心是数学工具（它和数学公式要严格区分，物理的所有东西需要找到现实意义），而这两方面都是说一不二的（人类的尺度）。学习物理的过程，实则是向宇宙寻求答案的过程，即便过程中有东西不懂，那也不是向什么东西妥协，而是真正地探寻真理，探索世界地去学习。所以学习的感觉是非常不一样的。虽然有能力参差不齐，难题的困扰，但学习物理是真正地一个人面向宇宙世界的过程，所以说学习物理一定要注意理论和现实的联系，以及如何由理论计算转化为现实的计算。可以说物理本身目的就是探索世界和宇宙，它借用了各种工具。</p>
+<p>两者都很重要，两者对我都缺一不可，我今后的步调就是计算机和物理了，一个为了个人与社会，一个为了自己内心的探索和好奇欲。</p>
+<p>人生的话，会遇到很多东西，果然还是想做什么事的那个<code>idea</code>重要，为了实现idea，我们会有各种工具，计算机和数学就是工具了，而且是顶端的工具（在可以量化的领域）。还有目前不能量化的领域：社会，人类思维，以及未知的东西（语言的边界外），它们要么是数目繁多，要么是未知的，这些东西可能就叫思想和哲学吧。</p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/media-ffmpeg/">FFmpeg学习
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
+</a></li><li><a href="/posts/tech/media-sox/">Sox基本使用
+</a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
+</a></li><li><a href="/posts/tech/media-automake/">automake使用
+</a></li><li><a href="/posts/tech/media-datastructure/">《数据结构与算法分析: C语言描述》
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">行所想所喜所爱所恨.
+唯物辨证，知行合一.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
+</a></li><li><a href="/posts/other/physics-computer/">计算机和物理的一点感悟
+</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
+</a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
+</a></li><li><a href="/posts/tech/media-sox/">Sox基本使用
+</a></li><li><a href="/posts/other/human-mind-weekness/">人类思维的一个弱点
+</a></li><li><a href="/posts/other/everyweek-english/">每周一篇经济学人
+</a></li><li><a href="/posts/tech/media-automake/">automake使用
+</a></li><li><a href="/posts/tech/media-datastructure/">《数据结构与算法分析: C语言描述》
+</a></li><li><a href="/posts/tech/media-lightrtp/">lightrtp学习
+</a></li><li><a href="/posts/tech/media-rtp/">RTP：实时应用传输协议 （RFC3550）
+</a></li><li><a href="/posts/tech/media-coroutine-begin/">协程
+</a></li><li><a href="/posts/tech/media-mermaid/">Mermaid
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">36</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">10</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">19</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">10</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/linux/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Linux">
+          Linux <span class="badge rounded-pill">3</span>
+        </a><a href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="随意思考">
+          随意思考 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2024 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>
