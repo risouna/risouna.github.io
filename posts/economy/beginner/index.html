@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>量化交易初入门 - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+    <title>量化交易初学习 - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
 <link rel="manifest" href="/images/favicons/manifest.json">
 <link rel="icon" href="/images/favicons/favicon.ico">
 <meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="量化交易初入门">
+<meta name="description" content="" /><meta itemprop="name" content="量化交易初学习">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2024-12-23T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2024-12-23T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="87">
-<meta itemprop="keywords" content=",,," /><meta property="og:title" content="量化交易初入门" />
+<meta itemprop="wordCount" content="331">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="量化交易初学习" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/economy/beginner/" /><meta property="article:section" content="posts" />
@@ -22,7 +22,7 @@
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="量化交易初入门"/>
+<meta name="twitter:title" content="量化交易初学习"/>
 <meta name="twitter:description" content=""/>
 <meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -135,7 +135,7 @@
       <div class="row content">
 <div class="col-lg-8">
   <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/economy/">Economy</a></li><li class="breadcrumb-item active">量化交易初入门</li></ol>
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/economy/">Economy</a></li><li class="breadcrumb-item active">量化交易初学习</li></ol>
 </nav><article class="post row surface"><div class="post-panel-wrapper">
   <div class="post-panel d-flex flex-column">
     <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
@@ -151,10 +151,11 @@
 ">
   <i class="fas fa-fw fa-copyright"></i>
 </a>
-    
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
   </div>
 </div>
-<h1 class="post-title my-3">量化交易初入门
+<h1 class="post-title my-3">量化交易初学习
 </h1><div class="post-meta mb-3">
   <span class="post-date me-2">
     <i class="fas fa-fw fa-calendar-alt"></i>2024-12-23
@@ -168,10 +169,56 @@
 
                 
                 <div class="addthis_inline_share_toolbox"></div>
-            <div class="post-content mb-3" ><p>视频：<a href="https://www.bilibili.com/video/BV1rESFYeEuA" target="_blank">基于Python的股票分析与量化交易入门到实践</a>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#开发流程">开发流程</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><p>视频：<a href="https://www.bilibili.com/video/BV1rESFYeEuA" target="_blank">基于Python的股票分析与量化交易入门到实践</a>
 </p>
-<p>数学，计算机，金融，都是我喜欢的领域，我觉得我会长期学习这方面的内容。</p>
-<p>就先通过这个视频入入门，学习量化是一个很漫长的过程。</p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+<p>就先通过这个视频入入门，学习量化是一个很漫长的过程。</p>
+<h2 id="开发流程">开发流程</h2>
+<ol>
+<li>
+<p>数据获取</p>
+<p>内容：行情数据，宏观数据（国家政策），财务数据，舆情数据。</p>
+<p>方式：网站下载，客户端，三方API，爬虫</p>
+</li>
+<li>
+<p>数据清洗</p>
+<p>场景：垃圾数据清除，空值填充，格式转换，数据对齐</p>
+<p>类库：Numpy，pandas</p>
+</li>
+<li>
+<p>策略编写</p>
+<p>信号捕捉（股价，信息等）-&gt; 交易 -&gt; 建仓或平仓。</p>
+</li>
+<li>
+<p>策略回测</p>
+<p>回测参数设置 -&gt; 策略实例化 -&gt; 历史数据载入 -&gt; 回测执行 -&gt; 计算盈亏 -&gt; 计算统计指标 -&gt; 生成回测报告</p>
+</li>
+<li>
+<p>策略优化</p>
+<p>重视交易费；注重风险，注意退出；优化要有止</p>
+</li>
+<li>
+<p>模拟盘交易</p>
+<p>过去表现不表示未来结果；至少半年以上；模拟盘稳定收益100%以上再考虑实盘交易</p>
+</li>
+<li>
+<p>实盘交易</p>
+<p>做好第一年会输的准备；不急于扩大投资，增加杠杆；心态最重要</p>
+</li>
+</ol></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
       <a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
 </a>
@@ -232,7 +279,7 @@
   </div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/economy/beginner/">量化交易初入门
+  <ul><li><a href="/posts/economy/beginner/">量化交易初学习
 </a></li><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
 </a></li><li><a href="/posts/other/physics-computer/">计算机和物理的一点感悟
 </a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
