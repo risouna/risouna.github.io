@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stolz定理和一道例题 - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="Stolz定理和一道例题">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2022-06-17T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2022-06-17T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1880">
+<meta itemprop="keywords" content=",," /><meta property="og:title" content="Stolz定理和一道例题" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/math/stolz/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-17T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-06-17T00:00:00&#43;00:00" /><meta property="og:site_name" content="理想奈的博客" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Stolz定理和一道例题"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+
+
+
+
+<script type="text/javascript" src="/js/Valine.min.js"></script>
+<script type="text/javascript" src="/js/cave-draw.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/katex.min.css">
+<script type="text/javascript" src="/js/katex.min.js"></script>
+<script type="text/javascript" src="/js/auto-render.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" type="text/css" href="/js/font.css">
+
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      
+      さぁ、君、取りたまえ
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/math/">Math</a></li><li class="breadcrumb-item active">Stolz定理和一道例题</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">Stolz定理和一道例题
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2022-06-17
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>4 分钟阅读
+  </span>
+<a href="/categories/%E6%95%B0%E5%AD%A6/" class="post-taxonomy">#数学</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一stolz定理sup1sup">一、Stolz定理<sup>[1]</sup></a>
+      <ul>
+        <li><a href="#1frac00型stolz定理">1.$\frac{0}{0}$型Stolz定理</a></li>
+        <li><a href="#2fracinfty型stolz定理">2.$\frac{*}{\infty}$型Stolz定理</a></li>
+      </ul>
+    </li>
+    <li><a href="#二一道例题">二、一道例题</a>
+      <ul>
+        <li><a href="#1尝试stolz">1.尝试Stolz</a></li>
+        <li><a href="#2一些联想">2.一些联想</a></li>
+      </ul>
+    </li>
+    <li><a href="#三cauchy命题和一些变形">三、Cauchy命题和一些变形</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="一stolz定理sup1sup">一、Stolz定理<sup>[1]</sup></h2>
+<h3 id="1frac00型stolz定理">1.$\frac{0}{0}$型Stolz定理</h3>
+<p>设{$a_n$}和{$b_n$}都是无穷小量，其中{$a_n$}还是严格单调减少数列，又存在
+$$
+\lim_{n\rightarrow \infty }\frac{b_{n+1}-b_{n}}{a_{n+1}-a{n}}=l
+$$
+（其中$l$为有限或$\pm \infty$），则有
+$$
+\lim_{n\rightarrow \infty } \frac{b_{n}}{a_{n}}=l
+$$</p>
+<hr>
+<p>证：只对有限的$l$作证明.根据条件对$\varepsilon &gt; 0$存在$N$，使得当$n&gt;N$时成立
+$$
+\left | \frac{b_{n}-b_{n+1}}{a_{n}-a_{n+1}}-l \right | &lt;\varepsilon
+$$
+由于对每个$n$都有$a_{n}&gt;a_{n+1}$，这样就有
+$$
+(l-\varepsilon)(a_{n}-a_{n+1})&lt;b_{n}-b_{n+1}&lt;(l+\varepsilon)(a_{n}-a_{n+1})
+$$
+任取$m&gt;n$，并且将上述不等式中的$n$换成$n+1$，$n+2$，$\cdots $，直到$m-1$，然后将左右这些不等式相加，就得到
+$$
+(l-\varepsilon)(a_{n}-a_{m})&lt;b_{n}-b_{m}&lt;(l+\varepsilon)(a_{n}-a_{n+1})
+$$
+即
+$$
+\left| \frac{b_{n}-b_{m}}{a_{n}-a_{m}}-l \right|&lt;\varepsilon
+$$
+令$m\rightarrow \infty$，并利用条件$\lim \limits_{n \rightarrow \infty } a_{m}=\lim \limits_{n \rightarrow \infty } b_{m}=0$，就知道当$n&gt;N$时成立
+$$
+\left| \frac{b_n}{a_n}-l\right| \leq \varepsilon
+$$</p>
+<h3 id="2fracinfty型stolz定理">2.$\frac{*}{\infty}$型Stolz定理</h3>
+<p>设数列{$a_n$}是严格单调增加的无穷大量，又存在
+$$
+\lim_{n\rightarrow \infty }\frac{b_{n+1}-b_{n}}{a_{n+1}-a{n}}=l
+$$
+（其中$l$为有限或$\pm \infty$），则有
+$$
+\lim_{n\rightarrow \infty } \frac{b_{n}}{a_{n}}=l
+$$</p>
+<hr>
+<p>证：只对$l$为有限的情况写出证明。对$\varepsilon&gt;0$存在$N$，使得当$n&gt;N$时成立
+$$
+\left | \frac{b_{n+1}-b_{n}}{a_{n+1}-a_{n}}-l \right | &lt;\varepsilon
+$$
+由于对每个$n$有$a_{n+1}&gt;a_{n}$，这样就有
+$$
+(l-\varepsilon)(a_{n+1}-a_{n})&lt;b_{n+1}-b_{n}&lt;(l+\varepsilon)(a_{n+1}-a_{n})
+$$
+取定$N$，并且将上述不等式中的$n$换成$N$,$N+1$,$\cdots$,直到$n-1$，然后将所有这些不等式相加，就得到
+$$
+(l-\varepsilon)(a_{n}-a_{N})&lt;b_{n}-b_{N}&lt;(l+\varepsilon)(a_{n}-a_{N})
+$$
+即
+$$
+\left| \frac{b_{n}-b_{N}}{a_{n}-a_{N}}-l \right|&lt;\varepsilon
+$$
+为了进一步得到关于$\left| \frac{b_n}{a_n}-l \right|$的估计，可以利用恒等式
+$$
+\frac{b_n}{a_n}-l=(1-\frac{a_N}{a_n})\cdot(\frac{b_n-b_N}{a_n-a_N}-l)+\frac{b_N-la_N}{a_n}
+$$
+由于$\lim \limits_{n \rightarrow \infty } a_{n}=+\infty$，存在$N_1$，使得当$n&gt;N_1$时成立
+$$
+0&lt;1-\frac{a_N}{a_n}&lt;2\quad和\quad\left|\frac{b_N-la_N}{a_n} \right|&lt;\varepsilon
+$$
+则在$n &gt; max \left \{N,N_1\right \}$时就得到
+$$
+\left|\frac{b_n}{a_n}-l \right|&lt;3\varepsilon
+$$
+**两类Stolz定理对$l$为有限或者$\pm \infty$的情况成立，但是对不带符号的无穷大量$\infty$不成立。且定理的逆命题不成立。**</p>
+<p><br><br></p>
+<h2 id="二一道例题">二、一道例题</h2>
+<center>设已知$\lim \limits_{n \rightarrow \infty } a_{n}=a$，证明：$\lim \limits_{n \rightarrow \infty } \frac{1}{2^n} \sum \limits_{k=0}^{n} \binom{n}{k}a_k=a$</center>
+<p>证明方法直接利用极限定义分步法即可。</p>
+<hr>
+<p>①证明过程中注意
+$$
+\frac{1}{2^n} \sum \limits_{k=0}^{N} \binom{n}{k}\left| a_k-a \right|&lt;\frac{M(1+n+\cdots+n^N)}{2^n}&lt;\varepsilon
+$$
+中利用了$\binom{n}{k}&lt;n^k$。可以这样观察这个式子：
+$$
+\begin{aligned}\binom{n}{k} = \frac{n!}{k!(n-k)!}&amp;=\frac{(n-k+1)(n-k+2)\cdots(n)}{k!}\ &amp;=\frac{(n+1-k)(n+1-k-1)\cdots n}{k\cdot(k-1)\cdots1}&lt;n^k\end{aligned}
+$$
+对于每个单项可以发现$n&gt;\frac{n+1-k-i}{k-i}$。</p>
+<p>②关于组合数有以下公式参考：</p>
+<ol>
+<li>$2^n=(1+1)^n=\binom{n}{0}+\binom{n}{1}+\cdots+\binom{n}{n}=\sum \limits_{k=0}^{n}\binom{n}{k}$</li>
+<li>$0=(1-1)^n=\binom{n}{0}-\binom{n}{1}+\binom{n}{2}-\binom{n}{3}+\cdots$</li>
+<li>$\frac{1}{2}\cdot2^n = 1+\binom{n}{2}+\binom{n}{4}+\cdots$</li>
+<li>$cosm\alpha  = 2^{m-1}cos^m\alpha -(\binom{m}{2}+2\binom{m}{4}+\cdots)cos^{m-2}\alpha +\cdots$</li>
+</ol>
+<p>第4条公式<sup>[2]</sup>是通过$cosm\alpha+isinm\alpha = (cos\alpha+isin\alpha)^m$计算后分虚实部得来的，利用这个公式可以导出常用的二倍角三倍角公式，在高中我们通常是用三角恒等式变换得到这些公式的。</p>
+<p>这个部分其余的证明方法想不出来，反正必须要$ \sum \limits_{k=0}^{N}\binom{n}{k}$部分放缩到是$2^n$的无穷小量即可，当然我们知道这是肯定的。</p>
+<hr>
+<h3 id="1尝试stolz">1.尝试Stolz</h3>
+<p>注意到
+$$
+\begin{aligned}\frac{1}{2^n} \sum \limits_{k=0}^{n} \binom{n}{k}a_k &amp;= \frac{\sum \limits_{k=0}^{n}\binom{n}{k}a_k}{\sum \limits_{k=0}^{n}\binom{n}{k}} \\ &amp;=\frac{\binom{n}{0}a_0+\binom{n}{1}+a_1+\cdots+\binom{n}{n}a_n}{\binom{n}{0}+\binom{n}{1}+\cdots+\binom{n}{n}}=\frac{p_n}{q_n} \end{aligned}
+$$
+但这是如果应用Stolz定理会发现不能简化问题：
+$$
+\frac{p_{n+1}-p_{n}}{q_{n+1}-q_{n}}=\frac{a_1+\binom{n}{1}a_2+\binom{n}{2}a_3+\cdots+\binom{n}{n-2}a_{n-1}+\binom{n}{n-1}a_n+a_{n+1}}{\binom{n}{0}+\binom{n}{1}+\cdots+\binom{n}{n}}\qquad \left[\binom{n+1}{i}=\binom{n}{i-1}+\binom{n}{i}\right]
+$$
+<br></p>
+<h3 id="2一些联想">2.一些联想</h3>
+<p>根据这个例题可以立刻联想到一种简单形式：<br>
+设{$x_n$}收敛于$l$，如果$a_n\in R$，则有：
+$$
+\lim_{n\rightarrow \infty }\frac{a_1x_1+a_2x_2+\cdots+a_nx_n}{a_1+a_2+\cdots+a_n}=l
+$$
+可以通过极限定义证明是成立的。</p>
+<p>那能不能有一个更一般的定理解决上面的例题呢？比如： <br>
+设{$x_n$}收敛于$l$，如果$a_k=f(n,k)$，则有：
+$$
+\lim_{n\rightarrow \infty }\frac{a_1x_1+a_2x_2+\cdots+a_nx_n}{a_1+a_2+\cdots+a_n}=l
+$$
+这个问题我思考不了，暂且留在这里，或者用一个更具体的$a_n$可能可以解决问题，这里的题目是组合数，比如：
+$$
+\lim_{n\rightarrow \infty }\frac{\sum\binom{n}{k}A^{k}B^{n-k}a_k}{\sum\binom{n}{k}A^{k}B^{n-k}}=l
+$$
+但是这样就已经是正确的结论了。</p>
+<h2 id="三cauchy命题和一些变形">三、Cauchy命题和一些变形</h2>
+<p>利用Stolz定理可以推出Cauchy命题，当然极限定义也可以证明之：<br>
+(<strong>Cauchy命题</strong>)设{$x_n$}收敛于$l$，则它的前$n$项的算术平均值所成的数列也收敛于$l$，既有
+$$
+\lim_{n\rightarrow \infty }\frac{x_1+x_2+\cdots+x_n}{n}=l
+$$
+<br></p>
+<p>其他形式：</p>
+<ol>
+<li>若$\lim \limits_{n\rightarrow \infty }(a_n-a_{n-1})=d$，则$\lim \limits_{n\rightarrow \infty }\frac{a_n}{n}=d$</li>
+<li>设${a_n}$为正数列，且收敛于$A$，则$\lim \limits_{n\rightarrow \infty }(a_1a_2\cdots a_n)^{\frac{1}{n}}=A$</li>
+<li>设${a_n}$为正数列，且存在极限$\lim \limits_{n\rightarrow \infty }\frac{a_{n+1}}{a_n}=l$，则$\lim \limits_{n\rightarrow \infty }\sqrt[n]{a_n}=l$</li>
+</ol>
+<p>第一个是等价命题，2和3是推论。后面如果发现有有价值相关联的Cauchy命题的东西的话会补充到这里。</p>
+<br>
+<br>
+<br>
+<br>
+<p>[1]谢惠民,恽自求. 数学分析习题课讲义. 北京: 高等教育出版社, 2018.</p>
+<p>[2]丘维声. 高等代数学习指导书.上册. 北京: 清华大学出版社, 2017.</p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/bin/japanese-study-1/">日语笔记1
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/anime/continued-story/">Continued Story
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/bin/japanese-study-1/">日语笔记1
+</a></li><li><a href="/posts/literature/british-history-2/">威塞克斯与维京人
+</a></li><li><a href="/posts/literature/british-history-1/">罗马-不列颠到盎格鲁-撒克逊
+</a></li><li><a href="/tweet/essay2/">随记合集2022.3-
+</a></li><li><a href="/bin/math_history_1/">一些无穷级数
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">行所感所喜所爱所恨所愿，唯物辨证，知行合一.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-rebar2/">rebar2学习
+</a></li><li><a href="/posts/tech/media-erlang/">《Erlang程序设计》
+</a></li><li><a href="/posts/other/2024/">2024年终总结和来年展望
+</a></li><li><a href="/posts/math/estimate/">量化交易系统设想
+</a></li><li><a href="/posts/math/beginner/">量化交易初学
+</a></li><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
+</a></li><li><a href="/posts/other/physics-computer/">计算机和物理的一点感悟
+</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
+</a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
+</a></li><li><a href="/posts/tech/media-sox/">Sox基本使用
+</a></li><li><a href="/posts/other/human-mind-weekness/">上头与下头与suicide
+</a></li><li><a href="/posts/other/everyweek-english/">每周一篇经济学人
+</a></li><li><a href="/posts/tech/media-automake/">automake使用
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">37</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">9</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a><a href="/categories/%E6%95%B0%E5%AD%A6/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="数学">
+          数学 <span class="badge rounded-pill">4</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">22</span>
+        </a><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">10</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="量化交易">
+          量化交易 <span class="badge rounded-pill">2</span>
+        </a><a href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="随意思考">
+          随意思考 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2025 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

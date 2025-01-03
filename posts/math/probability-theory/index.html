@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>学习概率论的一些随意思考 - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="阅读本篇对考试没有什么帮助，感兴趣就随便看看，看之后反而可能会学不懂概率，因为用的符号有些不一样~" /><meta itemprop="name" content="学习概率论的一些随意思考">
+<meta itemprop="description" content="阅读本篇对考试没有什么帮助，感兴趣就随便看看，看之后反而可能会学不懂概率，因为用的符号有些不一样~"><meta itemprop="datePublished" content="2021-05-25T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2021-05-25T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="7917">
+<meta itemprop="keywords" content="," /><meta property="og:title" content="学习概率论的一些随意思考" />
+<meta property="og:description" content="阅读本篇对考试没有什么帮助，感兴趣就随便看看，看之后反而可能会学不懂概率，因为用的符号有些不一样~" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/math/probability-theory/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-05-25T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-05-25T00:00:00&#43;00:00" /><meta property="og:site_name" content="理想奈的博客" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="学习概率论的一些随意思考"/>
+<meta name="twitter:description" content="阅读本篇对考试没有什么帮助，感兴趣就随便看看，看之后反而可能会学不懂概率，因为用的符号有些不一样~"/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+
+
+
+
+<script type="text/javascript" src="/js/Valine.min.js"></script>
+<script type="text/javascript" src="/js/cave-draw.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/katex.min.css">
+<script type="text/javascript" src="/js/katex.min.js"></script>
+<script type="text/javascript" src="/js/auto-render.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" type="text/css" href="/js/font.css">
+
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      
+      さぁ、君、取りたまえ
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/math/">Math</a></li><li class="breadcrumb-item active">学习概率论的一些随意思考</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">学习概率论的一些随意思考
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2021-05-25
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>16 分钟阅读
+  </span>
+<a href="/categories/%E6%95%B0%E5%AD%A6/" class="post-taxonomy">#数学</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#preface">Preface</a>
+      <ul>
+        <li><a href="#更新日志">更新日志</a></li>
+      </ul>
+    </li>
+    <li><a href="#一概率结构">一、概率结构</a>
+      <ul>
+        <li><a href="#1一点代数风味的集合运算">1.一点代数风味的集合运算</a></li>
+        <li><a href="#2概率运算">2.概率运算</a></li>
+        <li><a href="#3概率映射">3.概率映射</a></li>
+        <li><a href="#4自己重新定义概率">4.自己重新定义概率</a></li>
+      </ul>
+    </li>
+    <li><a href="#二随机变量和分布函数">二、随机变量和分布函数</a>
+      <ul>
+        <li><a href="#1随机变量">1.随机变量</a></li>
+        <li><a href="#2分布函数">2.分布函数</a></li>
+        <li><a href="#3无记忆性">3.无记忆性</a></li>
+        <li><a href="#4函数分布">4.函数分布？</a></li>
+      </ul>
+    </li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><p>阅读本篇对考试没有什么帮助，感兴趣就随便看看，看之后反而可能会学不懂概率，因为用的符号有些不一样~</p>
+<h2 id="preface">Preface</h2>
+<p>这学期排课有概率论与数理统计，其实每次学这些课程的时候都会想一些乱七八糟的东西，而且基本上和正常考试内容不沾边，属于浪费时间游玩的部分。</p>
+<p>注意，如果数学公式没有渲染出来需要刷新一下。推荐使用大屏幕观看，左边有目录。另外有的公式太长了，手机也放不下。补：刚刚我换了$\KaTeX$渲染，这下应该没问题了，网站加载速度也应该变快了。编辑公式时出了一些问题，千万不能用换行符！</p>
+<h3 id="更新日志">更新日志</h3>
+<ol>
+<li>2021-05-18 01:30:20创建，2021-05-25 15:37:44发布，不想写了，以后有时间再写。兴趣文如果当成了作业性质就变化了不是吗，所以还是有兴趣时再写吧。</li>
+<li>2021-06-05 22:27:38:要期末了，更没时间了！而且写这个根本复习不了概率！懒癌发作死ね！要不要烂尾了呢？</li>
+<li>2021-06-10 17:41:16：还是不写了，因为我懒了，还有就是第一章+一点点第二章字数都已经超过6000字了，写下去会没完没了，还有个重要原因是写这个根本对复习没有什么帮助！</li>
+</ol>
+<h2 id="一概率结构">一、概率结构</h2>
+<p>概率映射是这样的映射：</p>
+<p>$$
+A\ \overset{P}{\rightarrow} P(A)
+$$</p>
+<p>$A$为任意事件，$P(A)$为事件$A$的概率。其中集合A在概率论中又分为单个随机试验形成的样本空间与多个随机试验形成的样本空间，这和之后的独立性相关。我们在讨论独立性之前假设$S$为单个随机试验形成的样本空间。</p>
+<p>于是，要讨论一般的概率结构，就需要讨论<em><strong>集合运算$A$，概率运算$P(A)$，概率映射$P$</strong></em>。</p>
+<h3 id="1一点代数风味的集合运算">1.一点代数风味的集合运算</h3>
+<h4 id="i-统一符号">I 统一符号</h4>
+<p>教材中的出现的集合运算有$\bigcup$，$ \bigcap$，$—$，$\overline{A}$ ，$AB$。为了统一和更有代数的感觉，本篇统一将 ”$\bigcup$“ 写作 ”$+$“ ，将”$ \bigcap$“写作”$\  \cdot\  $ “，并且通过这两个基本运算规定其他运算。</p>
+<p>先来看看“$+$”运算：</p>
+<p>$$
+\begin{aligned} &amp;A+B = B+A \\ &amp;A+(B+C) = (A+B)+C \\ &amp;A+B=A+C \rightarrow  B\cdot\overline{A} = C\cdot \overline{A} \\  \\ &amp;for\ any\ A\subset S,A+\varnothing = A \\ &amp;if\ A+B = \varnothing \ ,\ then\ A = B=\varnothing  \\ \\  &amp;A+\overline{A} = S \\ &amp;if\ A+B =S\ ,\ then\subset B\subset S \\ \end{aligned}
+$$</p>
+<p>我们可以看出，$+$运算具有交换律，结合律，有类似消去律的性质，以$\varnothing$作为单位元，且没有逆元，如果以$S$作为单位元，没有唯一的逆元，但有个比较特殊的逆元。</p>
+<p>再来看看”$\ \cdot\  $“运算：</p>
+<p>$$
+\begin{aligned}
+&amp;A \cdot B = B \cdot A\\ &amp;A \cdot (B \cdot C) = (A \cdot B) \cdot C\\ &amp;A \cdot B = A \cdot C \rightarrow  A \cdot \overline{B} = A \cdot \overline{C}\\ \\  &amp;for\ any\ A\subset S\ ,\ A \cdot S = A\\ &amp;if\ A\cdot B = S\ ,\ A=B=S\\ \\  &amp;A\cdot\overline{A} =\varnothing \\ &amp;if\ A\cdot B =\varnothing\ ,\ then\varnothing\subset B\subset \overline{A}\\ \end{aligned}
+$$</p>
+<p>可以看出，”$\ \cdot\  $“运算具有交换律，结合律，类似的类似的消去律，以$S$作为单位元，没有逆元。如果以$\varnothing$作为单位元，没有唯一逆元，但有个比较特殊的逆元。</p>
+<p>在集合中大小的关系就是子集的关系。对于任意两个集合，他们之间不一定是子集关系。</p>
+<hr>
+<h4 id="ii-定义逆事件转化差事件">II 定义逆事件，转化差事件</h4>
+<p>从上面可以看出这两种集合运算都满足一些性质，但又不完全满足我们熟悉的代数特征，并且他们两者互相有交叉。接下来我们先把$-$与$\overline{A}$表达为这两种基本运算的形式，并看看这两种基本运算之间的反应。</p>
+<p>首先，对于逆事件$\overline{A}$，我们有定义：对一给定$A$，总存在$B$，有$A+B=S$，且$A\cdot B=\varnothing$，我们将这个$B$记作$\overline{A}$，称为$A$的逆事件。对于一个事件的逆事件，是通过这两种基本运算定义的，想要证明一个事件是逆事件，只需要按照上述定义证明即可。</p>
+<p>其次，对于减法&quot;$-$&ldquo;运算，我们将其表示为基础运算的形式：$A-B=A\cdot \overline{B}=A \cdot \overline{AB} = A- AB$。证明留到后面介绍了基本定理之后。其实将减法转化为交运算在做题中并不常用，更多是利用公式转化为无关联的并运算。</p>
+<hr>
+<h4 id="iii-基础定律和一些证明">III 基础定律和一些证明</h4>
+<p>下面是两个基础集合运算以及由此定义的补集他们之间的运算关系，在集合化简中起着非常基础的作用。特别说明，我这里取的$+$与$\cdot$具有误导性，实际上这两种运算他们之间是平等的，没有优先级的高低，所以要注意括号。</p>
+<p>$$
+\begin{aligned} &amp;A+(B\cdot C) = (A+B)\cdot (A+C) \\ &amp;A\cdot (B + C) = (A\cdot B) + (A\cdot C) \\ &amp;\overline{A+B} = \overline{A}\cdot \overline{B} \\ &amp;\overline{A\cdot B}  = \overline{A} + \overline{B} \\ \end{aligned}
+$$</p>
+<p>这些运算定律都可以拓展到$N$元情况，他们的形式不变。前两个的证明利用$A\subset B$，$B\subset A$，$A=B$即可。后面两个不常见的，我利用逆事件的定义证明一下第3条，第4同理。<br>
+<em><strong>证明第3条</strong></em>：由</p>
+<p>$$
+\begin{aligned} (A+B)\cdot (\overline{A}\cdot \overline{B})&amp;=(A\cdot\overline{A}\cdot\overline{B}) + (B\cdot \overline{A}\cdot\overline{B})  \\ &amp;= \varnothing + \varnothing = \varnothing \\ (A+B)+(\overline{A}\cdot\overline{B}) &amp;= (A+B+\overline{A})\cdot(A+B+\overline{B}) \\ &amp;= S \cdot S=S\\ \end{aligned}
+$$</p>
+<p>可知，$\overline{A}\cdot \overline{B}$满足$A+B$逆的定义，得证。</p>
+<p>由于概率的计算核心是围绕概率定义中的可列可加性，需要将复杂的事件分开为互异的事件，也就是$A\cdot B=\varnothing$，所以我们也补上两个很重要的相关式子：
+$$
+\begin{aligned} &amp;if\ X\cdot Y=\varnothing\ ,\ XBCD \cdot YEFG = \varnothing \\ &amp;A = A\cdot S = A\cdot (B+\overline{B}) = (A\cdot B) + (A\cdot \overline{B}) \\ \end{aligned}
+$$</p>
+<p>第一个式子表明，两个事件中只要包含了一对互斥事件（一般情况为两事件为对立事件），这两个事件一定互斥。第二个式子用于将一个事件拆分了两个互斥事件。</p>
+<p>现在我们利用上面的基本定律证明一些特别的式子。<br>
+①$A-B=A\cdot \overline{B}=A \cdot \overline{AB} = A- AB$<br>
+<em><strong>证明：</strong></em><br>
+$$
+\begin{aligned} A-B&amp;=A\cdot \overline{B}\\ &amp;= (A\cdot \overline{B})+ \varnothing\\ &amp;=(A\cdot \overline{B})+ (A\cdot\overline{A})\\ &amp;=A\cdot (\overline{A}+\overline{B})\\ &amp;=A\cdot \overline{AB} = A -AB    \\ \end{aligned}
+$$</p>
+<p>②$A+B = A+\overline{A}B = B + \overline{B}A = \overline{A}B + AB + A\overline{B}$<br>
+<em><strong>证明：</strong></em></p>
+<p>$$
+\begin{aligned} A + B &amp;=(A+B)\cdot S\\ &amp;= (A + B) \cdot (A+\overline{A}) \\ &amp;= A+ (\overline{A}\cdot B)\\ &amp;=A +\overline{A}B\  (=A+(B-A)) \\ \\ A+B &amp;=(A+B)\cdot S\\ &amp;=(A+B)\cdot (B+\overline{B})\\ &amp;=B+(A\cdot \overline{B})\\ &amp;=B+A\overline{B}\ (=B+(A-B)) \\ \end{aligned}
+$$
+对于第三个，只需要前两个中任意一个后面补充$\cdot (A+\overline{A})$或者$\cdot (B+\overline{B})$即可证明。</p>
+<h3 id="2概率运算">2.概率运算</h3>
+<p>概率$P(A)$实际上是一个范围为$\left [0,1 \right ]$的实数（也许更大？超出我的知识范围外了），所以概率的代数性质一部分继承与实数域性质但又有很大的不同，这里只写一部分比较特殊的：</p>
+<p>$$
+\begin{aligned} &amp;for\ any\ P(A)\ ,\ P(A)+0 = P(A) \\ &amp;if\ P(A) + P(B) = 0\ ,\ P(A)=P(B)=0\\ \\ &amp;for\ any\ P(A)\ ,\ P(A)\cdot 1 = P(A) \\ &amp;if\ P(A)\cdot P(B)=1\ ,\ P(A)=P(B)=1 \\ \end{aligned}
+$$</p>
+<p>虽然概率的加运算与乘运算都没有逆元，但是概率中却有减法与除法。同时，概率的加法与乘法在很多情况下是没有意义的，当两个事件互异时，加法表示两个事件和的概率，不互异时则没有意义；乘法则要求更多，普通情况没有任何意义，只是两个实数相乘，当两个事件独立时，概率相乘表示两事件同时发生的概率。同样的对于减法与除法。</p>
+<p>所以，由于概率定义的限制，我们经常用各种无意义的或是大于1的，或是负数的量对概率化简，转化求解有意义的概率量。为什么会这样呢？关键是条件概率。虽然条件概率的定义中出现了普通概率，条件概率$P(\cdot\  |A)$和普通概率$P(\cdot \ )$的地位是同等的。我们需要将条件概率的$\frac{P(AB)}{P(A)}$看作是一个整体，它和普通概率互不干涉，条件概率中事件$A$是固定的，所以它和普通概率都满足概率的定义。所以在普通概率中，是没有乘法和除法的，凡是出现了乘法除法，一定和条件概率相关，那么事件本身的范围就不局限于单个随机试验了（除了特殊情况如$\varnothing$,$S$），比如相互独立。</p>
+<p>所以现在我们来看看条件概率$P(\cdot\  |A)$，没什么好写，都一样，因为都满足的是概率的定义，所以推导出来的都一样。</p>
+<p>那么乘法呢？不是将条件概率看作整体吗？如何得来？其实同样的问题减法也是如此。这个问题我想和外面平常生活中可以用减法一样，生活中大部分时间负数是无意义的，但是同样可以使用减法，是因为整个系统建立在整数域的基础上，只是有范围限制。</p>
+<h3 id="3概率映射">3.概率映射</h3>
+<p>概率映射$P$是概率中的关键，在教材中，通过概率的定义可列可加性，化简出互异的事件来将概率化简，这里我们将采用教材中对概率的定义化简，后面一节将尝试通过重定义概率，使得化简过程不一样点。</p>
+<p>首先先写一下比较特殊的映射：
+$$
+\begin{aligned} &amp;P(A+B)=P(A)+P(B)  当A,B互异 \\ &amp;P(AB) =P(A)P(B)  当A,B独立\\ \end{aligned}
+$$
+这两个映射遵从了这样的原则：$\varphi (ab) = \varphi (a)\varphi (b)$。<br>
+上面这两个式子在概率化简中占核心地位，我们化简其实就是围绕这两个公式，将事件转化为互异事件，当然独立事件只有题目声明或可以判断才能肯定（互异不一定独立，独立一定互异）。</p>
+<p>教材中通过概率的可列可加性推导出了全部概率公式。这里我们推导一些公式，并且观察观察。<br>
+①$P(A-B)=P(A)-P(AB)=P(A-AB)$</p>
+<p>$$
+\begin{aligned} P(A)&amp;=P(A\cdot S)\\ &amp;=P(A\cdot(B+\overline{B}))\\ &amp;=P((A\cdot B)+(A\cdot\overline{B}))\\ &amp;=P(AB)+P(A-B)\\ \end{aligned}
+$$
+所有的减法都不能直接推导，只能转化为加推导，负概率是没有意义的。那为什么还有负概率呢？你开心就好。这里减法也是很神奇，也许我们可以建立一支减法军团？后面试试<br>
+②$P(A+B)=P(A)+P(B)-P(AB)$</p>
+<p>$$
+\begin{aligned} P(A+B) &amp;=P(A+\overline{A}B) = P(A)+P(\overline{A}B)\\ &amp;=P(A)+P(A-B)\\ &amp;=P(A)+P(B)-P(AB)\\ \end{aligned}
+$$</p>
+<p>同样的有减法，通过之前的式子替换。</p>
+<p>③$P(\overline{A})=1-P(A)$</p>
+<p>这条就不证明了</p>
+<p>上面这三个式子是关于普通概率的式子了，下面我们开始证明条件概率的式子。条件概率中的定义式，乘法定理，全概率公式，贝叶斯公式这里不再重复写出了，我们主要看看“独立性”关系。独立性正如之前所说的，两个事件前提就是不能扯上关系，也就是不能同在一个样本空间上，我们来证明一下：</p>
+<p>①如果两不为空的事件$A$，$B$在一个样本空间上，他们一定不独立<br>
+<em><strong>证明：如果$A$和$B$在一个样本空间上，他们一定有下列关系之一：</strong></em>
+$$
+\begin{aligned} &amp;A\cdot B = \varnothing \\ &amp;A\cdot B \neq \varnothing\\ \end{aligned}
+$$
+对于第一种情况，有$P(AB)=0\neq P(A)P(B)$。对于第二种情况，有$P(AB)=P(A)+P(B)-P(A+B)=$（发现在某种特殊情况下成立）</p>
+<p>条件概率还有其他性质：</p>
+<p>②$P(B|A)+P(\overline{B}|A) = 1$</p>
+<p>③如果$A$,$B$相互独立，那么$\overline{A}$与$B$，$A$与$\overline{B}$，$\overline{A}$与$\overline{B}$相互独立</p>
+<p>④对一组相互独立的事件作运算，所得的新事件仍然独立。</p>
+<p>⑤当$A$,$B$独立时，有$P(B|\overline{A})=P(B|A)$</p>
+<p>我们可以由这条推出当$A,B$独立时，$P(B|A)+P(\overline{B}|\overline{A})=1$</p>
+<p>其实②③⑤都可以通过条件概率定义推出，我比较感兴趣③，下面我来证明一下③：<br>
+证明：首先需要清楚条件，对于$A_i,i=1,2,\dots$，有$P(\sum_m^n A_k) = \sum_{m}^{n}P(A_k)$，$m&lt;n,m,n\in Z^+$（这里渲染有问题，目前没有解决），所以我们只需要将基础运算组合独立证明然后再说明他们组合后即可完成证明</p>
+<h3 id="4自己重新定义概率">4.自己重新定义概率</h3>
+<p>教材中概率的定义是这样的，只需要满足这三条即可称为概率：</p>
+<blockquote>
+<p>$1^{o}$非负性：对于每一事件$A$，有$P(A) &gt; 0$.</p>
+<p>$2^{o}$规范性：对于必然事件$S$，有$P(S)=1$.</p>
+<p>$3^{o}$可列可加性：设$A_1$,$A_2$,$A_3$,$\dots$是两两不相容的事件，即对于$A_{i}A_{j}=\varnothing$,$i\neq j$,$i$,$j=1,2,\dots,$有$P(A_1+A_2+\dots)=P(A_1)+P(A_2)+\dots$</p>
+</blockquote>
+<p>最重要的是第三条，教材和做题中核心思想就是将事件分解为不相容的事件，之后通过这一公式化简概率。这个条件看起来非常合理，也很容易理解，可以说是一个人们默认的东西，但是之前我们列过，集合有两种基本运算，交和并，这里只用了交定义概率，并作控制，这是不是对并有点太不公平了呢？明明我们两地位相同不是吗？气抖冷！！！（只是玩笑）下面我就来尝试利用并来定义概率，主要还是受到了普通概率公式①的启发，当然只是重新定义第三条，前两条在概率中都是根基性的，怎么改？改不了。</p>
+<hr>
+<h4 id="i-重新定义">I 重新定义</h4>
+<p>首先对集合减法说明一下，之前减法是二元的：$A-B=A\cdot \overline{B}$。现在我们需要把减法扩充到$N$元。公式：
+$$
+\begin{aligned} A-B_1-B_2-\dots = A\cdot\overline{B_1}\cdot\overline{B_2}\cdot\dots \end{aligned}
+$$</p>
+<p>减法很符合我们的预期，就和加法一样，其实教材中的可列可加性就是将互不相关的“块”加起来，通过Venn图想象就知道了，所以我的思路即是做减法，将互不相关的块减去即可，这个过程其实就是举一反一罢了。</p>
+<p>概率条件$3^{o}$：$P(A-B_1-B_2-\dots) = P(A)-P(AB_1)-P(AB_2)-\dots$，对于$i$,$j=1,2,\dots$有$B_{i}B_{j}=\varnothing$</p>
+<p>这个式子很符合常识，和可列可加性一样的符合常识。我们可以利用普通概率公式①将减法同交运算联系起来，下面我们证明我们定义的第三条概率和可列可加性是一回事：</p>
+<p><em><strong>证明：可列可加性是“可列可减性”的充分必要条件</strong></em><br>
+充分性：假设可列可加性成立，利用普通概率公式①，将$B$替换为两两互斥的$B_1+B_2+\dots$，有：
+$$
+\begin{aligned} P(A-(B_1+B_2+\dots))&amp;=P(A)-P(A(B_1+B_2+\dots))\\ &amp;=P(A)-P(AB_1)-P(AB_2)-\dots\\ \end{aligned}
+$$</p>
+<p>必要性：假设可列可减性成立，将减法项移项得：
+$$
+\begin{aligned} P(A-B_1-B_2-\dots)+P(AB_1)+P(AB_2)+\dots = P(A) \end{aligned}
+$$
+我们知道$B_i$之间是互斥的，而由于$A-B_1-B_2-\dots$中对任意$B_i$交运算的$B_i$，由之前集合运算的知识，我们知道左边事件两两互斥，现在令$A-B_1-B_2-\dots=C$，即得：
+$$
+\begin{aligned} P(C+B_1+B_2+\dots)=P(C)+P(B_1)+P(B_2)+\dots，事件两两互斥 \end{aligned}
+$$</p>
+<p>这样我们完成了，他们两是一个东西。而普通概率和条件概率都满足这个条件。<br>
+那么接下来模仿教材通过“可列可减性”推导概率映射的基本性质。</p>
+<hr>
+<h4 id="ii-推导性质">II 推导性质</h4>
+<p>①$P(\varnothing)=0$ <br>
+证明：令$A,B_1,B_2,\dots-\varnothing$，有$P(\varnothing)=P(\varnothing)-P(\varnothing)-\dots $，化简即得$P(\varnothing)=0$</p>
+<p>②有限可减性</p>
+<p>③设$A,B$是两个事件，若$A\subset B$，则有$P(B-A)=P(B)-P(A),P(B)\geqslant P(A)$</p>
+<p>④对于任一事件$A$，$P(A)\leqslant 1$</p>
+<p>⑤对于任一事件$A$，有$P(\overline{A})=1-P(A)$<br>
+证明：令$A=S$，$B_1=A$，$B_i=\varnothing, i\neq 1$，则有：$P(S-A)=P(\overline{A})=P(S)-P(SA)=1-P(A)$</p>
+<p>⑥对于任一两事件$A,B$，有$P(A+B)=P(A)+P(B)-P(AB)$<br>
+证明：令$A=A+B$,$B_1=B$,$B_i=\varnothing$,$i\neq 1$，得到：
+$$
+\begin{aligned} P((A+B)-B)=P(A+B)-P(B) \end{aligned}
+$$
+由$(A+B)-B=(A+B)\overline{B}=A\overline{B}=A-B$，得：
+$$
+\begin{aligned} P(A-B)=P(A)-P(AB)=P(A+B)-P(B) \end{aligned}
+$$
+移项，证毕。</p>
+<hr>
+<h4 id="iii-尝试做题">III 尝试做题</h4>
+<p>我们利用减法的思想能不能像加法一样做题呢？这里我拿了一题作尝试，是可行的。其实为了用减法，只需要将所有的并运算通过这个式子转化为减法即可：$P(A-B)+P(B)=P(A+B)$。具体我不想写了……写这个东西消耗的时间比我想象中的要长，我还是想快点结束。</p>
+<h2 id="二随机变量和分布函数">二、随机变量和分布函数</h2>
+<h3 id="1随机变量">1.随机变量</h3>
+<p>为了明确一下随机变量的定义，首先我将教材中的几个定义拿出来：</p>
+<blockquote>
+<p>随机试验：满足①相同条件可以重复进行②事先明确试验的所有可能结果③试验前不能确定哪一个结果出现。<br>
+样本空间：随记实验$E$的所有可能结果组成的集合成为E的样本空间，记为$S$。<br>
+样本点：样本空间的元素，即E的每个结果，称为样本点。<br>
+$e$代表样本空间的元素，而将样本空间记成$\left \{ e \right \}$</p>
+<p>随机变量：设随机试验的样本空间为$S=\left \{e\right \}$，$X=X(e)$是定义在样本空间S上的实值单值函数，称$X=X(e)$为随机变量</p>
+<p>二维随机变量：设$E$是一个随机试验，它的样本空间是$S=\left \{e\right \}$，设$X=X(e)$和$Y=Y(e)$是定义在$S$上的随机变量，由它们构成的一个向量$\left (X,Y \right )$，叫做二维随机变量。</p>
+</blockquote>
+<p>看起来蛮融洽的，但是有一个地方让我很困惑。首先，随机试验一定有结果，有动作，但是解读方式可以不同。所以，$S$中的所有元素都是有的结果，而不能是一个对象，比如$S$中的元素不能是3枚硬币，不能是一群人这种对象，而应该更具体些。所以我觉得教材关于二维随机变量的叙述有点问题，教材中在二维随机变量中举了一例（p61）：</p>
+<blockquote>
+<p>样本空间：$S=\left \{e \right \} = \left \{ 某地区的全部学龄前儿童\right \}$</p>
+</blockquote>
+<p>是有问题的。</p>
+<p>并且明确一下，普通的事件，就是对单一试验样本空间的单一解读，这个解读呢可以有一定关系，比如几次硬币朝正，也可以没有现实意义上的关系，我就想把这几个东西拉到一起形成一个事件，命名为我的事件也没问题，随机变量就是对样本空间元素的单一解读的数据抽象，数据到底取什么值，一些时候和现实意义有关，如朝正的次数1次2次，一些时候也无关，比如我随便取个数行吗？我觉得也行，没违反定义就行。而多元随机变量，有可能是单一试验样本空间的多种解读，也有可能根本就不是从一个随机试验出来的（当然这和教材的定义有驳，但确实是可以这么研究的）</p>
+<h3 id="2分布函数">2.分布函数</h3>
+<h4 id="i-分布函数的性质">I 分布函数的性质</h4>
+<p>当我们将事件转化为数字后，就可以用分析来研究概率了。而分布函数就是研究概率最重要的一个东西了。随机变量分为离散和连续还有别的，分为单元和多元，这在分布函数中都有体现，比如不连续的分布函数肯定不是连续型随机变量，有可能是离散或者混合的；分布函数的自变量和研究的随机变量的数目是对应的，有几个随机变量，就最多有几个自变量。现在我们来看看分布函数的基本性质：</p>
+<ol>
+<li>$F(x)$是$x$的单调不减</li>
+<li>$F(x)$右连续</li>
+<li>$F(-\infty )=0$,$F(+\infty )=1$</li>
+</ol>
+<p>只需要满足以上3条，这个函数就是一个随机变量的分布函数！这表示我们可以随便构造满足条件的函数，然后来猜猜他对应什么随机变量。</p>
+<p>概率分布（分布律）和概率密度需要满足的条件：</p>
+<ol>
+<li>$\{p_i\}$是概率分布 $\Leftrightarrow  $ $p_i \geq 0$，且$\sum_{i}p_i = 1$</li>
+<li>$f(x)$是概率密度 $\Leftrightarrow$ $f(x) \geq 0$，且$\int_{-\infty }^{+\infty }f(x)dx = 1$</li>
+</ol>
+<hr>
+<h4 id="ii-一些教材中的特殊分布函数">II 一些教材中的特殊分布函数</h4>
+<p>为了能更好地大展身手，我们先来看看教材中的分布函数，只是简单的列出来，当然离散的：</p>
+<p>①$X\sim U(a,b)$：
+$$
+F(x)=\left\{ \begin{aligned} &amp;0    \ \ , &amp;           &amp; {x&lt;   a}\\ &amp;\frac{b-a}{x-a} \ \  , &amp;      &amp; {a\leq x &lt; b}\\ &amp;  1\ \ ,  &amp;         &amp; {x \geq b}\\ \end{aligned} \right.
+$$
+②$X$服从参数为$\theta $的指数分布
+$$
+F(x)=\left\{ \begin{aligned} &amp;1-e^{-x/\theta}    \ \ , &amp;           &amp; {x&lt;   a}\\ &amp;0 \ \  , &amp;      &amp; {其他}\\ \end{aligned} \right.
+$$
+③$X\sim N(\mu,\sigma^2)$
+$$
+F(x)=\frac{1}{\sqrt{2\pi }\sigma}\int_{-\infty }^{x}e^{-\frac{(t-\mu)^2}{2\sigma^2}}dt
+$$
+④$(X,Y)\sim N(\mu_1,\mu_2,\sigma_1^2,\sigma_2^2,\rho )$<br>
+公式太长不写了</p>
+<p>离散型的概率公式也写出来，虽然不是分布函数，但是对我们构造函数也有帮助：</p>
+<p>⑤$X\sim b(n,\rho)$
+$$
+P\{X=k\} = \binom{n}{k}p^k q^{n-k}
+$$
+⑥泊松分布
+$$
+P\{X=k\}=\frac{\lambda^k e^{-k}}{k!}
+$$</p>
+<p>可以看到连续型本质上都是初等函数，而离散型是混有阶乘的初等函数</p>
+<hr>
+<h4 id="iii现在来构造吧">III现在来构造吧</h4>
+<p>利用分布律，概率密度，分布函数需要满足的条件构造一些函数。这里主要是给一点思路，有兴趣的话可以继续研究，我想快点结束文章了。。。花的时间有点久，或许以后没事干了可以把响应函数的性质给补充一下，现在大致就是概览吧。</p>
+<p>①多项式$f(x)=a_n x^n + a_{n-1}x^{n-1}+\dots + a_1 x^1 + a_0$<br>
+对于离散型，假设随机变量范围是$X=12,\dots,N$，当多项式最高次幂为0时，随机变量每一项的概率都为常数$\frac{1}{N}$；当多项式最高次幂为1时，随机变量每一项概率成线性变化，对于固定的$N$，系数需满足$a_1\frac{N(N+1)}{2}+a_0 N = 1$；其他的就不写了，反正是根据函数变化。</p>
+<p>对于连续型，假设随机变量范围是$[a,b]$，当多项式最高次幂为0时，就是均匀分布；当多项式最高次幂为1时&hellip;</p>
+<p>②其他有理函数</p>
+<p>③自然指数</p>
+<p>④自然对数</p>
+<p>⑤三角函数</p>
+<h3 id="3无记忆性">3.无记忆性</h3>
+<h3 id="4函数分布">4.函数分布？</h3>
+<h2 id="reference">Reference</h2>
+<p>[1] 盛骤,谢式千,潘承毅. 2019. 概率论与数理统计. 高等教育出版社.<br>
+[2] 张宇. 2021. 张宇概率论与数理统计9讲. 北京理工大学出版社有限责任公司.</p>
+<p>​</p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/tweet/essay/">随记合集2021.5-2022.1
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/literature/rebeca/">丽贝卡的一生
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/tweet/essay/">随记合集2021.5-2022.1
+</a></li><li><a href="/posts/other/ads/">广告位招租/Advertising space for rent
+</a></li><li><a href="/about/">关于
+</a></li><li><a href="/posts/other/first-post/">第一次弄博客
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">行所感所喜所爱所恨所愿，唯物辨证，知行合一.</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-rebar2/">rebar2学习
+</a></li><li><a href="/posts/tech/media-erlang/">《Erlang程序设计》
+</a></li><li><a href="/posts/other/2024/">2024年终总结和来年展望
+</a></li><li><a href="/posts/math/estimate/">量化交易系统设想
+</a></li><li><a href="/posts/math/beginner/">量化交易初学
+</a></li><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
+</a></li><li><a href="/posts/other/physics-computer/">计算机和物理的一点感悟
+</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
+</a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
+</a></li><li><a href="/posts/tech/media-sox/">Sox基本使用
+</a></li><li><a href="/posts/other/human-mind-weekness/">上头与下头与suicide
+</a></li><li><a href="/posts/other/everyweek-english/">每周一篇经济学人
+</a></li><li><a href="/posts/tech/media-automake/">automake使用
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">37</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">9</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a><a href="/categories/%E6%95%B0%E5%AD%A6/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="数学">
+          数学 <span class="badge rounded-pill">4</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">22</span>
+        </a><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">10</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="量化交易">
+          量化交易 <span class="badge rounded-pill">2</span>
+        </a><a href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="随意思考">
+          随意思考 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2025 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>
