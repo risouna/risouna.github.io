@@ -3,25 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kali添加环境变量 - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+    <title>rebar2学习 - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
 <link rel="manifest" href="/images/favicons/manifest.json">
 <link rel="icon" href="/images/favicons/favicon.ico">
 <meta name="keywords" content="" />
-<meta name="description" content="" /><meta itemprop="name" content="Kali添加环境变量">
-<meta itemprop="description" content=""><meta itemprop="datePublished" content="2023-04-07T00:00:00&#43;00:00" />
-<meta itemprop="dateModified" content="2023-04-07T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="487">
-<meta itemprop="keywords" content="," /><meta property="og:title" content="Kali添加环境变量" />
+<meta name="description" content="" /><meta itemprop="name" content="rebar2学习">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2025-01-03T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2025-01-03T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="2317">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="rebar2学习" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/posts/tech/env-var/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-04-07T00:00:00&#43;00:00" />
-<meta property="article:modified_time" content="2023-04-07T00:00:00&#43;00:00" /><meta property="og:site_name" content="理想奈的博客" />
+<meta property="og:url" content="/posts/tech/media-rebar2/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-01-03T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2025-01-03T00:00:00&#43;00:00" /><meta property="og:site_name" content="理想奈的博客" />
+
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Kali添加环境变量"/>
+<meta name="twitter:title" content="rebar2学习"/>
 <meta name="twitter:description" content=""/>
 <meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -134,7 +135,7 @@
       <div class="row content">
 <div class="col-lg-8">
   <div class="container"><nav class="row" aria-label="breadcrumb">
-  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">Kali添加环境变量</li></ol>
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">rebar2学习</li></ol>
 </nav><article class="post row surface"><div class="post-panel-wrapper">
   <div class="post-panel d-flex flex-column">
     <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
@@ -154,15 +155,15 @@
 </a>
   </div>
 </div>
-<h1 class="post-title my-3">Kali添加环境变量
+<h1 class="post-title my-3">rebar2学习
 </h1><div class="post-meta mb-3">
   <span class="post-date me-2">
-    <i class="fas fa-fw fa-calendar-alt"></i>2023-04-07
+    <i class="fas fa-fw fa-calendar-alt"></i>2025-01-03
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>1 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>5 分钟阅读
   </span>
-<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a></div>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
 
 
 
@@ -178,49 +179,135 @@
   <div class="offcanvas-body">
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#0x01-第一种方式使用bash">0x01 第一种方式：使用bash</a></li>
-    <li><a href="#0x01-第二种方式使用zsh">0x01 第二种方式：使用zsh</a></li>
-    <li><a href="#0x03-引用">0x03 引用</a></li>
+    <li><a href="#安装">安装</a></li>
+    <li><a href="#使用">使用</a>
+      <ul>
+        <li><a href="#rebar的工程配置文件">rebar的工程配置文件</a></li>
+        <li><a href="#rebar管理的工程目录结构">rebar管理的工程目录结构</a></li>
+        <li><a href="#rebar模板的使用">rebar模板的使用</a></li>
+      </ul>
+    </li>
+    <li><a href="#rebarconfig">rebar.config</a>
+      <ul>
+        <li><a href="#erl_opts">erl_opts</a></li>
+        <li><a href="#deps">deps</a></li>
+        <li><a href="#port_envs">port_envs</a></li>
+        <li><a href="#port_specs">port_specs</a></li>
+        <li><a href="#rebarconfigsample">rebar.config.sample</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
   </div>
-</div><div class="post-content mb-3" ><h2 id="0x01-第一种方式使用bash">0x01 第一种方式：使用bash</h2>
-<p>新版Kali默认的shell是zsh，而常见添加环境变量的方式是通过/etc/profile中，最好再在~/.bashrc中source一下生效。为了使用bash，需要修改/etc/passwd文件中对应用户的默认shell，比如root用户将</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>root❌0:0:root:/root:/usr/bin/zsh
-</code></pre></div><p>变为</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>root❌0:0:root:/root:/bin/bash 
-</code></pre></div><p>修改之后再用普通bash添加环境变量的方式就可以了。</p>
-<h2 id="0x01-第二种方式使用zsh">0x01 第二种方式：使用zsh</h2>
-<p>还是想用漂亮的zsh怎么办？那就在zsh中添加环境变量！</p>
-<p>只需要在~/.zshrc中末尾添加环境变量，这是不需要再source了：</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>N=&#34;/usr/local/go/bin&#34;
-<span class="ln">2</span>export PATH=$PATH:$N
-</code></pre></div><p>这是如果再在后面加上<code>source ./zshrc</code>的话，会循环使用这个文件。</p>
-<p>这里还有个问题，当使用<code>sudo</code>执行命令时，<code>sudo</code>命令为了安全考虑将PATH环境变量进行了重置，我们可以使用<code>sudo visudo</code>或者<code>vim /etc/sudoers</code>进行修改。具体关于su和sudo的区别可以参考下面这篇文章：</p>
-<p><a href="https://blog.csdn.net/weixin_39490665/article/details/123130500">https://blog.csdn.net/weixin_39490665/article/details/123130500</a></p>
-<h2 id="0x03-引用">0x03 引用</h2>
-<p>不得不说网络上东西错误有点多，搞了估计有3小时才解决。</p>
+</div><div class="post-content mb-3" ><h2 id="安装">安装</h2>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>git clone git://github.com/basho/rebar.git  
+<span class="ln">2</span><span class="nb">cd</span> rebar
+<span class="ln">3</span>make
+<span class="ln">4</span>sudo cp rebar /usr/local/bin
+</code></pre></div><p>或使用稳定的版本：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>curl -o rebar http://cloud.github.com/downloads/basho/rebar/rebar  
+</code></pre></div><h2 id="使用">使用</h2>
+<p>rebar作者教程：http://vimeo.com/8311407</p>
+<p>rebar官方文档：https://github.com/basho/rebar/wiki</p>
+<h3 id="rebar的工程配置文件">rebar的工程配置文件</h3>
+<p>每个erlang工程会有一个rebar.config控制rebar的使用，当然rebar.config不是必须的，没有的话一切都按rebar缺省的来。rebar安装路径下有一个rebar.config.sample的文件，研究这个文件可以发现许多rebar的使用诀窍。</p>
+<p>使用rebar时加上-v参数可以详细的打印出rebar构建过程时的相关命令和参数，这有助于我们查看rebar.config文件的配置是否正确。</p>
+<h3 id="rebar管理的工程目录结构">rebar管理的工程目录结构</h3>
+<p>rebar管理的erlang工程应该遵循  <a href="http://www.erlang.org/doc/design_principles/applications.html" target="_blank">erlang OTP的约定</a>
+，项目的文件结构如下，子目录src,  include下分别放置erlang源代码和hrl包含文件，priv和ebin目录分别放置编译好的lib库共享文件（或可执行文件）和beam文件（和其他文件例如app文件），这两个目录由rebar自动生成并清理，不要把重要的代码放在这两个目录下，虽然不会被rebar clean自动删掉，（不过编译好的beam文件都会删掉），但是也影响不好哈。</p>
+<p>此外对port drive和nif的开发，它们的c源程序应该放在c_src目录下。目前port driver和nif是被rebar无区别对待，因此有着同样的rebar控制参数。</p>
+<p>总结：源代码应该组织到src, include和c_src三个目录结构中，此外，eunit单元测试代码放在test目录下。rebar控制priv和ebin目录，源码或文档不要在这两个目录下。</p>
+<h3 id="rebar模板的使用">rebar模板的使用</h3>
+<p>rebar list-templates 子命令可以查看rebar缺省提供的工程模板（当然也可以创建自己的模板）</p>
+<p>模板是针对某种有着固定模式或结构的代码的，例如OTP的3个著名模式都有着各自的程序骨架，每次写一个srv或者fsm的模块，我们都得重复写许多固定的骨架代码，rebar通过模板帮我们省下了这些重复工作，我们只管往里面填应用的逻辑代码就行了。</p>
+<p>显然，simplesrv，simplefsm，simpleapp这三个模板是用来创建OTP的服务器模式，有限状态机模式和app应用模式的。</p>
+<p>注意在rebar中，这三个模式的约定名称：srv, fsm和app  。相应的，这些模板都有一个约定的控制变量，分别是srvid, fsmid和appid</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>rebar create template=simpleapp 
+<span class="ln"> 2</span>rebar create-app appid=anmial 
+<span class="ln"> 3</span>
+<span class="ln"> 4</span>rebar create template=simplefsm 
+<span class="ln"> 5</span>
+<span class="ln"> 6</span>rebar create template=simplesrv
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>rebar compile 
+<span class="ln"> 9</span>rebar compile -v  
+<span class="ln">10</span>
+</code></pre></div><h2 id="rebarconfig">rebar.config</h2>
+<h3 id="erl_opts">erl_opts</h3>
+<h4 id="概述">概述</h4>
+<p>使用rebar构建Erlang project的时候，通过设置rebar.config可以为rebar配置各种选项。</p>
+<p>其中比较常用的有 erl_opts 这个选项。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>{erl_opts, [smp, debug_info, {d, &#39;APP&#39;, myproject}, {d, debug}]}.
+</code></pre></div><p>实际上它是设置Erlang Compiler的参数。（详细说明见 <a href="http://www.erlang.org/doc/man/compile.html">http://www.erlang.org/doc/man/compile.html</a>）</p>
+<p>平时我们可以在每个 .erl 文件的头部写上这种语句</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>-compile({no_auto_import,[error/1]}).
+</code></pre></div><p>来告诉编译器编译本文件时用到的编译选项。</p>
+<p>如果把这些参数放在rebar.config里面设置的话，就可以对所有文件使用同一套编译参数了。</p>
+<p>比如在rebar.config里面：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>{erl_opts, [smp, debug_info, nowarn_unused_function]}.
+</code></pre></div><p>这里设置了nowarn_unused_function，即module中有未被使用的function时不触发警告。</p>
+<p>效果等同于在每个module文件中加入这句</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>-compile(nowarn_unused_function).
+</code></pre></div><h4 id="d-macro-value">{d, macro, value}</h4>
+<p>有如下情景，使用rebar.config来配置全局编译参数时会比较方便：</p>
+<p>在开发和调试阶段，可能有需要在console打印一些调试信息，通常会用到io:format. 但是发布的程序，在正式环境下是不需要打印这些东西的。</p>
+<p>那么我们可以这样做。</p>
+<p>在rebar.config设置erl_opts, 定义一个Macro, {d, debug}， 表示调试模式。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>{erl_opts, [smp, no_debug_info, {d, debug}]}.
+</code></pre></div><p>然后在一个全局的hrl文件中定义输出调试信息的Macro</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>-ifdef(debug).
+<span class="ln">2</span>-define(TRACE(Str), io:format(Str)).
+<span class="ln">3</span>-define(TRACE(Str, Args), io:format(Str, Args)).
+<span class="ln">4</span>-else.
+<span class="ln">5</span>-define(TRACE(Str), void).
+<span class="ln">6</span>-define(TRACE(Str, Args), void).
+<span class="ln">7</span>-endif.
+</code></pre></div><p>这样,我们在需要打印调试信息的地方用</p>
+<p>TRACE(&ldquo;something to show&rdquo;) 而不是直接用 io:format.</p>
+<p>好处是， 当发布正式版本时， 只须要把rebar.config里面的{d, debug}去掉而不用改动代码，就可以不打印调试信息了。</p>
+<h4 id="idir">{i,Dir}</h4>
+<p>｛i，Dir｝-在包含文件时将Dir添加到要搜索的目录列表中。当遇到-include或-include_lib指令时，编译器会在以下目录中搜索头文件：</p>
+<ul>
+<li>“.”，文件服务器的当前工作目录</li>
+<li>编译文件的基本名称</li>
+<li>使用选项i指定的目录；首先搜索最后指定的目录</li>
+</ul>
+<h3 id="deps">deps</h3>
+<p>这里面放的是依赖库，然后应用程序就可以直接调用对应模块的函数了。</p>
+<h3 id="port_envs">port_envs</h3>
+<p>可以在rebar.config中通过为port_envs设置环境变量CFLAGS和LDFLAGS指定编译或链接的参数。</p>
+<p>在port_envs哪些变量可以定制，似乎没有什么在线文档，所以直接看rebar的源代码程序：rebar_port_compiler.erl。开头的注释中就说明了可以定制哪些参数，有编译的也有链接的。</p>
+<p>举个例子，我最近写的一个nif模块c代码用到了c99的一些特性，还使用到了一个第三方共享库gdal。linux下nif动态库的编译并链接的命令是这样的：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>gcc -std=c99 -fPIC -shared -o gdal_nifs.so gdal_nifs.c -I$ERL_HOME/usr/include -lgdal 
+</code></pre></div><p>mac下的的编译链接命令是这样：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>gcc -std=c99 -fPIC -bundle -undefined suppress -flat_namespace -o gdal_nifs.so gdal_nifs.c -I$ERL_HOME/usr/include -lgdal 
+</code></pre></div><p>rebar已经考虑了跨平台编译链接的不同参数问题，我还需要定制以下两个参数：</p>
 <ol>
-<li><a href="https://blog.csdn.net/qq_30895747/article/details/126872781">https://blog.csdn.net/qq_30895747/article/details/126872781</a></li>
-<li><a href="https://blog.csdn.net/weixin_51368459/article/details/127682963">https://blog.csdn.net/weixin_51368459/article/details/127682963</a></li>
-<li><a href="https://blog.csdn.net/weixin_51368459/article/details/127682963">https://blog.csdn.net/weixin_51368459/article/details/127682963</a></li>
-<li><a href="https://blog.csdn.net/xiaopang_love_study/article/details/127753262">https://blog.csdn.net/xiaopang_love_study/article/details/127753262</a></li>
-</ol></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+<li>指定 c99 标准编译； -std=c99</li>
+<li>指定gdal动态库的链接： -lgdal</li>
+</ol>
+<p>因此，我的rebar.config定制文件就是</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>{port_envs, [ 
+<span class="ln">2</span>   {&#34;CFLAGS&#34;, &#34;$CFLAGS -std=c99&#34;}, 
+<span class="ln">3</span>   {&#34;LDFLAGS&#34;, &#34;$LDFLAGS -lgdal&#34;} 
+<span class="ln">4</span>   ]}. 
+</code></pre></div><p>以后就可以通过rebar compile跨各种平台编译了。</p>
+<h3 id="port_specs">port_specs</h3>
+<p>要编译的文件名或通配符列表。也可能包含元组,由应用于系统的正则表达式组成,架构作为过滤器</p>
+<h3 id="rebarconfigsample">rebar.config.sample</h3>
+<p><a href="https://github.com/rebar/rebar/blame/b6d309417c502ca243f810e5313bea36951ef038/rebar.config.sample">https://github.com/rebar/rebar/blame/b6d309417c502ca243f810e5313bea36951ef038/rebar.config.sample</a></p></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
   <div class="post-nav w-50"><div class="prev-post btn btn-sm">
-      <a href="/posts/anime/shinainaru/"> 親愛なる世界へ
+      <a href="/posts/tech/media-erlang/">《Erlang程序设计》
 </a>
     </div></div>
-  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="/posts/anime/bokugashinouto/">僕が死のうと思ったのは
-</a>
-    </div></div>
+  <div class="post-nav flex-row-reverse"></div>
 </div><section class="related-posts">
     <h3>相关文章</h3>
-    <ul class="related-posts"><li><a href="/posts/anime/shinainaru/"> 親愛なる世界へ
-</a></li><li><a href="/posts/anime/kimigahikarini/">君が光に変えて行く
-</a></li><li><a href="/posts/anime/fairytale/">fairytale
-</a></li><li><a href="/posts/anime/kizuato/">傷跡
-</a></li><li><a href="/bin/subarashikihibi-1/">素晴日剧本片段
+    <ul class="related-posts"><li><a href="/posts/tech/media-erlang/">《Erlang程序设计》
+</a></li><li><a href="/posts/economy/beginner/">量化交易初学
+</a></li><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
+</a></li><li><a href="/posts/other/physics-computer/">计算机和物理的一点感悟
+</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
 </a></li></ul>
   </section></article>
 
