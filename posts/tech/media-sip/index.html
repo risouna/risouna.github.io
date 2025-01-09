@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SIP学习 - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="SIP学习">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2025-01-09T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2025-01-09T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="5891">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="SIP学习" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/media-sip/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-01-09T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2025-01-09T00:00:00&#43;00:00" /><meta property="og:site_name" content="理想奈的博客" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SIP学习"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+
+
+
+
+<script type="text/javascript" src="/js/Valine.min.js"></script>
+<script type="text/javascript" src="/js/cave-draw.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/katex.min.css">
+<script type="text/javascript" src="/js/katex.min.js"></script>
+<script type="text/javascript" src="/js/auto-render.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" type="text/css" href="/js/font.css">
+
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      
+      さぁ、君、取りたまえ
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">SIP学习</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">SIP学习
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2025-01-09
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>12 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#简介">简介</a></li>
+    <li><a href="#组成部分">组成部分</a></li>
+    <li><a href="#sip报文概述">SIP报文概述</a></li>
+    <li><a href="#sip交互流程">SIP交互流程</a>
+      <ul>
+        <li><a href="#session-model">Session Model</a></li>
+        <li><a href="#pager-model">Pager Model</a></li>
+      </ul>
+    </li>
+    <li><a href="#sip信令交互中的3个定义">SIP信令交互中的3个定义</a></li>
+    <li><a href="#媒体传输">媒体传输</a></li>
+    <li><a href="#sip消息header字段">SIP消息Header字段</a></li>
+    <li><a href="#路由">路由</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><p>没有看完，需要的时候再补充</p>
+<p><a href="https://sunkx.blog.csdn.net/article/details/144061374">https://sunkx.blog.csdn.net/article/details/144061374</a></p>
+<h2 id="简介">简介</h2>
+<p>SIP（Session Initiation Protocol， 会话初始化协议）是一个用于在IP网络中建立、修改和终止多媒体会话的应用层协议，广泛应用于VoIP（Voice over IP，语音通信）、视频通话、即时消息和其他实时通信服务。SIP应用层协议。SIP和HTTP类似，都是请求-响应模式。</p>
+<p>SIP发展过程：RFC 2543&mdash;-第一个SIP规范；RFC 3261&mdash;-SIP基础确立；RFC 3262&mdash;-对临时响应的可靠性作规定；RFC 3263&mdash;-确立SIP代理服务器的定位规则；RFC 3264&mdash;-提供提议/应答模型；RFC 3265&mdash;-确定具体的事件通知。</p>
+<p><strong>SIP协议的基本功能：</strong></p>
+<ol>
+<li><strong>会话建立与终止：</strong> SIP的核心功能是发起、管理和终止会话。无论是语音通话、视频会议还是数据共享，SIP都能够提供会话初始化、修改以及结束的能力。</li>
+<li><strong>用户位置定位：</strong> SIP可以通过地址解析和位置服务，确定目标用户的当前地址（例如IP地址），使得一个用户可以通过统一的SIP地址（如sip:username@domain.com）进行联系。</li>
+<li><strong>多媒体传输协商：</strong> SIP不仅仅用于建立连接，还可以协商会话的媒体参数。例如，它可以确定使用哪些编解码器，视频分辨率、音频质量等，这些通过SDP（Session Description Protocol， 会话描述协议）进行描述。</li>
+<li><strong>支持会话修改：</strong> 在会话进行中，SIP允许动态修改会话内容，例如添加视频、改变音频编解码器、切换通话质量等。</li>
+<li><strong>会话控制与注册：</strong> SIP协议允许用户进行注册并通过代理服务器进行会话控制，从而支持分布式网络环境中的通信。</li>
+</ol>
+<p><strong>SIP的应用场景：</strong></p>
+<ol>
+<li><strong>VoIP电话：</strong> SIP是VoIP（基于IP的语音通信）技术的核心协议，用于建立和管理语音通话。通过SIP，用户可以在IP网络上进行语音通信。</li>
+<li><strong>视频会议：</strong> SIP不仅支持音频通话，也支持视频通话，通过协商媒体参数，用户可以在不同终端之间进行视频会议。</li>
+<li><strong>即时消息：</strong> SIP协议可用于实时聊天应用的消息交换，允许用户之间进行文本聊天。</li>
+<li><strong>多媒体流服务：</strong> 除了语音和视频，SIP也可以用于多媒体流的传输和管理，支持多种实时数据传输。</li>
+</ol>
+<p>通俗地说，SIP就是用来 建立、管理和结束 语音、视频等实时通信的调度协议。帮助我们通过互联网进行类似电话通话、视频会议、即时消息等实时通讯。例如，当你打电话、视频聊天或者进行网络会议时，SIP协议会负责以下工作：</p>
+<ol>
+<li>**连接的建立：**当你想打电话给别人时，SIP负责发出请求，找到对方，并建立连接。</li>
+<li><strong>媒体协商</strong>：它确保你和对方都能使用相同的音频/视频格式和传输方式，比如你们都用高清音频、高清视频。</li>
+<li>**会话管理：**在通话进行中，SIP还可以帮助你在通话过程中调整设置、。</li>
+<li><strong>会话终止</strong>：当通话结束时，SIP会发出通知，关闭连接。</li>
+</ol>
+<h2 id="组成部分">组成部分</h2>
+<p>学习SIP，需要知道SIP中的四个角色(SIP系统组成部分)：SIP用户代理、SIP注册服务器、SIP代理服务器、SIP重定向服务器。</p>
+<p><strong>1. SIP用户代理（UA，User Agent）</strong>
+SIP用户代理是终端设备或应用程序，用于发起和接收SIP请求和响应。可以是一个VoIP电话、软电话、视频会议终端等设备。用户代理有两种角色：</p>
+<p>用户代理客户端（UAC，User Agent Client）：负责发起SIP请求（例如发起呼叫请求）。例如，当你拨打电话时，你的设备就是UAC。
+用户代理服务器（UAS，User Agent Server）：负责响应SIP请求。它接收来自UAC的请求，并根据请求进行相应的操作。例如，当你接听电话时，你的设备就扮演着UAS的角色。
+总之，SIP用户代理是SIP协议中的端点，允许用户进行实时通信。</p>
+<p><strong>2. SIP注册服务器（Registrar Server）</strong>
+SIP注册服务器用于接收并存储SIP用户的注册信息。当一个SIP设备（例如电话）连接到网络时，它会向SIP注册服务器发送一个注册请求，告诉服务器自己当前的IP地址或者其他信息。其他用户可以通过注册服务器来找到该设备。</p>
+<p>当你在不同的网络或设备上登录时，注册服务器确保其他人能够找到你并与你建立通信。
+例如，SIP设备A在启动时会向注册服务器发送一个请求，告知它自己可以接受呼叫的地址或位置。</p>
+<p><strong>3. SIP代理服务器（Proxy Server）</strong>
+SIP代理服务器是SIP通信中的中介，它负责转发SIP请求和响应。代理服务器不会直接处理呼叫或会话内容，它主要负责以下任务：</p>
+<p>路由请求：当一个SIP用户想要联系另一个SIP用户时，SIP代理服务器会根据请求的目标地址，决定如何转发该请求（例如，选择合适的服务器或代理）。
+请求处理：代理服务器会检查和修改请求的头部信息，确保请求按照正确的路径转发。例如，如果目标用户不在线，代理服务器可能会将请求转发到备用服务器或者重定向到另一个地址。
+SIP代理服务器通常也会处理认证和授权等功能，确保通信的安全性。</p>
+<p><strong>4. SIP重定向服务器（Redirect Server）</strong>
+SIP重定向服务器的作用是告知发起请求的用户代理请求的目标地址。与代理服务器不同，重定向服务器不负责转发请求，它只提供目标地址的重定向信息。它的工作方式是：</p>
+<p>当SIP用户尝试联系另一方时，重定向服务器会<strong>告知用户代理</strong>“该目标用户现在在其他地方”，并提供新的目标地址或位置。发起请求的用户代理会根据这些新的信息重新发起请求，从而完成通信连接。简单来说，重定向服务器只返回一条“指路”的信息，它告诉你该向哪里去找到目标，而不是直接转发请求。</p>
+<p><strong>这四个角色如何协同工作？</strong>
+假设有一个SIP用户A想要与SIP用户B建立通信：</p>
+<ol>
+<li>SIP用户A（UAC）和用户B（UAS）都向 SIP注册服务器 发送注册请求，告知服务器它们的当前位置（例如，IP地址）。</li>
+<li>当SIP用户A想打电话给SIP用户B时，它会发送一个SIP请求到 SIP代理服务器，代理服务器负责根据B的地址和注册信息路由请求。</li>
+<li>如果SIP代理服务器找不到SIP用户B，它<strong>可能会询问 SIP重定向服务器</strong>，后者会告诉代理服务器B的当前位置（例如B的新IP地址）。</li>
+<li>SIP代理服务器会根据重定向信息重新发起请求，直到找到B并建立连接。</li>
+</ol>
+<p>通过这些角色的协作，SIP协议能够实现跨网络、跨设备的实时通信。</p>
+<p>SIP注册服务器、SIP代理服务器和SIP重定向服务器通常可以是独立的服务，也可以由一个中心服务集成来共同承担这些角色。具体的实现方式取决于系统架构、需求和规模等因素。</p>
+<h2 id="sip报文概述">SIP报文概述</h2>
+<p>SIP报文格式和HTTP完全一样，只不过里面的值不一样，使用的错误码也是一样，比如200表示请求成功，40x表示客户端错误，50x表示服务端错误，这样SIP就很好理解了。HTTP有GET、POST等方法，同样SIP也有自己的方法。</p>
+<p>SIP中常见的方法如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>INVITE：表示主叫用户发起会话，邀请其他用户加入一个会话，也可以用在呼叫建立后用于更新会话（此时INVITE又称为Re-invite)
+<span class="ln">2</span>ACK：客户端向服务器端证实它已经收到了对INVITE请求的最终响应。
+<span class="ln">3</span>PRACK：表示对1XX响应信息的确认请求消息。
+<span class="ln">4</span>BYE：表示终止一个已经建立的呼叫。
+<span class="ln">5</span>CANCEL：表示在收到对请求的最终响应之前取消该请求，对于已完成的请求则无影响。
+<span class="ln">6</span>REGISTER：表示客户端向SIP服务器端注册列在To字段中的地址信息。
+<span class="ln">7</span>OPTIONS：表示查询被呼叫的相关信息和功能。
+</code></pre></div><p>​    SIP常见的错误码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>100试呼叫（Trying)
+<span class="ln"> 2</span>180振铃（Ringing）
+<span class="ln"> 3</span>181呼叫正在前转（Call is Being Forwarded)
+<span class="ln"> 4</span>200成功响应（OK）
+<span class="ln"> 5</span>302临时迁移（Moved Temporarily)
+<span class="ln"> 6</span>400错误请求（Bad Request)
+<span class="ln"> 7</span>401未授权（Unauthorized)
+<span class="ln"> 8</span>403禁止（Forbidden)
+<span class="ln"> 9</span>404用户不存在（Not Found）
+<span class="ln">10</span>480暂时无人接听（Temporarily Unavailable)
+<span class="ln">11</span>486线路忙（Busy Here)
+<span class="ln">12</span>504服务器超时（Server Time-out)
+<span class="ln">13</span>600全忙（Busy Everywhere)
+</code></pre></div><h2 id="sip交互流程">SIP交互流程</h2>
+<p>介绍SIP交互流程之前需要知道SIP有两种会话模式：Session Model和Pager Model。</p>
+<p>会话中，对于消息体内容大于1300字节时，一般采用Session Model；对于消息体不大于1300字节时，一般采用Pager Model。</p>
+<p>Session Model和Pager Model区别如下：</p>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th>Session Model</th>
+<th>Pager Model</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>通信类型</td>
+<td>双向实时通信</td>
+<td>单向消息发送</td>
+</tr>
+<tr>
+<td>会话持久性</td>
+<td>持久的会话，双方可实时互动</td>
+<td>息单向发送，接收方可稍后回复</td>
+</tr>
+<tr>
+<td>建立过程</td>
+<td>需要通过INVITE建立会话</td>
+<td>不需要会话建立</td>
+</tr>
+<tr>
+<td>实时性</td>
+<td>高实时性，需要双方即时响应</td>
+<td>较低实时性，接收方可以稍后回复</td>
+</tr>
+<tr>
+<td>应用场景</td>
+<td>语音、视频通话、实时聊天</td>
+<td>短信、电子邮件、离线消息通知</td>
+</tr>
+</tbody>
+</table>
+<h3 id="session-model">Session Model</h3>
+<p>0：用户A和用户B在终端启用之后都会向注册服务器注册自己的信息（ip地址、账号等）；</p>
+<p>1：主叫方A发送INVITE请求到代理服务器1；</p>
+<p>2：代理服务器1发送100 Trying响应，试呼叫主叫方A；</p>
+<p>3-6：代理服务器搜索被叫方B的地址，获取地址后转发INVITE请求；</p>
+<p>7-9：被叫方B生成的180振铃响应，返回给主叫方A；</p>
+<p>10-12：被叫方B生成的200 OK响应，返回给主叫方A；</p>
+<p>13-17：主叫方A收到被叫方B200 OK响应后，向被叫方B发送一个ACK，会话建立；</p>
+<p>开始发送RTP消息流。</p>
+<p>18-20：会话结束后，任何参与者（A或B）都可以发送一个bye请求来终止会话；</p>
+<p>21-23：主叫方A发送200 OK响应来确认bye，会话终止。</p>
+<p>注意：连接建立之后的音视频传输就不经过代理服务器了，是用户之间直接传输（p2p）。</p>
+<h3 id="pager-model">Pager Model</h3>
+<p>Pager Model采用Message方法，Message方法本身并不建立Dialog，在多数应用中，每条IM消息都是独立的，SIP信令交互流程：用户1发送msg，到proxy，proxy发送msg到用户2,这就收到了；然后收到之后用户2发送”200ok“给proxy，proxy转发给用户1。</p>
+<p>Pager Model息单向发送，接收方可稍后回复，所以200 OK是虚线。</p>
+<h2 id="sip信令交互中的3个定义">SIP信令交互中的3个定义</h2>
+<p>用户A、B之间SIP信令交互过程中有三个定义：dialog（对话）、session（会话）、transaction（事务）</p>
+<ul>
+<li>Transaction事务：是指一个请求消息以及这个请求对应的所有响应消息的集合。</li>
+<li>Dialog对话：是两个UA之间持续一段时间的点对点的SIP连接。</li>
+<li>Session会话：是一次通信过程中所有<strong>参与者</strong>之间的关联关系以及他们之间的<strong>媒体流</strong>的集合。</li>
+</ul>
+<h2 id="媒体传输">媒体传输</h2>
+<p>两个用户进行SIP信令交互的最终目的就是进行音视频通话，因此双方要进行媒体协商，<strong>SIP媒体协商使用的是SDP协议。媒体协商完毕之后，双方使用RTP协议进行音视频传输</strong>。</p>
+<p>SDP（Session Description Protocol） 是一种用于描述多媒体会话的格式。主要用于描述会话的多媒体内容（例如音频、视频，以及编码格式）和传输方式（如传输协议、端口号等）。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>sip呼叫里SDP的一些字段的含义
+<span class="ln"> 2</span>v=0 # sdp版本
+<span class="ln"> 3</span>o=- 1 0 IN IP4 164.135.25.51 # o=&lt;用户名&gt; &lt;会话id&gt; &lt;会话版本&gt; &lt;网络类型&gt;&lt;地址类型&gt; &lt;本机地址&gt;
+<span class="ln"> 4</span>s=SNS call # 用于传递会话主题
+<span class="ln"> 5</span>c=IN IP4 164.135.25.51 # 记录media ip， 即接收RTP流的媒体地址，不一定是本机地址
+<span class="ln"> 6</span>t=0 0 # 会话时间，一般由其它信令控制，故0
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>m=audio 30254 RTP/AVP 0 # audio/音频接收端口(必须为偶数)/表示音频通过RTP传输/0表示允许音频的格式(见下一行&#34;a=&#34;)
+<span class="ln"> 9</span>a=rtpmap:0 PCMU/8000 # 如果RTP头部的类型字段如果等于0，表示RTP负载用的数据是PCMU，8000采样率格式的音频
+<span class="ln">10</span>a=sendrecv # 可以接收也可以发送音频
+<span class="ln">11</span>
+<span class="ln">12</span>m=video 30186 RTP/AVP 122 123 # video/视频接收端口(必须为偶数)/视频通过RTP传输/122,123表示允许视频的格式为122，123
+<span class="ln">13</span>a=rtpmap:122 H264/90000 # 如果RTP头部的类型字段如果等于122，表示RTP负载用的数据是H264编码格式的视频
+<span class="ln">14</span>a=fmtp:122 profle-level-id-64E01F;max-br=1152 # 122类型的视频编码参数
+<span class="ln">15</span>a=rtpmap:123 H264/90000 # 如果RTP头部的类型字段如果等于123，表示RTP负载用的数据是H264编码格式的视频
+</code></pre></div><p>SDP是在INVITE开始（SDP offer)，对方回复200 OK结束(SDP answer)。</p>
+<h2 id="sip消息header字段">SIP消息Header字段</h2>
+<p>常见的SIP方法有：INVITE、ACK、PRACK、BYE、CANCEL、REGISTER、OPTIONS。在这些类型的SIP消息头部中包含的常见字段如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>含义说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Call-ID</td>
+<td>由本地设备(Client)生成，全局唯一，每次呼叫这个值唯一不变</td>
+<td>Call-ID: <a href="mailto:asd88asd77a@1.2.3.4">asd88asd77a@1.2.3.4</a></td>
+</tr>
+<tr>
+<td>From</td>
+<td>表示请求的发起者</td>
+<td>From: sip:user1@domain.com;tag=49583</td>
+</tr>
+<tr>
+<td>To</td>
+<td>表示请求的接收者</td>
+<td>To: sip:user2@domain.com</td>
+</tr>
+<tr>
+<td>Via</td>
+<td>Via头域是被服务器插入request中，用来检查路由环的，并且可以使response根据via找到返回的路</td>
+<td>Via: SIP/2.0/TCP user1pc.domain.com;branch=z9hG4bK776sgdkse</td>
+</tr>
+<tr>
+<td>Max-Forwards</td>
+<td>用于表示这个包最多可以传送多少跳，每经过一跳都会减一当Max-Forwards==0系统会返回483。默认为70</td>
+<td>Max-Forwards: 70</td>
+</tr>
+<tr>
+<td>Contact</td>
+<td>包含源的URI信息，用来给响应方直接和源建立连接用</td>
+<td>Contact: sip:192.168.100.1:1111</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>指明消息体的类型 (SDP会话描述协议)</td>
+<td>Content-Type: text/plain；Content-Type: application/sdp; Content-Type: application/cpim;</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>指明消息体的字节大小</td>
+<td>Content-Length: 18</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>via</p>
+<p>Via头域是收集经过的设备信息。一个SIP消息每经过一个Proxy（包括主叫），都会被加上一个Via头域，当消息到达被叫后，Via头域就记录了请求消息经过的完整路径。被叫将这些Via头域原样copy到响应消息中（包括各Via的参数，以及各Via的顺序），然后下发给第一个Via中的URI，每个Proxy转发响应消息前都会把第一个Via（也就是它自己添加的Via）删除，然后将消息转发给新的第一个Via中的URI，直到消息到达主叫。</p>
+</li>
+<li>
+<p>tag</p>
+<p>用于在SIP消息中的 To 和 From 头部区分和标识不同的参与者。区分同一个会话中不同的SIP实体，尤其是当一个用户（或服务器）有多个可能的通信终端时。Tag 允许SIP协议区分从同一源发起的多个请求，通常是随机字符串或特定标识符。</p>
+<pre><code>From: From: Alice &lt;sip:alice@atlanta.com&gt;;tag=client1
+To: To: Bob &lt;sip:bob@biloxi.com&gt;;tag=client2
+</code></pre>
+<p>在这个例子中，发起方 Alice 使用了 client1 作为 From 的Tag，接收方 Bob 则使用了 client2 作为 To 的Tag。</p>
+<p>Call-ID、From（tag）、To （tag）这三个字段相同代表是同一个dailog对话。</p>
+</li>
+<li>
+<p>branch</p>
+<p>branch值相同，代表同一个 transaction(事务) Branch，每发起一个transaction(事务)都要重新生成一个branch；对于遵循RFC3261规范的实现，这个branch参数的值必须用magic cookie”z9hG4bK”打头. 其它部分是对“To, From, Call-ID头域和Request-URI”按一定的算法加密后得到。</p>
+</li>
+</ul>
+<h2 id="路由">路由</h2></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/media-rebar2/">rebar2学习
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/media-sipp/">SIPP学习
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/media-sipp/">SIPP学习
+</a></li><li><a href="/posts/tech/media-rebar2/">rebar2学习
+</a></li><li><a href="/posts/tech/media-erlang/">《Erlang程序设计》
+</a></li><li><a href="/posts/math/beginner/">量化交易初学
+</a></li><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">所感所喜所爱所恨所愿，即行之所往。 既是原因，也是目的。</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-sipp/">SIPP学习
+</a></li><li><a href="/posts/tech/media-sip/">SIP学习
+</a></li><li><a href="/posts/tech/media-rebar2/">rebar2学习
+</a></li><li><a href="/posts/tech/media-erlang/">《Erlang程序设计》
+</a></li><li><a href="/posts/other/2024/">2024年终总结和来年展望
+</a></li><li><a href="/posts/math/estimate/">量化交易系统设想
+</a></li><li><a href="/posts/math/beginner/">量化交易初学
+</a></li><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
+</a></li><li><a href="/posts/other/physics-computer/">计算机和物理的一点感悟
+</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
+</a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
+</a></li><li><a href="/posts/tech/media-sox/">Sox基本使用
+</a></li><li><a href="/posts/other/human-mind-weekness/">上头与下头与suicide
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">39</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">9</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a><a href="/categories/%E6%95%B0%E5%AD%A6%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="数学类">
+          数学类 <span class="badge rounded-pill">4</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">24</span>
+        </a><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">10</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="量化交易">
+          量化交易 <span class="badge rounded-pill">2</span>
+        </a><a href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="随意思考">
+          随意思考 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2025 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

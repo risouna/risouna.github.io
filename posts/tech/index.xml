@@ -6,7 +6,25 @@
     <description>Recent content in Tech on 理想奈的博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
-    <lastBuildDate>Fri, 03 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="/posts/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SIPP学习</title>
+      <link>/posts/tech/media-sipp/</link>
+      <pubDate>Thu, 09 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-sipp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SIP学习</title>
+      <link>/posts/tech/media-sip/</link>
+      <pubDate>Thu, 09 Jan 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/tech/media-sip/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>rebar2学习</title>
       <link>/posts/tech/media-rebar2/</link>
@@ -89,7 +107,7 @@
     </item>
     
     <item>
-      <title>RTP：实时应用传输协议 （RFC3550）</title>
+      <title>RTP学习</title>
       <link>/posts/tech/media-rtp/</link>
       <pubDate>Wed, 27 Nov 2024 00:00:00 +0000</pubDate>
       
@@ -143,7 +161,7 @@
     </item>
     
     <item>
-      <title>RDF-4566 SDP协议阅读</title>
+      <title>SDP学习</title>
       <link>/posts/tech/media-sdp/</link>
       <pubDate>Tue, 19 Nov 2024 00:00:00 +0000</pubDate>
       
