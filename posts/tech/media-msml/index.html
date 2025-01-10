@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MSML学习 - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="MSML学习">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2025-01-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2025-01-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1474">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="MSML学习" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/media-msml/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-01-10T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2025-01-10T00:00:00&#43;00:00" /><meta property="og:site_name" content="理想奈的博客" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="MSML学习"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+
+
+
+
+<script type="text/javascript" src="/js/Valine.min.js"></script>
+<script type="text/javascript" src="/js/cave-draw.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/katex.min.css">
+<script type="text/javascript" src="/js/katex.min.js"></script>
+<script type="text/javascript" src="/js/auto-render.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" type="text/css" href="/js/font.css">
+
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      
+      さぁ、君、取りたまえ
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">MSML学习</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">MSML学习
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2025-01-10
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>3 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#使用">使用</a></li>
+    <li><a href="#元素">元素</a></li>
+    <li><a href="#案例">案例</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><p>目前只是形成了一个大概的印象，还需要继续学习。</p>
+<p>资料：</p>
+<p><a href="http://www.ietf.org/ietf/IPR/convadia-ipr-draft-saleem-msml.txt">http://www.ietf.org/ietf/IPR/convadia-ipr-draft-saleem-msml.txt</a></p>
+<p><a href="http://www.ietf.org/rfc/rfc4240.txt">http://www.ietf.org/rfc/rfc4240.txt</a></p>
+<h2 id="概述">概述</h2>
+<p><a href="https://www.docin.com/p-655138178.html">https://www.docin.com/p-655138178.html</a></p>
+<p>媒体服务器标记语言（Media Server Markup Language）。</p>
+<p>基于SIP的媒体控制协议，它完全支持SIP协议，而不需要更改SIP协议，它将XML脚本加入到SIP INVITE and SIP INFO消息中。</p>
+<p>MSML是在媒体服务器中工作的一种应用层语言，用于向MS进行业务请求和控制。他协助SIP协议工作，SIP建立媒体会话和提供媒体传输通道，MSML提供应用层控制。</p>
+<p>MSML将媒体流和信令控制进行分类。</p>
+<p>在媒体服务器中媒体对象是媒体流请求和终结的实体（对话dialogs，会议conference），媒体流是在两个媒体对象之间建立起来的媒体通道。</p>
+<p>MSML提供如下工具：</p>
+<ul>
+<li>创建，修改或者破坏一个媒体对象</li>
+<li>建立或者删除媒体流</li>
+<li>修改媒体流属性（例如：音量）</li>
+</ul>
+<h2 id="使用">使用</h2>
+<ul>
+<li>
+<p>通过SIP Request-RUI 在会话中标记MSML</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>INVITE sip:msml@mediaserver.example.com SIP/2.0
+<span class="ln">2</span>INVITE sip:annc@mediaserver.example.com;play=cid:... SIP/2.0
+</code></pre></div></li>
+<li>
+<p>MSML嵌套在SIP INFO消息体中</p>
+</li>
+<li>
+<p>MSML识别目标 = RTP流</p>
+</li>
+<li>
+<p>允许用户选择如何使用MSML</p>
+</li>
+</ul>
+<h2 id="元素">元素</h2>
+<ul>
+<li>
+<p><code>&lt;audiomix&gt;</code></p>
+<p>定义了音频混合属性</p>
+</li>
+<li>
+<p><code>&lt;videolayout&gt;</code></p>
+<p>定义了视频混合（布局）属性</p>
+</li>
+<li>
+<p><code>n-loudest(e.g. &lt;n-loudest n=&quot;3&quot;/&gt;)</code></p>
+<p>音量</p>
+</li>
+<li>
+<p><code>automatic speaker notification (e.g. &lt;asn ri=&quot;2s&quot;/&gt;)</code></p>
+<p>自动语言通知</p>
+</li>
+<li>
+<p><code>&lt;selector id=&quot;1&quot; method=&quot;vas&quot; speakersess=&quot;previout&quot;/&gt;</code></p>
+<p>选择视频显示属性</p>
+</li>
+<li>
+<p><code>&lt;root size=&quot;CIF&quot; cvd:codec=&quot;H263&quot; cvd:bandwidth=&quot;512&quot; cvd:mpi=&quot;1&quot;/&gt;</code></p>
+<p>通用视频显示属性</p>
+</li>
+<li>
+<p><code>&lt;createconference&gt;</code></p>
+<p>初始创建会议</p>
+</li>
+<li>
+<p><code>&lt;modifyconference&gt;</code></p>
+<p>修改会议布局属性，或者向会议中增加成员。如<code>&lt;asn ri=&quot;0&quot;/&gt;</code> 禁止asn报告</p>
+</li>
+<li>
+<p><code>&lt;destroyconference&gt;</code></p>
+<p>删除一个会议，或者移除一个会议媒体布局（混合）。默认终结所有现存的sip对话</p>
+</li>
+</ul>
+<h2 id="案例">案例</h2>
+<p>1.创建一个音频或者视频会议：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln"> 1</span><span class="nt">&lt;msml</span> <span class="na">version=</span><span class="s">&#34;1.1&#34;</span><span class="nt">&gt;</span> //msml版本
+<span class="ln"> 2</span>    <span class="nt">&lt;createconference</span> <span class="na">name=</span><span class="s">&#34;conf1&#34;</span> <span class="na">deletewhen=</span><span class="s">&#34;nocontrol&#34;</span><span class="nt">&gt;</span> //会议名称 会议结束标记
+<span class="ln"> 3</span>        <span class="nt">&lt;audiomix</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span> //音频混合方式
+<span class="ln"> 4</span>            <span class="nt">&lt;n-loudest</span> <span class="na">n=</span><span class="s">&#34;3&#34;</span><span class="nt">/&gt;</span>
+<span class="ln"> 5</span>        <span class="nt">&lt;/audiomix&gt;</span>
+<span class="ln"> 6</span>        <span class="nt">&lt;videolayout</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span> <span class="na">type=</span><span class="s">&#34;text/msml-basic-layout&#34;</span><span class="nt">&gt;</span> //视频布局方式
+<span class="ln"> 7</span>            <span class="nt">&lt;selector</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span> <span class="na">method=</span><span class="s">&#34;vas&#34;</span> <span class="na">si=</span><span class="s">&#34;1s&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 8</span>                <span class="nt">&lt;root</span> <span class="na">size=</span><span class="s">&#34;CIF&#34;</span> <span class="na">cvd:codec=</span><span class="s">&#34;H263&#34;</span> <span class="na">cvd:bandtwidth=</span><span class="s">&#34;512&#34;</span> <span class="na">cvd:mpi=</span><span class="s">&#34;1&#34;</span> <span class="nt">/&gt;</span> //视频尺寸 编码类型 带宽
+<span class="ln"> 9</span>            <span class="nt">&lt;/selector&gt;</span>
+<span class="ln">10</span>        <span class="nt">&lt;/videolayout&gt;</span>
+<span class="ln">11</span>    <span class="nt">&lt;/createconference&gt;</span>
+<span class="ln">12</span><span class="nt">&lt;/msml&gt;</span>
+</code></pre></div><p>2.将一个用户（媒体流）加入到会议中：</p>
+<ul>
+<li>
+<p>将一个媒体格式为只收(receive-only)方式的用户加入会议：</p>
+<p>dir中都是to-id1</p>
+</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">1</span><span class="nt">&lt;join</span> <span class="err">id1:&#34;conn:dh628z&#34;</span> <span class="na">id2=</span><span class="s">&#34;conf:abc&#34;</span><span class="nt">&gt;</span>
+<span class="ln">2</span>    <span class="nt">&lt;stream</span> <span class="na">dir=</span><span class="s">&#34;to-id1&#34;</span> <span class="na">media=</span><span class="s">&#34;audio&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">3</span>    <span class="nt">&lt;stream</span> <span class="na">dir=</span><span class="s">&#34;to-id1&#34;</span> <span class="na">media=</span><span class="s">&#34;video&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">4</span><span class="nt">&lt;/join&gt;</span>
+</code></pre></div><ul>
+<li>将一个音频用户加入会议并设置音频属性：</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">1</span><span class="nt">&lt;join</span> <span class="err">id1:&#34;conn:dh628z&#34;</span> <span class="na">id2=</span><span class="s">&#34;conf:abc&#34;</span><span class="nt">&gt;</span>
+<span class="ln">2</span>    <span class="nt">&lt;stream</span> <span class="na">dir=</span><span class="s">&#34;to-id1&#34;</span> <span class="na">media=</span><span class="s">&#34;audio&#34;</span><span class="nt">&gt;</span>
+<span class="ln">3</span>        <span class="nt">&lt;gain</span> <span class="na">agc=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">4</span>        <span class="nt">&lt;clamp</span> <span class="na">dtmf=</span><span class="s">&#34;true&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">5</span>    <span class="nt">&lt;/stream&gt;</span>
+<span class="ln">6</span>    <span class="nt">&lt;stream</span> <span class="na">dir=</span><span class="s">&#34;to-id1&#34;</span> <span class="na">media=</span><span class="s">&#34;audio&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">7</span><span class="nt">&lt;/join&gt;</span>
+</code></pre></div><p>3.修改会议中一个或多个用户（媒体流）的连接属性：</p>
+<p>关闭先前会议的自动控制(AGC)功能，由于不包含clamp标记所以DTMF不受影响，会议的媒体流（从会议发向连接，即to）是不受影响的，因为它没有在modifyustream中。</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">1</span><span class="nt">&lt;modifystream</span> <span class="na">id1=</span><span class="s">&#34;conn:dh628z&#34;</span> <span class="na">id2=</span><span class="s">&#34;conf:abc&#34;</span><span class="nt">&gt;</span>
+<span class="ln">2</span>    <span class="nt">&lt;stream</span> <span class="na">dir=</span><span class="s">&#34;from-id1&#34;</span> <span class="na">media=</span><span class="s">&#34;audio&#34;</span><span class="nt">&gt;</span>
+<span class="ln">3</span>        <span class="nt">&lt;gain</span> <span class="na">agc=</span><span class="s">&#34;false&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">4</span>    <span class="nt">&lt;/stream&gt;</span>
+<span class="ln">5</span><span class="nt">&lt;/modifystream&gt;</span>
+</code></pre></div><p>4,从会议中删除一个用户（媒体流）的连接</p>
+<p>在unjoin中不能修改媒体流属性。</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">1</span><span class="nt">&lt;unjoin</span> <span class="na">id1=</span><span class="s">&#34;conn:dh629z&#34;</span> <span class="na">id2=</span><span class="s">&#34;conf:abc&#34;</span><span class="nt">&gt;</span>
+<span class="ln">2</span>    <span class="nt">&lt;stream</span> <span class="na">dir=</span><span class="s">&#34;to-id1&#34;</span> <span class="na">media=</span><span class="s">&#34;audio&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">3</span>    <span class="nt">&lt;stream</span> <span class="na">dir=</span><span class="s">&#34;to-id1&#34;</span> <span class="na">media=</span><span class="s">&#34;video&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">4</span><span class="nt">&lt;/unjoin&gt;</span>
+</code></pre></div><p>并将该用户设为语音只读模式</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">1</span><span class="nt">&lt;join</span> <span class="na">id1=</span><span class="s">&#34;conn:dh629z&#34;</span> <span class="na">id2=</span><span class="s">&#34;conf:abc&#34;</span><span class="nt">&gt;</span>
+<span class="ln">2</span>    <span class="nt">&lt;stream</span> <span class="na">dir=</span><span class="s">&#34;from-id1&#34;</span> <span class="na">media=</span><span class="s">&#34;audio&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">3</span><span class="nt">&lt;/join&gt;</span>
+</code></pre></div><p>5.开启ASN</p>
+<p>ASN只能进行音频混合，audiomix的其他音频属性不变，<code>&lt;videolayout&gt;</code>视频属性不变</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">1</span><span class="nt">&lt;msml</span> <span class="na">version=</span><span class="s">&#34;1.1&#34;</span><span class="nt">&gt;</span>
+<span class="ln">2</span>    <span class="nt">&lt;modifyconference</span> <span class="na">id=</span><span class="s">&#34;conf:conf1&#34;</span><span class="nt">&gt;</span>
+<span class="ln">3</span>        <span class="nt">&lt;audiomix</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
+<span class="ln">4</span>            <span class="nt">&lt;asn</span> <span class="na">r1=</span><span class="s">&#34;2s&#34;</span> <span class="na">cvd:asth=</span><span class="s">&#34;-96&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">5</span>        <span class="nt">&lt;/audiomix&gt;</span>
+<span class="ln">6</span>    <span class="nt">&lt;/modifyconference&gt;</span>
+<span class="ln">7</span><span class="nt">&lt;/msml&gt;</span>
+</code></pre></div><p>6.修改为音频会议</p>
+<p>修改后并不打断会议，只是将视频会议修改为音频会议</p>
+<p><code>&lt;videolayout&gt;</code>用来判断视频混合是否被删除，但他不包含视频描述<code>&lt;selector&gt;</code>,<code>&lt;root&gt;</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">1</span><span class="nt">&lt;msml</span> <span class="na">version=</span><span class="s">&#34;1.1&#34;</span><span class="nt">&gt;</span>
+<span class="ln">2</span>    <span class="nt">&lt;destroyconference</span> <span class="na">id=</span><span class="s">&#34;conf:conf1&#34;</span><span class="nt">&gt;</span>
+<span class="ln">3</span>        <span class="nt">&lt;videolayout</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span> <span class="na">type=</span><span class="s">&#34;text.msml-basic-layout&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">4</span>	<span class="nt">&lt;/destroyconference&gt;</span>
+<span class="ln">5</span><span class="nt">&lt;/msml&gt;</span>
+</code></pre></div><p>7.通过sip INFO消息将请求发给ms（媒体服务器）</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln"> 1</span><span class="nt">&lt;msml</span> <span class="na">version=</span><span class="s">&#34;1.1&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 2</span>    <span class="nt">&lt;dialogstart</span> <span class="na">target=</span><span class="s">&#34;conn:178d9az&#34;</span> <span class="na">type=</span><span class="s">&#34;application/moml+xml&#34;</span> <span class="na">id=</span><span class="s">&#34;mydialogname&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 3</span>        <span class="nt">&lt;play</span> <span class="na">cvd:barge=</span><span class="s">&#34;true&#34;</span> <span class="na">cvd:cleardb=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 4</span>            <span class="nt">&lt;audio</span> <span class="na">uri=</span><span class="s">&#34;file://4&#34;</span><span class="nt">/&gt;</span>
+<span class="ln"> 5</span>        <span class="nt">&lt;/play&gt;</span>
+<span class="ln"> 6</span>        <span class="nt">&lt;dtmf</span> <span class="na">dft=</span><span class="s">&#34;3s&#34;</span> <span class="na">idt=</span><span class="s">&#34;5s&#34;</span> <span class="na">edt=</span><span class="s">&#34;2s&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 7</span>            <span class="nt">&lt;pattern</span> <span class="na">digits=</span><span class="s">&#34;min=2;max=6;rtk=#&#34;</span> <span class="na">format=</span><span class="s">&#34;mom1+digits&#34;</span><span class="nt">/&gt;</span>
+<span class="ln"> 8</span>            <span class="nt">&lt;noinput/&gt;</span>
+<span class="ln"> 9</span>            <span class="nt">&lt;nomatch/&gt;</span>
+<span class="ln">10</span>        <span class="nt">&lt;/dtmf&gt;</span>
+<span class="ln">11</span>        <span class="nt">&lt;exit</span> <span class="na">namelist=</span><span class="s">&#34;dtmf.end dtmf.digits&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">12</span>    <span class="nt">&lt;/dialogstart&gt;</span>
+<span class="ln">13</span><span class="nt">&lt;/msml&gt;</span>
+</code></pre></div><p>8.通过sip INFO消息的响应消息将MSML操作请求的结果带回</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">1</span><span class="nt">&lt;msml</span> <span class="na">version=</span><span class="s">&#34;1.1&#34;</span><span class="nt">&gt;</span>
+<span class="ln">2</span>    <span class="nt">&lt;result</span> <span class="na">response=</span><span class="s">&#34;200&#34;</span><span class="nt">&gt;</span>
+<span class="ln">3</span>        <span class="nt">&lt;dialogid&gt;</span>conn:178d9az;dialog:6td8<span class="nt">&lt;/dialogid&gt;</span>
+<span class="ln">4</span>    <span class="nt">&lt;/result&gt;</span>
+<span class="ln">5</span><span class="nt">&lt;/msml&gt;</span>
+</code></pre></div><p>DTML收集完成后也是通过sip INFO消息体携带通知事件</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">1</span><span class="nt">&lt;msml</span> <span class="na">version=</span><span class="s">&#34;1.1&#34;</span><span class="nt">&gt;</span>
+<span class="ln">2</span>    <span class="nt">&lt;event</span> <span class="na">name=</span><span class="s">&#34;msm;.dialog.exit&#34;</span> <span class="na">id=</span><span class="s">&#34;conn:178d9az;dialog:6td8&#34;</span><span class="nt">&gt;</span>
+<span class="ln">3</span>        <span class="nt">&lt;name&gt;</span>dtmf.end<span class="nt">&lt;/name&gt;</span>
+<span class="ln">4</span>        <span class="nt">&lt;value&gt;</span>dtmf.match<span class="nt">&lt;/value&gt;</span>
+<span class="ln">5</span>        <span class="nt">&lt;name&gt;</span>dtmf.digits<span class="nt">&lt;/name&gt;</span>
+<span class="ln">6</span>        <span class="nt">&lt;value&gt;</span>12345#<span class="nt">&lt;/value&gt;</span>
+<span class="ln">7</span>    <span class="nt">&lt;/event&gt;</span>
+<span class="ln">8</span><span class="nt">&lt;/msml&gt;</span>
+</code></pre></div><p>9.请求消息都是通过sip INFO消息体发送给ms的</p>
+<p>相比7多了一个send</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln"> 1</span><span class="nt">&lt;msml</span> <span class="na">version=</span><span class="s">&#34;1.1&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 2</span>    <span class="nt">&lt;dialogstart</span> <span class="na">target=</span><span class="s">&#34;conn:178d9az&#34;</span> <span class="na">type=</span><span class="s">&#34;application/moml+xml&#34;</span> <span class="na">id=</span><span class="s">&#34;mydialogname&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 3</span>        <span class="nt">&lt;play</span> <span class="na">cvd:barge=</span><span class="s">&#34;true&#34;</span> <span class="na">cvd:cleardb=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 4</span>            <span class="nt">&lt;audio</span> <span class="na">uri=</span><span class="s">&#34;file://4&#34;</span><span class="nt">/&gt;</span>
+<span class="ln"> 5</span>        <span class="nt">&lt;/play&gt;</span>
+<span class="ln"> 6</span>        <span class="nt">&lt;send</span> <span class="na">target=</span><span class="s">&#34;source&#34;</span> <span class="na">event=</span><span class="s">&#34;app.playcomplete&#34;</span> <span class="na">namelist=</span><span class="s">&#34;play.amt&#34;</span><span class="nt">/&gt;</span>
+<span class="ln"> 7</span>        <span class="nt">&lt;dtmf</span> <span class="na">dft=</span><span class="s">&#34;3s&#34;</span> <span class="na">idt=</span><span class="s">&#34;5s&#34;</span> <span class="na">edt=</span><span class="s">&#34;2s&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 8</span>            <span class="nt">&lt;pattern</span> <span class="na">digits=</span><span class="s">&#34;min=2;max=6;rtk=#&#34;</span> <span class="na">format=</span><span class="s">&#34;mom1+digits&#34;</span><span class="nt">/&gt;</span>
+<span class="ln"> 9</span>            <span class="nt">&lt;noinput/&gt;</span>
+<span class="ln">10</span>            <span class="nt">&lt;nomatch/&gt;</span>
+<span class="ln">11</span>        <span class="nt">&lt;/dtmf&gt;</span>
+<span class="ln">12</span>        <span class="nt">&lt;exit</span> <span class="na">namelist=</span><span class="s">&#34;dtmf.end dtmf.digits&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">13</span>    <span class="nt">&lt;/dialogstart&gt;</span>
+<span class="ln">14</span><span class="nt">&lt;/msml&gt;</span>
+</code></pre></div><p>10.结果通过INFO返回</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">1</span><span class="nt">&lt;msml</span> <span class="na">version=</span><span class="s">&#34;1.1&#34;</span><span class="nt">&gt;</span>
+<span class="ln">2</span>    <span class="nt">&lt;result</span> <span class="na">response=</span><span class="s">&#34;200&#34;</span><span class="nt">&gt;</span>
+<span class="ln">3</span>        <span class="nt">&lt;description</span> <span class="err">MSML</span> <span class="err">document</span> <span class="err">execution</span> <span class="err">completes</span> <span class="nt">/&gt;</span>
+<span class="ln">4</span>    <span class="nt">&lt;/result&gt;</span>
+<span class="ln">5</span><span class="nt">&lt;/msml&gt;</span>
+</code></pre></div><p>11.放音和信号收集事件处理格式</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln"> 1</span><span class="nt">&lt;msml</span> <span class="na">version=</span><span class="s">&#34;1.1&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 2</span>    <span class="nt">&lt;event</span> <span class="na">name=</span><span class="s">&#34;app.playcomplete&#34;</span> <span class="na">id=</span><span class="s">&#34;conn:178d9az/dialog:mydialogname&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 3</span>        <span class="nt">&lt;name&gt;</span>play.amt<span class="nt">&lt;/name&gt;</span>
+<span class="ln"> 4</span>        <span class="nt">&lt;value&gt;</span>4989ms<span class="nt">&lt;/value&gt;</span>
+<span class="ln"> 5</span>    <span class="nt">&lt;/event&gt;</span>
+<span class="ln"> 6</span><span class="nt">&lt;/msml&gt;</span>
+<span class="ln"> 7</span><span class="nt">&lt;msml</span> <span class="na">version=</span><span class="s">&#34;1.1&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 8</span>    <span class="nt">&lt;event</span> <span class="na">name=</span><span class="s">&#34;msml.dialog.exit&#34;</span> <span class="na">id=</span><span class="s">&#34;conn:178d9az/dialog:mydialogname&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 9</span>        <span class="nt">&lt;name&gt;</span>dtmf.end<span class="nt">&lt;/name&gt;</span>
+<span class="ln">10</span>        <span class="nt">&lt;value&gt;</span>dtmf.match<span class="nt">&lt;/value&gt;</span>
+<span class="ln">11</span>        <span class="nt">&lt;name&gt;</span>dtmf.digits<span class="nt">&lt;/name&gt;</span>
+<span class="ln">12</span>        <span class="nt">&lt;value&gt;</span>123456<span class="nt">&lt;/value&gt;</span>
+<span class="ln">13</span>    <span class="nt">&lt;/event&gt;</span>
+<span class="ln">14</span><span class="nt">&lt;/msml&gt;</span>
+</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/media-netpackage-observe/">观察SIP， SDP，RTP包及MSML
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/media-netpackage-observe/">观察SIP， SDP，RTP包及MSML
+</a></li><li><a href="/posts/tech/media-sipp/">SIPP学习
+</a></li><li><a href="/posts/tech/media-sip/">SIP学习
+</a></li><li><a href="/posts/tech/media-rebar2/">rebar2学习
+</a></li><li><a href="/posts/tech/media-erlang/">《Erlang程序设计》
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">所愿所爱所喜所恨所感，即行之所往。 既是原因，也是目的。</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-msml/">MSML学习
+</a></li><li><a href="/posts/tech/media-netpackage-observe/">观察SIP， SDP，RTP包及MSML
+</a></li><li><a href="/posts/tech/media-sipp/">SIPP学习
+</a></li><li><a href="/posts/tech/media-sip/">SIP学习
+</a></li><li><a href="/posts/tech/media-rebar2/">rebar2学习
+</a></li><li><a href="/posts/tech/media-erlang/">《Erlang程序设计》
+</a></li><li><a href="/posts/other/2024/">2024年终总结和来年展望
+</a></li><li><a href="/posts/math/estimate/">量化交易系统设想
+</a></li><li><a href="/posts/math/beginner/">量化交易初学
+</a></li><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
+</a></li><li><a href="/posts/other/physics-computer/">计算机和物理的一点感悟
+</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
+</a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">41</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">9</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a><a href="/categories/%E6%95%B0%E5%AD%A6%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="数学类">
+          数学类 <span class="badge rounded-pill">4</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">26</span>
+        </a><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">10</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="量化交易">
+          量化交易 <span class="badge rounded-pill">2</span>
+        </a><a href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="随意思考">
+          随意思考 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2025 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>

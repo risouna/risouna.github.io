@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>观察SIP， SDP，RTP包及MSML - 理想奈的博客</title><link rel="apple-touch-icon" href="/images/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/images/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/images/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/images/favicons/manifest.json">
+<link rel="icon" href="/images/favicons/favicon.ico">
+<meta name="keywords" content="" />
+<meta name="description" content="" /><meta itemprop="name" content="观察SIP， SDP，RTP包及MSML">
+<meta itemprop="description" content=""><meta itemprop="datePublished" content="2025-01-10T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2025-01-10T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="4293">
+<meta itemprop="keywords" content=",,," /><meta property="og:title" content="观察SIP， SDP，RTP包及MSML" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/tech/media-netpackage-observe/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2025-01-10T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2025-01-10T00:00:00&#43;00:00" /><meta property="og:site_name" content="理想奈的博客" />
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="观察SIP， SDP，RTP包及MSML"/>
+<meta name="twitter:description" content=""/>
+<meta data-name="palette" content="blue"><link rel=stylesheet href="/css/bundle.min.d63d5781d5b3b2441c3e0c8ba081eb171c0ae292f799670fe6d38f68e3a2816d.css" integrity="sha256-1j1XgdWzskQcPgyLoIHrFxwK4pL3mWcP5tOPaOOigW0=" crossorigin="anonymous"><script src="/js/bundle.min.1c471eeba442e80350b91324d765b69b27af83f0de35d552aa2a410bac6ee793.js" integrity="sha256-HEce66RC6ANQuRMk12W2myevg/DeNdVSqipBC6xu55M=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    macros: {
+      "\\ge": "\\geqslant",
+      "\\le": "\\leqslant",
+      "\\geq": "\\geqslant",
+      "\\leq": "\\leqslant"
+	}
+  });
+}); 
+</script>
+<meta property="og:type" content="index"/>
+<meta property="og:title" content="Unzybaryl`s Sekai" />
+<meta property="og:image" content="https://eustia.me/images/profile1.jpg" />
+<meta property="og:url" content="https://eustia.me/" />
+
+
+
+
+
+<script type="text/javascript" src="/js/Valine.min.js"></script>
+<script type="text/javascript" src="/js/cave-draw.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/katex.min.css">
+<script type="text/javascript" src="/js/katex.min.js"></script>
+<script type="text/javascript" src="/js/auto-render.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" type="text/css" href="/js/font.css">
+
+</head><body><header><nav class="navbar navbar-expand-xl fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      
+      
+      さぁ、君、取りたまえ
+      
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-1 mb-2 mb-lg-0"><form class="search-bar d-flex ms-1" action="/search">
+  <div class="input-group input-group-sm">
+    <button class="btn btn-search disabled position-absolute left-0" type="submit"><i class="fas fa-fw fa-search"></i></button>
+    <input class="form-control rounded-pill" id="searchQuery" name="q" type="search" aria-label="Search">
+  </div>
+</form></ul><ul class="navbar-nav me-1 mb-2 mb-lg-0 me-1 ms-auto"><li class="nav-item">
+          <a class="nav-link" href="/archives">
+            <i class="fas fa-fw fa-file-archive"></i>归档
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/about/">
+            <i class="fas fa-fw fa-info-circle"></i>关于
+          </a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="/bin/">
+            <i class="fas fa-fw fa-bookmark"></i>废案
+          </a>
+        </li><li class="nav-item">
+  <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasSettings" role="button"
+    aria-controls="offcanvasSettings">
+    <i class="fas fa-fw fa-sliders-h"></i> 设置
+  </a>
+</li>
+
+<div class="offcanvas offcanvas-end surface h-100" tabindex="-1" id="offcanvasSettings"
+  aria-labelledby="offcanvasSettingsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" w id="offcanvasSettingsLabel"><i class="fas fa-fw fa-sliders-h"></i> 设置</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body"><section class="setting">
+  <form class="row">
+    <div class="col-auto">
+      <label><i class="fas fa-fw fa-adjust"></i> 模式</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="modeSwitcher">
+      </div>
+    </div>
+  </form>
+</section>
+<section class="setting">
+  <form class="font-size-switcher-form row">
+    <div class="col-auto">
+      <label for="fontSize" class="form-label"><i class="fas fa-fw fa-font"></i> 字体大小</label>
+    </div>
+    <div class="col-auto ms-auto">
+      <input type="range" class="form-range" min="-2" max="2" id="fontSize">
+    </div>
+  </form>
+</section>
+
+</div>
+</div></ul>
+    </div>
+  </div>
+</nav>
+</header>
+<main role="main" class="container">
+      <div class="row content">
+<div class="col-lg-8">
+  <div class="container"><nav class="row" aria-label="breadcrumb">
+  <ol class="breadcrumb surface"><li class="breadcrumb-item"><a href="/">主页</a></li><li class="breadcrumb-item"><a href="/posts/">文章</a></li><li class="breadcrumb-item"><a href="/posts/tech/">Tech</a></li><li class="breadcrumb-item active">观察SIP， SDP，RTP包及MSML</li></ol>
+</nav><article class="post row surface"><div class="post-panel-wrapper">
+  <div class="post-panel d-flex flex-column">
+    <a id="sidebarToggler" class="action d-none d-lg-block" role="button">
+  <i class="fas fa-fw fa-expand-alt fa-rotate-45"></i>
+</a>
+  
+    
+
+    
+    <a class="action" data-bs-container="body" data-bs-toggle="popover" data-bs-html="true" data-bs-placement="bottom"
+  data-bs-trigger="focus" tabindex="0"
+  data-bs-content="&lt;a target=&#34;_blank&#34; rel=&#34;license&#34; href=&#34;https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh&#34;&gt;CC BY-NC-ND 4.0 &lt;i class=&#34;fab fa-fw fa-creative-commons&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-by&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nc&#34;&gt;&lt;/i&gt;&lt;i class=&#34;fab fa-fw fa-creative-commons-nd&#34;&gt;&lt;/i&gt;&lt;/a&gt;
+">
+  <i class="fas fa-fw fa-copyright"></i>
+</a>
+    <a id="btnTOC" class="fas fa-fw fa-list-alt" data-bs-toggle="offcanvas" href="#offcanvasTOC" aria-controls="offcanvasTOC" role="button">
+</a>
+  </div>
+</div>
+<h1 class="post-title my-3">观察SIP， SDP，RTP包及MSML
+</h1><div class="post-meta mb-3">
+  <span class="post-date me-2">
+    <i class="fas fa-fw fa-calendar-alt"></i>2025-01-10
+  </span>
+  <span class="post-reading-time me-2">
+    <i class="fas fa-fw fa-coffee"></i>9 分钟阅读
+  </span>
+<a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
+
+
+
+                
+                <div class="addthis_inline_share_toolbox"></div>
+            <div class="offcanvas offcanvas-end surface" tabindex="-1" id="offcanvasTOC" aria-labelledby="offcanvasTOCLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasTOCLabel">目录</h5>
+    <a role="button" data-bs-dismiss="offcanvas" aria-label="Close">
+      <span class="fas fa-2x fa-fw fa-times"></span>
+    </a>
+  </div>
+  <div class="offcanvas-body">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#建立连接前">建立连接前</a></li>
+    <li><a href="#连接建立后">连接建立后</a>
+      <ul>
+        <li><a href="#请求放音">请求放音</a></li>
+        <li><a href="#停止放音">停止放音</a></li>
+      </ul>
+    </li>
+    <li><a href="#断开连接">断开连接</a></li>
+    <li><a href="#结合sipp测试脚本">结合SIPP测试脚本</a></li>
+  </ul>
+</nav>
+  </div>
+</div><div class="post-content mb-3" ><h2 id="建立连接前">建立连接前</h2>
+<p>UAC INVITE，进行SDP offer：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Initiation Protocol (INVITE)
+<span class="ln"> 2</span>    Request-Line: INVITE sip:service@10.1.68.48:5080 SIP/2.0
+<span class="ln"> 3</span>    Message Header
+<span class="ln"> 4</span>        Via: SIP/2.0/UDP 10.4.6.199:5060;branch=z9hG4bK-33212-1-0
+<span class="ln"> 5</span>        From: sipp &lt;sip:sipp@10.4.6.199:5060&gt;;tag=1
+<span class="ln"> 6</span>        To: sut &lt;sip:service@10.1.68.48:5080&gt;
+<span class="ln"> 7</span>        Call-ID: 1-33212@10.4.6.199
+<span class="ln"> 8</span>        [Generated Call-ID: 1-33212@10.4.6.199]
+<span class="ln"> 9</span>        CSeq: 1 INVITE
+<span class="ln">10</span>        Contact: sip:sipp@10.4.6.199:5060
+<span class="ln">11</span>        Max-Forwards: 70
+<span class="ln">12</span>        Subject: Performance Test
+<span class="ln">13</span>        Content-Type: application/sdp
+<span class="ln">14</span>        Content-Length:   149
+<span class="ln">15</span>    Message Body
+<span class="ln">16</span>        Session Description Protocol
+<span class="ln">17</span>            Session Description Protocol Version (v): 0
+<span class="ln">18</span>            Owner/Creator, Session Id (o): caller 0 0 IN IP4 10.1.93.116
+<span class="ln">19</span>            Session Name (s): MobileVrbt_UEA_User_Caller_18500000000_18600000000
+<span class="ln">20</span>            Session Information (i): -
+<span class="ln">21</span>            Connection Information (c): IN IP4 10.4.6.199
+<span class="ln">22</span>            Time Description, active time (t): 0 0
+<span class="ln">23</span>            Media Description, name and address (m): audio 5002 RTP/AVP 8
+<span class="ln">24</span>            [Generated Call-ID: 1-33212@10.4.6.199]
+</code></pre></div><p>SIP：总的来说来说挺简单</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>含义说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Call-ID</td>
+<td>由本地设备(Client)生成，全局唯一，每次呼叫这个值唯一不变</td>
+<td>Call-ID: <a href="mailto:asd88asd77a@1.2.3.4">asd88asd77a@1.2.3.4</a></td>
+</tr>
+<tr>
+<td>From</td>
+<td>表示请求的发起者</td>
+<td>From: sip:user1@domain.com;tag=49583</td>
+</tr>
+<tr>
+<td>To</td>
+<td>表示请求的接收者</td>
+<td>To: sip:user2@domain.com</td>
+</tr>
+<tr>
+<td>Via</td>
+<td>Via头域是被服务器插入request中，用来检查路由环的，并且可以使response根据via找到返回的路</td>
+<td>Via: SIP/2.0/TCP user1pc.domain.com;branch=z9hG4bK776sgdkse</td>
+</tr>
+<tr>
+<td>Max-Forwards</td>
+<td>用于表示这个包最多可以传送多少跳，每经过一跳都会减一当Max-Forwards==0系统会返回483。默认为70</td>
+<td>Max-Forwards: 70</td>
+</tr>
+<tr>
+<td>Contact</td>
+<td>包含源的URI信息，用来给响应方直接和源建立连接用</td>
+<td>Contact: sip:192.168.100.1:1111</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>指明消息体的类型 (SDP会话描述协议)</td>
+<td>Content-Type: text/plain；Content-Type: application/sdp; Content-Type: application/cpim;</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>指明消息体的字节大小</td>
+<td>Content-Length: 18</td>
+</tr>
+</tbody>
+</table>
+<p>SDP：</p>
+<ul>
+<li>
+<p>v：版本信息</p>
+</li>
+<li>
+<p>o=&lt;用户名&gt;&lt;会话ID&gt;&lt;会话版本&gt;&lt;网络类型&gt;&lt;地址类型&gt;&lt;单播地址&gt;</p>
+<p>&lt;用户名&gt;：是登陆源主机的用户的名字，如果不能提供，则用&quot;-&ldquo;表示，用户名不能包含空格。
+&lt;会话ID&gt;：是一个数字字符串，&lt;用户名&gt;&lt;会话ID&gt;&lt;网络类型&gt;和&lt;单播地址&gt;这个组合形成了表示该会话的唯一标识，&lt;会话ID&gt;通常使用NTP格式的时间戳标识。
+&lt;会话版本&gt;：是当前会话描述的版本号，如果当前会话的数据被修改时，这个版本号会递增，同样推荐使用NTP格式的时间戳。
+&lt;网络类型&gt;：是一个文本字符串，标志当前网络的类型，最初&quot;IN”标识&quot;Internet&rdquo;，未来可能会定义其他的值。
+&lt;地址类型&gt;：是一个文本字符串，标志当前地址的类型，最初只有&quot;IP4&quot;和&quot;IP6&quot;有定义，未来可能定义其他的值。
+&lt;单播地址&gt;：是创建会话的主机的地址，可以是域名，也可以是&quot;IP4&quot;或&quot;IP6&quot;IP地址。域名是首先，除非域名不可获得。如果使用IP地址，则需要使用全球唯一的IP地址，不能使用本地IP地址。</p>
+</li>
+<li>
+<p>s=&lt;会话名字&gt;
+字段&quot;s=&ldquo;是文本类型的会话名字，每个会话描述有且仅有一个&quot;s=&ldquo;字段，&ldquo;s=&ldquo;字段不能为空，并且应该为ISO 10646字体。如果一个会话没有有意义的名字，则此字段应该为一个空格。</p>
+</li>
+<li>
+<p>i=&lt;会话描述&gt;
+&ldquo;i=&ldquo;字段提供会话的文本信息，在会话层和媒体层最多出现一次。</p>
+</li>
+<li>
+<p>c=&lt;网络类型&gt;&lt;地址类型&gt;&lt;连接地址&gt;
+这个字段包含连接数据，一个会话描述必须在每个媒体层都包含&quot;c=&ldquo;字段或者在会话层包含一个&quot;c=&ldquo;字段。如果这两个层都出现的话，则媒体层出现的&quot;c=&ldquo;会覆盖会话层出现的&quot;c=&ldquo;字段的值。</p>
+<p>&lt;网络类型&gt;：是一个文本字符串，标志当前网络的类型，最初&quot;IN”标识&quot;Internet&rdquo;，未来可能会定义其他的值。
+&lt;地址类型&gt;：是一个文本字符串，标志当前地址的类型，最初只有&quot;IP4&quot;和&quot;IP6&quot;有定义，未来可能定义其他的值。
+&lt;连接地址&gt;标志连接的地址，当&lt;连接地址&gt;为IP4或者IP6时，连接的定义如下：
+i）当回话是多播时，地址为多播地址；当会话是单播时，地址为单播地址，并且为媒体数据的原地址。
+ii）如果地址是IPv4，则还需要给出TTL的值，TTL标识包的生存时间，范围是0~255.</p>
+</li>
+<li>
+<p>t=&lt;起始时间&gt;&lt;结束时间&gt;
+&ldquo;t=“子弹标志了会话的起始时间和结束时间，如果会话在不规则的多个时间段内有效，则可能会出现多个字段的&quot;t=”。如果时间段是规则的，则应该使用&quot;r=&ldquo;字段，后面将会介绍。</p>
+</li>
+<li>
+<p>m=&lt;媒体类型&gt;&lt;端口&gt;&lt;协议&gt;&lt;格式类型&gt;
+一个会话描述可能包括多个媒体描述。每个媒体描述都以&quot;m=&ldquo;字段开始的，结束于下一个&quot;m=&ldquo;或者整个会话结束。</p>
+<p>&lt;媒体类型&gt;：本规范定义了视频、音频、文本、应用和消息这几种类型。
+&lt;端口&gt;：被房媒体流的端口，这个字段的意义依赖于&quot;c=&ldquo;字段和&lt;协议&gt;字段。如果不适用连续的端口或者没有按照偶数RTP端口，奇数RTCP端口，则必须使用&quot;a=rtcp:&ldquo;来标识RTCP的端口。应用程序被发送到一个端口，此端口是一个奇数端口，并且出现”a=rtcp:”行时，此媒体一定不能从RTP端口减一，应用程序必须发送RTP数据到指定的端口，并且发送RTCP到”a=rtcp”属性设定的端口。对于某些应用程序，它们的媒体流通过层级解码发送到单播地址时，它们有必要设定多个传输端口。使用语法和多播地址的方式类似： m= / …。这种场景中，使用的端口依赖于传输协议类型。一些读者可能明白，通常默情况下，RTP使用偶数端口传输数据，它的RTCP使用高一位数的奇数端口控制RTP会话。表示RTP会话数量。
+&lt;协议&gt;：它是传输协议。这里的传输协议依赖于”c=”行定义的地址类型。目前支持的主要的几个类型包括：UDP，RTP/AVP，RTP/SAVP。这里专门针对媒体格式设定不同的传输协议是因为同一网络协议时，标准的媒体格式可以通过不同的传输协议来进行传输。这样的设定可以支持不同的网络传输和满足不同检测工具部署。
+&lt;格式类型&gt;：它表示一种媒体格式描述。前面第四个子项或者其他后续子项都表示媒体格式。媒体格式描述的解析依赖于子项的值。如果 子项是”RTP/AVP”或者”RTP/SAVP，媒体格式描述会包含RTP payload 类型号码。当给定了一个payload类型列表时(静态方式，从96-127)，这表示所有的媒体格式可以适用于此会话中，但是，通常列表中的第一个格式应该作为此会话默认支持格式。如果payload类型列表是动态的payload类型列表的话，SDP使用”a=rtpmap:”属性来执行一个映射（从RTP payload 类型号码到媒体解码名称），通过媒体类型号码到媒体解码名称的对应关系来确认payload格式。”a=fmtp:” 行可以用来设定具体的媒体格式参数。</p>
+</li>
+</ul>
+<p>MS 回信：</p>
+<p>100</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Initiation Protocol (100)
+<span class="ln"> 2</span>    Status-Line: SIP/2.0 100 Trying
+<span class="ln"> 3</span>    Message Header
+<span class="ln"> 4</span>        Via: SIP/2.0/UDP 10.4.6.199:5060;branch=z9hG4bK-33212-1-0
+<span class="ln"> 5</span>        To: sut &lt;sip:service@10.1.68.48:5080&gt;
+<span class="ln"> 6</span>        From: sipp &lt;sip:sipp@10.4.6.199:5060&gt;;tag=1
+<span class="ln"> 7</span>        Call-ID: 1-33212@10.4.6.199
+<span class="ln"> 8</span>        [Generated Call-ID: 1-33212@10.4.6.199]
+<span class="ln"> 9</span>        CSeq: 1 INVITE
+<span class="ln">10</span>        Content-Length: 0
+</code></pre></div><p>200，同时SDP answer</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Initiation Protocol (200)
+<span class="ln"> 2</span>    Status-Line: SIP/2.0 200 OK
+<span class="ln"> 3</span>    Message Header
+<span class="ln"> 4</span>        Via: SIP/2.0/UDP 10.4.6.199:5060;branch=z9hG4bK-33212-1-0
+<span class="ln"> 5</span>        To: sut &lt;sip:service@10.1.68.48:5080&gt;;tag=YRrWa7c2kH
+<span class="ln"> 6</span>        From: sipp &lt;sip:sipp@10.4.6.199:5060&gt;;tag=1
+<span class="ln"> 7</span>        Call-ID: 1-33212@10.4.6.199
+<span class="ln"> 8</span>        [Generated Call-ID: 1-33212@10.4.6.199]
+<span class="ln"> 9</span>        CSeq: 1 INVITE
+<span class="ln">10</span>        Allow: ACK, BYE, CANCEL, INFO, INVITE, MESSAGE, OPTIONS, PRACK, UPDATE
+<span class="ln">11</span>        Contact: &lt;sip:service@10.1.68.48:5080&gt;
+<span class="ln">12</span>        Content-Type: application/sdp
+<span class="ln">13</span>        Supported: 100rel, precondition
+<span class="ln">14</span>        Content-Length: 137
+<span class="ln">15</span>    Message Body
+<span class="ln">16</span>        Session Description Protocol
+<span class="ln">17</span>            Session Description Protocol Version (v): 0
+<span class="ln">18</span>            Owner/Creator, Session Id (o): - 0 1736403692661597 IN IP4 10.1.68.48
+<span class="ln">19</span>            Session Name (s): -
+<span class="ln">20</span>            Session Information (i): Session description protocol
+<span class="ln">21</span>            Connection Information (c): IN IP4 10.1.68.48
+<span class="ln">22</span>            Time Description, active time (t): 0 0
+<span class="ln">23</span>            Media Description, name and address (m): audio 30008 RTP/AVP 8
+<span class="ln">24</span>            [Generated Call-ID: 1-33212@10.4.6.199]
+</code></pre></div><p>UAC ACK，连接建立：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Initiation Protocol (ACK)
+<span class="ln"> 2</span>    Request-Line: ACK sip:service@10.1.68.48:5080 SIP/2.0
+<span class="ln"> 3</span>    Message Header
+<span class="ln"> 4</span>        Via: SIP/2.0/UDP 10.4.6.199:5060;branch=z9hG4bK-33212-1-3
+<span class="ln"> 5</span>        From: sipp &lt;sip:sipp@10.4.6.199:5060&gt;;tag=1
+<span class="ln"> 6</span>        To: sut &lt;sip:service@10.1.68.48:5080&gt;;tag=YRrWa7c2kH
+<span class="ln"> 7</span>        Call-ID: 1-33212@10.4.6.199
+<span class="ln"> 8</span>        [Generated Call-ID: 1-33212@10.4.6.199]
+<span class="ln"> 9</span>        CSeq: 1 ACK
+<span class="ln">10</span>        Contact: sip:sipp@10.4.6.199:5060
+<span class="ln">11</span>        Max-Forwards: 70
+<span class="ln">12</span>        Subject: Performance Test
+<span class="ln">13</span>        Content-Length: 0
+</code></pre></div><h2 id="连接建立后">连接建立后</h2>
+<h3 id="请求放音">请求放音</h3>
+<p>UAC INFO</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Initiation Protocol (INFO)
+<span class="ln"> 2</span>    Request-Line: INFO sip:service@10.1.68.48:5080 SIP/2.0
+<span class="ln"> 3</span>    Message Header
+<span class="ln"> 4</span>        Via: SIP/2.0/UDP 10.4.6.199:5060;branch=z9hG4bK-33212-1-5
+<span class="ln"> 5</span>        From: sipp &lt;sip:sipp@10.4.6.199:5060&gt;;tag=1
+<span class="ln"> 6</span>        To: sut &lt;sip:service@10.1.68.48:5080&gt;;tag=YRrWa7c2kH
+<span class="ln"> 7</span>        Call-ID: 1-33212@10.4.6.199
+<span class="ln"> 8</span>        [Generated Call-ID: 1-33212@10.4.6.199]
+<span class="ln"> 9</span>        CSeq: 2 INFO
+<span class="ln">10</span>        Contact: sip:sipp@10.4.6.199:5060
+<span class="ln">11</span>        Max-Forwards: 70
+<span class="ln">12</span>        Subject: Performance Test
+<span class="ln">13</span>        Content-Type: application/msml+xml
+<span class="ln">14</span>        Content-Length:   330
+<span class="ln">15</span>    Message Body
+<span class="ln">16</span>        &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;\r\n
+<span class="ln">17</span>        &lt;msml version=&#34;1.1&#34;&gt;\r\n
+<span class="ln">18</span>        &lt;dialogstart target=&#34;conn:12345&#34; name=&#34;12345&#34;&gt;\r\n
+<span class="ln">19</span>        &lt;play barge=&#34;true&#34; iterate=&#34;1&#34; interval=&#34;1&#34; maxtime=&#34;5&#34; id=&#34;play&#34;&gt;\r\n
+<span class="ln">20</span>        &lt;audio uri=&#34;audio.wav&#34; /&gt;\r\n
+<span class="ln">21</span>        &lt;playexit&gt;\r\n
+<span class="ln">22</span>        &lt;send target=&#34;source&#34; event=&#34;done&#34; valuelist=&#34;play.end play.amt&#34;/&gt;\r\n
+<span class="ln">23</span>        &lt;/playexit&gt;\r\n
+<span class="ln">24</span>        &lt;/play&gt;\r\n
+<span class="ln">25</span>        &lt;/dialogstart&gt;\r\n
+<span class="ln">26</span>        &lt;/msml&gt;
+<span class="ln">27</span>
+</code></pre></div><p>MS 回复：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Initiation Protocol (200)
+<span class="ln"> 2</span>    Status-Line: SIP/2.0 200 OK
+<span class="ln"> 3</span>    Message Header
+<span class="ln"> 4</span>        Via: SIP/2.0/UDP 10.4.6.199:5060;branch=z9hG4bK-33212-1-5
+<span class="ln"> 5</span>        To: sut &lt;sip:service@10.1.68.48:5080&gt;;tag=YRrWa7c2kH
+<span class="ln"> 6</span>        From: sipp &lt;sip:sipp@10.4.6.199:5060&gt;;tag=1
+<span class="ln"> 7</span>        Call-ID: 1-33212@10.4.6.199
+<span class="ln"> 8</span>        [Generated Call-ID: 1-33212@10.4.6.199]
+<span class="ln"> 9</span>        CSeq: 2 INFO
+<span class="ln">10</span>        Content-Type: application/msml+xml
+<span class="ln">11</span>        Content-Length: 146
+<span class="ln">12</span>    Message Body
+<span class="ln">13</span>        &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;\n
+<span class="ln">14</span>        &lt;msml version=&#34;1.1&#34;&gt;\n
+<span class="ln">15</span>        &lt;result response=&#34;200&#34;&gt;\n
+<span class="ln">16</span>        &lt;dialogid&gt;conn:12345/dialog:12345&lt;/dialogid&gt;\n
+<span class="ln">17</span>        &lt;/result&gt;\n
+<span class="ln">18</span>        &lt;/msml&gt;
+</code></pre></div><p>然后MS就通过RTP开始传输媒体了，这里放几个连续的包</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Real-Time Transport Protocol
+<span class="ln"> 2</span>    [Stream setup by SDP (frame 43)]
+<span class="ln"> 3</span>    10.. .... = Version: RFC 1889 Version (2)
+<span class="ln"> 4</span>    ..0. .... = Padding: False
+<span class="ln"> 5</span>    ...0 .... = Extension: False
+<span class="ln"> 6</span>    .... 0000 = Contributing source identifiers count: 0
+<span class="ln"> 7</span>    0... .... = Marker: False
+<span class="ln"> 8</span>    Payload type: ITU-T G.711 PCMA (8)
+<span class="ln"> 9</span>    Sequence number: 99
+<span class="ln">10</span>    [Extended sequence number: 65635]
+<span class="ln">11</span>    Timestamp: 1600
+<span class="ln">12</span>    Synchronization Source identifier: 0xeeba3c7a (4005182586)
+<span class="ln">13</span>    Payload [truncated]: d5d5d5d5d5555555d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5555555d5d5d5d5d555d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d555d555d5d5d5555555d5d5d5d5d55555555555d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d5d55842415855dfdadb
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Real-Time Transport Protocol
+<span class="ln"> 2</span>    [Stream setup by SDP (frame 43)]
+<span class="ln"> 3</span>    10.. .... = Version: RFC 1889 Version (2)
+<span class="ln"> 4</span>    ..0. .... = Padding: False
+<span class="ln"> 5</span>    ...0 .... = Extension: False
+<span class="ln"> 6</span>    .... 0000 = Contributing source identifiers count: 0
+<span class="ln"> 7</span>    0... .... = Marker: False
+<span class="ln"> 8</span>    Payload type: ITU-T G.711 PCMA (8)
+<span class="ln"> 9</span>    Sequence number: 100
+<span class="ln">10</span>    [Extended sequence number: 65636]
+<span class="ln">11</span>    Timestamp: 1760
+<span class="ln">12</span>    Synchronization Source identifier: 0xeeba3c7a (4005182586)
+<span class="ln">13</span>    Payload [truncated]: 9c8eb6b1b2b1806e353f383c37001676d5d4d7c5f3e6ecece0f0d5e1919e838c8d87849996ecd2667154c2eb9517083c27212738371adce8969d979c99e6d06c1211c9cbfd919998848eb5b5b58e83808088b7b68c907b070d011a6de89b878c8e8d809ee8446b101b1905051a
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Real-Time Transport Protocol
+<span class="ln"> 2</span>    [Stream setup by SDP (frame 43)]
+<span class="ln"> 3</span>    10.. .... = Version: RFC 1889 Version (2)
+<span class="ln"> 4</span>    ..0. .... = Padding: False
+<span class="ln"> 5</span>    ...0 .... = Extension: False
+<span class="ln"> 6</span>    .... 0000 = Contributing source identifiers count: 0
+<span class="ln"> 7</span>    0... .... = Marker: False
+<span class="ln"> 8</span>    Payload type: ITU-T G.711 PCMA (8)
+<span class="ln"> 9</span>    Sequence number: 101
+<span class="ln">10</span>    [Extended sequence number: 65637]
+<span class="ln">11</span>    Timestamp: 1920
+<span class="ln">12</span>    Synchronization Source identifier: 0xeeba3c7a (4005182586)
+<span class="ln">13</span>    Payload [truncated]: a6a4beb784df6d6f151116681c12681e1a010b343737363735350e0605126b66707144d19392848f8fed140f3d3e383d360804114be992808d8281838787839d9380868fb5b58bb7b1b4b5b3b3b3bbb8b78710303b38383f32363135041867d4f1e6ee949d85e4621c34313630
+</code></pre></div><p>。。。。 一直是最后几个rtp包</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Real-Time Transport Protocol
+<span class="ln"> 2</span>    [Stream setup by SDP (frame 43)]
+<span class="ln"> 3</span>    10.. .... = Version: RFC 1889 Version (2)
+<span class="ln"> 4</span>    ..0. .... = Padding: False
+<span class="ln"> 5</span>    ...0 .... = Extension: False
+<span class="ln"> 6</span>    .... 0000 = Contributing source identifiers count: 0
+<span class="ln"> 7</span>    0... .... = Marker: False
+<span class="ln"> 8</span>    Payload type: ITU-T G.711 PCMA (8)
+<span class="ln"> 9</span>    Sequence number: 347
+<span class="ln">10</span>    [Extended sequence number: 65883]
+<span class="ln">11</span>    Timestamp: 41280
+<span class="ln">12</span>    Synchronization Source identifier: 0xeeba3c7a (4005182586)
+<span class="ln">13</span>    Payload [truncated]: 7397919d98999c96cd7d621c1101093432323d3c3c3c38383c3f360d6beb9e8e8e888b898bb4b4b3bfbaa7a7a4a5b9b9b3b688818693ed49101a02080b353534350b02010507000c0f3534340b0d05116313121a181f1c181d111c131b121763c4ec9f87838f888bb4b4b4b5b4
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Real-Time Transport Protocol
+<span class="ln"> 2</span>    [Stream setup by SDP (frame 43)]
+<span class="ln"> 3</span>    10.. .... = Version: RFC 1889 Version (2)
+<span class="ln"> 4</span>    ..0. .... = Padding: False
+<span class="ln"> 5</span>    ...0 .... = Extension: False
+<span class="ln"> 6</span>    .... 0000 = Contributing source identifiers count: 0
+<span class="ln"> 7</span>    0... .... = Marker: False
+<span class="ln"> 8</span>    Payload type: ITU-T G.711 PCMA (8)
+<span class="ln"> 9</span>    Sequence number: 348
+<span class="ln">10</span>    [Extended sequence number: 65884]
+<span class="ln">11</span>    Timestamp: 41440
+<span class="ln">12</span>    Synchronization Source identifier: 0xeeba3c7a (4005182586)
+<span class="ln">13</span>    Payload [truncated]: b8baa5bab9bdb18883859debf9516011060b32382524243a383234021b1779c5e0979e84838eb5b7b48b898d83869b91ebf35d791411121316176ec59f8cb1bfb8bbbcb18d905d171919136d7d49641416121c18040704051a05000d0e353736333c3825253a383d3609001a1c
+</code></pre></div><p>seq一直在涨，timestamp是160地增长</p>
+<h3 id="停止放音">停止放音</h3>
+<p>MS INFO。这个是由只前的INFO里的msml控制的时间</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Initiation Protocol (INFO)
+<span class="ln"> 2</span>    Request-Line: INFO sip:sipp@10.4.6.199:5060 SIP/2.0
+<span class="ln"> 3</span>    Message Header
+<span class="ln"> 4</span>        Via: SIP/2.0/UDP 10.1.68.48:5080;branch=z9hG4bK9MCm3mhRXjX
+<span class="ln"> 5</span>        To: &lt;sip:sipp@10.4.6.199:5060&gt;;tag=1
+<span class="ln"> 6</span>        From: &lt;sip:service@10.1.68.48:5080&gt;;tag=YRrWa7c2kH
+<span class="ln"> 7</span>        Call-Id: 1-33212@10.4.6.199
+<span class="ln"> 8</span>        [Generated Call-ID: 1-33212@10.4.6.199]
+<span class="ln"> 9</span>        CSeq: 1 INFO
+<span class="ln">10</span>        Content-Type: application/msml+xml
+<span class="ln">11</span>        Content-Length: 216
+<span class="ln">12</span>    Message Body
+<span class="ln">13</span>        &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;\n
+<span class="ln">14</span>        &lt;msml version=&#34;1.1&#34;&gt;\n
+<span class="ln">15</span>        &lt;event name=&#34;done&#34; id=&#34;conn:12345/dialog:12345&#34;&gt;\n
+<span class="ln">16</span>        &lt;name&gt;play.end&lt;/name&gt;\n
+<span class="ln">17</span>        &lt;value&gt;play.complete&lt;/value&gt;\n
+<span class="ln">18</span>        &lt;name&gt;play.amt&lt;/name&gt;\n
+<span class="ln">19</span>        &lt;value&gt;5s&lt;/value&gt;\n
+<span class="ln">20</span>        &lt;/event&gt;\n
+<span class="ln">21</span>        &lt;/msml&gt;
+</code></pre></div><p>UAC 回复</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Initiation Protocol (200)
+<span class="ln"> 2</span>    Status-Line: SIP/2.0 200 OK
+<span class="ln"> 3</span>    Message Header
+<span class="ln"> 4</span>        Via: SIP/2.0/UDP 10.1.68.48:5080;branch=z9hG4bK9MCm3mhRXjX
+<span class="ln"> 5</span>        From: &lt;sip:service@10.1.68.48:5080&gt;;tag=YRrWa7c2kH
+<span class="ln"> 6</span>        To: &lt;sip:sipp@10.4.6.199:5060&gt;;tag=1
+<span class="ln"> 7</span>        Call-ID: 1-33212@10.4.6.199
+<span class="ln"> 8</span>        [Generated Call-ID: 1-33212@10.4.6.199]
+<span class="ln"> 9</span>        CSeq: 1 INFO
+<span class="ln">10</span>        Contact: &lt;sip:10.4.6.199:5060;transport=UDP&gt;
+<span class="ln">11</span>        Content-Length: 0
+</code></pre></div><h2 id="断开连接">断开连接</h2>
+<p>UAC BYE</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Initiation Protocol (BYE)
+<span class="ln"> 2</span>    Request-Line: BYE sip:service@10.1.68.48:5080 SIP/2.0
+<span class="ln"> 3</span>    Message Header
+<span class="ln"> 4</span>        Via: SIP/2.0/UDP 10.4.6.199:5060;branch=z9hG4bK-33212-1-9
+<span class="ln"> 5</span>        From: sipp &lt;sip:sipp@10.4.6.199:5060&gt;;tag=1
+<span class="ln"> 6</span>        To: sut &lt;sip:service@10.1.68.48:5080&gt;;tag=YRrWa7c2kH
+<span class="ln"> 7</span>        Call-ID: 1-33212@10.4.6.199
+<span class="ln"> 8</span>        [Generated Call-ID: 1-33212@10.4.6.199]
+<span class="ln"> 9</span>        CSeq: 10 BYE
+<span class="ln">10</span>        Contact: sip:sipp@10.4.6.199:5060
+<span class="ln">11</span>        Max-Forwards: 70
+<span class="ln">12</span>        Subject: Performance Test
+<span class="ln">13</span>        Content-Length: 0
+</code></pre></div><p>MS 回复</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>Session Initiation Protocol (200)
+<span class="ln"> 2</span>    Status-Line: SIP/2.0 200 OK
+<span class="ln"> 3</span>    Message Header
+<span class="ln"> 4</span>        Via: SIP/2.0/UDP 10.4.6.199:5060;branch=z9hG4bK-33212-1-9
+<span class="ln"> 5</span>        To: sut &lt;sip:service@10.1.68.48:5080&gt;;tag=YRrWa7c2kH
+<span class="ln"> 6</span>        From: sipp &lt;sip:sipp@10.4.6.199:5060&gt;;tag=1
+<span class="ln"> 7</span>        Call-ID: 1-33212@10.4.6.199
+<span class="ln"> 8</span>        [Generated Call-ID: 1-33212@10.4.6.199]
+<span class="ln"> 9</span>        CSeq: 10 BYE
+<span class="ln">10</span>        Content-Length: 0
+</code></pre></div><h2 id="结合sipp测试脚本">结合SIPP测试脚本</h2>
+<p>可以清晰地看见交互的过程，这个场景文件就是把交互流程规划好了。</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="ln">  1</span><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;ISO-8859-1&#34; ?&gt;</span>
+<span class="ln">  2</span><span class="cp">&lt;!DOCTYPE scenario SYSTEM &#34;sipp.dtd&#34;&gt;</span>
+<span class="ln">  3</span>
+<span class="ln">  4</span>
+<span class="ln">  5</span><span class="nt">&lt;scenario</span> <span class="na">name=</span><span class="s">&#34;Basic Sipstone UAC&#34;</span><span class="nt">&gt;</span>
+<span class="ln">  6</span>
+<span class="ln">  7</span><span class="c">&lt;!--------------------------------------------------------------&gt;</span>
+<span class="ln">  8</span><span class="c">&lt;!--              Start Conversation                          --&gt;</span>
+<span class="ln">  9</span><span class="c">&lt;!--------------------------------------------------------------&gt;</span>
+<span class="ln"> 10</span>
+<span class="ln"> 11</span><span class="nt">&lt;send</span> <span class="na">retrans=</span><span class="s">&#34;500&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 12</span>    <span class="cp">&lt;![CDATA[
+</span><span class="ln"> 13</span><span class="cp">
+</span><span class="ln"> 14</span><span class="cp">      INVITE sip:[service]@[remote_ip]:[remote_port] SIP/2.0
+</span><span class="ln"> 15</span><span class="cp">      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+</span><span class="ln"> 16</span><span class="cp">      From: sipp &lt;sip:sipp@[local_ip]:[local_port]&gt;;tag=[call_number]
+</span><span class="ln"> 17</span><span class="cp">      To: sut &lt;sip:[service]@[remote_ip]:[remote_port]&gt;
+</span><span class="ln"> 18</span><span class="cp">      Call-ID: [call_id]
+</span><span class="ln"> 19</span><span class="cp">      CSeq: 1 INVITE
+</span><span class="ln"> 20</span><span class="cp">      Contact: sip:sipp@[local_ip]:[local_port]
+</span><span class="ln"> 21</span><span class="cp">      Max-Forwards: 70
+</span><span class="ln"> 22</span><span class="cp">      Subject: Performance Test
+</span><span class="ln"> 23</span><span class="cp">      Content-Type: application/sdp
+</span><span class="ln"> 24</span><span class="cp">      Content-Length: [len]
+</span><span class="ln"> 25</span><span class="cp">
+</span><span class="ln"> 26</span><span class="cp">v=0
+</span><span class="ln"> 27</span><span class="cp">o=caller 0 0 IN IP4 10.1.93.116
+</span><span class="ln"> 28</span><span class="cp">s=MobileVrbt_UEA_User_Caller_18500000000_18600000000
+</span><span class="ln"> 29</span><span class="cp">i=-
+</span><span class="ln"> 30</span><span class="cp">c=IN IP4 10.4.6.199
+</span><span class="ln"> 31</span><span class="cp">t=0 0
+</span><span class="ln"> 32</span><span class="cp">m=audio 5002 RTP/AVP 8
+</span><span class="ln"> 33</span><span class="cp">    ]]&gt;</span>
+<span class="ln"> 34</span><span class="nt">&lt;/send&gt;</span>
+<span class="ln"> 35</span>
+<span class="ln"> 36</span><span class="nt">&lt;recv</span> <span class="na">response=</span><span class="s">&#34;100&#34;</span> <span class="na">optional=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 37</span><span class="nt">&lt;/recv&gt;</span>
+<span class="ln"> 38</span>
+<span class="ln"> 39</span><span class="nt">&lt;recv</span> <span class="na">response=</span><span class="s">&#34;200&#34;</span> <span class="na">rtd=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 40</span><span class="nt">&lt;/recv&gt;</span>
+<span class="ln"> 41</span>
+<span class="ln"> 42</span><span class="c">&lt;!--------------------------------------------------------------&gt;</span>
+<span class="ln"> 43</span><span class="c">&lt;!--              Start Pa                                   --&gt;</span>
+<span class="ln"> 44</span><span class="c">&lt;!--------------------------------------------------------------&gt;</span>
+<span class="ln"> 45</span><span class="nt">&lt;send&gt;</span>
+<span class="ln"> 46</span>    <span class="cp">&lt;![CDATA[
+</span><span class="ln"> 47</span><span class="cp">
+</span><span class="ln"> 48</span><span class="cp">      ACK sip:[service]@[remote_ip]:[remote_port] SIP/2.0
+</span><span class="ln"> 49</span><span class="cp">      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+</span><span class="ln"> 50</span><span class="cp">      From: sipp &lt;sip:sipp@[local_ip]:[local_port]&gt;;tag=[call_number]
+</span><span class="ln"> 51</span><span class="cp">      To: sut &lt;sip:[service]@[remote_ip]:[remote_port]&gt;[peer_tag_param]
+</span><span class="ln"> 52</span><span class="cp">      Call-ID: [call_id]
+</span><span class="ln"> 53</span><span class="cp">      CSeq: 1 ACK
+</span><span class="ln"> 54</span><span class="cp">      Contact: sip:sipp@[local_ip]:[local_port]
+</span><span class="ln"> 55</span><span class="cp">      Max-Forwards: 70
+</span><span class="ln"> 56</span><span class="cp">      Subject: Performance Test
+</span><span class="ln"> 57</span><span class="cp">      Content-Length: 0
+</span><span class="ln"> 58</span><span class="cp">
+</span><span class="ln"> 59</span><span class="cp">    ]]&gt;</span>
+<span class="ln"> 60</span><span class="nt">&lt;/send&gt;</span>
+<span class="ln"> 61</span>
+<span class="ln"> 62</span><span class="nt">&lt;pause</span> <span class="na">milliseconds=</span><span class="s">&#34;1000&#34;</span> <span class="nt">/&gt;</span>
+<span class="ln"> 63</span>
+<span class="ln"> 64</span><span class="nt">&lt;send</span> <span class="na">retrans=</span><span class="s">&#34;500&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 65</span>    <span class="cp">&lt;![CDATA[
+</span><span class="ln"> 66</span><span class="cp">
+</span><span class="ln"> 67</span><span class="cp">      INFO sip:[service]@[remote_ip]:[remote_port] SIP/2.0
+</span><span class="ln"> 68</span><span class="cp">      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+</span><span class="ln"> 69</span><span class="cp">      From: sipp &lt;sip:sipp@[local_ip]:[local_port]&gt;;tag=[call_number]
+</span><span class="ln"> 70</span><span class="cp">      To: sut &lt;sip:[service]@[remote_ip]:[remote_port]&gt;[peer_tag_param]
+</span><span class="ln"> 71</span><span class="cp">      Call-ID: [call_id]
+</span><span class="ln"> 72</span><span class="cp">      CSeq: 2 INFO
+</span><span class="ln"> 73</span><span class="cp">      Contact: sip:sipp@[local_ip]:[local_port]
+</span><span class="ln"> 74</span><span class="cp">      Max-Forwards: 70
+</span><span class="ln"> 75</span><span class="cp">      Subject: Performance Test
+</span><span class="ln"> 76</span><span class="cp">      Content-Type: application/msml+xml
+</span><span class="ln"> 77</span><span class="cp">      Content-Length: [len]
+</span><span class="ln"> 78</span><span class="cp">
+</span><span class="ln"> 79</span><span class="cp">      &lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;
+</span><span class="ln"> 80</span><span class="cp">      &lt;msml version=&#34;1.1&#34;&gt;
+</span><span class="ln"> 81</span><span class="cp">          &lt;dialogstart target=&#34;conn:12345&#34; name=&#34;12345&#34;&gt;
+</span><span class="ln"> 82</span><span class="cp">              &lt;play barge=&#34;true&#34; iterate=&#34;1&#34; interval=&#34;1&#34; maxtime=&#34;5&#34; id=&#34;play&#34;&gt;
+</span><span class="ln"> 83</span><span class="cp">                  &lt;audio uri=&#34;audio.wav&#34; /&gt;
+</span><span class="ln"> 84</span><span class="cp">                  &lt;playexit&gt;
+</span><span class="ln"> 85</span><span class="cp">                      &lt;send target=&#34;source&#34; event=&#34;done&#34; valuelist=&#34;play.end play.amt&#34;/&gt;
+</span><span class="ln"> 86</span><span class="cp">                  &lt;/playexit&gt;
+</span><span class="ln"> 87</span><span class="cp">              &lt;/play&gt;
+</span><span class="ln"> 88</span><span class="cp">          &lt;/dialogstart&gt;
+</span><span class="ln"> 89</span><span class="cp">      &lt;/msml&gt;]]&gt;</span>
+<span class="ln"> 90</span><span class="nt">&lt;/send&gt;</span>
+<span class="ln"> 91</span>
+<span class="ln"> 92</span><span class="nt">&lt;recv</span> <span class="na">response=</span><span class="s">&#34;200&#34;</span> <span class="na">crlf=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 93</span><span class="nt">&lt;/recv&gt;</span>
+<span class="ln"> 94</span>
+<span class="ln"> 95</span><span class="nt">&lt;recv</span> <span class="na">request=</span><span class="s">&#34;INFO&#34;</span> <span class="na">crlf=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+<span class="ln"> 96</span><span class="nt">&lt;/recv&gt;</span>
+<span class="ln"> 97</span>
+<span class="ln"> 98</span><span class="nt">&lt;send&gt;</span>
+<span class="ln"> 99</span>    <span class="cp">&lt;![CDATA[
+</span><span class="ln">100</span><span class="cp">
+</span><span class="ln">101</span><span class="cp">      SIP/2.0 200 OK
+</span><span class="ln">102</span><span class="cp">      [last_Via:]
+</span><span class="ln">103</span><span class="cp">      [last_From:]
+</span><span class="ln">104</span><span class="cp">      [last_To:]
+</span><span class="ln">105</span><span class="cp">      [last_Call-ID:]
+</span><span class="ln">106</span><span class="cp">      [last_CSeq:]
+</span><span class="ln">107</span><span class="cp">      Contact: &lt;sip:[local_ip]:[local_port];transport=[transport]&gt;
+</span><span class="ln">108</span><span class="cp">      Content-Length: 0
+</span><span class="ln">109</span><span class="cp">
+</span><span class="ln">110</span><span class="cp">    ]]&gt;</span>
+<span class="ln">111</span> <span class="nt">&lt;/send&gt;</span>
+<span class="ln">112</span>
+<span class="ln">113</span><span class="c">&lt;!--------------------------------------------------------------&gt;</span>
+<span class="ln">114</span><span class="c">&lt;!--              End Conversation                            --&gt;</span>
+<span class="ln">115</span><span class="c">&lt;!--------------------------------------------------------------&gt;</span>
+<span class="ln">116</span><span class="nt">&lt;send</span> <span class="na">retrans=</span><span class="s">&#34;500&#34;</span><span class="nt">&gt;</span>
+<span class="ln">117</span>    <span class="cp">&lt;![CDATA[
+</span><span class="ln">118</span><span class="cp">
+</span><span class="ln">119</span><span class="cp">      BYE sip:[service]@[remote_ip]:[remote_port] SIP/2.0
+</span><span class="ln">120</span><span class="cp">      Via: SIP/2.0/[transport] [local_ip]:[local_port];branch=[branch]
+</span><span class="ln">121</span><span class="cp">      From: sipp &lt;sip:sipp@[local_ip]:[local_port]&gt;;tag=[call_number]
+</span><span class="ln">122</span><span class="cp">      To: sut &lt;sip:[service]@[remote_ip]:[remote_port]&gt;[peer_tag_param]
+</span><span class="ln">123</span><span class="cp">      Call-ID: [call_id]
+</span><span class="ln">124</span><span class="cp">      CSeq: 10 BYE
+</span><span class="ln">125</span><span class="cp">      Contact: sip:sipp@[local_ip]:[local_port]
+</span><span class="ln">126</span><span class="cp">      Max-Forwards: 70
+</span><span class="ln">127</span><span class="cp">      Subject: Performance Test
+</span><span class="ln">128</span><span class="cp">      Content-Length: 0
+</span><span class="ln">129</span><span class="cp">
+</span><span class="ln">130</span><span class="cp">    ]]&gt;</span>
+<span class="ln">131</span><span class="nt">&lt;/send&gt;</span>
+<span class="ln">132</span>
+<span class="ln">133</span><span class="nt">&lt;recv</span> <span class="na">response=</span><span class="s">&#34;500&#34;</span> <span class="na">crlf=</span><span class="s">&#34;true&#34;</span> <span class="na">optional=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+<span class="ln">134</span><span class="nt">&lt;/recv&gt;</span>
+<span class="ln">135</span>
+<span class="ln">136</span><span class="nt">&lt;recv</span> <span class="na">response=</span><span class="s">&#34;200&#34;</span> <span class="na">crlf=</span><span class="s">&#34;true&#34;</span> <span class="na">timeout=</span><span class="s">&#34;2000&#34;</span><span class="nt">&gt;</span>
+<span class="ln">137</span><span class="nt">&lt;/recv&gt;</span>
+<span class="ln">138</span>
+<span class="ln">139</span><span class="c">&lt;!-- definition of the response time repartition table (unit is ms)   --&gt;</span>
+<span class="ln">140</span><span class="nt">&lt;ResponseTimeRepartition</span> <span class="na">value=</span><span class="s">&#34;10, 20, 30, 40, 50, 100, 150, 200&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">141</span>
+<span class="ln">142</span><span class="c">&lt;!-- definition of the call length repartition table (unit is ms)     --&gt;</span>
+<span class="ln">143</span><span class="nt">&lt;CallLengthRepartition</span> <span class="na">value=</span><span class="s">&#34;10, 50, 100, 500, 1000, 5000, 10000&#34;</span><span class="nt">/&gt;</span>
+<span class="ln">144</span>
+<span class="ln">145</span><span class="nt">&lt;/scenario&gt;</span>
+</code></pre></div></div><hr /><div class="post-navs d-flex mb-3 justify-content-between">
+  <div class="post-nav w-50"><div class="prev-post btn btn-sm">
+      <a href="/posts/tech/media-sipp/">SIPP学习
+</a>
+    </div></div>
+  <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
+      <a href="/posts/tech/media-msml/">MSML学习
+</a>
+    </div></div>
+</div><section class="related-posts">
+    <h3>相关文章</h3>
+    <ul class="related-posts"><li><a href="/posts/tech/media-msml/">MSML学习
+</a></li><li><a href="/posts/tech/media-sipp/">SIPP学习
+</a></li><li><a href="/posts/tech/media-sip/">SIP学习
+</a></li><li><a href="/posts/tech/media-rebar2/">rebar2学习
+</a></li><li><a href="/posts/tech/media-erlang/">《Erlang程序设计》
+</a></li></ul>
+  </section></article>
+
+
+
+
+<div id="vcomments" class="post-comments surface row">
+</div>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: '18xpdRPZMKmyTjmjtMIK8zyB-gzGzoHsz',
+            appKey: 'haH3Ysz9ic7RFcoqbIvPDh8H',
+            avatar:'retro',
+            visitor:true,
+            placeholder:'有什么想说的吗？'
+
+        });
+
+        var count = 0;
+        var domTimer = setInterval(function () {
+            if (++count > 50) clearInterval(domTimer);
+            if (document.querySelector('#veditor')) {
+                clearInterval(domTimer);
+                var cdraw = new CaveDraw({
+                    element: "#veditor",
+                    readOnlyMode: false, 
+                    afterUpdateEditor: ()=>{ 
+                        document.querySelector('#veditor').focus();
+                        document.querySelector('#veditor').blur();
+                    },
+                    controls: ['brush', 'eraser', 'bucket', 'clear', 'undo', 'redo', 'save']
+                });
+            }
+        }, 200);
+    </script></div>
+</div><aside class="col-lg-4 sidebar d-flex">
+  <div class="container"><section class="profile surface row">
+  <div class="col-xl-6 d-flex align-items-center justify-content-center">
+    <img class="profile-avatar img-fluid" src="/images/profile2.jpg" alt="理想奈" loading="lazy">
+  </div>
+  <div class="col-xl-6">
+    <h5 class="profile-name my-2">理想奈</h5><div class="profile-bio mb-2">所愿所爱所喜所恨所感，即行之所往。 既是原因，也是目的。</div>
+    
+  </div>
+</section><section class="recent-posts row surface">
+  <h4>最近文章</h4>
+  <ul><li><a href="/posts/tech/media-msml/">MSML学习
+</a></li><li><a href="/posts/tech/media-netpackage-observe/">观察SIP， SDP，RTP包及MSML
+</a></li><li><a href="/posts/tech/media-sipp/">SIPP学习
+</a></li><li><a href="/posts/tech/media-sip/">SIP学习
+</a></li><li><a href="/posts/tech/media-rebar2/">rebar2学习
+</a></li><li><a href="/posts/tech/media-erlang/">《Erlang程序设计》
+</a></li><li><a href="/posts/other/2024/">2024年终总结和来年展望
+</a></li><li><a href="/posts/math/estimate/">量化交易系统设想
+</a></li><li><a href="/posts/math/beginner/">量化交易初学
+</a></li><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
+</a></li><li><a href="/posts/other/physics-computer/">计算机和物理的一点感悟
+</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
+</a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
+</a></li></ul>
+</section><section class="taxonomy-categories row surface">
+      <h4>
+        <a href="/categories">分类</a>
+      </h4>
+      <div><a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="计算机">
+          计算机 <span class="badge rounded-pill">41</span>
+        </a><a href="/categories/%E4%BA%8C%E6%AC%A1%E5%85%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="二次元">
+          二次元 <span class="badge rounded-pill">24</span>
+        </a><a href="/categories/%E6%99%AE%E9%80%9A%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="普通类">
+          普通类 <span class="badge rounded-pill">9</span>
+        </a><a href="/categories/%E6%96%87%E5%AD%97%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="文字类">
+          文字类 <span class="badge rounded-pill">6</span>
+        </a><a href="/categories/%E6%95%B0%E5%AD%A6%E7%B1%BB/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="数学类">
+          数学类 <span class="badge rounded-pill">4</span>
+        </a></div>
+    </section><section class="taxonomy-series row surface">
+      <h4>
+        <a href="/series">专栏</a>
+      </h4>
+      <div><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="媒体开发">
+          媒体开发 <span class="badge rounded-pill">26</span>
+        </a><a href="/series/%E5%8A%A8%E6%BC%AB%E6%AD%8C%E6%9B%B2/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="动漫歌曲">
+          动漫歌曲 <span class="badge rounded-pill">21</span>
+        </a><a href="/series/galgame/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Galgame">
+          Galgame <span class="badge rounded-pill">10</span>
+        </a><a href="/series/java/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="Java">
+          Java <span class="badge rounded-pill">10</span>
+        </a><a href="/series/%E9%87%8F%E5%8C%96%E4%BA%A4%E6%98%93/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="量化交易">
+          量化交易 <span class="badge rounded-pill">2</span>
+        </a><a href="/series/%E9%9A%8F%E6%84%8F%E6%80%9D%E8%80%83/" class="post-taxonomy rounded btn btn-sm me-2 mb-2" title="随意思考">
+          随意思考 <span class="badge rounded-pill">2</span>
+        </a></div>
+    </section></div>
+</aside>
+</div>
+    </main><footer class="footer mt-auto py-3 text-center container"><nav class="social-links nav my-2 justify-content-center"></nav>
+<div class="copyright mb-2">
+  Copyright © 2021-2025 Unaybaryl. All Rights Reserved.
+</div>
+</footer>
+<a id="btnScrollToTop" class="btn-scroll-to-top">
+  <i class="fas fa-fw fa-chevron-circle-up fa-2x"></i>
+</a>
+
+
+
+              
+            </body>
+</html>
