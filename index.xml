@@ -8,7 +8,7 @@
     <copyright>Copyright © 2021-{year} Unaybaryl. All Rights Reserved.</copyright>
     <lastBuildDate>Fri, 10 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>MSML学习</title>
+      <title>MSML语言学习</title>
       <link>/posts/tech/media-msml/</link>
       <pubDate>Fri, 10 Jan 2025 00:00:00 +0000</pubDate>
       
@@ -26,7 +26,7 @@
     </item>
     
     <item>
-      <title>SIPP学习</title>
+      <title>SIPP工具学习</title>
       <link>/posts/tech/media-sipp/</link>
       <pubDate>Thu, 09 Jan 2025 00:00:00 +0000</pubDate>
       
@@ -35,7 +35,7 @@
     </item>
     
     <item>
-      <title>SIP学习</title>
+      <title>SIP协议学习</title>
       <link>/posts/tech/media-sip/</link>
       <pubDate>Thu, 09 Jan 2025 00:00:00 +0000</pubDate>
       
@@ -44,7 +44,7 @@
     </item>
     
     <item>
-      <title>rebar2学习</title>
+      <title>rebar2工具学习</title>
       <link>/posts/tech/media-rebar2/</link>
       <pubDate>Fri, 03 Jan 2025 00:00:00 +0000</pubDate>
       
@@ -107,7 +107,7 @@
     </item>
     
     <item>
-      <title>FFmpeg学习</title>
+      <title>FFmpeg软件学习</title>
       <link>/posts/tech/media-ffmpeg/</link>
       <pubDate>Thu, 05 Dec 2024 00:00:00 +0000</pubDate>
       
@@ -116,7 +116,7 @@
     </item>
     
     <item>
-      <title>pcmu编码</title>
+      <title>pcmu编码学习</title>
       <link>/posts/tech/media-pcmu/</link>
       <pubDate>Tue, 03 Dec 2024 00:00:00 +0000</pubDate>
       
@@ -125,7 +125,7 @@
     </item>
     
     <item>
-      <title>Sox基本使用</title>
+      <title>Sox软件基本使用</title>
       <link>/posts/tech/media-sox/</link>
       <pubDate>Tue, 03 Dec 2024 00:00:00 +0000</pubDate>
       
@@ -152,7 +152,7 @@
     </item>
     
     <item>
-      <title>automake使用</title>
+      <title>automake工具使用</title>
       <link>/posts/tech/media-automake/</link>
       <pubDate>Fri, 29 Nov 2024 00:00:00 +0000</pubDate>
       
@@ -170,7 +170,7 @@
     </item>
     
     <item>
-      <title>lightrtp学习</title>
+      <title>lightrtp项目学习</title>
       <link>/posts/tech/media-lightrtp/</link>
       <pubDate>Wed, 27 Nov 2024 00:00:00 +0000</pubDate>
       
@@ -179,7 +179,7 @@
     </item>
     
     <item>
-      <title>RTP学习</title>
+      <title>RTP协议学习</title>
       <link>/posts/tech/media-rtp/</link>
       <pubDate>Wed, 27 Nov 2024 00:00:00 +0000</pubDate>
       
@@ -233,7 +233,7 @@
     </item>
     
     <item>
-      <title>SDP学习</title>
+      <title>SDP协议学习</title>
       <link>/posts/tech/media-sdp/</link>
       <pubDate>Tue, 19 Nov 2024 00:00:00 +0000</pubDate>
       

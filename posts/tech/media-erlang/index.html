@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="《Erlang程序设计》">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2025-01-02T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2025-01-02T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="74688">
+<meta itemprop="wordCount" content="79538">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="《Erlang程序设计》" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -161,7 +161,7 @@
     <i class="fas fa-fw fa-calendar-alt"></i>2025-01-02
   </span>
   <span class="post-reading-time me-2">
-    <i class="fas fa-fw fa-coffee"></i>150 分钟阅读
+    <i class="fas fa-fw fa-coffee"></i>159 分钟阅读
   </span>
 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" class="post-taxonomy">#计算机</a><a href="/series/%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/" class="post-taxonomy">#媒体开发</a></div>
 
@@ -375,12 +375,24 @@
     </li>
     <li><a href="#第22章-otp介绍">第22章 OTP介绍</a>
       <ul>
+        <li><a href="#引入otp">引入OTP</a></li>
+        <li><a href="#gen_server回调结构">gen_server回调结构</a></li>
+        <li><a href="#gen_server案例">gen_server案例</a></li>
+        <li><a href="#练手小项目">练手小项目</a></li>
+        <li><a href="#heading"></a></li>
         <li><a href="#练习-18">练习</a></li>
       </ul>
     </li>
     <li><a href="#第23章-用otp构建系统">第23章 用OTP构建系统</a>
       <ul>
-        <li><a href="#小项目">小项目</a></li>
+        <li><a href="#通用事件处理程序">通用事件处理程序</a></li>
+        <li><a href="#错误记录器">错误记录器</a></li>
+        <li><a href="#警报管理">警报管理</a></li>
+        <li><a href="#应用程序服务器">应用程序服务器</a></li>
+        <li><a href="#监控树">监控树</a></li>
+        <li><a href="#启动系统">启动系统</a></li>
+        <li><a href="#应用程序">应用程序</a></li>
+        <li><a href="#应用程序监视器">应用程序监视器</a></li>
         <li><a href="#练习-19">练习</a></li>
       </ul>
     </li>
@@ -407,7 +419,8 @@
   </ul>
 </nav>
   </div>
-</div><div class="post-content mb-3" ><blockquote>
+</div><div class="post-content mb-3" ><h1 id="erlang程序设计">《Erlang程序设计》</h1>
+<blockquote>
 <p>越精简的代码, 越复杂, erlang语言是精简中的精简.</p>
 <p>就由这本书作为我的Erlang入门吧！</p>
 </blockquote>
@@ -6229,6 +6242,7 @@ filelib模块有一些小方法能给我们减少一点工作量。举个例子�
 当你真的不知道错误在哪里时，这个练习会更有效。找个朋友来破坏你的某些模块，然后对这些模块运行覆盖测试来引发错误。一旦引发了错误，就使用调试技术来找出问题所在。</p>
 <h2 id="第22章-otp介绍">第22章 OTP介绍</h2>
 <p>有点像接口的概念。</p>
+<h3 id="引入otp">引入OTP</h3>
 <p>server.erl:</p>
 <div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">server1</span><span class="p">).</span>
 <span class="ln"> 2</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">rpc</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
@@ -6448,7 +6462,42 @@ filelib模块有一些小方法能给我们减少一点工作量。举个例子�
 <span class="ln">2</span>2&gt; c(my_fac_server).
 <span class="ln">3</span>3&gt; Pid ! {become, fun my_fac_server:loop/0}.
 <span class="ln">4</span>4&gt; server5:rpc(Pid, {fac,30}).
-</code></pre></div><p>my_bank.erl:</p>
+</code></pre></div><h3 id="gen_server回调结构">gen_server回调结构</h3>
+<p>应熟记。</p>
+<ul>
+<li>
+<p><code>gen_server:start_link(Name, Mod, InitArgs, Opts)</code></p>
+<p>创建一个名为Name的通用服务器，回调模块是Mod，Opts则控制通用服务器的行为。在这里可以指定消息记录、函数调试和其他行为。通用服务器通过调用Mod:init(InitArgs)启动。</p>
+<p>在通常的操作里，只会返回{ok, State}。要了解其他参数的含义，请参考gen_server的手册页。
+如果返回{ok, State}，就说明我们成功启动了服务器，它的初始状态是State。</p>
+</li>
+<li>
+<p><code>gen_server:call(Name, Request)</code></p>
+<p>Request(gen_server:call/2的第二个参数) 作为handle_call/3的第一个参数重新出现。From是发送请求的客户端进程的PID，State则是客户端的当前状态。
+我们通常会返回{reply, Reply, NewState}。在这种情况下，Reply会返回客户端，成为gen_server:call的返回值。NewState则是服务器接下来的状态。
+其他的返回值（{noreply, ..}和{stop, ..}）相对不太常用。no reply会让服务器继续工作，但客户端会等待一个回复，所以服务器必须把回复的任务委派给其他进程。用适当的参数调用stop会停止服务器。</p>
+</li>
+<li>
+<p><code>gen_server:cast(Name, Msg)</code></p>
+<p>对应的回调方法是handle_cast。这个处理函数通常只返回{noreply, NewState}或{stop, &hellip;}。前者改变服务器的状态，后者停止服务器。</p>
+</li>
+<li>
+<p><code>handle_info(Info, State)</code></p>
+<p>用来处理发给服务器的自发性消息。自发性消息是一切未经显式调用gen_server:call或gen_server:cast而到达服务器的消息。</p>
+<p>举个例子，如果服务器连接到另一个进程并捕捉退出信号，就可能会突然收到一个预料之外的{&lsquo;EXIT&rsquo;, Pid,What}消息。除此之外，系统里任何知道通用服务器PID的进程都可以向它发送消息。这样的消息在服务器里表现为info值。</p>
+<p>它的返回值和handle_cast相同。</p>
+</li>
+<li>
+<p><code>terminate(Reason, NewState)</code></p>
+<p>服务器会因为许多原因而终止。某个以handle_开头的函数也许会返回一个{stop, Reason,NewState}，服务器也可能崩溃并生成{&lsquo;EXIT&rsquo;, reason}。在所有这些情况下，无论它们是怎样发生的，都会调用terminate(Reason, NewState)</p>
+</li>
+<li>
+<p><code>code_change(_OldVsn, State, _Extra)</code></p>
+<p>可以在服务器运行时动态更改它的状态。这个回调函数会在系统执行软件升级时由版本处理子系统调用。</p>
+</li>
+</ul>
+<h3 id="gen_server案例">gen_server案例</h3>
+<p>my_bank.erl:</p>
 <div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">my_bank</span><span class="p">).</span>
 <span class="ln"> 2</span>
 <span class="ln"> 3</span><span class="p">-</span><span class="ni">behaviour</span><span class="p">(</span><span class="n">gen_server</span><span class="p">).</span>
@@ -6640,95 +6689,7 @@ filelib模块有一些小方法能给我们减少一点工作量。举个例子�
 <span class="ln">122</span><span class="c">%%%===================================================================
 </span><span class="ln">123</span><span class="c">%%% 内部函数
 </span><span class="ln">124</span><span class="c">%%%===================================================================
-</span></code></pre></div><h3 id="练习-18">练习</h3>
-<p>在下面这些练习里，我们将用job_centre模块制作一个服务器，它用gen_server实现一种任务管理服务。任务中心（job center）持有一个必须完成的任务队列，这些任务会被编号，任何人都能向队列添加任务。工人可以从队列请求任务，并告诉任务中心已经执行了某项任务。任务是由fun表示的，要执行任务F，工人必须执行F()函数。</p>
-<p>(1) 实现任务中心的基本功能，它的接口如下。</p>
-<ul>
-<li>
-<p>job_centre:start_link() -&gt; true</p>
-<p>启动任务中心服务器。</p>
-</li>
-<li>
-<p>job_centre:add_job(F) -&gt; JobNumber</p>
-<p>添加任务F到任务队列，然后返回一个整数任务编号。</p>
-</li>
-<li>
-<p>job_centre:work_wanted() -&gt; {JobNumber,F} | no</p>
-<p>请求任务。如果工人想要一个任务，就调用job_centre:work_wanted()。如果队列里有任务，就会返回一个{JobNumber, F}元组。工人执行F()来完成任务。如果队列里没有任务，则会返回no。请确保同一项任务每次只分配给一个工人，并确保系统是公平的，意思是任务按照请求的顺序进行分配。</p>
-</li>
-<li>
-<p>job_centre:job_done(JobNumber)</p>
-<p>发出任务完成的信号。如果工人完成了某一项任务，就必须调用job_centre:job_done (JobNumber)。</p>
-</li>
-</ul>
-<p>(2) 添加一个名为job_centre:statistics()的统计函数，让它报告队列内、进行中和已完成任务的状态。</p>
-<p>(3) 添加监视工人进程的代码。如果某个工人进程挂了，请确保它所执行的任务被返回到等待完成的任务池里。</p>
-<p>(4) 检查是否有懒惰的工人，也就是接受工作但不按时完成的进程。把任务请求函数修改为返回{JobNumber, JobTime, F}，其中JobTime是工人必须完成任务的秒数。如果工人在JobTime- 1时还未完成任务，服务器就应当向其发送一个hurry_up（快点儿）消息，而在JobTime + 1时应该用调用exit(Pid, youre_fired)（你被解雇了）来杀掉这个工人进程。</p>
-<p>(5) 可选练习：实现一个工会服务器来监督工人的权利，防止他们没收到警告就被解雇。提示：使用进程跟踪基本函数来实现它。</p>
-<h2 id="第23章-用otp构建系统">第23章 用OTP构建系统</h2>
-<p>event_handler.erl:</p>
-<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">event_handler</span><span class="p">).</span>
-<span class="ln"> 2</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">make</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">add_handler</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">event</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
-<span class="ln"> 3</span>
-<span class="ln"> 4</span><span class="c">%% 制作一个名为Name的新事件处理器
-</span><span class="ln"> 5</span><span class="c">%% 处理函数是no_op，代表部队事件做任何处理
-</span><span class="ln"> 6</span><span class="c"></span><span class="nf">make</span><span class="p">(</span><span class="nv">Name</span><span class="p">)</span> <span class="o">-&gt;</span>
-<span class="ln"> 7</span>    <span class="nb">register</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nb">spawn</span><span class="p">(</span><span class="k">fun</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">my_handler</span><span class="p">(</span><span class="k">fun</span> <span class="n">no_op</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span> <span class="k">end</span><span class="p">)).</span>
-<span class="ln"> 8</span>
-<span class="ln"> 9</span><span class="nf">add_handler</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Fun</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">Name</span> <span class="o">!</span> <span class="p">{</span><span class="n">add</span><span class="p">,</span> <span class="nv">Fun</span><span class="p">}.</span>
-<span class="ln">10</span>
-<span class="ln">11</span><span class="c">%%生成一个事件
-</span><span class="ln">12</span><span class="c"></span><span class="nf">event</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">Name</span> <span class="o">!</span> <span class="p">{</span><span class="n">event</span><span class="p">,</span> <span class="nv">X</span><span class="p">}.</span>
-<span class="ln">13</span>
-<span class="ln">14</span><span class="nf">my_handler</span><span class="p">(</span><span class="nv">Fun</span><span class="p">)</span> <span class="o">-&gt;</span>
-<span class="ln">15</span>    <span class="k">receive</span>
-<span class="ln">16</span>        <span class="p">{</span><span class="n">add</span><span class="p">,</span> <span class="nv">Fun1</span><span class="p">}</span> <span class="o">-&gt;</span>
-<span class="ln">17</span>            <span class="n">my_handler</span><span class="p">(</span><span class="nv">Fun1</span><span class="p">);</span>
-<span class="ln">18</span>        <span class="p">{</span><span class="n">event</span><span class="p">,</span> <span class="nv">Any</span><span class="p">}</span> <span class="o">-&gt;</span>
-<span class="ln">19</span>            <span class="p">(</span><span class="k">catch</span> <span class="nv">Fun</span><span class="p">(</span><span class="nv">Any</span><span class="p">)),</span>
-<span class="ln">20</span>            <span class="n">my_handler</span><span class="p">(</span><span class="nv">Fun</span><span class="p">)</span>
-<span class="ln">21</span>    <span class="k">end</span><span class="p">.</span>
-<span class="ln">22</span>
-<span class="ln">23</span><span class="nf">no_op</span><span class="p">(_)</span> <span class="o">-&gt;</span> <span class="n">void</span><span class="p">.</span>
-</code></pre></div><p>motor_controller.erl:</p>
-<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln">1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">motor_controller</span><span class="p">).</span>
-<span class="ln">2</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">add_event_handler</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
-<span class="ln">3</span>
-<span class="ln">4</span><span class="nf">add_event_handler</span><span class="p">()</span> <span class="o">-&gt;</span>
-<span class="ln">5</span>    <span class="nn">event_handler</span><span class="p">:</span><span class="nf">add_handler</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="k">fun</span> <span class="n">controller</span><span class="o">/</span><span class="mi">1</span><span class="p">).</span>
-<span class="ln">6</span><span class="nf">controller</span><span class="p">(</span><span class="n">too_hot</span><span class="p">)</span> <span class="o">-&gt;</span>
-<span class="ln">7</span>    <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;Turn off the motor</span><span class="si">~n</span><span class="s">&#34;</span><span class="p">);</span>
-<span class="ln">8</span><span class="nf">controller</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span>
-<span class="ln">9</span>    <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;</span><span class="si">~w</span><span class="s"> ignored event: </span><span class="si">~p~n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">[</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="nv">X</span><span class="p">]).</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>1&gt; event_handler:make(errors).
-<span class="ln"> 2</span>true
-<span class="ln"> 3</span>2&gt; event_handler:event(errors, hi).
-<span class="ln"> 4</span>{event,hi}
-<span class="ln"> 5</span>3&gt; c(motor_controller).
-<span class="ln"> 6</span>{ok, motor_controller}
-<span class="ln"> 7</span>4&gt; motor_controller:add_event_handler().
-<span class="ln"> 8</span>{add,#Fun...}
-<span class="ln"> 9</span>5&gt; event_handler:event(errors, cool).
-<span class="ln">10</span>motor_controller ignored event: cool
-<span class="ln">11</span>{event, cool}
-<span class="ln">12</span>6&gt; event_handler:event(errors, too_hot).
-<span class="ln">13</span>Turn off the motor
-<span class="ln">14</span>{event, too_hot}
-</code></pre></div><p>elog1.config:</p>
-<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln">1</span><span class="c">%% 无tty
-</span><span class="ln">2</span><span class="c"></span><span class="p">[{</span><span class="n">sasl</span><span class="p">,</span> <span class="p">[</span>
-<span class="ln">3</span>         <span class="p">{</span><span class="n">sasl_error_logger</span><span class="p">,</span> <span class="n">false</span><span class="p">}</span>
-<span class="ln">4</span>        <span class="p">]}].</span>
-</code></pre></div><p>elog2.config:</p>
-<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln">1</span><span class="c">%% 单文本文件，最小化tty
-</span><span class="ln">2</span><span class="c"></span>
-<span class="ln">3</span><span class="p">[{</span><span class="n">sasl</span><span class="p">,</span> <span class="p">[</span>
-<span class="ln">4</span>         <span class="c">%% 所有报告都写入这个文件
-</span><span class="ln">5</span><span class="c"></span>         <span class="p">{</span><span class="n">sasl_error_logger</span><span class="p">,</span> <span class="p">{</span><span class="n">file</span><span class="p">,</span> <span class="s">&#34;/Users/joe/error_logs/THELOG&#34;</span><span class="p">}}</span>
-<span class="ln">6</span>        <span class="p">]}].</span>
-</code></pre></div><p>elog3.config:</p>
-<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln">1</span>
-</code></pre></div><h3 id="小项目">小项目</h3>
+</span></code></pre></div><h3 id="练手小项目">练手小项目</h3>
 <p>要求：</p>
 <p>建立两个node，从一个node上向另一个node请求一个字符串。做两个gen server分别运行在两个节点上，互相能发消息。将两个node上的chat的pid拿到。在chat<strong>内部</strong>直接发cast消息。不用call。要让两个chat<strong>直接</strong>通信。然后发信的时候携带Pid让对方可以回信。</p>
 <p>问题：</p>
@@ -6744,6 +6705,7 @@ filelib模块有一些小方法能给我们减少一点工作量。举个例子�
 <p>如何获取Pid？注意是网络的Pid不是本地的Pid。</p>
 </li>
 </ul>
+<p>初步实现：</p>
 <div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="c">%%%-------------------------------------------------------------------
 </span><span class="ln"> 2</span><span class="c">%%% @author bnaod1
 </span><span class="ln"> 3</span><span class="c">%%% @copyright (C) 2024, 
@@ -6781,7 +6743,480 @@ filelib模块有一些小方法能给我们减少一点工作量。举个例子�
 <span class="ln">35</span><span class="nf">handle_info</span><span class="p">(_</span><span class="nv">Info</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
 <span class="ln">36</span><span class="nf">terminate</span><span class="p">(_</span><span class="nv">Reason</span><span class="p">,</span> <span class="p">_</span><span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="p">.</span>
 <span class="ln">37</span><span class="nf">code_change</span><span class="p">(_</span><span class="nv">OldVsn</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="p">_</span><span class="nv">Extra</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
-</code></pre></div><h3 id="练习-19">练习</h3>
+</code></pre></div><p>改进：</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="c">%%%-------------------------------------------------------------------
+</span><span class="ln"> 2</span><span class="c">%%% @author bnaod1
+</span><span class="ln"> 3</span><span class="c">%%% @copyright (C) 2024, 
+</span><span class="ln"> 4</span><span class="c">%%% @doc
+</span><span class="ln"> 5</span><span class="c">%%%
+</span><span class="ln"> 6</span><span class="c">%%% @end
+</span><span class="ln"> 7</span><span class="c">%%% Created : 2024 12月26. 14:47
+</span><span class="ln"> 8</span><span class="c">%%%-------------------------------------------------------------------
+</span><span class="ln"> 9</span><span class="c"></span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">chat</span><span class="p">).</span>
+<span class="ln">10</span><span class="p">-</span><span class="ni">author</span><span class="p">(</span><span class="s">&#34;赵枭奇&#34;</span><span class="p">).</span>
+<span class="ln">11</span>
+<span class="ln">12</span><span class="p">-</span><span class="ni">behaviour</span><span class="p">(</span><span class="n">gen_server</span><span class="p">).</span>
+<span class="ln">13</span><span class="c">%% API
+</span><span class="ln">14</span><span class="c"></span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+<span class="ln">15</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">handle_call</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">handle_cast</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">handle_info</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">terminate</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">code_change</span><span class="o">/</span><span class="mi">3</span><span class="p">]).</span>
+<span class="ln">16</span>
+<span class="ln">17</span><span class="p">-</span><span class="ni">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
+<span class="ln">18</span><span class="c">%%-define(SERVER, server).
+</span><span class="ln">19</span><span class="c"></span>
+<span class="ln">20</span><span class="p">-</span><span class="ni">record</span><span class="p">(</span><span class="nl">state</span><span class="p">,</span> <span class="p">{</span><span class="n">conn_pid</span><span class="p">}).</span>
+<span class="ln">21</span>
+<span class="ln">22</span><span class="c">%% 创建genserver
+</span><span class="ln">23</span><span class="c"></span><span class="nf">start</span><span class="p">(</span><span class="nv">SName</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nn">gen_server</span><span class="p">:</span><span class="nf">start_link</span><span class="p">({</span><span class="n">global</span><span class="p">,</span> <span class="nv">SName</span><span class="p">},</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[]).</span>
+<span class="ln">24</span>
+<span class="ln">25</span><span class="c">%% 交流前先握手获取Pid
+</span><span class="ln">26</span><span class="c"></span><span class="nf">handshake</span><span class="p">(</span><span class="nv">FromName</span><span class="p">,</span> <span class="nv">ToName</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">27</span>  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;prepare handshake</span><span class="si">~n</span><span class="s">&#34;</span><span class="p">),</span>
+<span class="ln">28</span>  <span class="nn">gen_server</span><span class="p">:</span><span class="nf">call</span><span class="p">({</span><span class="n">global</span><span class="p">,</span> <span class="nv">FromName</span><span class="p">},</span> <span class="p">{</span><span class="n">quest</span><span class="p">,</span> <span class="nv">ToName</span><span class="p">}).</span>
+<span class="ln">29</span>
+<span class="ln">30</span><span class="c">%% 停止genserver
+</span><span class="ln">31</span><span class="c"></span><span class="nf">stop</span><span class="p">(</span><span class="nv">SName</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nn">gen_server</span><span class="p">:</span><span class="nf">cast</span><span class="p">({</span><span class="n">global</span><span class="p">,</span> <span class="nv">SName</span><span class="p">},</span> <span class="n">stop</span><span class="p">).</span>
+<span class="ln">32</span>
+<span class="ln">33</span><span class="c">%% 调试
+</span><span class="ln">34</span><span class="c"></span><span class="nf">is_alive</span><span class="p">(</span><span class="nv">SName</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nn">gen_server</span><span class="p">:</span><span class="nf">call</span><span class="p">({</span><span class="n">global</span><span class="p">,</span> <span class="nv">SName</span><span class="p">},</span> <span class="n">is_alive</span><span class="p">).</span>
+<span class="ln">35</span>
+<span class="ln">36</span><span class="c">%% 正式交流
+</span><span class="ln">37</span><span class="c"></span><span class="nf">ask</span><span class="p">(</span><span class="nv">SName</span><span class="p">,</span> <span class="nv">Msg</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nn">gen_server</span><span class="p">:</span><span class="nf">cast</span><span class="p">({</span><span class="n">global</span><span class="p">,</span> <span class="nv">SName</span><span class="p">},</span> <span class="p">{</span><span class="n">ask</span><span class="p">,</span> <span class="nv">Msg</span><span class="p">}).</span>
+<span class="ln">38</span>
+<span class="ln">39</span><span class="c">%% 初始化
+</span><span class="ln">40</span><span class="c"></span><span class="nf">init</span><span class="p">([])</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nl">#state</span><span class="p">{</span><span class="n">conn_pid</span> <span class="o">=</span> <span class="n">null</span><span class="p">}}.</span>
+<span class="ln">41</span>
+<span class="ln">42</span><span class="nf">handle_call</span><span class="p">({</span><span class="n">quest</span><span class="p">,</span> <span class="nv">SName</span><span class="p">},</span> <span class="p">_</span><span class="nv">From</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">43</span>  <span class="nn">gen_server</span><span class="p">:</span><span class="nf">cast</span><span class="p">({</span><span class="n">global</span><span class="p">,</span> <span class="nv">SName</span><span class="p">},</span> <span class="p">{</span><span class="n">handshake</span><span class="p">,</span> <span class="n">self</span><span class="p">()}),</span>
+<span class="ln">44</span>  <span class="p">{</span><span class="n">reply</span><span class="p">,</span> <span class="n">starting_handshake</span><span class="p">,</span> <span class="nv">State</span><span class="p">};</span>
+<span class="ln">45</span><span class="nf">handle_call</span><span class="p">(</span><span class="n">is_alive</span><span class="p">,</span> <span class="nv">From</span><span class="p">,</span> <span class="nl">#state</span><span class="p">{</span><span class="n">conn_pid</span> <span class="o">=</span> <span class="nv">Pid</span><span class="p">}</span> <span class="o">=</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">46</span>  <span class="nv">Reply</span> <span class="o">=</span> <span class="p">{</span><span class="n">alive</span><span class="p">,</span> <span class="n">connected_process_is_</span><span class="p">,</span> <span class="nv">Pid</span><span class="p">},</span>
+<span class="ln">47</span>  <span class="p">{</span><span class="n">reply</span><span class="p">,</span> <span class="nv">Reply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+<span class="ln">48</span>
+<span class="ln">49</span><span class="nf">handle_cast</span><span class="p">({</span><span class="n">handshake</span><span class="p">,</span> <span class="nv">Pid</span><span class="p">},</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">50</span>  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;reply handshake</span><span class="si">~n</span><span class="s">&#34;</span><span class="p">),</span>
+<span class="ln">51</span>  <span class="nn">gen_server</span><span class="p">:</span><span class="nf">cast</span><span class="p">(</span><span class="nv">Pid</span><span class="p">,</span> <span class="p">{</span><span class="n">ack</span><span class="p">,</span> <span class="n">self</span><span class="p">()}),</span> 
+<span class="ln">52</span>  <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nl">#state</span><span class="p">{</span><span class="n">conn_pid</span> <span class="o">=</span> <span class="nv">Pid</span><span class="p">}};</span>
+<span class="ln">53</span><span class="nf">handle_cast</span><span class="p">({</span><span class="n">ack</span><span class="p">,</span> <span class="nv">Pid</span><span class="p">},</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">54</span>  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;handshake complete</span><span class="si">~n</span><span class="s">&#34;</span><span class="p">),</span>
+<span class="ln">55</span>  <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nl">#state</span><span class="p">{</span><span class="n">conn_pid</span> <span class="o">=</span> <span class="nv">Pid</span><span class="p">}};</span>
+<span class="ln">56</span><span class="nf">handle_cast</span><span class="p">({</span><span class="n">ask</span><span class="p">,</span> <span class="nv">Msg</span><span class="p">},</span> <span class="nl">#state</span><span class="p">{</span><span class="n">conn_pid</span> <span class="o">=</span> <span class="nv">Pid</span><span class="p">}</span> <span class="o">=</span> <span class="nv">State</span><span class="p">)</span><span class="o">-&gt;</span>
+<span class="ln">57</span>  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;send msg from </span><span class="si">~p</span><span class="s"> to </span><span class="si">~p~n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">[</span><span class="n">self</span><span class="p">(),</span> <span class="nv">Pid</span><span class="p">]),</span>
+<span class="ln">58</span>  <span class="nn">gen_server</span><span class="p">:</span><span class="nf">cast</span><span class="p">(</span><span class="nv">Pid</span><span class="p">,</span> <span class="p">{</span><span class="n">communicate</span><span class="p">,</span> <span class="nv">Msg</span><span class="p">}),</span>
+<span class="ln">59</span>  <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">};</span>
+<span class="ln">60</span><span class="nf">handle_cast</span><span class="p">({</span><span class="n">communicate</span><span class="p">,</span> <span class="nv">Msg</span><span class="p">},</span> <span class="nl">#state</span><span class="p">{</span><span class="n">conn_pid</span> <span class="o">=</span> <span class="nv">Pid</span><span class="p">}</span> <span class="o">=</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">61</span>  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;get msg from </span><span class="si">~p</span><span class="s">: </span><span class="si">~p~n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">[</span><span class="nv">Pid</span><span class="p">,</span> <span class="nv">Msg</span><span class="p">]),</span>
+<span class="ln">62</span>  <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">};</span>
+<span class="ln">63</span><span class="nf">handle_cast</span><span class="p">(</span><span class="n">stop</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">64</span>  <span class="p">{</span><span class="n">stop</span><span class="p">,</span> <span class="s">&#34;ask for stop&#34;</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+<span class="ln">65</span>
+<span class="ln">66</span>
+<span class="ln">67</span><span class="nf">handle_info</span><span class="p">(_</span><span class="nv">Info</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+<span class="ln">68</span><span class="nf">terminate</span><span class="p">(_</span><span class="nv">Reason</span><span class="p">,</span> <span class="p">_</span><span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="p">.</span>
+<span class="ln">69</span><span class="nf">code_change</span><span class="p">(_</span><span class="nv">OldVsn</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="p">_</span><span class="nv">Extra</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+<span class="ln">70</span>
+</code></pre></div><h3 id="heading"></h3>
+<h3 id="练习-18">练习</h3>
+<p>在下面这些练习里，我们将用job_centre模块制作一个服务器，它用gen_server实现一种任务管理服务。任务中心（job center）持有一个必须完成的任务队列，这些任务会被编号，任何人都能向队列添加任务。工人可以从队列请求任务，并告诉任务中心已经执行了某项任务。任务是由fun表示的，要执行任务F，工人必须执行F()函数。</p>
+<p>(1) 实现任务中心的基本功能，它的接口如下。</p>
+<ul>
+<li>
+<p>job_centre:start_link() -&gt; true</p>
+<p>启动任务中心服务器。</p>
+</li>
+<li>
+<p>job_centre:add_job(F) -&gt; JobNumber</p>
+<p>添加任务F到任务队列，然后返回一个整数任务编号。</p>
+</li>
+<li>
+<p>job_centre:work_wanted() -&gt; {JobNumber,F} | no</p>
+<p>请求任务。如果工人想要一个任务，就调用job_centre:work_wanted()。如果队列里有任务，就会返回一个{JobNumber, F}元组。工人执行F()来完成任务。如果队列里没有任务，则会返回no。请确保同一项任务每次只分配给一个工人，并确保系统是公平的，意思是任务按照请求的顺序进行分配。</p>
+</li>
+<li>
+<p>job_centre:job_done(JobNumber)</p>
+<p>发出任务完成的信号。如果工人完成了某一项任务，就必须调用job_centre:job_done (JobNumber)。</p>
+</li>
+</ul>
+<p>(2) 添加一个名为job_centre:statistics()的统计函数，让它报告队列内、进行中和已完成任务的状态。</p>
+<p>(3) 添加监视工人进程的代码。如果某个工人进程挂了，请确保它所执行的任务被返回到等待完成的任务池里。</p>
+<p>(4) 检查是否有懒惰的工人，也就是接受工作但不按时完成的进程。把任务请求函数修改为返回{JobNumber, JobTime, F}，其中JobTime是工人必须完成任务的秒数。如果工人在JobTime- 1时还未完成任务，服务器就应当向其发送一个hurry_up（快点儿）消息，而在JobTime + 1时应该用调用exit(Pid, youre_fired)（你被解雇了）来杀掉这个工人进程。</p>
+<p>(5) 可选练习：实现一个工会服务器来监督工人的权利，防止他们没收到警告就被解雇。提示：使用进程跟踪基本函数来实现它。</p>
+<h2 id="第23章-用otp构建系统">第23章 用OTP构建系统</h2>
+<p>这一章也是非常重要。</p>
+<h3 id="通用事件处理程序">通用事件处理程序</h3>
+<p>event_handler.erl:</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">event_handler</span><span class="p">).</span>
+<span class="ln"> 2</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">make</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">add_handler</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">event</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="c">%% 制作一个名为Name的新事件处理器
+</span><span class="ln"> 5</span><span class="c">%% 处理函数是no_op，代表部队事件做任何处理
+</span><span class="ln"> 6</span><span class="c"></span><span class="nf">make</span><span class="p">(</span><span class="nv">Name</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln"> 7</span>    <span class="nb">register</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nb">spawn</span><span class="p">(</span><span class="k">fun</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">my_handler</span><span class="p">(</span><span class="k">fun</span> <span class="n">no_op</span><span class="o">/</span><span class="mi">1</span><span class="p">)</span> <span class="k">end</span><span class="p">)).</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="nf">add_handler</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">Fun</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">Name</span> <span class="o">!</span> <span class="p">{</span><span class="n">add</span><span class="p">,</span> <span class="nv">Fun</span><span class="p">}.</span>
+<span class="ln">10</span>
+<span class="ln">11</span><span class="c">%%生成一个事件
+</span><span class="ln">12</span><span class="c"></span><span class="nf">event</span><span class="p">(</span><span class="nv">Name</span><span class="p">,</span> <span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">Name</span> <span class="o">!</span> <span class="p">{</span><span class="n">event</span><span class="p">,</span> <span class="nv">X</span><span class="p">}.</span>
+<span class="ln">13</span>
+<span class="ln">14</span><span class="nf">my_handler</span><span class="p">(</span><span class="nv">Fun</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">15</span>    <span class="k">receive</span>
+<span class="ln">16</span>        <span class="p">{</span><span class="n">add</span><span class="p">,</span> <span class="nv">Fun1</span><span class="p">}</span> <span class="o">-&gt;</span>
+<span class="ln">17</span>            <span class="n">my_handler</span><span class="p">(</span><span class="nv">Fun1</span><span class="p">);</span>
+<span class="ln">18</span>        <span class="p">{</span><span class="n">event</span><span class="p">,</span> <span class="nv">Any</span><span class="p">}</span> <span class="o">-&gt;</span>
+<span class="ln">19</span>            <span class="p">(</span><span class="k">catch</span> <span class="nv">Fun</span><span class="p">(</span><span class="nv">Any</span><span class="p">)),</span>
+<span class="ln">20</span>            <span class="n">my_handler</span><span class="p">(</span><span class="nv">Fun</span><span class="p">)</span>
+<span class="ln">21</span>    <span class="k">end</span><span class="p">.</span>
+<span class="ln">22</span>
+<span class="ln">23</span><span class="nf">no_op</span><span class="p">(_)</span> <span class="o">-&gt;</span> <span class="n">void</span><span class="p">.</span>
+</code></pre></div><p>motor_controller.erl: 定义错误处理函数</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln">1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">motor_controller</span><span class="p">).</span>
+<span class="ln">2</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">add_event_handler</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+<span class="ln">3</span>
+<span class="ln">4</span><span class="nf">add_event_handler</span><span class="p">()</span> <span class="o">-&gt;</span>
+<span class="ln">5</span>    <span class="nn">event_handler</span><span class="p">:</span><span class="nf">add_handler</span><span class="p">(</span><span class="n">errors</span><span class="p">,</span> <span class="k">fun</span> <span class="n">controller</span><span class="o">/</span><span class="mi">1</span><span class="p">).</span>
+<span class="ln">6</span><span class="nf">controller</span><span class="p">(</span><span class="n">too_hot</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">7</span>    <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;Turn off the motor</span><span class="si">~n</span><span class="s">&#34;</span><span class="p">);</span>
+<span class="ln">8</span><span class="nf">controller</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">9</span>    <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;</span><span class="si">~w</span><span class="s"> ignored event: </span><span class="si">~p~n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">[</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="nv">X</span><span class="p">]).</span>
+</code></pre></div><p>测试：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>1&gt; event_handler:make(errors).
+<span class="ln"> 2</span>true
+<span class="ln"> 3</span>2&gt; event_handler:event(errors, hi).
+<span class="ln"> 4</span>{event,hi}
+<span class="ln"> 5</span>3&gt; c(motor_controller).
+<span class="ln"> 6</span>{ok, motor_controller}
+<span class="ln"> 7</span>4&gt; motor_controller:add_event_handler().
+<span class="ln"> 8</span>{add,#Fun...}
+<span class="ln"> 9</span>5&gt; event_handler:event(errors, cool).
+<span class="ln">10</span>motor_controller ignored event: cool
+<span class="ln">11</span>{event, cool}
+<span class="ln">12</span>6&gt; event_handler:event(errors, too_hot).
+<span class="ln">13</span>Turn off the motor
+<span class="ln">14</span>{event, too_hot}
+</code></pre></div><h3 id="错误记录器">错误记录器</h3>
+<p>OTP系统自带一个可定制的错误记录器。</p>
+<p>错误记录器会生成多种报告类型。</p>
+<ul>
+<li>监控器报告
+这些报告会在OTP监控器启动或停止被监控进程时生成（参见23.5节）。</li>
+<li>进度报告
+这些报告会在OTP监控器启动或停止时生成。</li>
+<li>崩溃报告
+如果某个被OTP行为启动的进程因为normal或shutdown以外的原因终止，这些报告就会
+生成。</li>
+</ul>
+<p>这三种报告会自动生成，程序员无须做任何事。
+另外，还可以显式调用error_logger模块里的方法来生成三种类型的日志报告。这让我们能够记录错误、警告和信息消息。这三个名词没什么语义含义，只是一些标签，程序员用它们来提示错误日志条目的性质。</p>
+<h4 id="api">API</h4>
+<ul>
+<li>
+<p><code>-spec error_logger:error_msg(String) -&gt; ok</code></p>
+<p>向错误记录器发送一个错误消息。</p>
+</li>
+<li>
+<p><code>-spec error_logger:error_msg(Format, Data) -&gt; ok</code></p>
+<p>向错误记录器发送一个错误消息。它的参数和io:format(Format, Data)相同。</p>
+</li>
+<li>
+<p><code>-spec error_logger:error_report(Report) -&gt; ok</code></p>
+<p>向错误记录器发送一个标准错误报告。</p>
+<p><code>-type Report = [{Tag, Data} | term() | string() ].</code></p>
+<p><code>-type Tag = term().</code>
+<code>-type Data = term().</code></p>
+</li>
+</ul>
+<h4 id="配置">配置</h4>
+<ol>
+<li>标准错误记录器</li>
+</ol>
+<p>它会创建一个适合进行程序开发的环境，只提供一种简单的错误记录形式。（不带启动参数的erl命令就等于erl -boot start_clean。）：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>erl -boot start_clean
+</code></pre></div><p>它会创建一个适合运行生产系统的环境。系统架构支持库（System Architecture SupportLibraries，简称SASL）将负责错误记录和过载保护等工作。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>erl -boot start_sasl
+</code></pre></div><p>日志文件的配置最好通过配置文件实现，因为没人能记住记录器的全部参数。</p>
+<ol start="2">
+<li>无配置SASL</li>
+</ol>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>erl -boot start_sasl
+</code></pre></div><ol start="3">
+<li>配置错误记录器</li>
+</ol>
+<p>下面的配置文件启动系统，就只会得到错误报告，不会有进度和其他报告。所有这些错误报告只会出现在shell里。</p>
+<p>elog1.config:</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln">1</span><span class="c">%% 无tty
+</span><span class="ln">2</span><span class="c"></span><span class="p">[{</span><span class="n">sasl</span><span class="p">,</span> <span class="p">[</span>
+<span class="ln">3</span>         <span class="p">{</span><span class="n">sasl_error_logger</span><span class="p">,</span> <span class="n">false</span><span class="p">}</span>
+<span class="ln">4</span>        <span class="p">]}].</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>erl -boot start_sasl -config elog1
+</code></pre></div><p>下面的配置在shell里列出错误报告，所有的进度报告则会保存在一个文件里。</p>
+<p>elog2.config:</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln">1</span><span class="c">%% 单文本文件，最小化tty
+</span><span class="ln">2</span><span class="c"></span>
+<span class="ln">3</span><span class="p">[{</span><span class="n">sasl</span><span class="p">,</span> <span class="p">[</span>
+<span class="ln">4</span>         <span class="c">%% 所有报告都写入这个文件
+</span><span class="ln">5</span><span class="c"></span>         <span class="p">{</span><span class="n">sasl_error_logger</span><span class="p">,</span> <span class="p">{</span><span class="n">file</span><span class="p">,</span> <span class="s">&#34;/Users/joe/error_logs/THELOG&#34;</span><span class="p">}}</span>
+<span class="ln">6</span>        <span class="p">]}].</span>
+</code></pre></div><p>下面的配置既能提供shell输出，又能把写入shell的所有信息复制到一个滚动日志文件里。</p>
+<p>elog3.config:</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="p">[{</span><span class="n">sasl</span><span class="p">,</span> <span class="p">[</span>
+<span class="ln"> 2</span>         <span class="p">{</span><span class="n">sasl_error_logger</span><span class="p">,</span> <span class="n">false</span><span class="p">},</span>
+<span class="ln"> 3</span>         <span class="c">%% 定义滚动日志的参数
+</span><span class="ln"> 4</span><span class="c"></span>         <span class="c">%% 日志文件目录
+</span><span class="ln"> 5</span><span class="c"></span>         <span class="p">{</span><span class="n">error_logger_mf_dir</span><span class="p">,</span> <span class="s">&#34;/Users/joe/error_logs&#34;</span><span class="p">},</span>
+<span class="ln"> 6</span>         <span class="c">%% 每个文件的字节数 10MB
+</span><span class="ln"> 7</span><span class="c"></span>         <span class="p">{</span><span class="n">error_logger_mf_maxbytes</span><span class="p">,</span> <span class="mi">10485760</span><span class="p">},</span> 
+<span class="ln"> 8</span>         <span class="c">%% 日志文件的最大数量
+</span><span class="ln"> 9</span><span class="c"></span>         <span class="p">{</span><span class="n">error_logger_mf_maxfiles</span><span class="p">,</span> <span class="mi">10</span><span class="p">}</span>
+<span class="ln">10</span>        <span class="p">]}].</span>
+</code></pre></div><p>在生产环境里，我们真正感兴趣的只有错误，而非进度或信息报告，所以只让错误记录器报告错误。</p>
+<p>elog4.config:</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="p">[{</span><span class="n">sasl</span><span class="p">,</span> <span class="p">[</span>
+<span class="ln"> 2</span>         <span class="c">%% 最小化shell错误记录
+</span><span class="ln"> 3</span><span class="c"></span>         <span class="p">{</span><span class="n">sasl_error_logger</span><span class="p">,</span> <span class="n">false</span><span class="p">},</span>
+<span class="ln"> 4</span>         <span class="c">%% 只报告错误
+</span><span class="ln"> 5</span><span class="c"></span>         <span class="p">{</span><span class="n">errlog_type</span><span class="p">,</span> <span class="n">error</span><span class="p">},</span>
+<span class="ln"> 6</span>         <span class="c">%% 定义滚动日志的参数
+</span><span class="ln"> 7</span><span class="c"></span>         <span class="c">%% 日志文件目录
+</span><span class="ln"> 8</span><span class="c"></span>         <span class="p">{</span><span class="n">error_logger_mf_dir</span><span class="p">,</span><span class="s">&#34;/User/joe/error_lgos&#34;</span><span class="p">},</span>
+<span class="ln"> 9</span>         <span class="c">%% 每个日志文件的字节数
+</span><span class="ln">10</span><span class="c"></span>         <span class="p">{</span><span class="n">error_logger_mf_maxbytes</span><span class="p">,</span><span class="mi">10485760</span><span class="p">},</span>
+<span class="ln">11</span>         <span class="c">%% 日志文件的最大数量
+</span><span class="ln">12</span><span class="c"></span>         <span class="p">{</span><span class="n">error_logger_mf_maxfiles</span><span class="p">,</span> <span class="mi">10</span><span class="p">}</span>
+<span class="ln">13</span>        <span class="p">]}].</span>
+</code></pre></div><h4 id="分析错误">分析错误</h4>
+<p>阅读错误日志是rb模块的责任</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>erl -boot start_sasl -config elog3
+<span class="ln"> 2</span>%% 首先必须用正确的配置文件启动Erlang，这样才能定位错误日志
+<span class="ln"> 3</span>rb:help().
+<span class="ln"> 4</span>
+<span class="ln"> 5</span>%% 启动报告浏览器
+<span class="ln"> 6</span>rb:start().
+<span class="ln"> 7</span>
+<span class="ln"> 8</span>%% 告诉它要读取多少日志条目
+<span class="ln"> 9</span>rb:start([{max,20}]).
+<span class="ln">10</span>
+<span class="ln">11</span>%% 列出日志里的条目
+<span class="ln">12</span>rb:list().
+<span class="ln">13</span>
+<span class="ln">14</span>%% 检查第8条
+<span class="ln">15</span>rb:show(8).
+</code></pre></div><p>要分离出某个错误，可以使用rb:grep(RegExp)这样的命令，它会找出所有匹配正则表达式RegExp的报告。</p>
+<p>rb模块里有一些函数能选择特定类型的错误或把它们提取到文件里。因此，分析错误日志的过程可以实现完全自动化。</p>
+<h3 id="警报管理">警报管理</h3>
+<p>这个警报处理器是OTPgen_event行为的回调模块</p>
+<p>my_alarm_handler.erl</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">my_alarm_handler</span><span class="p">).</span>
+<span class="ln"> 2</span><span class="p">-</span><span class="ni">behaviour</span><span class="p">(</span><span class="n">gen_event</span><span class="p">).</span>
+<span class="ln"> 3</span>
+<span class="ln"> 4</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">code_change</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">handle_event</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">handle_call</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">handle_info</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">terminate</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+<span class="ln"> 5</span>
+<span class="ln"> 6</span><span class="c">%% init必须返回{ok, State}
+</span><span class="ln"> 7</span><span class="c"></span><span class="nf">init</span><span class="p">(</span><span class="nv">Args</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln"> 8</span>    <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;*** my_alarm_handler init:</span><span class="si">~p~n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">[</span><span class="nv">Args</span><span class="p">]),</span>
+<span class="ln"> 9</span>    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="mi">0</span><span class="p">}.</span>
+<span class="ln">10</span>
+<span class="ln">11</span><span class="nf">handle_event</span><span class="p">({</span><span class="n">set_alarm</span><span class="p">,</span> <span class="n">tooHot</span><span class="p">},</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">12</span>    <span class="nn">error_logger</span><span class="p">:</span><span class="nf">error_msg</span><span class="p">(</span><span class="s">&#34;*** Tell the Engineer to turn on the fan</span><span class="si">~n</span><span class="s">&#34;</span><span class="p">),</span>
+<span class="ln">13</span>    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">N</span><span class="p">};</span>
+<span class="ln">14</span><span class="nf">handle_event</span><span class="p">({</span><span class="n">clear_alarm</span><span class="p">,</span> <span class="n">tooHot</span><span class="p">},</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">15</span>    <span class="nn">error_logger</span><span class="p">:</span><span class="nf">error_msg</span><span class="p">(</span><span class="s">&#34;*** Danger over. Turn off the fan</span><span class="si">~n</span><span class="s">&#34;</span><span class="p">),</span>
+<span class="ln">16</span>    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">N</span><span class="p">};</span>
+<span class="ln">17</span><span class="nf">handle_event</span><span class="p">(</span><span class="nv">Event</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">18</span>    <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;*** unmatched event:</span><span class="si">~p~n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">[</span><span class="nv">Event</span><span class="p">]),</span>
+<span class="ln">19</span>    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">N</span><span class="p">}.</span>
+<span class="ln">20</span>
+<span class="ln">21</span><span class="nf">handle_call</span><span class="p">(_</span><span class="nv">Request</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">Reply</span> <span class="o">=</span> <span class="nv">N</span><span class="p">,</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Reply</span><span class="p">,</span> <span class="nv">N</span><span class="p">}.</span>
+<span class="ln">22</span><span class="nf">handle_info</span><span class="p">(_</span><span class="nv">Info</span><span class="p">,</span> <span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">N</span><span class="p">}.</span>
+<span class="ln">23</span>
+<span class="ln">24</span><span class="nf">terminate</span><span class="p">(_</span><span class="nv">Reason</span><span class="p">,</span> <span class="p">_</span><span class="nv">N</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="p">.</span>
+<span class="ln">25</span><span class="nf">code_change</span><span class="p">(_</span><span class="nv">OldVsn</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="p">_</span><span class="nv">Extra</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</code></pre></div><p>这段代码非常像之前在22.3节里看到的 gen_server 回调代码。其中值得注意的方法是handle_event(Event, State) ，它应当返回 {ok, NewState} 。 Event 是一个 {EventType,Event-Arg}形式的元组，其中EventType是set_event或clear_event，而EventArg是一个用户提供的参数。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln"> 1</span>erl -boot start_sasl -config elog3
+<span class="ln"> 2</span>&gt; alarm_handler:set_alarm(tooHot).
+<span class="ln"> 3</span>ok
+<span class="ln"> 4</span>=INFO REPORT=====
+<span class="ln"> 5</span>alarm:handler: {set,tooHot}
+<span class="ln"> 6</span>&gt; gen_event:swap_handler(alarm_handler, {alarm_handler, swap},
+<span class="ln"> 7</span>										{my_alarm_handler, xyz}).
+<span class="ln"> 8</span>&gt; alarm_handler:set_alarm(tooHot).
+<span class="ln"> 9</span>ok
+<span class="ln">10</span>=ERROR ERPORT ====
+<span class="ln">11</span>*** Tell the Engineet to turn on the fan
+<span class="ln">12</span>&gt; alarm_handler:clear_alarm(tooHot).
+<span class="ln">13</span>ok
+<span class="ln">14</span>=ERROR ERPORT ====
+<span class="ln">15</span>*** Danger over. Turn off the fan
+</code></pre></div><h3 id="应用程序服务器">应用程序服务器</h3>
+<p>两个gen_server服务器，不抄了。</p>
+<h3 id="监控树">监控树</h3>
+<p>监控树是一种由进程组成的树形结构。树的上级进程（监控器）监视着下级进程（工作器），
+如果下级进程挂了就会重启它们。监控树有两种：</p>
+<ul>
+<li>一对一监控树
+在一对一监控里，如果某个工作器崩溃了，就会被监控器重启。</li>
+<li>一对多监控树
+在一对多监控里，如果任何一个工作器崩溃了，所有工作进程都会被终止（通过调用相
+应回调模块里的terminate/2函数）然后重启。</li>
+</ul>
+<p>监控器是用OTP supervisor行为创建的。这个行为用一个回调模块作为参数，里面指定了监
+控策略以及如何启动监控树里的各个工作进程。监控树通过以下形式的函数指定：</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln">1</span><span class="nf">init</span><span class="p">(...)</span> <span class="o">-&gt;</span>
+<span class="ln">2</span>            <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="p">{</span>
+<span class="ln">3</span>                  <span class="p">{</span><span class="nv">RestartStrategy</span><span class="p">,</span> <span class="nv">MaxRestarts</span><span class="p">,</span> <span class="nv">Time</span><span class="p">},</span>
+<span class="ln">4</span>                  <span class="p">[</span><span class="nv">Worker1</span><span class="p">,</span> <span class="nv">Worker2</span><span class="p">,</span> <span class="p">...]</span>
+<span class="ln">5</span>                 <span class="p">}}.</span>
+</code></pre></div><ul>
+<li>RestartStrategy是原子one_for_one或one_for_all</li>
+<li>MaxRestarts和Time则指定“重启频率”。如果一个监控器在Time秒内执行了超过MaxRestarts次重启，那么这个监控器就会终止所有工作进程然后退出。这是为了防止出现一种情形，即某个进程崩溃、被重启，然后又因为相同原因崩溃而形成的无限循环。</li>
+<li>Worker1和Worker2这些是描述如何启动各个工作进程的元组</li>
+</ul>
+<p>示例：</p>
+<p>sellaprime_supervisor.erl:</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">sellaprime_supervisor</span><span class="p">).</span>
+<span class="ln"> 2</span><span class="p">-</span><span class="ni">behaviour</span><span class="p">(</span><span class="n">supervisor</span><span class="p">).</span>
+<span class="ln"> 3</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_in_shell_for_testing</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">start_link</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+<span class="ln"> 4</span>
+<span class="ln"> 5</span><span class="nf">start</span><span class="p">()</span> <span class="o">-&gt;</span>
+<span class="ln"> 6</span>    <span class="nb">spawn</span><span class="p">(</span><span class="k">fun</span><span class="p">()</span> <span class="o">-&gt;</span>
+<span class="ln"> 7</span>         	<span class="nn">supervisor</span><span class="p">:</span><span class="nf">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="p">_</span><span class="nv">Arg</span> <span class="o">=</span> <span class="p">[])</span>
+<span class="ln"> 8</span>         <span class="k">end</span><span class="p">).</span>
+<span class="ln"> 9</span><span class="nf">start_in_shell_for_testing</span><span class="p">()</span> <span class="o">-&gt;</span>
+<span class="ln">10</span>    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Pid</span><span class="p">}</span> <span class="o">=</span> <span class="nn">supervisor</span><span class="p">:</span><span class="nf">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="p">_</span><span class="nv">Arg</span> <span class="o">=</span> <span class="p">[]),</span>
+<span class="ln">11</span>    <span class="nb">unlink</span><span class="p">(</span><span class="nv">Pid</span><span class="p">).</span>
+<span class="ln">12</span><span class="nf">start_link</span><span class="p">(</span><span class="nv">Args</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">13</span>    <span class="nn">supervisor</span><span class="p">:</span><span class="nf">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">},</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="nv">Args</span><span class="p">).</span>
+<span class="ln">14</span>
+<span class="ln">15</span><span class="nf">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
+<span class="ln">16</span>    <span class="nn">gen_event</span><span class="p">:</span><span class="nf">swap_handler</span><span class="p">(</span><span class="n">alarm_handler</span><span class="p">,</span>
+<span class="ln">17</span>                           <span class="p">{</span><span class="n">alarm_handler</span><span class="p">,</span> <span class="n">swap</span><span class="p">},</span>
+<span class="ln">18</span>                           <span class="p">{</span><span class="n">my_alarm_handler</span><span class="p">,</span> <span class="n">xyz</span><span class="p">}),</span>
+<span class="ln">19</span>    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="p">{{</span><span class="n">one_for_one</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">},</span>
+<span class="ln">20</span>          <span class="p">[{</span><span class="n">tag1</span><span class="p">,</span>
+<span class="ln">21</span>           	<span class="p">{</span><span class="n">area_server</span><span class="p">,</span> <span class="n">start_link</span><span class="p">,</span> <span class="p">[]},</span>
+<span class="ln">22</span>            <span class="n">permanet</span><span class="p">,</span>
+<span class="ln">23</span>           	<span class="mi">10000</span><span class="p">,</span>
+<span class="ln">24</span>            <span class="n">worker</span><span class="p">,</span>
+<span class="ln">25</span>            <span class="p">[</span><span class="n">area_server</span><span class="p">]},</span>
+<span class="ln">26</span>           <span class="p">{</span><span class="n">tag2</span><span class="p">,</span>
+<span class="ln">27</span>           	<span class="p">{</span><span class="n">prime_server</span><span class="p">,</span> <span class="n">start_link</span><span class="p">,</span> <span class="p">[]},</span>
+<span class="ln">28</span>            <span class="n">permanet</span><span class="p">,</span>
+<span class="ln">29</span>           	<span class="mi">10000</span><span class="p">,</span>
+<span class="ln">30</span>            <span class="n">worker</span><span class="p">,</span>
+<span class="ln">31</span>            <span class="p">[</span><span class="n">prime_server</span><span class="p">]}</span>
+<span class="ln">32</span>          <span class="p">]}}.</span>
+</code></pre></div><ul>
+<li>
+<p>init/1返回的数据结构定义了一种监控策略。</p>
+</li>
+<li>
+<p>Worker中的参数的意义</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>{Tag, {Mod, Func, ArgList},
+<span class="ln">2</span>     Restart,
+<span class="ln">3</span>     Shutdown,
+<span class="ln">4</span>     Type,
+<span class="ln">5</span>     [Mod1]}
+</code></pre></div><p><code>Tag</code>：这是一个原子类型的标签，将来可以用它指代工作进程（如果有必要的话）。</p>
+<p><code>{Mod, Func, ArgList}</code>：定义了监控器用于启动工作器的函数，将被用作apply(Mod, Fun, ArgList)的参数。</p>
+<p><code>Restart = permanent | transient | temporary</code>：permanent（永久）进程总是会被重启transient（过渡）进程只有在以非正常退出值终止时才会被重启。temporary（临时）进程不会被重启。</p>
+<p><code>Shutdown</code>：这是关闭时间，也就是工作器终止过程允许耗费的最长时间。如果超过这个时间，工作进程就会被杀掉。</p>
+<p><code>Type = worker | supervisor</code>：这是被监控进程的类型。可以用监控进程代替工作进程来构建一个由监控器组成的树。</p>
+<p><code>[Mod1]</code>：如果子进程是监控器或者gen_server行为的回调模块，就在这里指定回调模块名。</p>
+</li>
+</ul>
+<h3 id="启动系统">启动系统</h3>
+<p>后面才是真正的启动。</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>erl -boot start_sasl -config elog3
+<span class="ln">2</span>1&gt; sellaprime_supervisor:start_in_shell_for_testing().
+<span class="ln">3</span>2&gt; area_server:area({square,10}).
+<span class="ln">4</span>3&gt; area_server:area({rectangle,10,20}).
+<span class="ln">5</span>4&gt;area_server:area({square,25}).
+<span class="ln">6</span>5&gt; prime_server:new_prime(20).
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>rb:start([{max,20}]).
+<span class="ln">2</span>rb:list().
+<span class="ln">3</span>rb:show(5).
+</code></pre></div><h3 id="应用程序">应用程序</h3>
+<h4 id="最后的工作">最后的工作</h4>
+<p>编写一个扩展名为.app的文件，它包含关于这个应用程序的信息。</p>
+<p>这是应用程序资源文件，用于&rsquo;base&rsquo;应用程序。</p>
+<p>sellaprime.app:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>{application, sellaprime,
+<span class="ln">2</span> [{description, &#34;The Prime Number Shop&#34;},
+<span class="ln">3</span>  {vsn, &#34;1.0&#34;},
+<span class="ln">4</span>  {modules, [sellaprime_app, sellaprime_supervisor, area_server, prime_server, lib_lin, lib_primes, my_alarm_handler]},
+<span class="ln">5</span>  {registered, [area_server, prime_server, sellaprime_super]},
+<span class="ln">6</span>  {applications, [kernel, stdlib]},
+<span class="ln">7</span>  {mod, {sellaprime_app, []}},
+<span class="ln">8</span>  {start_phases, []}
+<span class="ln">9</span> ]}.
+</code></pre></div><p>现在必须编写一个回调模块，它的名称与前面文件里的mod文件名相同</p>
+<p>sellaprime_app.erl</p>
+<div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln">1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">sellaprime_app</span><span class="p">).</span>
+<span class="ln">2</span><span class="p">-</span><span class="ni">behaviour</span><span class="p">(</span><span class="n">application</span><span class="p">).</span>
+<span class="ln">3</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">stop</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+<span class="ln">4</span><span class="nf">start</span><span class="p">(_</span><span class="nv">Type</span><span class="p">,</span> <span class="nv">StartArgs</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">5</span>    <span class="nn">sellaprime_supervisor</span><span class="p">:</span><span class="nf">start_link</span><span class="p">(</span><span class="nv">StartArgs</span><span class="p">).</span>
+<span class="ln">6</span><span class="nf">stop</span><span class="p">(_</span><span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+<span class="ln">7</span>    <span class="n">ok</span><span class="p">.</span>
+</code></pre></div><p>它必须导出函数start/2和stop/1。做完这一切之后，就可以在shell里启动和停止应用程序了。</p>
+<p>启动！:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>erl -boot start_sasl -config elog3
+<span class="ln">2</span>1&gt; application:loaded_applications().
+<span class="ln">3</span>2&gt; application:load(sellaprime).
+<span class="ln">4</span>3&gt; application:loaded_applications().
+<span class="ln">5</span>4&gt; application:start(sellaprime).
+<span class="ln">6</span>5&gt; application:stop(sellaprime).
+<span class="ln">7</span>6&gt; application:unload(sellaprime).
+</code></pre></div><p>现在它就是一个功能完备的OTP应用程序了。我们在第2行里载入了应用程序，这么做会载入全部代码，但不会启动应用程序。第4行启动了应用程序，第5行则停止了它。请注意，启动和停止应用程序时我们能看到打印输出，因为它调用了面积服务器和质数服务器里相应的回调函数。在第6行卸载了应用程序，这样应用程序里的所有模块代码都被移除了。用OTP构建复杂的系统时，会把它们打包成应用程序。这样我们就能统一启动、停止和管理它们。</p>
+<h4 id="调用路径">调用路径</h4>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>area_server.erl</td>
+<td>面积服务器（gen_server回调模块）</td>
+</tr>
+<tr>
+<td>prime_server.erl</td>
+<td>质数服务器（gen_server回调模块）</td>
+</tr>
+<tr>
+<td>sellaprime_supervisor.erl</td>
+<td>监控器回调模块</td>
+</tr>
+<tr>
+<td>sellaprime_app.erl</td>
+<td>应用程序回调模块</td>
+</tr>
+<tr>
+<td>my_alam_handler.erl</td>
+<td>用于gen_event的事件回调模块</td>
+</tr>
+<tr>
+<td>sellaprime.app</td>
+<td>应用程序规范</td>
+</tr>
+<tr>
+<td>elog4.config</td>
+<td>错误记录器配置文件</td>
+</tr>
+</tbody>
+</table>
+<p>(1) 用下列命令启动系统：</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>erl -boot -start_sasl -config elog4.config
+<span class="ln">2</span>1&gt; application:start(sellaprime).
+</code></pre></div><p>sellaprime.app文件必须位于Erlang的启动根目录或它的子目录里。
+应用程序控制器随后在sellaprime.app里寻找一个{mod, &hellip;}声明。它包含应用程序控制器的名称，在这个案例里是模块sellaprime_app。</p>
+<p>(2) 回调方法sellaprime_app:start/2被调用。</p>
+<p>(3) sellaprime_app:start/2 调 用 sellaprime_supervisor:start_link/2 ， 启 动sellaprime监控器。</p>
+<p>(4) 监控器回调函数sellaprime_supervisor:init/1被调用，它会安装一个错误处理器，然后返回一个监控规范。这个监控规范说明了如何启动面积服务器和质数服务器。</p>
+<p>(5) sellaprime监控器启动面积服务器和质数服务器，两者都是gen_server的回调模块。停止这一切很容易，只需要调用application:stop(sellaprime)或init:stop()。</p>
+<h3 id="应用程序监视器">应用程序监视器</h3>
+<p>应用程序监视器是一个用来查看应用程序的GUI。appmon:start()命令会启动应用程序查看器。</p>
+<h3 id="练习-19">练习</h3>
 <p>(1) 制作一个名为prime_tester_server的gen_server，让它测试给定的数字是否是质数。你可以使用lib_primes.erl里的is_prime/2函数来处理（或者自己实现一个更好的质数测试函数）。把它添加sellaprime_supervisor.erl的监控树里。</p>
 <p>(2) 制作由10个质数测试服务器组成的进程池。制作一个队列服务器来把请求加入队列，直到其中一个质数测试服务器处于空闲状态为止。当质数测试服务器空闲时，向它发送一个请求来测试某个数字是否是质数。</p>
 <p>(3) 修改质数测试服务器的代码，让它们各自维护一个请求队列，然后移除队列服务器。编写一个负载均衡器来记录各个质数测试服务器中正在进行的任务和待完成请求。测试新质数的请求现在应该发送到负载均衡器。安排负载均衡器把请求发送给负载最小的服务器。</p>
@@ -6862,13 +7297,16 @@ filelib模块有一些小方法能给我们减少一点工作量。举个例子�
 <p>(3) 编写一种键值存储，让它把各个键值对分为易失性存储和非易失性存储。调用put(Key,memory, Val)会把一个Key, Val对放入内存，put(Key, disk, Val)则会把数据存入磁盘。用一对进程来做这件事，一个用于易失性存储，另一个用于非易失性存储。重用本章前面的代码。</p>
 <h2 id="第25章-第三方程序">第25章 第三方程序</h2>
 <h3 id="rebar">rebar</h3>
+<p>rebar涉及的东西只是23章的东西的一部分自动化。</p>
+<h4 id="创建应用">创建应用</h4>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>rebar create-app appid=bertie
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln">1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">bertie</span><span class="p">).</span>
 <span class="ln">2</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
 <span class="ln">3</span>
 <span class="ln">4</span><span class="nf">start</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&#34;Hello my name is Bertie</span><span class="si">~n</span><span class="s">&#34;</span><span class="p">).</span>
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>rebar compile
-</code></pre></div><p>bertie/bertie.erl:</p>
+</code></pre></div><h4 id="整合外部程序与我们的代码">整合外部程序与我们的代码</h4>
+<p>bertie/bertie.erl:</p>
 <div class="highlight"><pre class="chroma"><code class="language-erlang" data-lang="erlang"><span class="ln"> 1</span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">bertie</span><span class="p">).</span>
 <span class="ln"> 2</span><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
 <span class="ln"> 3</span>
@@ -6898,6 +7336,7 @@ filelib模块有一些小方法能给我们减少一点工作量。举个例子�
 <span class="ln">4</span>	@erl -noshell -pa <span class="s1">&#39;./deps/bitcask/ebin&#39;</span> -pa <span class="s1">&#39;./ebin&#39;</span> -s bertie start
 </code></pre></div><p>rebar get-deps命令从GitHub获取bitcask并把它保存在名为deps的子目录里。bitcask自身需要一个名为meck的程序用于测试，这就是所谓的递归依赖。rebar会递归获取bitcask所需的各个依赖项，并把它们保存在deps子目录里。</p>
 <p>makefile给命令行添加了一个-pa &lsquo;deps/bitcask/ebin&rsquo;标识，这样当程序启动时，bertie就能自动载入bitcask的代码。</p>
+<h4 id="生成依赖项本地副本">生成依赖项本地副本</h4>
 <p>~joe/nobackup/erlang_imports/rebar.config:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>{deps, [
 <span class="ln">2</span>	{cowboy, &#34;.*&#34;, {git, &#34;git://..&#34;}},
@@ -7109,7 +7548,7 @@ F1(Pid, X)会被用于L里的每一个X值。Pid是化简进程的标识符，�
 </a>
     </div></div>
   <div class="post-nav flex-row-reverse"><div class="next-post btn btn-sm">
-      <a href="/posts/tech/media-rebar2/">rebar2学习
+      <a href="/posts/tech/media-rebar2/">rebar2工具学习
 </a>
     </div></div>
 </div><section class="related-posts">
@@ -7117,8 +7556,8 @@ F1(Pid, X)会被用于L里的每一个X值。Pid是化简进程的标识符，�
     <ul class="related-posts"><li><a href="/posts/math/beginner/">量化交易初学
 </a></li><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
 </a></li><li><a href="/posts/other/physics-computer/">计算机和物理的一点感悟
-</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
-</a></li><li><a href="/posts/tech/media-sox/">Sox基本使用
+</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg软件学习
+</a></li><li><a href="/posts/tech/media-sox/">Sox软件基本使用
 </a></li></ul>
   </section></article>
 
@@ -7166,19 +7605,19 @@ F1(Pid, X)会被用于L里的每一个X值。Pid是化简进程的标识符，�
   </div>
 </section><section class="recent-posts row surface">
   <h4>最近文章</h4>
-  <ul><li><a href="/posts/tech/media-msml/">MSML学习
+  <ul><li><a href="/posts/tech/media-msml/">MSML语言学习
 </a></li><li><a href="/posts/tech/media-netpackage-observe/">观察SIP， SDP，RTP包及MSML
-</a></li><li><a href="/posts/tech/media-sipp/">SIPP学习
-</a></li><li><a href="/posts/tech/media-sip/">SIP学习
-</a></li><li><a href="/posts/tech/media-rebar2/">rebar2学习
+</a></li><li><a href="/posts/tech/media-sipp/">SIPP工具学习
+</a></li><li><a href="/posts/tech/media-sip/">SIP协议学习
+</a></li><li><a href="/posts/tech/media-rebar2/">rebar2工具学习
 </a></li><li><a href="/posts/tech/media-erlang/">《Erlang程序设计》
 </a></li><li><a href="/posts/other/2024/">2024年终总结和来年展望
 </a></li><li><a href="/posts/math/estimate/">量化交易系统设想
 </a></li><li><a href="/posts/math/beginner/">量化交易初学
 </a></li><li><a href="/posts/tech/media-computer-systems/">《深入理解计算机系统》
 </a></li><li><a href="/posts/other/physics-computer/">计算机和物理的一点感悟
-</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg学习
-</a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码
+</a></li><li><a href="/posts/tech/media-ffmpeg/">FFmpeg软件学习
+</a></li><li><a href="/posts/tech/media-pcmu/">pcmu编码学习
 </a></li></ul>
 </section><section class="taxonomy-categories row surface">
       <h4>
