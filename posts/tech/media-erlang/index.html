@@ -12,7 +12,7 @@
 <meta name="description" content="" /><meta itemprop="name" content="《Erlang程序设计》">
 <meta itemprop="description" content=""><meta itemprop="datePublished" content="2025-01-02T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2025-01-02T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="79538">
+<meta itemprop="wordCount" content="79539">
 <meta itemprop="keywords" content=",,," /><meta property="og:title" content="《Erlang程序设计》" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
@@ -379,7 +379,6 @@
         <li><a href="#gen_server回调结构">gen_server回调结构</a></li>
         <li><a href="#gen_server案例">gen_server案例</a></li>
         <li><a href="#练手小项目">练手小项目</a></li>
-        <li><a href="#heading"></a></li>
         <li><a href="#练习-18">练习</a></li>
       </ul>
     </li>
@@ -6814,8 +6813,7 @@ filelib模块有一些小方法能给我们减少一点工作量。举个例子�
 <span class="ln">68</span><span class="nf">terminate</span><span class="p">(_</span><span class="nv">Reason</span><span class="p">,</span> <span class="p">_</span><span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="p">.</span>
 <span class="ln">69</span><span class="nf">code_change</span><span class="p">(_</span><span class="nv">OldVsn</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="p">_</span><span class="nv">Extra</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
 <span class="ln">70</span>
-</code></pre></div><h3 id="heading"></h3>
-<h3 id="练习-18">练习</h3>
+</code></pre></div><h3 id="练习-18">练习</h3>
 <p>在下面这些练习里，我们将用job_centre模块制作一个服务器，它用gen_server实现一种任务管理服务。任务中心（job center）持有一个必须完成的任务队列，这些任务会被编号，任何人都能向队列添加任务。工人可以从队列请求任务，并告诉任务中心已经执行了某项任务。任务是由fun表示的，要执行任务F，工人必须执行F()函数。</p>
 <p>(1) 实现任务中心的基本功能，它的接口如下。</p>
 <ul>
@@ -7128,7 +7126,7 @@ filelib模块有一些小方法能给我们减少一点工作量。举个例子�
 <span class="ln">2</span>1&gt; sellaprime_supervisor:start_in_shell_for_testing().
 <span class="ln">3</span>2&gt; area_server:area({square,10}).
 <span class="ln">4</span>3&gt; area_server:area({rectangle,10,20}).
-<span class="ln">5</span>4&gt;area_server:area({square,25}).
+<span class="ln">5</span>4&gt; area_server:area({square,25}).
 <span class="ln">6</span>5&gt; prime_server:new_prime(20).
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"><span class="ln">1</span>rb:start([{max,20}]).
 <span class="ln">2</span>rb:list().
