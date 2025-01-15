@@ -26,7 +26,7 @@
     </item>
     
     <item>
-      <title>SIPP工具学习</title>
+      <title>SIPP测试工具学习</title>
       <link>/posts/tech/media-sipp/</link>
       <pubDate>Thu, 09 Jan 2025 00:00:00 +0000</pubDate>
       
@@ -44,7 +44,7 @@
     </item>
     
     <item>
-      <title>rebar2工具学习</title>
+      <title>rebar2构建工具学习</title>
       <link>/posts/tech/media-rebar2/</link>
       <pubDate>Fri, 03 Jan 2025 00:00:00 +0000</pubDate>
       
@@ -107,7 +107,7 @@
     </item>
     
     <item>
-      <title>FFmpeg软件学习</title>
+      <title>FFmpeg媒体处理软件学习</title>
       <link>/posts/tech/media-ffmpeg/</link>
       <pubDate>Thu, 05 Dec 2024 00:00:00 +0000</pubDate>
       
@@ -125,7 +125,7 @@
     </item>
     
     <item>
-      <title>Sox软件基本使用</title>
+      <title>Sox媒体处理软件基本使用</title>
       <link>/posts/tech/media-sox/</link>
       <pubDate>Tue, 03 Dec 2024 00:00:00 +0000</pubDate>
       
@@ -152,7 +152,7 @@
     </item>
     
     <item>
-      <title>automake工具使用</title>
+      <title>automake构建工具使用</title>
       <link>/posts/tech/media-automake/</link>
       <pubDate>Fri, 29 Nov 2024 00:00:00 +0000</pubDate>
       
@@ -242,7 +242,7 @@
     </item>
     
     <item>
-      <title>ABNF</title>
+      <title>ABNF范式</title>
       <link>/posts/tech/media-abnf/</link>
       <pubDate>Mon, 18 Nov 2024 00:00:00 +0000</pubDate>
       
