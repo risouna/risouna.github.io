@@ -7,19 +7,19 @@
   </sitemap>
   
   <sitemap>
-    <loc>/zh-cn/sitemap.xml</loc>
-    
-      <lastmod>2025-01-20T00:00:00+00:00</lastmod>
-    
-  </sitemap>
-  
-  <sitemap>
     <loc>/zh-cn%EF%BC%88old%EF%BC%89/sitemap.xml</loc>
     
   </sitemap>
   
   <sitemap>
     <loc>/zh-tw/sitemap.xml</loc>
+    
+  </sitemap>
+  
+  <sitemap>
+    <loc>/zh-cn/sitemap.xml</loc>
+    
+      <lastmod>2025-01-20T00:00:00+00:00</lastmod>
     
   </sitemap>
   
